@@ -67,7 +67,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\ApacheCordovaTools\vs-mda-targets\Microsoft.TypeScript.MDA.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\ApacheCordovaTools\vs-mda-targets\Microsoft.MDA.FileMirroring.targets" />
   <PropertyGroup>
-    <ProjectUISubcaption>Tools for Apache Cordova</ProjectUISubcaption>
+    <ProjectUISubcaption></ProjectUISubcaption>
   </PropertyGroup>
   <PropertyGroup>
     <TargetPlatformIdentifier>MDD</TargetPlatformIdentifier>

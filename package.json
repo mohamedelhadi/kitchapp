@@ -1,14 +1,30 @@
 {
-  "name": "ionic-hello-world",
-  "version": "0.0.0",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "app",
+  "version": "1.0.0",
+  "author": "Mohamed Elhadi",
+  "homepage": "",
   "private": true,
+  "config": {
+    "browser": "\"C:/Users/Silver-Light/AppData/Local/Opera Software/Opera Neon/Application/neon.exe\""
+  },
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve --browser %npm_package_config_browser%",
+    "preionic:serve": "npm run initialize",
+    "_preinitialize": "npm run tslint",
+    "initialize": "babel-node src/_build/cli",
+    "finalize": "babel-node src/_build/cli --action copy-output",
+    "android-dev": "npm run initialize dev && ionic run android && npm run finalize dev",
+    "android-testing": "npm run initialize testing && ionic run android && npm run finalize testing",
+    "android-staging": "npm run initialize staging && ionic run android && npm run finalize staging",
+    "android-production": "npm run initialize production && ionic run android --release --prod --generateSourceMap && npm run finalize production",
+    "ios-dev": "%npm_package_cli% dev ios && ionic run ios",
+    "ios-testing": "%npm_package_cli% testing ios && ionic run ios",
+    "ios-staging": "%npm_package_cli% staging ios && ionic run ios",
+    "ios-prod": "%npm_package_cli% production ios && ionic run ios",
+    "tslint": "tslint \"./src/**/*.ts\"  \"./src/**/*.js\" --color"
   },
   "dependencies": {
     "@angular/common": "4.0.2",
@@ -27,11 +43,27 @@
     "ionicons": "3.0.0",
     "rxjs": "5.1.1",
     "sw-toolbox": "3.4.0",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.5",
+    "lodash": "4.17.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.3.6",
-    "typescript": "~2.2.1"
+    "typescript": "~2.2.1",
+    "babel-cli": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "cheerio": "^0.22.0",
+    "cli-color": "^1.2.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "tslint": "5.1.0",
+    "copy": "^0.3.0"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
   },
   "cordovaPlugins": [
     "cordova-plugin-statusbar",
@@ -42,5 +74,10 @@
     "cordova-plugin-splashscreen"
   ],
   "cordovaPlatforms": [],
-  "description": "myApp: An Ionic project"
+  "-vs-binding": {
+    "BeforeBuild": [
+      "ionic:build"
+    ]
+  },
+  "description": "App"
 }
