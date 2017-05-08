@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Restaurants</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let restaurant of data.Restaurants | async" (click)="viewRestaurant(restaurant)">
+            <ion-avatar item-left>
+                <img [src]="restaurant.Icon">
+            </ion-avatar>
+            <h2>{{restaurant.Name}}</h2>
+            <p>{{restaurant.Slogan}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

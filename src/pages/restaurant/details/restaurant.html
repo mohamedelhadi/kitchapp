@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-navbar #navbar>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="back()">
+              <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>{{_restaurant.Name}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleFavorite()">
+              <ion-icon name="{{_isFavorite ? 'heart' : 'heart-outline'}}" isActive="_isFavorite"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content (ionScroll)="onScroll($event)">
+    <div class="banner">
+        <ion-item no-border>
+            <ion-avatar item-left>
+                <img [src]="_restaurant.Icon">
+            </ion-avatar>
+            <h3>{{_restaurant.Slogan}}</h3>
+            <p>
+                <rating [(ngModel)]="_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
+            </p>
+        </ion-item>
+    </div>
+    <div style="margin-top: 80px; padding: 0 16px 70px 16px">
+        <h3 style="margin: 0">Bio</h3>
+        <p style="margin-top: 5px;">{{_restaurant.Bio}}</p>
+        <table>
+            <tr>
+                <td>
+                    <ion-icon name="call"></ion-icon>
+                </td>
+                <td>
+                    <b>Phone</b> {{_restaurant.Contact.Phone}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ion-icon name="restaurant"></ion-icon>
+                </td>
+                <td>
+                    <b>Cuisine(s)</b> {{_restaurant.Contact.Phone}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ion-icon name="map"></ion-icon>
+                </td>
+                <td>
+                    <b>Location</b> {{_restaurant.Location.City}} - {{_restaurant.Location.Address}}
+                </td>
+            </tr>
+        </table>
+        <div #map class="map"></div>
+    </div>
+    <ion-fab right bottom>
+        <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+        <ion-fab-list side="top">
+            <button ion-fab><ion-icon color="primary" name="create"></ion-icon><ion-label>Write Review</ion-label></button>
+            <button ion-fab><ion-icon color="primary" name="image"></ion-icon><ion-label>Add Photo</ion-label></button>
+            <button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+    "simulator": "http://localhost:8100",
+    "dev": "http://10.0.2.2:8100",
+    "testing": "http://www.example.com",
+    "staging": "http://www.example.com",
+    "production": "http://www.example.com"
+}

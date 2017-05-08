@@ -1,18 +1,46 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+<ion-header no-border>
+    <div class="fake-searchbar" tappable (click)="focusSearch()" [@fakeSearchbarTrigger]="searchState">
+        <div class="search">
+            <ion-icon name="search"></ion-icon>
+        </div>
+    </div>
+    <ion-searchbar (ionClear)="collapseSearch()" (ionBlur)="collapseSearch()" #searchbar color="primary" [(ngModel)]="query" (ionInput)="search()" placeholder="Search" [@searchbarTrigger]="searchState"></ion-searchbar>
+
+    <button ion-button menuToggle clear class="menu-btn" [@menuBtnTrigger]="searchState">
+        <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content>
+    <div style="position: relative; height: 100%;">
+        <div class="nav-items-container">
+            <ion-row>
+                <ion-col (click)="viewRestaurants()">
+                    <a>
+                        <ion-icon name='restaurant'></ion-icon>
+                        Restaurants
+                    </a>
+                </ion-col>
+                <ion-col (click)="viewFavorites()">
+                    <a>
+                        <ion-icon name='heart'></ion-icon>
+                        Favorites
+                    </a>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <a>
+                        <ion-icon name='map'></ion-icon>
+                        Places
+                    </a>
+                </ion-col>
+                <ion-col>
+                    <a>
+                        <ion-icon name='pricetags'></ion-icon>
+                        Discounts
+                    </a>
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
 </ion-content>

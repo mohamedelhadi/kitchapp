@@ -1,4 +1,4 @@
-// http://ionicframework.com/docs/v2/theming/
+﻿// http://ionicframework.com/docs/v2/theming/
 
 
 // App Global Sass
@@ -14,3 +14,37 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-header {
+  .toolbar-background {
+    background: url("../assets/images/header-shadow3.png"); // #da3743; //
+  }
+
+  &::after {
+    background-image: none !important;
+  }
+}
+
+ion-content {
+  .scroll-content {
+    margin-top: 0 !important;
+    padding-top: 56px !important;
+  }
+}
+
+button[ion-fab] {
+  overflow: visible;
+  position: relative;
+  contain: layout;
+
+  ion-label {
+    position: absolute;
+    top: -8px;
+    right: 40px;
+    color: color($colors, primary);
+    background-color: rgb(255, 255, 255);
+    line-height: 32px;
+    border-radius: 15px;
+    padding: 0 8px;
+  }
+}

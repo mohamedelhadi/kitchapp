@@ -1,0 +1,71 @@
+page-restaurant {
+    ion-header {
+        .toolbar-background {
+            background: url("../assets/images/header-shadow3.png"); // #da3743; // 
+            background-repeat: repeat-x;
+            opacity: 0;
+            border: none !important;
+        }
+        .toolbar-title {
+            color: white !important;
+            font-weight: normal;
+        }
+        .icon {
+            color: white;
+        }
+        &::after {
+            background-image: none !important;
+        }
+    }
+    .banner {
+        position: absolute;
+        top: -56px;
+        left: 0;
+        right: 0;
+        height: 180px;
+        background-image: url("../assets/images/banner.jpg");
+        background-size: 100%;
+        padding-top: 100px;
+        ion-item {
+            background: transparent;
+            color: white;
+            .item-inner {
+                border: none !important;
+                rating {
+                    ul {
+                        margin: 0;
+                        padding: 0;
+                        color: #FFCF00;
+                        font-size: medium;
+                        margin-left: -5px;
+                        li {
+                            padding: 5px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ion-content {
+        table {
+            tr {
+                td {
+                    padding: 5px 0;
+                    &:first-child {
+                        width: 20px;
+                        ion-icon {
+                            color: color($colors, primary);
+                        }
+                    }
+                }
+            }
+        }
+        .map {
+            height: 300px;
+            margin-top: 5px;
+            @media (min-width: 767px) {
+                height: 550px;
+            }
+        }
+    }
+}
