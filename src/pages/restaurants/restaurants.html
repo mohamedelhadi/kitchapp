@@ -15,10 +15,10 @@
     <ion-list>
         <ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-left>
-                <img [src]="restaurant.Icon ? restaurant.Icon : 'assets/images/restaurant_placeholder.png'">
+                <img [src]="restaurant.Icon">
             </ion-avatar>
-            <h2>{{restaurant.Name}}</h2>
-            <p>{{restaurant.Location.Address}}</p>
+            <h2>{{restaurant.Name[0]}}</h2>
+            <p>{{restaurant.Branches[0].Location.Address[0]}}</p>
         </ion-item>
     </ion-list>
 </ion-content>

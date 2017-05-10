@@ -38,6 +38,11 @@ export class RestaurantsData {
     getRestaurants(forceUpdate?: boolean) {
         if (forceUpdate || this._restaurants.isEmpty()) {
             this.api.get("restaurants.json").subscribe((restaurants: IRestaurant[]) => {
+                for (const restaurant of restaurants) {
+                    if (!restaurant.Icon) {
+                        restaurant.Icon = "assets/images/restaurant_placeholder.png";
+                    }
+                }
                 this._restaurants.next(restaurants);
             });
 

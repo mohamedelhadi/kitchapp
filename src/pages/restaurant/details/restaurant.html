@@ -28,32 +28,6 @@
     <div style="margin-top: 80px; padding: 0 16px 70px 16px">
         <h3 style="margin: 0">Bio</h3>
         <p style="margin-top: 5px;">{{_restaurant.Bio}}</p>
-        <table>
-            <tr>
-                <td>
-                    <ion-icon name="call"></ion-icon>
-                </td>
-                <td>
-                    <b>Phone</b> {{_restaurant.Contact.Phones[0].Number}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ion-icon name="restaurant"></ion-icon>
-                </td>
-                <td>
-                    <b>Cuisine(s)</b> {{_restaurant.Contact.Phones[0].Number}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ion-icon name="map"></ion-icon>
-                </td>
-                <td>
-                    <b>Location</b> {{_restaurant.Location.City}} - {{_restaurant.Location.Address}}
-                </td>
-            </tr>
-        </table>
         <div #map class="map"></div>
     </div>
     <ion-fab right bottom>
