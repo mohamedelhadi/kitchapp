@@ -2,7 +2,7 @@ import { Settings } from "../../settings/settings";
 import { Favorites } from "../../favorites/favorites";
 import { NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
-import { IRestaurant } from "../../../app/contracts/interfaces";
+import { IRestaurant } from "../../../contracts";
 import { Restaurant } from "../details/restaurant";
 
 @Component({

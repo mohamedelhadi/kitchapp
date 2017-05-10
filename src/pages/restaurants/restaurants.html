@@ -1,16 +1,24 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Restaurants</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="showPopover($event)">
+                <ion-icon name="swap" style="display: inline-block; transform: rotate(90deg);"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content>
+    <ion-toolbar>
+        <ion-searchbar #searchbar color="primary" [(ngModel)]="query" (ionInput)="search()" placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
     <ion-list>
-        <ion-item *ngFor="let restaurant of data.Restaurants | async" (click)="viewRestaurant(restaurant)">
+        <ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-left>
-                <img [src]="restaurant.Icon">
+                <img [src]="restaurant.Icon ? restaurant.Icon : 'assets/images/restaurant_placeholder.png'">
             </ion-avatar>
             <h2>{{restaurant.Name}}</h2>
-            <p>{{restaurant.Slogan}}</p>
+            <p>{{restaurant.Location.Address}}</p>
         </ion-item>
     </ion-list>
 </ion-content>

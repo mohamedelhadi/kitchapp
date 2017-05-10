@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { MenuController, NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
-import { IRestaurant } from "../../app/contracts/interfaces";
+import { IRestaurant } from "../../contracts";
 import { Logger } from "../../app/helpers/logger";
 import { Api } from "../../app/services/api";
 import { Configuration } from "../../environments/env.config";

@@ -1,11 +1,11 @@
-﻿import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+﻿import { BrowserModule } from "@angular/platform-browser";
+import { ErrorHandler, NgModule } from "@angular/core";
+import { HttpModule } from "@angular/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { IonicStorageModule } from "@ionic/storage";
 import { Environments } from "../environments/configuration";
@@ -20,8 +20,9 @@ import { Api } from "./services";
 import { Ionic2RatingModule } from "ionic2-rating";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
+import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
 
-let _pages = [
+const _pages = [
     App,
     Splash,
     SideMenu,
@@ -33,15 +34,19 @@ let _pages = [
     RestaurantTabs
 ];
 
-let _directives = [
+const _components = [
+    RestaurantsPopover
+];
+
+const _directives = [
 ];
 
 export function declarations() {
-    return [..._pages, ..._directives];
+    return [..._pages, ..._components, ..._directives];
 }
 
-export function pages() {
-    return _pages;
+export function components() {
+    return [..._pages, ..._components];
 }
 
 export function services() {
@@ -86,7 +91,7 @@ export function providers() {
         Ionic2RatingModule
     ],
     bootstrap: [IonicApp],
-    entryComponents: pages(),
+    entryComponents: components(),
     providers: providers()
 })
-export class AppModule {}
+export class AppModule { }

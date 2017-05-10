@@ -2,13 +2,13 @@
 import { MenuController, NavController, NavParams, Navbar } from "ionic-angular";
 import { Subject } from "rxjs";
 import { Observable } from "rxjs/Observable";
-import { IRestaurant } from "../../../app/contracts/interfaces";
 import { Logger } from "../../../app/helpers/logger";
 import { Api } from "../../../app/services/api";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { Environments } from "../../../environments/configuration";
 import * as _ from "lodash";
+import { IRestaurant } from "../../../contracts";
 import {
     GoogleMap,
     GoogleMapsEvent,
@@ -19,7 +19,7 @@ import {
     GoogleMapsMapTypeId
 } from "ionic-native";
 
-declare var google;
+declare const google;
 
 @Component({
     selector: "page-restaurant",
@@ -30,16 +30,17 @@ export class Restaurant implements OnInit {
     @ViewChild("navbar") navbar: Navbar;
     @ViewChild("map") map: ElementRef;
 
-    private _restaurant: IRestaurant;
-    private _isFavorite: boolean;
-    private _lifeCycle = new Subject<string>();
-    private _rating = 0;
+    _restaurant: IRestaurant;
+    _isFavorite: boolean;
+    _lifeCycle = new Subject<string>();
+    _rating = 0;
     constructor(private menu: MenuController, private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private data: RestaurantsData, private config: Configuration, private logger: Logger) {
         this._restaurant = navParams.data;
         this._rating = _.random(0, 5, true);
     }
 
     ngOnInit() {
+        // init
     }
 
     /*ionViewDidEnter() {
@@ -66,11 +67,11 @@ export class Restaurant implements OnInit {
 
     onScroll(event) {
         event.domWrite(() => {
-            let toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
-            let scrollPosition: number = event.scrollTop;
+            const toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
+            const scrollPosition: number = event.scrollTop;
             if (scrollPosition >= 35 && scrollPosition <= 70) {
                 // 55 -> 90: start fade in from point 55, should reach full opaque by point 90: 90-55=35 hence 35 steps of opacity transition
-                let toolbarOpacity = (scrollPosition - 35) / 35;
+                const toolbarOpacity = (scrollPosition - 35) / 35;
                 this._setElementOpacity(toolbar, toolbarOpacity);
             } else if (scrollPosition < 35) {
                 this._setElementOpacity(toolbar, 0);
@@ -85,6 +86,7 @@ export class Restaurant implements OnInit {
     }
 
     onRateChange($event) {
+        // rate change
     }
 
     // Load map only after view is initialize
@@ -93,17 +95,17 @@ export class Restaurant implements OnInit {
     }
 
     loadMap() {
-        let coordinates = { lat: parseInt(this._restaurant.Location.Latitude), lng: parseInt(this._restaurant.Location.Longitude) };
-        let map = new google.maps.Map(this.map.nativeElement, {
+        const coordinates = { lat: parseInt(this._restaurant.Branches[0].Location.Latitude, 10), lng: parseInt(this._restaurant.Branches[0].Location.Longitude, 10) };
+        const map = new google.maps.Map(this.map.nativeElement, {
             center: coordinates,
             zoom: 16
         });
-        let marker = new google.maps.Marker({
+        const marker = new google.maps.Marker({
             position: coordinates,
             map,
             title: this._restaurant.Name
         });
-        let infoWindow = new google.maps.InfoWindow({
+        const infoWindow = new google.maps.InfoWindow({
             content: this._restaurant.Name
         });
         marker.addListener("click", () => {

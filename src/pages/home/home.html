@@ -1,46 +1,8 @@
-<ion-header no-border>
-    <div class="fake-searchbar" tappable (click)="focusSearch()" [@fakeSearchbarTrigger]="searchState">
-        <div class="search">
-            <ion-icon name="search"></ion-icon>
-        </div>
-    </div>
-    <ion-searchbar (ionClear)="collapseSearch()" (ionBlur)="collapseSearch()" #searchbar color="primary" [(ngModel)]="query" (ionInput)="search()" placeholder="Search" [@searchbarTrigger]="searchState"></ion-searchbar>
-
-    <button ion-button menuToggle clear class="menu-btn" [@menuBtnTrigger]="searchState">
+<ion-header no-border="no-border">
+    <button ion-button menuToggle clear class="menu-btn">
         <ion-icon name="menu"></ion-icon>
     </button>
 </ion-header>
 <ion-content>
-    <div style="position: relative; height: 100%;">
-        <div class="nav-items-container">
-            <ion-row>
-                <ion-col (click)="viewRestaurants()">
-                    <a>
-                        <ion-icon name='restaurant'></ion-icon>
-                        Restaurants
-                    </a>
-                </ion-col>
-                <ion-col (click)="viewFavorites()">
-                    <a>
-                        <ion-icon name='heart'></ion-icon>
-                        Favorites
-                    </a>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <a>
-                        <ion-icon name='map'></ion-icon>
-                        Places
-                    </a>
-                </ion-col>
-                <ion-col>
-                    <a>
-                        <ion-icon name='pricetags'></ion-icon>
-                        Discounts
-                    </a>
-                </ion-col>
-            </ion-row>
-        </div>
-    </div>
+    <button ion-button (click)="viewRestaurants()">Restaurants</button>
 </ion-content>

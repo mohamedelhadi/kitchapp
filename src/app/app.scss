@@ -1,6 +1,4 @@
 ﻿// http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,7 +13,7 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-ion-header {
+/*ion-header {
   .toolbar-background {
     background: url("../assets/images/header-shadow3.png"); // #da3743; //
   }
@@ -30,21 +28,24 @@ ion-content {
     margin-top: 0 !important;
     padding-top: 56px !important;
   }
-}
+}*/
 
 button[ion-fab] {
-  overflow: visible;
-  position: relative;
-  contain: layout;
+    overflow: visible;
+    position: relative;
+    contain: layout;
+    ion-label {
+        position: absolute;
+        top: -8px;
+        right: 40px;
+        color: color($colors, primary);
+        background-color: rgb(255, 255, 255);
+        line-height: 32px;
+        border-radius: 15px;
+        padding: 0 8px;
+    }
+}
 
-  ion-label {
-    position: absolute;
-    top: -8px;
-    right: 40px;
-    color: color($colors, primary);
-    background-color: rgb(255, 255, 255);
-    line-height: 32px;
-    border-radius: 15px;
-    padding: 0 8px;
-  }
+.list-header {
+    margin-bottom: 5px;
 }
