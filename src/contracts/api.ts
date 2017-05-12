@@ -2,12 +2,12 @@ import { Moment } from "moment";
 export interface IRestaurant {
     Id: number;
     Name: string[];
-    Icon?: string;
     Slogan?: string;
+    Icon?: string;
 
-    Branches: IBranch[];
-    Cuisines: number[]; // cuisine ids
     Tags: string;
+    CuisineIds: number[];
+    Branches: IBranch[];
 
     Bio: string; // delayed
     Categories: ICategory[]; // delayed
@@ -35,13 +35,13 @@ export interface ICategory {
     Name: string[];
     Parent?: ICategory;
     Children: ICategory[];
-    Items: ICategoryItem[];
+    CategoryItems: ICategoryItem[];
 }
 export interface IContact {
     Id: number;
     Email?: string;
-    Phones: IPhone[];
     Website?: string;
+    Phones: IPhone[];
 }
 export interface IPhone {
     Id: number;
@@ -64,8 +64,7 @@ export interface ICategoryItem {
     Id: number;
     Name: string[];
     Tags: string;
-    Category: ICategory;
-    Cuisine?: ICuisine; // null in case beverage
+    CuisineId?: number; // null in case beverage
     Variations: IVariation[];
 }
 export interface IVariation {
@@ -74,11 +73,7 @@ export interface IVariation {
     Price: string;
     Description?: string;
     Photo?: string;
-    Category: ICategory;
-}
-
-export interface ICategoryItemRateSummary {
-    Overall: number; // flout
+    Rate: number; // float
 }
 export interface IBranchRateSummary { // via auto mapper
     Overall: number; // overall = sum of below overalls / 4
@@ -86,14 +81,6 @@ export interface IBranchRateSummary { // via auto mapper
     Service: number; // service overall
     Place: number; // place overall
     Price: number; // price overall
-}
-export interface IVariationRate {
-    Id: number;
-    Rate: number; // 1 <--> 5
-    Comment?: string;
-    Date: Moment; // it arrives as string, should be converted to moment
-    User?: IUser;
-    Variation: IVariation;
 }
 export interface IBranchRate {
     Id: number;

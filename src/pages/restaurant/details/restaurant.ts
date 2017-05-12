@@ -103,10 +103,10 @@ export class Restaurant implements OnInit {
         const marker = new google.maps.Marker({
             position: coordinates,
             map,
-            title: this._restaurant.Name
+            title: this._restaurant.Name[0]
         });
         const infoWindow = new google.maps.InfoWindow({
-            content: this._restaurant.Name
+            content: this._restaurant.Name[0]
         });
         marker.addListener("click", () => {
             infoWindow.open(map, marker);
