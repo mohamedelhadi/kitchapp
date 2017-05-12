@@ -14,14 +14,14 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
 })
 export class Favorites implements OnInit {
 
-    _favorites: Observable<IRestaurant[]>;
+    favorites: Observable<IRestaurant[]>;
 
     constructor(private config: Configuration, private api: Api, private logger: Logger, private data: RestaurantsData, private navCtrl: NavController) {
     }
 
     ngOnInit() {
         this.data.Favorites.subscribe(favorites => {
-            this._favorites = this.data.Restaurants.map(restaurants => restaurants.filter(restaurant => favorites[restaurant.Id]));
+            this.favorites = this.data.Restaurants.map(restaurants => restaurants.filter(restaurant => favorites[restaurant.id]));
         });
     }
 

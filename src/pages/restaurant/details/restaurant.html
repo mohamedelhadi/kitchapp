@@ -5,7 +5,7 @@
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>{{_restaurant.Name}}</ion-title>
+        <ion-title>{{restaurant.name}}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="toggleFavorite()">
               <ion-icon name="{{_isFavorite ? 'heart' : 'heart-outline'}}" isActive="_isFavorite"></ion-icon>
@@ -17,17 +17,17 @@
     <div class="banner">
         <ion-item no-border>
             <ion-avatar item-left>
-                <img [src]="_restaurant.Icon">
+                <img [src]="restaurant.icon">
             </ion-avatar>
-            <h3>{{_restaurant.Slogan}}</h3>
+            <h3>{{restaurant.slogan}}</h3>
             <p>
-                <rating [(ngModel)]="_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
+                <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
             </p>
         </ion-item>
     </div>
     <div style="margin-top: 80px; padding: 0 16px 70px 16px">
         <h3 style="margin: 0">Bio</h3>
-        <p style="margin-top: 5px;">{{_restaurant.Bio}}</p>
+        <p style="margin-top: 5px;">{{restaurant.bio}}</p>
         <div #map class="map"></div>
     </div>
     <ion-fab right bottom>

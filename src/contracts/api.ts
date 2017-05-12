@@ -1,105 +1,111 @@
 import { Moment } from "moment";
 export interface IRestaurant {
-    Id: number;
-    Name: string[];
-    Slogan?: string;
-    Icon?: string;
+    id: number;
+    name: string[];
+    slogan?: string;
+    icon?: string;
 
-    Tags: string;
-    CuisineIds: number[];
-    Branches: IBranch[];
+    tags: string;
+    cuisineIds: number[];
+    branches: IBranch[];
 
-    Bio: string; // delayed
-    Categories: ICategory[]; // delayed
-    PicturedCategories: IPicturedCategory[]; // delayed
+    bio: string; // delayed
+    categories: ICategory[]; // delayed
+    picturedCategories: IPicturedCategory[]; // delayed
 }
 export interface IPicturedCategory {
-    Id: number;
-    Photo: string;
-    Order: number;
+    id: number;
+    photo: string;
+    order: number;
 }
 export interface IBranch {
-    Id: number;
-    Name: string[];
-    Location: ILocation;
-    Contact: IContact;  // delayed
-    Rate: IBranchRateSummary; // delayed (but needed for sort) @##@ generated via auto mapper
-    Photos: string[]; // delayed
+    id: number;
+    name: string[];
+    location: ILocation;
+    contact: IContact;  // delayed
+    rate: IBranchRateSummary; // delayed (but needed for sort) @##@ generated via auto mapper
+    photos: string[]; // delayed
 }
 export interface ICuisine { // predefined in db, pre-include in app as well
-    Id: number;
-    Name: string[];
+    id: number;
+    name: string[];
 }
 export interface ICategory {
-    Id: number;
-    Name: string[];
-    Parent?: ICategory;
-    Children: ICategory[];
-    CategoryItems: ICategoryItem[];
+    id: number;
+    name: string[];
+    children: ICategory[];
+    categoryItems: ICategoryItem[];
+    // Parent?: ICategory; redundant
 }
 export interface IContact {
-    Id: number;
-    Email?: string;
-    Website?: string;
-    Phones: IPhone[];
+    id: number;
+    email?: string;
+    website?: string;
+    phones: IPhone[];
 }
 export interface IPhone {
-    Id: number;
-    Name: string[];
-    Number: string;
+    id: number;
+    name: string[];
+    number: string;
 }
 export interface ILocation {
-    Id: number;
-    CityId: number;
-    Address: string[];
-    Longitude: string;
-    Latitude: string;
+    id: number;
+    cityId: number;
+    address: string[];
+    longitude: string;
+    latitude: string;
 }
 export interface ICity { // predefined in db, pre-include in app as well
-    Id: number;
-    Name: string[];
+    id: number;
+    name: string[];
 }
 
 export interface ICategoryItem {
-    Id: number;
-    Name: string[];
-    Tags: string;
-    CuisineId?: number; // null in case beverage
-    Variations: IVariation[];
+    id: number;
+    name: string[];
+    tags: string;
+    cuisineId?: number; // null in case beverage
+    variations: IVariation[];
 }
 export interface IVariation {
-    Id: number;
-    Name: string[];
-    Price: string;
-    Description?: string;
-    Photo?: string;
-    Rate: number; // float
+    id: number;
+    name: string[];
+    price: string;
+    description?: string;
+    photo?: string;
+    rate: number; // float
 }
 export interface IBranchRateSummary { // via auto mapper
-    Overall: number; // overall = sum of below overalls / 4
-    Quality: number; // quality overall
-    Service: number; // service overall
-    Place: number; // place overall
-    Price: number; // price overall
-}
-export interface IBranchRate {
-    Id: number;
-    Quality: number; // 1 <--> 5
-    Service: number; // 1 <--> 5
-    Place: number; // 1 <--> 5
-    Price: number; // 1 <--> 5
-    Comment?: string;
-    Date: Moment; // it arrives as string, should be converted to moment
-    User: IUser;
-    Branch: IBranch;
+    overall: number; // overall = sum of below overalls / 4
+    quality: number; // quality overall
+    service: number; // service overall
+    place: number; // place overall
+    price: number; // price overall
 }
 export interface IUser {
-    Id: number;
-    Name: string;
+    id: number;
+    name: string;
 
     /*  instead of preventing the user from rating,
         run server side background check and see if a particular variation has been rated by the same device more than 2 times,
         if a match was found, remove all rates except the first
     */
-    UUID: string;
+    uuid: string;
+}
+
+// ========================== for post requests ============================
+export interface IBranchRate {
+    quality: number; // 1 <--> 5
+    service: number; // 1 <--> 5
+    place: number; // 1 <--> 5
+    price: number; // 1 <--> 5
+    comment?: string;
+    user?: IUser;
+    branchId: number;
+}
+export interface IVariationRate {
+    rate: number; // 1 <--> 5
+    comment?: string;
+    user?: IUser;
+    variationId: number;
 }

@@ -30,13 +30,13 @@ export class Restaurant implements OnInit {
     @ViewChild("navbar") navbar: Navbar;
     @ViewChild("map") map: ElementRef;
 
-    _restaurant: IRestaurant;
-    _isFavorite: boolean;
-    _lifeCycle = new Subject<string>();
-    _rating = 0;
+    restaurant: IRestaurant;
+    isFavorite: boolean;
+    lifeCycle = new Subject<string>();
+    rating = 0;
     constructor(private menu: MenuController, private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private data: RestaurantsData, private config: Configuration, private logger: Logger) {
-        this._restaurant = navParams.data;
-        this._rating = _.random(0, 5, true);
+        this.restaurant = navParams.data;
+        this.rating = _.random(0, 5, true);
     }
 
     ngOnInit() {
@@ -54,15 +54,15 @@ export class Restaurant implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.data.isFavorite(this._restaurant).takeUntil(this._lifeCycle.filter(event => event === "leaving")).subscribe(isFavorite => this._isFavorite = isFavorite);
+        this.data.isFavorite(this.restaurant).takeUntil(this.lifeCycle.filter(event => event === "leaving")).subscribe(isFavorite => this.isFavorite = isFavorite);
     }
 
     ionViewWillLeave() {
-        this._lifeCycle.next("leaving");
+        this.lifeCycle.next("leaving");
     }
 
     toggleFavorite() {
-        this.data.setFavorite(this._restaurant, !this._isFavorite);
+        this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
 
     onScroll(event) {
@@ -95,7 +95,7 @@ export class Restaurant implements OnInit {
     }
 
     loadMap() {
-        const coordinates = { lat: parseInt(this._restaurant.Branches[0].Location.Latitude, 10), lng: parseInt(this._restaurant.Branches[0].Location.Longitude, 10) };
+        const coordinates = { lat: parseInt(this.restaurant.branches[0].location.latitude, 10), lng: parseInt(this.restaurant.branches[0].location.longitude, 10) };
         const map = new google.maps.Map(this.map.nativeElement, {
             center: coordinates,
             zoom: 16
@@ -103,10 +103,10 @@ export class Restaurant implements OnInit {
         const marker = new google.maps.Marker({
             position: coordinates,
             map,
-            title: this._restaurant.Name[0]
+            title: this.restaurant.name[0]
         });
         const infoWindow = new google.maps.InfoWindow({
-            content: this._restaurant.Name[0]
+            content: this.restaurant.name[0]
         });
         marker.addListener("click", () => {
             infoWindow.open(map, marker);

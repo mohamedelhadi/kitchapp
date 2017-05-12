@@ -39,8 +39,8 @@ export class RestaurantsData {
         if (forceUpdate || this._restaurants.isEmpty()) {
             this.api.get("restaurants").subscribe((restaurants: IRestaurant[]) => {
                 for (const restaurant of restaurants) {
-                    if (!restaurant.Icon) {
-                        restaurant.Icon = "assets/images/restaurant_placeholder.png";
+                    if (!restaurant.icon) {
+                        restaurant.icon = "assets/images/restaurant_placeholder.png";
                     }
                 }
                 this._restaurants.next(restaurants);
@@ -53,12 +53,12 @@ export class RestaurantsData {
     }
 
     isFavorite(restaurant: IRestaurant): Observable<boolean> {
-        return this._favorites.map(favorites => favorites[restaurant.Id]);
+        return this._favorites.map(favorites => favorites[restaurant.id]);
     }
 
     setFavorite(restaurant: IRestaurant, favorite: boolean) {
         const favorites = this._favorites.getValue();
-        favorites[restaurant.Id] = favorite;
+        favorites[restaurant.id] = favorite;
         this.storage.set(FAVORITE_RESTAURANTS, favorites);
         this._favorites.next(favorites);
     }

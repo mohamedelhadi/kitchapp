@@ -50,7 +50,7 @@ export class Restaurants implements OnInit {
 
     orderRestaurants(restaurants: IRestaurant[]) {
         const order = this.orderSettings.AtoZ ? "asc" : "desc";
-        restaurants = orderBy(restaurants, restaurant => restaurant.Name, [order]);
+        restaurants = orderBy(restaurants, restaurant => restaurant.name[0], [order]);
         // nearby
         // top rated
         return restaurants;
