@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { SideMenu } from "../side-menu/side-menu";
 import { RestaurantsData } from "../restaurants/restaurants.data";
+import { DataLoader } from "../../app/shared/data-services";
 
 
 @Component({
@@ -10,16 +11,14 @@ import { RestaurantsData } from "../restaurants/restaurants.data";
 })
 export class Splash {
 
-    constructor(public navCtrl: NavController, private data: RestaurantsData) { }
+    constructor(public navCtrl: NavController, private loader: DataLoader) { }
 
     ionViewDidLoad() {
         // loaded
     }
 
     ngOnInit() {
-        // show spinner
-        // subscribe (inside subscription hide spinner)
-        this.navCtrl.setRoot(SideMenu); // move inside subscription
-        this.data.getRestaurants(true);
+        this.loader.load();
+        this.navCtrl.setRoot(SideMenu);
     }
 }

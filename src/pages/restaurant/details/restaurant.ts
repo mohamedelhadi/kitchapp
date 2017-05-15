@@ -7,7 +7,6 @@ import { Api } from "../../../app/services/api";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { Environments } from "../../../environments/configuration";
-import * as _ from "lodash";
 import { IRestaurant } from "../../../contracts";
 import {
     GoogleMap,
@@ -36,7 +35,7 @@ export class Restaurant implements OnInit {
     rating = 0;
     constructor(private menu: MenuController, private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private data: RestaurantsData, private config: Configuration, private logger: Logger) {
         this.restaurant = navParams.data;
-        this.rating = _.random(0, 5, true);
+        this.rating = this.restaurant.branches[0].rate.overall;
     }
 
     ngOnInit() {
@@ -72,16 +71,16 @@ export class Restaurant implements OnInit {
             if (scrollPosition >= 35 && scrollPosition <= 70) {
                 // 55 -> 90: start fade in from point 55, should reach full opaque by point 90: 90-55=35 hence 35 steps of opacity transition
                 const toolbarOpacity = (scrollPosition - 35) / 35;
-                this._setElementOpacity(toolbar, toolbarOpacity);
+                this.setElementOpacity(toolbar, toolbarOpacity);
             } else if (scrollPosition < 35) {
-                this._setElementOpacity(toolbar, 0);
+                this.setElementOpacity(toolbar, 0);
             } else if (scrollPosition > 70) {
-                this._setElementOpacity(toolbar, 1);
+                this.setElementOpacity(toolbar, 1);
             }
         });
     }
 
-    _setElementOpacity(element: Element, opacity: number) {
+    setElementOpacity(element: Element, opacity: number) {
         this.renderer.setStyle(element, "opacity", opacity.toString());
     }
 
@@ -95,7 +94,10 @@ export class Restaurant implements OnInit {
     }
 
     loadMap() {
-        const coordinates = { lat: parseInt(this.restaurant.branches[0].location.latitude, 10), lng: parseInt(this.restaurant.branches[0].location.longitude, 10) };
+        if (!google) { // failed to load google maps api due to network or whatever
+            return;
+        }
+        const coordinates = { lat: this.restaurant.branches[0].location.latitude, lng: this.restaurant.branches[0].location.longitude };
         const map = new google.maps.Map(this.map.nativeElement, {
             center: coordinates,
             zoom: 16

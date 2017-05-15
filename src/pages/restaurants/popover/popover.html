@@ -1,0 +1,47 @@
+<ion-list radio-group>
+    <ion-item-divider>Order</ion-item-divider>
+    <ion-item>
+        <ion-label>A - Z</ion-label>
+        <ion-toggle (ionChange)="onChange();" [(ngModel)]="settings.a_to_z"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>Nearby</ion-label>
+        <ion-toggle (ionChange)="onChange();" [(ngModel)]="settings.nearby"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>Top rated</ion-label>
+        <ion-toggle (ionChange)="onChange();" [(ngModel)]="settings.topRated"></ion-toggle>
+    </ion-item>
+    <ion-item-divider>Filter</ion-item-divider>
+    <ion-item>
+        <ion-label>City</ion-label>
+        <ion-select interface="action-sheet" (ionChange)="onChange()" placeholder="Select a city" [(ngModel)]="settings.cityId">
+            <ion-option *ngFor="let city of cities | async" value="{{city.id}}">{{city.name[0]}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Cuisine</ion-label>
+        <ion-select interface="action-sheet" (ionChange)="onChange()" placeholder="Select a cuisine" [(ngModel)]="settings.cuisineId">
+            <ion-option *ngFor="let cuisine of cuisines | async" value="{{cuisine.id}}">{{cuisine.name[0]}}</ion-option>
+        </ion-select>
+    </ion-item>
+</ion-list>
+<!--
+<hr/>
+<ion-row padding>
+    <button ion-button (click)="close()" block>Done</button>
+</ion-row>
+<ion-row>
+    <ion-col>
+        <ion-label text-right>A - Z</ion-label>
+    </ion-col>
+    <ion-col>
+        <ion-toggle [(ngModel)]="orderSettings.AtoZ" checked="orderSettings.AtoZ"></ion-toggle>
+    </ion-col>
+    <ion-col>
+        <ion-label>Z - A</ion-label>
+    </ion-col>
+</ion-row>
+<ion-row padding>
+    <button ion-button (click)="close()" block>Done</button>
+</ion-row>-->

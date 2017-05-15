@@ -52,8 +52,8 @@ export interface ILocation {
     id: number;
     cityId: number;
     address: string[];
-    longitude: string;
-    latitude: string;
+    longitude: number;
+    latitude: number;
 }
 export interface ICity { // predefined in db, pre-include in app as well
     id: number;

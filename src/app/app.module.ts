@@ -21,6 +21,8 @@ import { Ionic2RatingModule } from "ionic2-rating";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
+import { AppSettings } from "./services";
+import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
 
 const _pages = [
     App,
@@ -56,13 +58,17 @@ export function services() {
         Logger,
         UI,
         Api,
-        AppErrorHandler
+        AppErrorHandler,
+        AppSettings
     ];
 }
 
-export function data() {
+export function data_services() {
     return [
-        RestaurantsData
+        RestaurantsData,
+        CitiesData,
+        CuisinesData,
+        DataLoader
     ];
 }
 
@@ -76,7 +82,7 @@ export function providers() {
             provide: ErrorHandler,
             useClass: AppErrorHandler // env === Environments.Simulator || env === Environments.Dev ? IonicErrorHandler : AppErrorHandler
         },
-        ...data()
+        ...data_services()
     ];
 }
 

@@ -1,24 +1,30 @@
-<ion-header>
+<ion-header no-border>
     <ion-navbar>
         <ion-title>Restaurants</ion-title>
         <ion-buttons end>
             <button ion-button (click)="showPopover($event)">
-                <ion-icon name="swap" style="display: inline-block; transform: rotate(90deg);"></ion-icon>
+                <ion-icon name="settings"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content>
     <ion-toolbar>
-        <ion-searchbar #searchbar color="primary" [(ngModel)]="query" (ionInput)="search()" placeholder="Search"></ion-searchbar>
+        <ion-searchbar #searchbar color="primary" (ionInput)="onQueryChanged($event)" placeholder="Search: meals, restaurants, etc..."></ion-searchbar>
+        <!--<ion-buttons right>
+            <button ion-button icon-only (click)='showPopover($event)'>
+				<ion-icon name="settings"></ion-icon>
+			</button>
+        </ion-buttons>-->
     </ion-toolbar>
     <ion-list>
         <ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-left>
                 <img [src]="restaurant.icon">
             </ion-avatar>
-            <h2>{{restaurant.name[0]}}</h2>
+            <h2>{{restaurant.name[settings.language]}}</h2>
             <p>{{restaurant.branches[0].location.address[0]}}</p>
         </ion-item>
+        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">No Match</ion-item>
     </ion-list>
 </ion-content>

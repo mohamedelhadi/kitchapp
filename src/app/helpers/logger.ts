@@ -6,9 +6,6 @@ export class Logger {
 
     error(err?: any) {
         console.error(err);
-        //if (err instanceof ViewWrappedError) {
-        //    console.error(err.originalError);
-        //}
         // log to error tracker
     }
 

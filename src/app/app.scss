@@ -49,3 +49,9 @@ button[ion-fab] {
 .list-header {
     margin-bottom: 5px;
 }
+
+.no-match {
+    color: $font-color;
+    height: 120px;
+    font-size: large;
+}

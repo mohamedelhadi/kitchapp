@@ -2,7 +2,8 @@ import { ErrorHandler, Injectable } from "@angular/core";
 import { UI, Logger, Utils } from "./";
 import { Response } from "@angular/http";
 import { Configuration } from "../../environments/env.config";
-import { IHttpError, isHttpError } from "../services/api";
+import { isHttpError } from "../services/api";
+import { IHttpError } from "../../contracts";
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
@@ -13,7 +14,7 @@ export class AppErrorHandler extends ErrorHandler {
 
     handleError(err: IHttpError | Error): void {
         this.logger.error(err);
-        let shouldShowError = isHttpError(err) ? err.options.shouldHandleErrors : true;
+        const shouldShowError = isHttpError(err) ? err.options.shouldHandleErrors : true;
         if (shouldShowError) {
             this.ui.showError(this.utils.isDev() ? err.message : null);
         }
