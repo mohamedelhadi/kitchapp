@@ -8,6 +8,7 @@ import { MenuController, NavController, Searchbar } from "ionic-angular";
 import { Restaurants } from "../restaurants/restaurants";
 import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { RestaurantTabs } from "../restaurant/tabs/tabs";
 
 @Component({
     selector: "page-home",
@@ -19,12 +20,17 @@ export class Home {
 
     query: string = "";
 
-    constructor(private splashScreen: SplashScreen, private config: Configuration, private api: Api, private logger: Logger, private data: RestaurantsData, private menu: MenuController, private navCtrl: NavController) {
+    constructor(private splashScreen: SplashScreen, private config: Configuration, private api: Api, private logger: Logger, private restaurantsData: RestaurantsData, private menu: MenuController, private navCtrl: NavController) {
         // this.menu.enable(false);
     }
 
     ionViewDidLoad() {
         this.splashScreen.hide();
+        /*this.restaurantsData.Restaurants.subscribe(restaurants => {
+            if (restaurants.length) {
+                this.navCtrl.push(RestaurantTabs, restaurants[0]);
+            }
+        });*/
     }
 
     viewRestaurants() {

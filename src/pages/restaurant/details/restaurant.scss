@@ -17,41 +17,71 @@ page-restaurant {
             background-image: none !important;
         }
     }
-    .banner {
-        position: absolute;
-        top: -56px;
-        left: 0;
-        right: 0;
-        height: 180px;
-        background-image: url("../assets/images/banner.jpg");
-        background-size: 100%;
-        padding-top: 100px;
-        ion-item {
-            background: transparent;
-            color: white;
-            .item-inner {
-                border: none !important;
-                rating {
-                    ul {
-                        margin: 0;
-                        padding: 0;
-                        color: #FFCF00;
-                        font-size: medium;
-                        margin-left: -5px;
-                        li {
-                            padding: 5px !important;
+    ion-content {
+        .scroll-content {
+            margin-top: 0 !important;
+        }
+        .banner {
+            position: absolute;
+            height: 195px;
+            top: -50px;
+            left: 0;
+            right: 0;
+            padding-top: 100px;
+            background-image: url("../assets/images/banner.jpg");
+            background-size: 100%;
+            .item {
+                background: transparent;
+                color: white;
+                padding-left: 5px;
+                ion-thumbnail {
+                    margin: 5px;
+                    img {
+                        border-radius: 5px;
+                    }
+                }
+                ion-label {
+                    margin-right: 0;
+                    .details,
+                    .details h3 {
+                        // ellipses trim
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .favorite-icon-container {
+                        max-width: 30px;
+                        ion-icon {
+                            font-size: x-large;
+                            line-height: 40px;
+                        }
+                    }
+                }
+                .item-inner {
+                    border: none;
+                    rating {
+                        ul {
+                            margin: 0;
+                            padding: 0;
+                            color: #FFCF00;
+                            font-size: medium;
+                            margin-left: -5px;
+                            li {
+                                padding: 5px;
+                            }
                         }
                     }
                 }
             }
         }
-    }
-    ion-content {
-        .scroll-content {
-            margin-top: 0 !important;
-            padding-top: 56px !important;
+        .bio-container {
+            margin-top: 160px;
+            padding: 0 16px 70px 16px;
+            p {
+                margin-top: 5px;
+            }
         }
-        table {
+        /*table {
             tr {
                 td {
                     padding: 5px 0;
@@ -70,6 +100,6 @@ page-restaurant {
             @media (min-width: 767px) {
                 height: 550px;
             }
-        }
+        }*/
     }
 }

@@ -32,8 +32,8 @@ export class Restaurants extends BasePage implements OnInit {
 
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData,
-        private navCtrl: NavController, private popoverCtrl: PopoverController) {
+        private navCtrl: NavController, private popoverCtrl: PopoverController,
+        private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
         super(config, appSettings, logger);
     }
 
@@ -65,7 +65,7 @@ export class Restaurants extends BasePage implements OnInit {
     }*/
 
     viewRestaurant(restaurant: IRestaurant) {
-        this.navCtrl.push(RestaurantTabs, restaurant); // Restaurant, restaurant);
+        this.navCtrl.push(RestaurantTabs, restaurant);
     }
 
     onQueryChanged(ev: any) {

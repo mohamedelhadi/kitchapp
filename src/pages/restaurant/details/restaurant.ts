@@ -1,22 +1,13 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { MenuController, NavController, NavParams, Navbar } from "ionic-angular";
-import { Subject } from "rxjs";
-import { Observable } from "rxjs/Observable";
 import { Logger } from "../../../app/helpers/logger";
-import { Api } from "../../../app/services/api";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
-import { Environments } from "../../../environments/configuration";
 import { IRestaurant } from "../../../contracts";
-import {
-    GoogleMap,
-    GoogleMapsEvent,
-    GoogleMapsLatLng,
-    CameraPosition,
-    GoogleMapsMarkerOptions,
-    GoogleMapsMarker,
-    GoogleMapsMapTypeId
-} from "ionic-native";
+import { Subject } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { AppSettings } from "../../../app/services/index";
+import { BasePage } from "../../index";
 
 declare const google;
 
@@ -24,7 +15,7 @@ declare const google;
     selector: "page-restaurant",
     templateUrl: "restaurant.html"
 })
-export class Restaurant implements OnInit {
+export class Restaurant extends BasePage implements OnInit {
 
     @ViewChild("navbar") navbar: Navbar;
     @ViewChild("map") map: ElementRef;
@@ -33,7 +24,11 @@ export class Restaurant implements OnInit {
     isFavorite: boolean;
     lifeCycle = new Subject<string>();
     rating = 0;
-    constructor(private menu: MenuController, private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private data: RestaurantsData, private config: Configuration, private logger: Logger) {
+    constructor(
+        private config: Configuration, private appSettings: AppSettings, private logger: Logger,
+        private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2,
+        private data: RestaurantsData) {
+        super(config, appSettings, logger);
         this.restaurant = navParams.data;
         this.rating = this.restaurant.branches[0].rate.overall;
     }
@@ -44,10 +39,12 @@ export class Restaurant implements OnInit {
 
     /*ionViewDidEnter() {
     }
+*/
 
     ionViewDidLoad() {
-    }*/
-
+        // Load map only after view is initialize
+        this.loadMap();
+    }
     back() {
         this.navCtrl.parent.parent.pop();
     }
@@ -86,15 +83,11 @@ export class Restaurant implements OnInit {
 
     onRateChange($event) {
         // rate change
-    }
-
-    // Load map only after view is initialize
-    ngAfterViewInit() {
-        this.loadMap();
+        console.log("rate changed..");
     }
 
     loadMap() {
-        if (!google) { // failed to load google maps api due to network or whatever
+        if (google === undefined) { // failed to load google maps api due to network or whatever
             return;
         }
         const coordinates = { lat: this.restaurant.branches[0].location.latitude, lng: this.restaurant.branches[0].location.longitude };
