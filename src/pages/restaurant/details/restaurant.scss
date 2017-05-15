@@ -4,17 +4,14 @@ page-restaurant {
             //background: url("../assets/images/header-shadow3.png"); // #da3743; // 
             //background-repeat: repeat-x;
             opacity: 0;
-            border: none !important;
+            border: none;
         }
         .toolbar-title {
-            color: white !important;
+            color: white;
             font-weight: normal;
         }
         .icon {
             color: white;
-        }
-        &::after {
-            background-image: none !important;
         }
     }
     ion-content {
@@ -53,7 +50,6 @@ page-restaurant {
                         max-width: 30px;
                         ion-icon {
                             font-size: x-large;
-                            line-height: 40px;
                         }
                     }
                 }

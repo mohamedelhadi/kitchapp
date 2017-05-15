@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
     <ion-navbar #navbar>
         <ion-buttons left>
             <button ion-button icon-only (click)="back()">
@@ -23,7 +23,7 @@
                         <rating [(ngModel)]="rating" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
                     </p>
                 </ion-col>
-                <ion-col col-2 class="favorite-icon-container" (click)="toggleFavorite()">
+                <ion-col align-self-center col-2 class="favorite-icon-container" (click)="toggleFavorite()">
                     <ion-icon name="{{_isFavorite ? 'heart' : 'heart-outline'}}" isActive="_isFavorite" item-end></ion-icon>
                 </ion-col>
             </ion-row>
@@ -32,7 +32,13 @@
     <div class="bio-container">
         <h3 no-margin>Bio</h3>
         <p>{{restaurant.bio}}</p>
-        <div #map class="map"></div>
+        <div style="display: none;" #map class="map"></div>
+
+
+
+        <!--<h1>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available.
+            Make sure to include cordova.js or run in a device/simulator</h1>-->
     </div>
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>

@@ -43,7 +43,7 @@ export class Restaurant extends BasePage implements OnInit {
 
     ionViewDidLoad() {
         // Load map only after view is initialize
-        this.loadMap();
+        // this.loadMap();
     }
     back() {
         this.navCtrl.parent.parent.pop();
