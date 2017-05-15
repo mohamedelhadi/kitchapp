@@ -22,8 +22,9 @@ export class Restaurant extends BasePage implements OnInit {
 
     restaurant: IRestaurant;
     isFavorite: boolean;
-    lifeCycle = new Subject<string>();
-    rating = 0;
+    rating: number;
+    query = new Subject<string>();
+    leavingTab = new Subject(); // willLeave event doesn't fire for tabs
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2,
@@ -31,36 +32,33 @@ export class Restaurant extends BasePage implements OnInit {
         super(config, appSettings, logger);
         this.restaurant = navParams.data;
         this.rating = this.restaurant.branches[0].rate.overall;
+        this.data.isFavorite(this.restaurant)
+            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
+            .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
-
     ngOnInit() {
-        // init
+        // fetch delayed restaurant details: e.g. bio
     }
-
-    /*ionViewDidEnter() {
-    }
-*/
-
     ionViewDidLoad() {
         // Load map only after view is initialize
         // this.loadMap();
     }
     back() {
         this.navCtrl.parent.parent.pop();
+        this.leavingTab.next();
     }
-
-    ionViewWillEnter() {
-        this.data.isFavorite(this.restaurant).takeUntil(this.lifeCycle.filter(event => event === "leaving")).subscribe(isFavorite => this.isFavorite = isFavorite);
+    call() {
+        // open branches
     }
-
-    ionViewWillLeave() {
-        this.lifeCycle.next("leaving");
-    }
-
     toggleFavorite() {
         this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
-
+    onRateChange($event) {
+        // rate change
+    }
+    onQueryChanged(ev: any) {
+        this.query.next(ev.target.value);
+    }
     onScroll(event) {
         event.domWrite(() => {
             const toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
@@ -76,16 +74,9 @@ export class Restaurant extends BasePage implements OnInit {
             }
         });
     }
-
     setElementOpacity(element: Element, opacity: number) {
         this.renderer.setStyle(element, "opacity", opacity.toString());
     }
-
-    onRateChange($event) {
-        // rate change
-        console.log("rate changed..");
-    }
-
     loadMap() {
         if (google === undefined) { // failed to load google maps api due to network or whatever
             return;
@@ -106,26 +97,27 @@ export class Restaurant extends BasePage implements OnInit {
         marker.addListener("click", () => {
             infoWindow.open(map, marker);
         });
-        /* native map: slow and doesn't work when embedded in the page
-            let map = new GoogleMap(this.map.nativeElement);
-            let coordinates: GoogleMapsLatLng = new GoogleMapsLatLng(parseInt(this._restaurant.Location.Latitude), parseInt(this._restaurant.Location.Longitude));
-            let position: CameraPosition = {
-                target: coordinates,
-                zoom: 18,
-                tilt: 30
-            };
-
-            map.one(GoogleMapsEvent.MAP_READY).then(() => {
-                map.moveCamera(position); // works on iOS and Android
-            });
-
-            let markerOptions: GoogleMapsMarkerOptions = {
-                position: coordinates,
-                title: this._restaurant.Name
-            };
-            map.addMarker(markerOptions)
-                .then((marker: GoogleMapsMarker) => {
-                    marker.showInfoWindow();
-                });*/
     }
 }
+
+/* native map: slow and doesn't work when embedded in the page
+    let map = new GoogleMap(this.map.nativeElement);
+    let coordinates: GoogleMapsLatLng = new GoogleMapsLatLng(parseInt(this._restaurant.Location.Latitude), parseInt(this._restaurant.Location.Longitude));
+    let position: CameraPosition = {
+        target: coordinates,
+        zoom: 18,
+        tilt: 30
+    };
+
+    map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        map.moveCamera(position); // works on iOS and Android
+    });
+
+    let markerOptions: GoogleMapsMarkerOptions = {
+        position: coordinates,
+        title: this._restaurant.Name
+    };
+    map.addMarker(markerOptions)
+        .then((marker: GoogleMapsMarker) => {
+            marker.showInfoWindow();
+        });*/

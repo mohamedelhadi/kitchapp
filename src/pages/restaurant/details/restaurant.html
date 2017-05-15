@@ -7,6 +7,9 @@
         </ion-buttons>
         <ion-title>{{restaurant.name}}</ion-title>
         <ion-buttons end>
+            <button ion-button icon-only (click)="call()">
+              <ion-icon name="call"></ion-icon>
+            </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -24,22 +27,25 @@
                     </p>
                 </ion-col>
                 <ion-col align-self-center col-2 class="favorite-icon-container" (click)="toggleFavorite()">
-                    <ion-icon name="{{_isFavorite ? 'heart' : 'heart-outline'}}" isActive="_isFavorite" item-end></ion-icon>
+                    <ion-icon name="{{isFavorite ? 'heart' : 'heart-outline'}}" isActive="isFavorite" item-end></ion-icon>
                 </ion-col>
             </ion-row>
         </ion-item>
     </div>
     <div class="bio-container">
+        <!--<ion-card>
+            <ion-card-header>Bio</ion-card-header>
+            <ion-card-content>{{restaurant.bio}}</ion-card-content>
+        </ion-card>-->
         <h3 no-margin>Bio</h3>
         <p>{{restaurant.bio}}</p>
         <div style="display: none;" #map class="map"></div>
-
-
 
         <!--<h1>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
             or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available.
             Make sure to include cordova.js or run in a device/simulator</h1>-->
     </div>
+    <ion-searchbar (ionInput)="onQueryChanged($event)"></ion-searchbar>
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
         <ion-fab-list side="top">

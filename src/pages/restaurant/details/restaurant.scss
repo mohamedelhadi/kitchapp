@@ -9,6 +9,7 @@ page-restaurant {
         .toolbar-title {
             color: white;
             font-weight: normal;
+            font-size: 1.8rem;
         }
         .icon {
             color: white;
@@ -72,7 +73,12 @@ page-restaurant {
         }
         .bio-container {
             margin-top: 160px;
-            padding: 0 16px 70px 16px;
+            padding: 0 16px 10px 16px;
+            /*padding: 0 8px;
+            ion-card {
+                margin: 0;
+                width: 100%;
+            }*/
             p {
                 margin-top: 5px;
             }

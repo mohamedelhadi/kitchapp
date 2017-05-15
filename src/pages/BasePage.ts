@@ -10,4 +10,12 @@ export abstract class BasePage {
             this.settings = settings;
         });
     }
+    /*ionViewDidLoad() {
+    }
+    ionViewWillEnter() {
+    }
+    ionViewWillLeave() {
+    }
+    ionViewDidEnter() {
+    }*/
 }
