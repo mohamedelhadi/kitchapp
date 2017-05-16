@@ -7,15 +7,24 @@
         </ion-buttons>
         <ion-title>{{restaurant.name}}</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="call()">
+            <button style="margin-right: 50px;" ion-button icon-only (click)="call()">
               <ion-icon name="call"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
+    <button class="search-toggle" clear ion-button icon-only (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
+        <ion-icon name="search"></ion-icon>
+    </button>
+    <!--<div class="searchbar-sprite" tappable (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
+        <div class="toggle">
+            <ion-icon name="search"></ion-icon>
+        </div>
+    </div>-->
+    <ion-searchbar (ionInput)="onQueryChanged($event)" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="Search menu items" [@searchbarState]="searchState"></ion-searchbar>
 </ion-header>
 <ion-content (ionScroll)="onScroll($event)">
     <div class="banner">
-        <ion-item no-border>
+        <ion-item no-border class="banner-content">
             <ion-thumbnail item-left>
                 <img [src]="restaurant.icon">
             </ion-thumbnail>
@@ -32,7 +41,7 @@
             </ion-row>
         </ion-item>
     </div>
-    <div class="bio-container">
+    <div class="top-container">
         <!--<ion-card>
             <ion-card-header>Bio</ion-card-header>
             <ion-card-content>{{restaurant.bio}}</ion-card-content>
@@ -40,12 +49,17 @@
         <h3 no-margin>Bio</h3>
         <p>{{restaurant.bio}}</p>
         <div style="display: none;" #map class="map"></div>
-
-        <!--<h1>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
-            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available.
-            Make sure to include cordova.js or run in a device/simulator</h1>-->
     </div>
-    <ion-searchbar (ionInput)="onQueryChanged($event)"></ion-searchbar>
+    <div style="padding: 0 10px;">
+        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
+        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
+        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
+        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
+    </div>
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
         <ion-fab-list side="top">

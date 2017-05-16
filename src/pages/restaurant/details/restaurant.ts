@@ -1,10 +1,11 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
-import { MenuController, NavController, NavParams, Navbar } from "ionic-angular";
+import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
+import { MenuController, NavController, NavParams, Navbar, Searchbar } from "ionic-angular";
 import { Logger } from "../../../app/helpers/logger";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { IRestaurant } from "../../../contracts";
-import { Subject } from "rxjs";
+import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 import { AppSettings } from "../../../app/services/index";
 import { BasePage } from "../../index";
@@ -13,7 +14,43 @@ declare const google;
 
 @Component({
     selector: "page-restaurant",
-    templateUrl: "restaurant.html"
+    templateUrl: "restaurant.html",
+    animations: [
+        trigger("searchbarSpriteState", [
+            state("collapsed", style({
+                width: "45px"
+            })),
+            state("focused", style({
+                width: "100%",
+                opacity: 0
+            })),
+            transition("collapsed <=> focused", animate("300ms ease-out"))
+        ]),
+        trigger("searchbarState", [
+            state("collapsed", style({
+                "opacity": 0,
+                "pointer-events": "none"
+            })),
+            state("focused", style({
+                opacity: 1
+            })),
+            transition("collapsed => focused", animate("500ms ease-in")),
+            transition("focused => collapsed", animate("500ms ease-out"))
+        ])
+        /*trigger("menuBtnTrigger", [
+            // state
+            state("collapsed", style({
+                opacity: 1
+            })),
+            state("focused", style({
+                opacity: 0,
+                "pointer-events": "none"
+            })),
+            // transition
+            transition("collapsed => focused", animate("300ms ease-out")),
+            transition("focused => collapsed", animate("500ms ease-out"))
+        ])*/
+    ]
 })
 export class Restaurant extends BasePage implements OnInit {
 
@@ -23,8 +60,11 @@ export class Restaurant extends BasePage implements OnInit {
     restaurant: IRestaurant;
     isFavorite: boolean;
     rating: number;
-    query = new Subject<string>();
+    query = new BehaviorSubject<string>("");
     leavingTab = new Subject(); // willLeave event doesn't fire for tabs
+
+    searchState: string = "collapsed";
+    @ViewChild("searchbar") searchbar: Searchbar;
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2,
@@ -35,6 +75,17 @@ export class Restaurant extends BasePage implements OnInit {
         this.data.isFavorite(this.restaurant)
             .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
             .subscribe(isFavorite => this.isFavorite = isFavorite);
+    }
+
+    focusSearchbar() {
+        this.searchState = "focused";
+        this.searchbar.setFocus();
+    }
+    collapseSearchbar() {
+        if (!this.query.getValue()) {
+            this.searchState = "collapsed";
+            // should hide keyboard if still visible
+        }
     }
     ngOnInit() {
         // fetch delayed restaurant details: e.g. bio
