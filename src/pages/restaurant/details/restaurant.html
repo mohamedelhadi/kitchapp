@@ -46,11 +46,14 @@
             <ion-card-header>Bio</ion-card-header>
             <ion-card-content>{{restaurant.bio}}</ion-card-content>
         </ion-card>-->
-        <h3 no-margin>Bio</h3>
+        <h4 no-margin>Bio</h4>
         <p>{{restaurant.bio}}</p>
         <div style="display: none;" #map class="map"></div>
     </div>
-    <div style="padding: 0 10px;">
+    <div class="category-items-container">
+        <button class="pictured-category-btn" clear small ion-button icon-right>Pictured Menu<ion-icon name="arrow-forward"></ion-icon></button>
+
+
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
             or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js

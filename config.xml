@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.app.simulator" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" android-versionCode="100000" ios-CFBundleVersion="1.0.0">
+<widget android-versionCode="100000" id="com.app.simulator" ios-CFBundleVersion="1.0.0" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>App - simulator</name>
     <description>App.</description>
     <author email="mohamed-elhadi@live.com" href="">Mohamed Elhadi</author>
@@ -7,6 +7,7 @@
     <access origin="*"/>
     <access origin="https://*.googleapis.com"/>
     <access origin="https://*.gstatic.com"/>
+    <access origin="http://placehold.it"/>
     <allow-navigation href="*"/>
     <allow-intent href="http://*/*"/>
     <allow-intent href="https://*/*"/>
@@ -93,4 +94,5 @@
         <variable name="API_KEY_FOR_IOS" value="AIzaSyBM0LLBwuRIeeA-3o6R_VuFfZbiifdlh1o"/>
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="~2.0.3"/>
+    <plugin name="cordova-plugin-geolocation" spec="~2.4.3"/>
 </widget>

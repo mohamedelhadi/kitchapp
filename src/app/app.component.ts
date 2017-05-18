@@ -1,11 +1,12 @@
 ﻿import { Component, ViewChild, AfterViewInit, OnInit } from "@angular/core";
-import { Platform, Nav } from "ionic-angular";
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { Platform, Nav, LoadingController, ToastController } from "ionic-angular";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { StatusBar } from "@ionic-native/status-bar";
 import { Splash } from "../pages/splash/splash";
 
 @Component({
-    templateUrl: "app.html"
+    templateUrl: "app.component.html",
+    providers: [LoadingController, ToastController]
 })
 export class App implements OnInit {
     @ViewChild(Nav) nav: Nav;

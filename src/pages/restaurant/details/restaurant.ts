@@ -55,13 +55,13 @@ declare const google;
 export class Restaurant extends BasePage implements OnInit {
 
     @ViewChild("navbar") navbar: Navbar;
-    @ViewChild("map") map: ElementRef;
+    @ViewChild("map") map: ElementRef; // TODO: move into branch tab
 
     restaurant: IRestaurant;
     isFavorite: boolean;
     rating: number;
     query = new BehaviorSubject<string>("");
-    leavingTab = new Subject(); // willLeave event doesn't fire for tabs
+    leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
 
     searchState: string = "collapsed";
     @ViewChild("searchbar") searchbar: Searchbar;
@@ -72,9 +72,6 @@ export class Restaurant extends BasePage implements OnInit {
         super(config, appSettings, logger);
         this.restaurant = navParams.data;
         this.rating = this.restaurant.branches[0].rate.overall;
-        this.data.isFavorite(this.restaurant)
-            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
-            .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
 
     focusSearchbar() {
@@ -84,11 +81,14 @@ export class Restaurant extends BasePage implements OnInit {
     collapseSearchbar() {
         if (!this.query.getValue()) {
             this.searchState = "collapsed";
-            // should hide keyboard if still visible
+            // TODO: hide keyboard if still visible
         }
     }
     ngOnInit() {
-        // fetch delayed restaurant details: e.g. bio
+        // TODO: fetch delayed restaurant details: e.g. bio
+        this.data.isFavorite(this.restaurant)
+            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
+            .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
     ionViewDidLoad() {
         // Load map only after view is initialize
@@ -99,7 +99,7 @@ export class Restaurant extends BasePage implements OnInit {
         this.leavingTab.next();
     }
     call() {
-        // open branches
+        // TODO: open branches
     }
     toggleFavorite() {
         this.data.setFavorite(this.restaurant, !this.isFavorite);

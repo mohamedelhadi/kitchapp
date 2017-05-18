@@ -1,4 +1,4 @@
-<ion-list radio-group>
+<ion-list>
     <ion-item-divider>Order</ion-item-divider>
     <ion-item>
         <ion-label>A - Z</ion-label>
@@ -15,13 +15,13 @@
     <ion-item-divider>Filter</ion-item-divider>
     <ion-item>
         <ion-label>City</ion-label>
-        <ion-select interface="action-sheet" (ionChange)="onChange()" placeholder="Select a city" [(ngModel)]="settings.cityId">
+        <ion-select interface="popover" (ionChange)="onChange()" placeholder="Select a city" [(ngModel)]="settings.cityId">
             <ion-option *ngFor="let city of cities | async" value="{{city.id}}">{{city.name[0]}}</ion-option>
         </ion-select>
     </ion-item>
     <ion-item>
         <ion-label>Cuisine</ion-label>
-        <ion-select interface="action-sheet" (ionChange)="onChange()" placeholder="Select a cuisine" [(ngModel)]="settings.cuisineId">
+        <ion-select interface="popover" (ionChange)="onChange()" placeholder="Select a cuisine" [(ngModel)]="settings.cuisineId">
             <ion-option *ngFor="let cuisine of cuisines | async" value="{{cuisine.id}}">{{cuisine.name[0]}}</ion-option>
         </ion-select>
     </ion-item>

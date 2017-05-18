@@ -1,9 +1,9 @@
-import { Settings } from "../../settings/settings";
 import { Favorites } from "../../favorites/favorites";
 import { NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
 import { IRestaurant } from "../../../contracts";
 import { Restaurant } from "../details/restaurant";
+import { Branches } from "../branches/branches";
 
 @Component({
     templateUrl: "tabs.html"
@@ -11,7 +11,7 @@ import { Restaurant } from "../details/restaurant";
 export class RestaurantTabs {
     index: number;
     tab1 = Restaurant;
-    tab2 = Settings;
+    tab2 = Branches;
     tab3 = Favorites;
     restaurant: IRestaurant;
 

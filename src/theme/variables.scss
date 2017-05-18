@@ -19,6 +19,7 @@ $colors: ( primary: #da3743, secondary: #32db64, danger: #f53d3d, light: #f4f4f4
 $toolbar-background: #da3743;
 $shades-of-gray: (lightest-gray: #F5F3F3, light-gray: #e7e7e7, gray: #7f7f7f, darker-gray: #515050, darkest-gray: #383838);
 $font-color: color($shades-of-gray, darker-gray);
+$page-background: color($shades-of-gray, lightest-gray);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

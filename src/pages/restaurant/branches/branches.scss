@@ -1,0 +1,132 @@
+page-branches {
+    ion-header {
+        .toolbar-title {
+            color: white;
+            font-weight: normal;
+            font-size: 1.8rem;
+        }
+    }
+    ion-content {
+        ion-card {
+            .card-header {
+                position: relative;
+                white-space: normal;
+                padding: 16px 70px 8px 16px;
+                .header-buttons {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    ion-icon {
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        font-size: x-large;
+                        text-align: center;
+                    }
+                    .icon:nth-child(2) {
+                        padding-left: 5px;
+                        border-left: solid 1px #bbbbbb;
+                    }
+                }
+            }
+            .card-content {
+                //padding: 10px;
+                ion-item {
+                    .item-inner {
+                        padding-right: 0 !important;
+                        ion-label {
+                            white-space: normal;
+                            margin: 0;
+                        }
+                    }
+                }
+                .photos {
+                    position: relative;
+                    button {
+                        position: absolute;
+                        bottom: 0;
+                        right: 2px;
+                    }
+                }
+                .rate {
+                    overflow: hidden;
+                    rating {
+                        ul {
+                            margin: 0;
+                            padding: 0;
+                            color: #FFCF00;
+                            font-size: medium;
+                            li {
+                                padding: 1px !important;
+                            }
+                        }
+                    }
+                    .rating-bar {
+                        padding: 3px;
+                    }
+                    .rating-bar {
+                        margin: 3px;
+                        padding: 0;
+                        font-size: 11px;
+                        line-height: 13px;
+                        position: relative;
+                        >div {
+                            position: absolute;
+                            top: 0;
+                            left: 10px;
+                            .animate {
+                                display: block;
+                                height: 11px;
+                                background-color: #fdb245;
+                            }
+                        }
+                    }
+                    /* .rate-n, n being the rating from 1 to 10 */
+                    .rating-bar .rate-1 {
+                        width: 10%;
+                    }
+                    .rate-2 {
+                        width: 20%;
+                    }
+                    .rate-3 {
+                        width: 30%;
+                    }
+                    .rate-4 {
+                        width: 40%;
+                    }
+                    .rate-5 {
+                        width: 50%;
+                    }
+                    .rate-6 {
+                        width: 60%;
+                    }
+                    .rate-7 {
+                        width: 70%;
+                    }
+                    .rate-8 {
+                        width: 80%;
+                    }
+                    .rate-9 {
+                        width: 90%;
+                    }
+                    .rate-10 {
+                        width: 100%;
+                    }
+                    /* CSS3 Animation */
+                    .animate {
+                        animation: progress 0.3s linear;
+                    }
+                    /* Span fills 100% of parent div (.rate-n) which may be 10-100% of the width of black bar (.rating) */
+                    @keyframes progress {
+                        from {
+                            width: 0%
+                        }
+                        to {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

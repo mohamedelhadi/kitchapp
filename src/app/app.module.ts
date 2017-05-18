@@ -23,6 +23,8 @@ import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
 import { AppSettings } from "./services";
 import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
+import { BranchesData } from "../pages/restaurant/branches/branches.data";
+import { Branches } from "../pages/restaurant/branches/branches";
 
 const _pages = [
     App,
@@ -31,9 +33,10 @@ const _pages = [
     Home,
     Settings,
     Restaurants,
-    Restaurant,
     Favorites,
-    RestaurantTabs
+    RestaurantTabs,
+    Restaurant,
+    Branches
 ];
 
 const _components = [
@@ -68,7 +71,8 @@ export function data_services() {
         RestaurantsData,
         CitiesData,
         CuisinesData,
-        DataLoader
+        DataLoader,
+        BranchesData
     ];
 }
 

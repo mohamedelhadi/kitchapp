@@ -89,7 +89,7 @@ function _prepareIndex(env) {
 
     // Content-Security-Policy
     let endpoint = _getEndpoint(env);
-    let content = "default-src 'self' gap: https://ssl.gstatic.com; style-src 'self' https://*.googleapis.com 'unsafe-inline'; img-src https://notify.bugsnag.com 'self' https://*.gstatic.com https://*.googleapis.com " + endpoint + " data:; " +
+    let content = "default-src 'self' gap: https://ssl.gstatic.com; style-src 'self' https://*.googleapis.com 'unsafe-inline'; img-src http://placehold.it https://notify.bugsnag.com 'self' https://*.gstatic.com https://*.googleapis.com " + endpoint + " data:; " +
         "script-src 'unsafe-inline' 'unsafe-eval' 'self' https://*.googleapis.com " + endpoint + "; connect-src 'self' https://*.googleapis.com " + endpoint + "; media-src *;";
     // script-src https://api.rollbar.com https://sentry.io http://localhost:35729/livereload.js https://codepush.azurewebsites.net
     // connect-src https://api.rollbar.com https://sentry.io ws://localhost:35729/livereload https://codepush.azurewebsites.net

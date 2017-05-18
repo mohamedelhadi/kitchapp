@@ -12,6 +12,8 @@ export interface IRestaurant {
     bio: string; // delayed
     categories: ICategory[]; // delayed
     picturedCategories: IPicturedCategory[]; // delayed
+    email?: string; // delayed
+    website?: string; // delayed
 }
 export interface IPicturedCategory {
     id: number;
@@ -22,9 +24,10 @@ export interface IBranch {
     id: number;
     name: string[];
     location: ILocation;
-    contact: IContact;  // delayed
-    rate: IBranchRateSummary; // delayed (but needed for sort) @##@ generated via auto mapper
+    rate: IBranchRateSummary; // to delay or not!?
+    phones: IPhone[]; // delayed // contact: IContact;  // delayed
     photos: string[]; // delayed
+    restaurantId: number;
 }
 export interface ICuisine { // predefined in db, pre-include in app as well
     id: number;
@@ -37,12 +40,12 @@ export interface ICategory {
     categoryItems: ICategoryItem[];
     // Parent?: ICategory; redundant
 }
-export interface IContact {
+/*export interface IContact {
     id: number;
     email?: string;
     website?: string;
     phones: IPhone[];
-}
+}*/
 export interface IPhone {
     id: number;
     name: string[];

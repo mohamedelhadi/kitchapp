@@ -30,6 +30,10 @@ ion-content {
   }
 }*/
 
+.content {
+    background-color: $page-background;
+}
+
 button[ion-fab] {
     overflow: visible;
     position: relative;

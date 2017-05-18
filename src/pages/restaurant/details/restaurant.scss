@@ -51,8 +51,9 @@ page-restaurant {
         }
         .banner {
             height: 141px;
-            background-image: url("../assets/images/banner.jpg");
+            background-image: url("../assets/images/banner5.jpg");
             background-size: 100%;
+            background-repeat: no-repeat;
             .banner-content {
                 position: absolute;
                 top: 50px; // move down the navbar
@@ -101,8 +102,21 @@ page-restaurant {
         }
         .top-container {
             padding: 10px;
+            background: white;
+            border-bottom: solid 1px color($shades-of-gray, light-gray);
+            margin-bottom: 5px;
             p {
                 margin: 5px 0 0 0;
+            }
+        }
+        .category-items-container {
+            background-color: white;
+            position: relative;
+            padding: 20px 10px 10px 10px;
+            .pictured-category-btn {
+                position: absolute;
+                right: 0;
+                top: 0;
             }
         }
         /*.map {
