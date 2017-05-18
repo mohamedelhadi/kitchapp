@@ -25,6 +25,8 @@ import { AppSettings } from "./services";
 import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
 import { BranchesData } from "../pages/restaurant/branches/branches.data";
 import { Branches } from "../pages/restaurant/branches/branches";
+import { LocationPopover } from "../pages/restaurant/branches/location/location.popover";
+import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popover";
 
 const _pages = [
     App,
@@ -40,7 +42,9 @@ const _pages = [
 ];
 
 const _components = [
-    RestaurantsPopover
+    RestaurantsPopover,
+    LocationPopover,
+    PhonesPopover
 ];
 
 const _directives = [

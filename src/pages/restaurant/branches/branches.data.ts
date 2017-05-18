@@ -4,6 +4,7 @@ import { IBranch, BRANCHES } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class BranchesData {
@@ -28,5 +29,12 @@ export class BranchesData {
                 this.branches.next(branches);
             });
         }
+    }
+
+    getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
+        return this.api.get(`branches/restaurantbranches/${restaurantId}`);
+        /*.subscribe((branches: IBranch[]) => {
+            this.branches.next(branches);
+        });*/
     }
 }

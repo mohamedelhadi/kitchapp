@@ -14,18 +14,18 @@
         <ion-card-header>
             {{branch.name[0]}}
             <div class="header-buttons">
-                <ion-icon name="map" color="primary" item-right></ion-icon>
-                <ion-icon name="call" color="primary" item-right></ion-icon>
+                <ion-icon name="map" color="primary" item-right (click)="showLocation($event, branch)"></ion-icon>
+                <ion-icon name="call" color="primary" item-right (click)="showPhones($event, branch)"></ion-icon>
             </div>
         </ion-card-header>
         <ion-card-content>
             <ion-item no-padding>
                 {{branch.location.address[0]}}
             </ion-item>
-            <div class="photos" *ngIf="branch.photos.length">
+            <!--<div class="photos" *ngIf="branch.photos.length">
                 <img [src]="branch.photos[0]" />
                 <button ion-button small color="light">See All</button>
-            </div>
+            </div>-->
             <div class="rate">
                 <ion-row>
                     <ion-col col-3 text-center>
@@ -35,31 +35,31 @@
                     <ion-col>
                         <div class="rating-bar">
                             5
-                            <div class="rate-10">
+                            <div class="rate-{{branch.rate.rated5}}">
                                 <div class="animate"></div>
                             </div>
                         </div>
                         <div class="rating-bar">
                             4
-                            <div class="rate-5">
+                            <div class="rate-{{branch.rate.rated4}}">
                                 <div class="animate"></div>
                             </div>
                         </div>
                         <div class="rating-bar">
                             3
-                            <div class="rate-2">
+                            <div class="rate-{{branch.rate.rated3}}">
                                 <div class="animate"></div>
                             </div>
                         </div>
                         <div class="rating-bar">
                             2
-                            <div class="rate-0">
+                            <div class="rate-{{branch.rate.rated2}}">
                                 <div class="animate"></div>
                             </div>
                         </div>
                         <div class="rating-bar">
                             1
-                            <div class="rate-1">
+                            <div class="rate-{{branch.rate.rated1}}">
                                 <div class="animate"></div>
                             </div>
                         </div>

@@ -10,8 +10,6 @@ import { Observable } from "rxjs/Observable";
 import { AppSettings } from "../../../app/services/index";
 import { BasePage } from "../../index";
 
-declare const google;
-
 @Component({
     selector: "page-restaurant",
     templateUrl: "restaurant.html",
@@ -55,8 +53,6 @@ declare const google;
 export class Restaurant extends BasePage implements OnInit {
 
     @ViewChild("navbar") navbar: Navbar;
-    @ViewChild("map") map: ElementRef; // TODO: move into branch tab
-
     restaurant: IRestaurant;
     isFavorite: boolean;
     rating: number;
@@ -85,14 +81,13 @@ export class Restaurant extends BasePage implements OnInit {
         }
     }
     ngOnInit() {
+        // init
+    }
+    ionViewDidLoad() {
         // TODO: fetch delayed restaurant details: e.g. bio
         this.data.isFavorite(this.restaurant)
             .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
             .subscribe(isFavorite => this.isFavorite = isFavorite);
-    }
-    ionViewDidLoad() {
-        // Load map only after view is initialize
-        // this.loadMap();
     }
     back() {
         this.navCtrl.parent.parent.pop();
@@ -127,27 +122,6 @@ export class Restaurant extends BasePage implements OnInit {
     }
     setElementOpacity(element: Element, opacity: number) {
         this.renderer.setStyle(element, "opacity", opacity.toString());
-    }
-    loadMap() {
-        if (google === undefined) { // failed to load google maps api due to network or whatever
-            return;
-        }
-        const coordinates = { lat: this.restaurant.branches[0].location.latitude, lng: this.restaurant.branches[0].location.longitude };
-        const map = new google.maps.Map(this.map.nativeElement, {
-            center: coordinates,
-            zoom: 16
-        });
-        const marker = new google.maps.Marker({
-            position: coordinates,
-            map,
-            title: this.restaurant.name[0]
-        });
-        const infoWindow = new google.maps.InfoWindow({
-            content: this.restaurant.name[0]
-        });
-        marker.addListener("click", () => {
-            infoWindow.open(map, marker);
-        });
     }
 }
 

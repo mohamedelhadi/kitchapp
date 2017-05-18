@@ -1,0 +1,15 @@
+<div #map class="map"></div>
+<ion-item class="address">
+    <h2>{{branch.name[0]}}</h2>
+    <p>{{branch.location.address[0]}}</p>
+</ion-item>
+
+<ion-item>
+    <button color="dark" ion-button clear item-left (click)="close()">
+        Close
+    </button>
+    <a [href]="locationUrl" ion-button icon-right clear item-right>
+        Navigate
+        <ion-icon name="navigate"></ion-icon>
+    </a>
+</ion-item>

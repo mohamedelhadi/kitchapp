@@ -8,9 +8,9 @@ export interface IRestaurant {
     tags: string;
     cuisineIds: number[];
     branches: IBranch[];
+    categories: ICategory[];
 
     bio: string; // delayed
-    categories: ICategory[]; // delayed
     picturedCategories: IPicturedCategory[]; // delayed
     email?: string; // delayed
     website?: string; // delayed
@@ -22,12 +22,12 @@ export interface IPicturedCategory {
 }
 export interface IBranch {
     id: number;
+    restaurantId: number;
     name: string[];
     location: ILocation;
     rate: IBranchRateSummary; // to delay or not!?
     phones: IPhone[]; // delayed // contact: IContact;  // delayed
     photos: string[]; // delayed
-    restaurantId: number;
 }
 export interface ICuisine { // predefined in db, pre-include in app as well
     id: number;
@@ -38,14 +38,7 @@ export interface ICategory {
     name: string[];
     children: ICategory[];
     categoryItems: ICategoryItem[];
-    // Parent?: ICategory; redundant
 }
-/*export interface IContact {
-    id: number;
-    email?: string;
-    website?: string;
-    phones: IPhone[];
-}*/
 export interface IPhone {
     id: number;
     name: string[];
@@ -67,8 +60,8 @@ export interface ICategoryItem {
     id: number;
     name: string[];
     tags: string;
-    cuisineId?: number; // null in case beverage
-    variations: IVariation[];
+    cuisineId?: number; // null in case of beverages
+    variations: IVariation[]; // delayed
 }
 export interface IVariation {
     id: number;
@@ -84,6 +77,15 @@ export interface IBranchRateSummary { // via auto mapper
     service: number; // service overall
     place: number; // place overall
     price: number; // price overall
+
+    ratesCounts?: number[]; // delayed
+    usersCount?: number; // delayed
+
+    rated5: number; // calculated on client
+    rated4: number; // calculated on client
+    rated3: number; // calculated on client
+    rated2: number; // calculated on client
+    rated1: number; // calculated on client
 }
 export interface IUser {
     id: number;

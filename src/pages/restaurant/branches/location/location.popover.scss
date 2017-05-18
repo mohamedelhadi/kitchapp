@@ -1,0 +1,20 @@
+location-popover {
+    .map {
+        height: 300px;
+        width: 100%;
+        /*@media (min-width: 767px) {
+            height: 550px;
+        }*/
+    }
+    .address {
+        padding-left: 0;
+        .item-inner {
+            padding-left: 16px;
+        }
+    }
+    a {
+        span {
+            color: #3282ff;
+        }
+    }
+}

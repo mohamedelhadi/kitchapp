@@ -38,6 +38,10 @@ export class Restaurants extends BasePage implements OnInit {
     }
 
     ngOnInit() {
+        // init
+    }
+
+    ionViewDidLoad() {
         this.data.getRestaurants();
         this.restaurants = this.data.Restaurants
             .combineLatest(this.query.startWith("").distinctUntilChanged(), this.searchSettings.startWith())

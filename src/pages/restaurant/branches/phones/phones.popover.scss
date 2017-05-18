@@ -1,0 +1,19 @@
+phones-popover {
+    .list {
+        .item {
+            .icon {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+            .item-inner {
+                margin-left: 5px;
+                .label {
+                    margin: 8px 0;
+                }
+            }
+            &.close-btn {
+                border-top: 1px solid #dedede;
+            }
+        }
+    }
+}
