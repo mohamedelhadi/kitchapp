@@ -1,15 +1,11 @@
 <ion-list no-padding no-margin no-lines>
     <ion-list-header>Phones</ion-list-header>
-    <!--<a ion-item *ngFor="let phone of branch.phones">
-        <ion-icon name="call" item-left></ion-icon>
-        <h3>{{phone.name[0]}}</h3>
-        <p>{{phone.number}}</p>
-    </a>-->
     <a ion-item *ngFor="let phone of branch.phones" [href]="sanitize(phone.number)">
         <ion-icon name="call" item-left></ion-icon>
         <h3>{{phone.name[0]}}</h3>
         <p>{{phone.number}}</p>
     </a>
+    <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-match">No phones found</ion-item>
     <ion-item margin-top class="close-btn">
         <button color="dark" ion-button clear item-left (click)="close()">
             Close
