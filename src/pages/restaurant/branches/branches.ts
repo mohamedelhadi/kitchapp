@@ -49,7 +49,7 @@ export class Branches extends BasePage {
         popover.present();
     }
     back() {
-        this.navCtrl.parent.parent.pop();
+        this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
         this.leavingTab.next();
     }
 }

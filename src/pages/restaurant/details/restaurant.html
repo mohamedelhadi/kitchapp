@@ -15,11 +15,6 @@
     <button class="search-toggle" clear ion-button icon-only (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
         <ion-icon name="search"></ion-icon>
     </button>
-    <!--<div class="searchbar-sprite" tappable (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
-        <div class="toggle">
-            <ion-icon name="search"></ion-icon>
-        </div>
-    </div>-->
     <ion-searchbar (ionInput)="onQueryChanged($event)" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="Search menu items" [@searchbarState]="searchState"></ion-searchbar>
 </ion-header>
 <ion-content (ionScroll)="onScroll($event)">
@@ -29,45 +24,73 @@
                 <img [src]="restaurant.icon">
             </ion-thumbnail>
             <ion-row>
-                <ion-col class="details">
+                <ion-col align-self-center class="details">
                     <h3>{{restaurant.slogan}}</h3>
                     <p>
                         <rating [(ngModel)]="rating" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
                     </p>
                 </ion-col>
-                <ion-col align-self-center col-2 class="favorite-icon-container" (click)="toggleFavorite()">
-                    <ion-icon name="{{isFavorite ? 'heart' : 'heart-outline'}}" isActive="isFavorite" item-end></ion-icon>
+                <ion-col (click)="hideBio = !hideBio;" align-self-center col-2 class="favorite-icon-container" no-padding>
+                    <!--
+                        the interface got cluttered, so favorites moved to fab button
+                        <ion-icon name="{{isFavorite ? 'heart' : 'heart-outline'}}" isActive="isFavorite" item-end (click)="toggleFavorite()"></ion-icon><br/>
+                    -->
+                    <ion-icon name="information-circle" item-end></ion-icon>
                 </ion-col>
             </ion-row>
         </ion-item>
     </div>
-    <div class="top-container">
-        <!--<ion-card>
-            <ion-card-header>Bio</ion-card-header>
-            <ion-card-content>{{restaurant.bio}}</ion-card-content>
-        </ion-card>-->
+    <ion-card [hidden]="hideBio">
+        <ion-card-header>Bio</ion-card-header>
+        <ion-card-content>
+            <p>{{restaurant.bio}}</p>
+            <p margin-top>{{restaurant.email}}</p>
+            <p>{{restaurant.website}}</p>
+        </ion-card-content>
+    </ion-card>
+    <!--<div class="top-container" [hidden]="hideBio">
         <h4 no-margin>Bio</h4>
-        <p>{{restaurant.bio}}</p>
-    </div>
+        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.{{restaurant.bio}}</p>
+    </div>-->
     <div class="category-items-container">
         <button class="pictured-category-btn" clear small ion-button icon-right>Pictured Menu<ion-icon name="arrow-forward"></ion-icon></button>
 
+        <ion-card *ngFor="let category of categories | async">
+            <ion-card-header>
+                <button ion-item no-padding (click)="category.expanded=!category.expanded;">
+                    {{category.name[0]}}
+                    <ion-icon [name]="category.expanded? 'ios-arrow-up' : 'ios-arrow-down'" item-right></ion-icon>
+                </button>
+            </ion-card-header>
+            <ion-list [hidden]="!category.expanded" [class.expanded]="category.expanded">
+                <button ion-item *ngFor="let item of category.categoryItems">
+                    <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-left></ion-icon>
+                    {{item.name[0]}}
+                    <!--<p style="white-space: normal">Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.</p>-->
+                    <!--<ion-icon name="ios-arrow-forward" item-right></ion-icon>-->
+                    <ion-badge color="secondary" item-right>{{item.variations[0].price + " SDG"}}</ion-badge>
+                </button>
+            </ion-list>
+        </ion-card>
 
-        <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
+
+
+        <!--<p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
             or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
             or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
             or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.js:60 Native: tried calling SplashScreen.hide, but Cordova is not available. Make sure to include cordova.js
-            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>
+            or run in a device/simulatorNative: tried calling StatusBar.styleDefault, but Cordova is not available.</p>-->
     </div>
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
         <ion-fab-list side="top">
             <button ion-fab><ion-icon color="primary" name="create"></ion-icon><ion-label>Write Review</ion-label></button>
-            <button ion-fab><ion-icon color="primary" name="image"></ion-icon><ion-label>Add Photo</ion-label></button>
-            <button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>
+            <button ion-fab (click)="toggleFavorite()"><ion-icon style="margin-top: 3px;" color="primary" [name]="isFavorite ? 'heart' : 'heart-outline'" isActive="isFavorite" item-end></ion-icon><ion-label>Favorites</ion-label></button>
+            <!-- TODO: activate in v2 <button ion-fab><ion-icon color="primary" name="ios-image"></ion-icon><ion-label>Add Photo</ion-label></button>-->
+            <!--<button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>-->
         </ion-fab-list>
     </ion-fab>
 </ion-content>

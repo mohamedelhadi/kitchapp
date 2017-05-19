@@ -19,21 +19,30 @@ export class Utils {
 
         return 12742 * Math.asin(Math.sqrt(a)); // Diameter of the earth in km (2 * 6371)
     }
-    /*static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
-        const R = 6371; // Radius of the earth in km
-        const dLat = Utils.deg2rad(lat2 - lat1);  // deg2rad below
-        const dLon = Utils.deg2rad(lon2 - lon1);
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(Utils.deg2rad(lat1)) * Math.cos(Utils.deg2rad(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const d = R * c; // Distance in km
-        return d;
+    static deepClone(o) { // recursiveDeepCopy2 =>  https://jsperf.com/js-deep-copy/7
+        // use with discretion!
+
+        // tslint:disable-next-line:one-variable-per-declaration
+        let newO, i;
+
+        if (typeof o !== "object") { return o; }
+        if (!o) { return o; }
+
+        if (o.constructor === Array) {
+            newO = [];
+            for (i = 0; i < o.length; i += 1) {
+                newO[i] = Utils.deepClone(o[i]);
+            }
+            return newO;
+        }
+
+        newO = {};
+        // tslint:disable-next-line:forin
+        for (i in o) {
+            newO[i] = Utils.deepClone(o[i]);
+        }
+        return newO;
     }
-    static deg2rad(deg) {
-        return deg * (Math.PI / 180);
-    }*/
     static containsArabic(text: string): boolean {
         return /[\u0600-\u06FF]/.test(text);
     }

@@ -80,6 +80,7 @@ page-restaurant {
                         max-width: 30px;
                         ion-icon {
                             font-size: x-large;
+                            padding: 4px;
                         }
                     }
                 }
@@ -103,20 +104,92 @@ page-restaurant {
         .top-container {
             padding: 10px;
             background: white;
-            border-bottom: solid 1px color($shades-of-gray, light-gray);
+            border-bottom: solid 1px color($shades-of-gray, lighter-gray);
             margin-bottom: 5px;
             p {
                 margin: 5px 0 0 0;
             }
         }
         .category-items-container {
-            background-color: white;
+            background: $page-background; // url("../../../assets/images/test.jpg") fixed no-repeat bottom right
             position: relative;
-            padding: 20px 10px 10px 10px;
+            padding: 35px 10px 10px 10px;
             .pictured-category-btn {
                 position: absolute;
                 right: 0;
                 top: 0;
+            }
+            ion-card {
+                margin: 0;
+                width: 100%;
+                +ion-card {
+                    margin-top: 10px;
+                }
+                ion-card-header {
+                    padding: 10px 16px;
+                    ;
+                    button {
+                        min-height: initial;
+                        ion-label {
+                            margin: 0;
+                        }
+                        .icon {
+                            margin: 0;
+                        }
+                    }
+                }
+                ion-list {
+                    @keyframes example {
+                        from {
+                            max-height: 0;
+                        }
+                        to {
+                            max-height: 200px;
+                        }
+                    }
+                    &.expanded {
+                        max-height: 2000px;
+                        animation: example 0.5s ease-in;
+                    }
+                    /*@keyframes example {
+                        from {
+                            transform: scaleY(0);
+                        }
+                        to {
+                            transform: scaleY(1);
+                        }
+                    }
+                    &.expanded {
+                        transform: scaleY(0);
+                        animation-name: example;
+                        animation-duration: 2s;
+                    }*/
+                    /*max-height: 0;
+                    transition: max-height 1.5s ease-out;
+                    overflow: hidden;
+                    &.expanded {
+                        max-height: 600px;
+                    }*/
+                    .item {
+                        border-bottom: solid 1px color($shades-of-gray, lighter-gray);
+                        ion-icon {
+                            color: color($shades-of-gray, darker-gray);
+                        }
+                        .item-inner {
+                            margin-left: 0;
+                            ion-badge {
+                                font-size: 12px;
+                                min-width: 65px;
+                                background: url(../assets/images/page-background.png);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .fab {
+            .label {
+                border: 1px solid lightgray;
             }
         }
     }

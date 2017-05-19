@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Api } from "../../app/services/api";
-import { IRestaurant, IFavorites, FAVORITE_RESTAURANTS } from "../../contracts";
+import { IRestaurant, IFavorites, FAVORITE_RESTAURANTS, ICategory } from "../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { Subject, BehaviorSubject } from "rxjs";
@@ -49,6 +49,14 @@ export class RestaurantsData {
                 this.restaurants.next(tmp);
             }, 0);*/
         }
+    }
+
+    getCategories(restaurantId: number): Observable<ICategory[]> {
+        return this.api.get(`restaurants/categories/${restaurantId}`);
+    }
+
+    getRestaurant(id: number): Observable<IRestaurant> {
+        return this.api.get(`restaurants/${id}`);
     }
 
     isFavorite(restaurant: IRestaurant): Observable<boolean> {

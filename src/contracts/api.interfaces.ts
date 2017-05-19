@@ -38,6 +38,8 @@ export interface ICategory {
     name: string[];
     children: ICategory[];
     categoryItems: ICategoryItem[];
+
+    expanded: boolean; // client side
 }
 export interface IPhone {
     id: number;
