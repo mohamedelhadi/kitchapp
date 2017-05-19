@@ -151,25 +151,6 @@ page-restaurant {
                         max-height: 2000px;
                         animation: example 0.5s ease-in;
                     }
-                    /*@keyframes example {
-                        from {
-                            transform: scaleY(0);
-                        }
-                        to {
-                            transform: scaleY(1);
-                        }
-                    }
-                    &.expanded {
-                        transform: scaleY(0);
-                        animation-name: example;
-                        animation-duration: 2s;
-                    }*/
-                    /*max-height: 0;
-                    transition: max-height 1.5s ease-out;
-                    overflow: hidden;
-                    &.expanded {
-                        max-height: 600px;
-                    }*/
                     .item {
                         border-bottom: solid 1px color($shades-of-gray, lighter-gray);
                         ion-icon {

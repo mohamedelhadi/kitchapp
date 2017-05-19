@@ -63,11 +63,6 @@ export class Restaurants extends BasePage implements OnInit {
         // .do(() => this.ui.hideLoading());
     }
 
-    /*update() { not necessary to update restaurants list, splash handles auto update on every launch
-        this.ui.showLoading();
-        this.data.getRestaurants(true);
-    }*/
-
     viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, restaurant);
     }

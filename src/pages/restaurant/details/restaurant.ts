@@ -38,29 +38,6 @@ import { Utils } from "../../../app/helpers/utils";
             transition("collapsed => focused", animate("550ms ease-in")),
             transition("focused => collapsed", animate("500ms ease-out"))
         ])
-        /*trigger("categoryState", [
-            state("collapsed", style({
-                transform: "scaleY(0)"
-            })),
-            state("expanded", style({
-                transform: "scaleY(1)"
-            })),
-            transition("collapsed => expanded", animate("550ms ease-in")),
-            transition("expanded => collapsed", animate("500ms ease-out"))
-        ])
-        trigger("menuBtnTrigger", [
-            // state
-            state("collapsed", style({
-                opacity: 1
-            })),
-            state("focused", style({
-                opacity: 0,
-                "pointer-events": "none"
-            })),
-            // transition
-            transition("collapsed => focused", animate("300ms ease-out")),
-            transition("focused => collapsed", animate("500ms ease-out"))
-        ])*/
     ]
 })
 export class Restaurant extends BasePage implements OnInit {
@@ -73,7 +50,6 @@ export class Restaurant extends BasePage implements OnInit {
     isFavorite: boolean;
     rating: number;
     hideBio: boolean = true;
-    allCategories = new Subject<ICategory[]>();
     categories: Observable<ICategory[]>;
     query = new BehaviorSubject<string>("");
     noMatchForQuery: boolean;
@@ -122,43 +98,6 @@ export class Restaurant extends BasePage implements OnInit {
         this.data.isFavorite(this.restaurant)
             .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
             .subscribe(isFavorite => this.isFavorite = isFavorite);
-
-        /*this.data.getRestaurant(this.restaurant.id)
-            .subscribe(restaurant => {
-                this.ui.hideLoading();
-                this.restaurant = restaurant;
-                this.allCategories.next(restaurant.categories);
-            });
-        this.categories = this.allCategories
-            .combineLatest(this.query.startWith("").distinctUntilChanged())
-            .debounceTime(300)
-            .map(([categories, query]) => {
-                console.time("timerName");
-                // query
-                categories = this.search(cloneDeep(categories), query);
-                // order
-                // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[0]);
-                console.timeEnd("timerName");
-
-                this.noMatchForQuery = query && categories.length === 0;
-                return categories;
-            });*/
-        /*this.categories = Observable.of(this.restaurant.categories) // this.data.getCategories(this.restaurant.id)
-            .combineLatest(this.query.startWith("").distinctUntilChanged())
-            .debounceTime(300)
-            .map(([categories, query]) => {
-                console.time("timerName");
-
-                // query
-                categories = this.search(categories, query);
-                // order
-                // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[0]);
-
-                console.timeEnd("timerName");
-                this.noMatchForQuery = query && categories.length === 0;
-                return categories;
-            });*/
-        // .subscribe(restaurant => this.restaurant = restaurant);
     }
     search(categories: ICategory[], query: string) {
         if (query && query.trim() !== "") {
@@ -212,25 +151,3 @@ export class Restaurant extends BasePage implements OnInit {
         this.renderer.setStyle(element, "opacity", opacity.toString());
     }
 }
-
-/* native map: slow and doesn't work when embedded in the page
-    let map = new GoogleMap(this.map.nativeElement);
-    let coordinates: GoogleMapsLatLng = new GoogleMapsLatLng(parseInt(this._restaurant.Location.Latitude), parseInt(this._restaurant.Location.Longitude));
-    let position: CameraPosition = {
-        target: coordinates,
-        zoom: 18,
-        tilt: 30
-    };
-
-    map.one(GoogleMapsEvent.MAP_READY).then(() => {
-        map.moveCamera(position); // works on iOS and Android
-    });
-
-    let markerOptions: GoogleMapsMarkerOptions = {
-        position: coordinates,
-        title: this._restaurant.Name
-    };
-    map.addMarker(markerOptions)
-        .then((marker: GoogleMapsMarker) => {
-            marker.showInfoWindow();
-        });*/
