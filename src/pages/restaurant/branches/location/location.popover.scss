@@ -6,18 +6,24 @@ location-popover {
             height: 550px;
         }*/
     }
-    .address {
+    .item.address {
         padding-left: 0;
+        h2 {
+            white-space: normal;
+        }
         .item-inner {
             padding-left: 16px;
+            border: none;
         }
     }
-    a {
-        span {
-            color: #3282ff;
+    .item.popover-footer {
+        .item-inner {
+            padding-right: 16px;
+            a {
+                span {
+                    color: #3282ff;
+                }
+            }
         }
-    }
-    .popover-footer {
-        background: $texture-background;
     }
 }

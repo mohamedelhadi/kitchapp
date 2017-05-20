@@ -26,7 +26,7 @@
             <ion-row>
                 <ion-col align-self-center class="details">
                     <h3>{{restaurant.slogan}}</h3>
-                    <p>
+                    <p (click)="showBranchRate($event)">
                         <rating readOnly="true" [(ngModel)]="rating" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
                     </p>
                 </ion-col>

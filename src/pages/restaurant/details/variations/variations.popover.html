@@ -1,11 +1,11 @@
-<ion-list no-padding no-margin no-lines>
+<ion-list no-padding no-margin>
     <ion-list-header no-margin>{{item.name[0]}}</ion-list-header>
     <!--<ion-item *ngFor="let variation of item.variations">
         <ion-icon name="call" item-left></ion-icon>
         <h3>{{variation.name[0]}}</h3>
         <p>{{variation.number}}</p>
     </ion-item>-->
-    <ion-item *ngFor="let variation of item.variations">
+    <ion-item *ngFor="let variation of item.variations" no-lines>
         <ion-thumbnail item-left>
             <img [src]="variation.photo ? variation.photo  : '../../../../assets/images/item.png'" imageViewer />
         </ion-thumbnail>
@@ -15,7 +15,7 @@
         <!--<p>{{variation.description}}</p> show description at bottom when user clicks on photo to view it-->
         <!--<ion-badge item-right>{{variation.price}} SDG</ion-badge>-->
     </ion-item>
-    <!-- all items must have at least one <ion-item no-padding *ngIf="!item.variations || !item.variations.length" text-center class="no-match">No variations</ion-item>-->
+    <!-- all items must have at least one variation <ion-item no-padding *ngIf="!item.variations || !item.variations.length" text-center class="no-match">No variations</ion-item>-->
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-left (click)="close()">
             Close

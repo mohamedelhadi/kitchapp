@@ -1,6 +1,6 @@
-<ion-list no-padding no-margin no-lines>
+<ion-list no-padding no-margin>
     <ion-list-header>Phones</ion-list-header>
-    <a ion-item *ngFor="let phone of branch.phones" [href]="sanitize(phone.number)">
+    <a ion-item *ngFor="let phone of branch.phones" [href]="sanitize(phone.number)" no-lines>
         <ion-icon name="call" item-left></ion-icon>
         <h3>{{phone.name[0]}}</h3>
         <p>{{phone.number}}</p>

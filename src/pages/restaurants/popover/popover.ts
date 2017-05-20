@@ -17,11 +17,9 @@ export class RestaurantsPopover {
         this.cities = params.data.cities;
         this.cuisines = params.data.cuisines;
     }
-
     onChange() {
         (this.params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).next(this.settings);
     }
-
     close() {
         this.viewCtrl.dismiss(this.settings);
     }

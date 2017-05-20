@@ -30,6 +30,7 @@ import { Branches } from "../pages/restaurant/branches/branches";
 import { LocationPopover } from "../pages/restaurant/branches/location/location.popover";
 import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popover";
 import { VariationsPopover } from "../pages/restaurant/details/variations/variations.popover";
+import { BranchRatePopover } from "../pages/restaurant/branches/rate/rate.popover";
 
 const _pages = [
     App,
@@ -48,7 +49,8 @@ const _components = [
     RestaurantsPopover,
     LocationPopover,
     PhonesPopover,
-    VariationsPopover
+    VariationsPopover,
+    BranchRatePopover
 ];
 
 const _directives = [

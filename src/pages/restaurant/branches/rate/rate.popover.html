@@ -1,0 +1,80 @@
+<ion-list no-padding no-margin>
+    <ion-list-header no-margin>Rate</ion-list-header>
+    <ion-item no-lines class="branch">
+        <ion-label>
+            Branch
+            <p *ngIf="!canChangeBranch">{{branches[selectedBranchId].name[0]}}</p>
+        </ion-label>
+        <ion-select *ngIf="canChangeBranch" interface="popover" (ionChange)="onChange()" placeholder="Select a branch" [(ngModel)]="selectedBranchId">
+            <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[0]}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item margin-top no-lines class="range-item">
+        <!--<ion-row>
+            <ion-col>
+                Quality {{quality}}/5
+            </ion-col>
+            <ion-col>
+                <rating [(ngModel)]="quality" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+            </ion-col>
+        </ion-row>-->
+        <ion-label class="rate-label" no-margin>Quality {{quality}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>5</ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <!--<ion-row>
+            <ion-col>
+                Service {{service}}/5
+            </ion-col>
+            <ion-col>
+                <rating [(ngModel)]="service" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+            </ion-col>
+        </ion-row>-->
+        <ion-label class="rate-label" no-margin>Service {{service}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="service" color="primary">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>5</ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <!--<ion-row>
+            <ion-col>
+                Place {{place}}/5
+            </ion-col>
+            <ion-col>
+                <rating [(ngModel)]="place" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+            </ion-col>
+        </ion-row>-->
+        <ion-label class="rate-label" no-margin>Place {{place}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="place" color="primary">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>5</ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <!--<ion-row>
+            <ion-col>
+                Price {{price}}/5
+            </ion-col>
+            <ion-col>
+                <rating [(ngModel)]="price" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+            </ion-col>
+        </ion-row>-->
+        <ion-label class="rate-label" no-margin>Price {{price}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="price" color="primary">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>5</ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item margin-top class="popover-footer">
+        <button color="dark" ion-button clear item-left (click)="close()">
+            Close
+        </button>
+        <button color="primary" ion-button clear item-right (click)="close()">
+            Submit
+        </button>
+    </ion-item>
+</ion-list>

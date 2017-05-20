@@ -1,0 +1,47 @@
+branch-rate-popover {
+    .list {
+        .item.branch {
+            border-bottom: 1px solid #dedede;
+            padding-bottom: 10px;
+            .label {
+                margin: 0;
+                p {
+                    white-space: normal;
+                }
+            }
+        }
+        .range-item {
+            .rate-label {
+                font-size: 14px;
+            }
+            ion-range {
+                margin: 0;
+                padding: 0;
+            }
+            .item-inner {
+                padding-right: 16px;
+            }
+            /*.label {
+                margin: 5px 0;
+                .col {
+                    line-height: 29px;
+                }
+                rating {
+                    ul {
+                        margin: 4px 0 0 0;
+                        margin: 0;
+                        padding: 0;
+                        color: #FFC200;
+                        font-size: 22px;
+                        li {
+                            padding: 1px !important;
+                        }
+                    }
+                }
+            }*/
+        }
+        .no-match {
+            height: 30px;
+        }
+    }
+}

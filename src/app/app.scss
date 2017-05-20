@@ -49,3 +49,26 @@ button[ion-fab] {
 .wide-popover .popover-content {
     width: 300px;
 }
+
+.item-select {
+    ion-select {
+        max-width: 70%;
+    }
+    .label {
+        color: black;
+    }
+}
+
+.popover-footer {
+    border-top: 1px solid #dedede;
+    border-width: 1px;
+    background: $texture-background;
+    padding-left: 4px;
+    .button,
+    a {
+        padding: 9px 8px 9px 8px;
+        margin: 0;
+        width: 90px;
+        height: 40px;
+    }
+}

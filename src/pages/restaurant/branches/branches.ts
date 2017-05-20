@@ -3,12 +3,13 @@ import { NavController, NavParams, PopoverController } from "ionic-angular";
 import { BasePage } from "../../";
 import { Configuration } from "../../../environments/env.config";
 import { AppSettings } from "../../../app/services/";
-import { Logger } from "../../../app/helpers/";
+import { Logger, UI } from "../../../app/helpers/";
 import { BranchesData } from "./branches.data";
 import { IRestaurant, IBranch } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
+import { BranchRatePopover } from "./rate/rate.popover";
 
 @Component({
     selector: "page-branches",
@@ -18,7 +19,7 @@ export class Branches extends BasePage {
     restaurant: IRestaurant;
     leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
     constructor(
-        private config: Configuration, private appSettings: AppSettings, private logger: Logger,
+        private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: BranchesData) {
         super(config, appSettings, logger);
@@ -49,6 +50,18 @@ export class Branches extends BasePage {
             { cssClass: "wide-popover" }
         );
         popover.present();
+    }
+    showRate(ev, branch: IBranch) {
+        const firstTime = true;
+        if (firstTime) {
+            const popover = this.popoverCtrl.create(BranchRatePopover,
+                { branch, branches: this.restaurant.branches },
+                { cssClass: "wide-popover" }
+            );
+            popover.present();
+        } else {
+            this.ui.showToast("You have already rated this branch!");
+        }
     }
     back() {
         this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural

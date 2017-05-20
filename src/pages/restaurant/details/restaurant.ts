@@ -13,6 +13,7 @@ import { UI } from "../../../app/helpers/index";
 import { orderBy, some } from "lodash";
 import { Utils } from "../../../app/helpers/utils";
 import { VariationsPopover } from "./variations/variations.popover";
+import { BranchRatePopover } from "../branches/rate/rate.popover";
 
 @Component({
     selector: "page-restaurant",
@@ -126,6 +127,18 @@ export class Restaurant extends BasePage implements OnInit {
             { cssClass: "wide-popover" }
         );
         popover.present();
+    }
+    showBranchRate(ev) {
+        const firstTime = true;
+        if (firstTime) {
+            const popover = this.popoverCtrl.create(BranchRatePopover,
+                { branches: this.restaurant.branches },
+                { cssClass: "wide-popover" }
+            );
+            popover.present(); // { ev });
+        } else {
+            this.ui.showToast("You have already rated this branch!");
+        }
     }
     call() {
         this.navCtrl.parent.select(1);

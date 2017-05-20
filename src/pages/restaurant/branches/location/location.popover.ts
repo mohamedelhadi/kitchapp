@@ -1,7 +1,5 @@
 import { ViewController, NavParams } from "ionic-angular";
 import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { IBranch } from "../../../../contracts";
 import { DomSanitizer } from "@angular/platform-browser";
 
