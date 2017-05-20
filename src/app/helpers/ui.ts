@@ -22,7 +22,7 @@ export class UI {
             this.loading = this.loadingCtrl.create({
                 spinner: "crescent",
                 content,
-                showBackdrop,
+                showBackdrop
                 /*cssClass,
                 delay,
                 dismissOnPageChange,

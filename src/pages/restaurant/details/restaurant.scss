@@ -111,9 +111,10 @@ page-restaurant {
             }
         }
         .category-items-container {
-            background: $page-background; // url("../../../assets/images/test.jpg") fixed no-repeat bottom right
+            background: $texture-background; // url("../../../assets/images/test.jpg") fixed no-repeat bottom right
             position: relative;
             padding: 35px 10px 10px 10px;
+            padding-top: 10px; // TODO: remove once pictured menu is added
             .pictured-category-btn {
                 position: absolute;
                 right: 0;
@@ -161,7 +162,8 @@ page-restaurant {
                             ion-badge {
                                 font-size: 12px;
                                 min-width: 65px;
-                                background: url(../assets/images/page-background.png);
+                                font-weight: normal;
+                                background: $texture-background;
                             }
                         }
                     }

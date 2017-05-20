@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { MenuController, NavController, NavParams, Navbar, Searchbar } from "ionic-angular";
+import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController } from "ionic-angular";
 import { Logger } from "../../../app/helpers/logger";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
@@ -12,6 +12,7 @@ import { BasePage } from "../../index";
 import { UI } from "../../../app/helpers/index";
 import { orderBy, some } from "lodash";
 import { Utils } from "../../../app/helpers/utils";
+import { VariationsPopover } from "./variations/variations.popover";
 
 @Component({
     selector: "page-restaurant",
@@ -56,7 +57,7 @@ export class Restaurant extends BasePage implements OnInit {
     leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2,
+        private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController,
         private data: RestaurantsData) {
         super(config, appSettings, logger);
         this.restaurant = navParams.data;
@@ -118,6 +119,13 @@ export class Restaurant extends BasePage implements OnInit {
     }
     onQueryChanged(ev: any) {
         this.query.next(ev.target.value);
+    }
+    showVariations(ev, item: ICategoryItem) {
+        const popover = this.popoverCtrl.create(VariationsPopover,
+            { item },
+            { cssClass: "wide-popover" }
+        );
+        popover.present();
     }
     call() {
         this.navCtrl.parent.select(1);

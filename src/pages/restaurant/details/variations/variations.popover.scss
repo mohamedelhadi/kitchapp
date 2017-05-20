@@ -1,0 +1,51 @@
+variations-popover {
+    .list-header {
+        min-height: 30px;
+        .label {
+            margin-top: 8px !important;
+        }
+    }
+    .list {
+        .item {
+            ion-thumbnail {
+                img {
+                    height: initial;
+                }
+            }
+            .icon {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+            .input-wrapper {
+                align-items: flex-start;
+                .label {
+                    margin: 5px 0 0 0;
+                    h2,
+                    h3,
+                    p {
+                        white-space: normal;
+                        padding-left: 3px;
+                    }
+                }
+            }
+            &.popover-footer {
+                border-top: 1px solid #dedede;
+                background: $texture-background;
+            }
+            rating {
+                ul {
+                    margin: -4px 0 0 0;
+                    padding: 0;
+                    color: #FFCF00;
+                    font-size: medium;
+                    li {
+                        padding: 1px !important;
+                    }
+                }
+            }
+        }
+        .no-match {
+            height: 30px;
+        }
+    }
+}

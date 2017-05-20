@@ -4,6 +4,9 @@ import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 
+import { Ionic2RatingModule } from "ionic2-rating";
+import { IonicImageViewerModule } from "ionic-img-viewer";
+
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
@@ -17,7 +20,6 @@ import { RestaurantsData } from "../pages/restaurants/restaurants.data";
 import { App } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
 import { Api } from "./services";
-import { Ionic2RatingModule } from "ionic2-rating";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
@@ -27,6 +29,7 @@ import { BranchesData } from "../pages/restaurant/branches/branches.data";
 import { Branches } from "../pages/restaurant/branches/branches";
 import { LocationPopover } from "../pages/restaurant/branches/location/location.popover";
 import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popover";
+import { VariationsPopover } from "../pages/restaurant/details/variations/variations.popover";
 
 const _pages = [
     App,
@@ -44,7 +47,8 @@ const _pages = [
 const _components = [
     RestaurantsPopover,
     LocationPopover,
-    PhonesPopover
+    PhonesPopover,
+    VariationsPopover
 ];
 
 const _directives = [
@@ -102,7 +106,8 @@ export function providers() {
         BrowserAnimationsModule,
         IonicModule.forRoot(App),
         IonicStorageModule.forRoot(),
-        Ionic2RatingModule
+        Ionic2RatingModule,
+        IonicImageViewerModule
     ],
     bootstrap: [IonicApp],
     entryComponents: components(),

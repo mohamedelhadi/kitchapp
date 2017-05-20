@@ -27,7 +27,7 @@
                 <ion-col align-self-center class="details">
                     <h3>{{restaurant.slogan}}</h3>
                     <p>
-                        <rating [(ngModel)]="rating" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
+                        <rating readOnly="true" [(ngModel)]="rating" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onRateChange($event)"></rating>
                     </p>
                 </ion-col>
                 <ion-col (click)="hideBio = !hideBio;" align-self-center col-2 class="favorite-icon-container" no-padding>
@@ -53,7 +53,7 @@
         <p>Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.js or run in a device/simulator util.{{restaurant.bio}}</p>
     </div>-->
     <div class="category-items-container">
-        <button class="pictured-category-btn" clear small ion-button icon-right>Pictured Menu<ion-icon name="arrow-forward"></ion-icon></button>
+        <!-- pushed to v2 <button class="pictured-category-btn" clear small ion-button icon-right>Pictured Menu<ion-icon name="arrow-forward"></ion-icon></button>-->
 
         <ion-card *ngFor="let category of categories | async">
             <ion-card-header>
@@ -63,12 +63,12 @@
                 </button>
             </ion-card-header>
             <ion-list [hidden]="!category.expanded" [class.expanded]="category.expanded">
-                <button ion-item *ngFor="let item of category.categoryItems">
+                <button ion-item *ngFor="let item of category.categoryItems" (click)="showVariations($event, item)">
                     <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-left></ion-icon>
                     {{item.name[0]}}
                     <!--<p style="white-space: normal">Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.</p>-->
                     <!--<ion-icon name="ios-arrow-forward" item-right></ion-icon>-->
-                    <ion-badge color="secondary" item-right>{{item.variations[0].price + " SDG"}}</ion-badge>
+                    <ion-badge color="secondary" item-right><b>{{item.variations[0].price}}</b> SDG</ion-badge>
                 </button>
             </ion-list>
         </ion-card>

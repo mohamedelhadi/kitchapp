@@ -37,15 +37,17 @@ export class Branches extends BasePage {
         });
     }
     showLocation(ev, branch: IBranch) {
-        const popover = this.popoverCtrl.create(LocationPopover, {
-            branch
-        });
+        const popover = this.popoverCtrl.create(LocationPopover,
+            { branch },
+            { cssClass: "wide-popover" }
+        );
         popover.present();
     }
     showPhones(ev, branch: IBranch) {
-        const popover = this.popoverCtrl.create(PhonesPopover, {
-            branch
-        });
+        const popover = this.popoverCtrl.create(PhonesPopover,
+            { branch },
+            { cssClass: "wide-popover" }
+        );
         popover.present();
     }
     back() {

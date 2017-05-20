@@ -6,7 +6,7 @@
         <p>{{phone.number}}</p>
     </a>
     <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-match">No phones found</ion-item>
-    <ion-item margin-top class="close-btn">
+    <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-left (click)="close()">
             Close
         </button>

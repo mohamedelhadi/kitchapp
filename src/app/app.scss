@@ -13,7 +13,7 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .content {
-    background: $page-background;
+    background: $texture-background;
 }
 
 button[ion-fab] {
@@ -41,4 +41,11 @@ button[ion-fab] {
     height: 120px;
     font-size: large;
     background-color: transparent;
+    .item-inner {
+        border: none !important;
+    }
+}
+
+.wide-popover .popover-content {
+    width: 300px;
 }
