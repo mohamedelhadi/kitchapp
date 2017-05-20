@@ -12,6 +12,8 @@ branch-rate-popover {
         }
         .range-item {
             .rate-label {
+                width: 100%;
+                text-align: center;
                 font-size: 14px;
             }
             ion-range {

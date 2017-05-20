@@ -4,10 +4,10 @@
         "member-access": false,
         "trailing-comma": [
             true,
-          {
-            "multiline": "never",
-            "singleline": "never"
-          }
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
         ],
         "max-line-length": [
             false
@@ -40,13 +40,27 @@
         "node_modules/tslint-eslint-rules/dist/rules"
     ],
     "jsRules": {
+        "no-console": [
+            false
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "max-line-length": [
+            false
+        ],
+        "object-literal-sort-keys": false,
         "class-name": true,
         "comment-format": [
             true,
             "check-space"
         ],
         "indent": [
-            true,
+            false,
             "tabs"
         ],
         "no-duplicate-variable": true,

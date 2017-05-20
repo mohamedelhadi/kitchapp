@@ -1,9 +1,18 @@
-import { argv } from 'yargs';
-import color from 'cli-color';
-import { initialize } from './js/initializer';
-import { copyOutput } from './js/finalizer';
+import {
+    argv
+} from "yargs";
+import color from "cli-color";
+import {
+    initialize
+} from "./js/initializer";
+import {
+    copyOutput
+} from "./js/finalizer";
 
-let env = argv._[0] || "simulator", platform = argv._[1] || "android", action = argv.action || "initialize";
+// tslint:disable-next-line:one-variable-per-declaration
+let env = argv._[0] || "simulator",
+    platform = argv._[1] || "android",
+    action = argv.action || "initialize";
 
 
 if (action === "initialize") {

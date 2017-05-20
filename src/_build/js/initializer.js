@@ -8,13 +8,13 @@ let gulp = require("gulp");
 let rename = require("gulp-rename");
 
 import {
-    getVersionDetails,
+    getVersionDetails
 } from "./version";
 import {
-    default as environments,
+    default as environments
 } from "../json/environments";
 import {
-    default as endpoints,
+    default as endpoints
 } from "../json/endpoints";
 
 export {
@@ -61,7 +61,7 @@ function _prepareCordovaConfig(env) {
     return getVersionDetails(env).then(versionDetails => {
         let $ = cheerio.load(fs.readFileSync("config.xml"), {
             xmlMode: true,
-            decodeEntities: false,
+            decodeEntities: false
         });
         $("widget").attr("id", details.packageName);
         $("name").text(details.appName);
@@ -80,7 +80,7 @@ function _prepareIndex(env) {
     console.log(color.cyan("Preparing index.html..."));
 
     let $ = cheerio.load(fs.readFileSync("src/index.html"), {
-        decodeEntities: false, // to avoid converting single quotes (in content security policy) to &apos;
+        decodeEntities: false // to avoid converting single quotes (in content security policy) to &apos;
     });
     // if target is the simulator (browser) omit cordova.js otherwise add it
     // cordova script performs initializations that doesn't work on the simulator so we remove it (however cordova script is required on an emulator/real device)
@@ -126,7 +126,7 @@ function _getConfigDetails(env) {
     return {
         packageName: packageName,
         appName: appName,
-        endpoint: _getEndpoint(env),
+        endpoint: _getEndpoint(env)
     };
 }
 

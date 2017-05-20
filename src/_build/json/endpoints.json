@@ -1,7 +1,7 @@
 {
     "simulator": "http://localhost:53882",
-    "dev": "http://10.0.2.2:8100",
+    "dev": "http://192.168.1.109",
     "testing": "http://www.example.com",
     "staging": "http://www.example.com",
-    "production": "http://www.example.com"
+    "production": "http://192.168.1.109"
 }

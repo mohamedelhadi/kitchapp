@@ -17,13 +17,10 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
     ]
 })
 export class Home {
-
     query: string = "";
-
     constructor(private splashScreen: SplashScreen, private config: Configuration, private api: Api, private logger: Logger, private restaurantsData: RestaurantsData, private menu: MenuController, private navCtrl: NavController) {
         // this.menu.enable(false);
     }
-
     ionViewDidLoad() {
         this.splashScreen.hide();
         /*this.restaurantsData.Restaurants.subscribe(restaurants => {
@@ -32,11 +29,9 @@ export class Home {
             }
         });*/
     }
-
     viewRestaurants() {
         this.navCtrl.push(Restaurants);
     }
-
     viewFavorites() {
         this.navCtrl.push(Favorites);
     }

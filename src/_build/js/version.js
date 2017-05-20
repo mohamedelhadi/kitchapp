@@ -1,16 +1,22 @@
-let fs = require('fs');
-let color = require('cli-color');
+let fs = require("fs");
+let color = require("cli-color");
 
-import { default as environments } from "../json/environments";
-import { default as versions } from "../json/versions";
+import {
+    default as environments
+} from "../json/environments";
+import {
+    default as versions
+} from "../json/versions";
 
-export { getVersionDetails };
+export {
+    getVersionDetails
+};
 
 let _versionSegments = {
     Major: 0,
     Minor: 1,
     Build: 2
-}
+};
 
 function getVersionDetails(env, autoIncrement = false) {
     switch (env) {
@@ -25,7 +31,7 @@ function getVersionDetails(env, autoIncrement = false) {
             return Promise.resolve(versionDetails);
         case environments.Dev:
         case environments.Simulator:
-            // there is no value in increasing development version 
+            // there is no value in increasing development version
             return Promise.resolve({
                 version: "1.0.0",
                 segments: "1.0.0".split("."),
@@ -48,7 +54,7 @@ function _getVersionDetails(env) {
 }
 
 function _increaseVersion(versionDetails) {
-    versionDetails.segments[_versionSegments.Build] = parseInt(versionDetails.segments[_versionSegments.Build]) + 1;
+    versionDetails.segments[_versionSegments.Build] = parseInt(versionDetails.segments[_versionSegments.Build], 10) + 1;
     return {
         version: versionDetails.segments[_versionSegments.Major] + "." + versionDetails.segments[_versionSegments.Minor] + "." + versionDetails.segments[_versionSegments.Build],
         segments: versionDetails.segments,
@@ -57,6 +63,7 @@ function _increaseVersion(versionDetails) {
 }
 
 function _getAndroidVersionCode(segments) {
+    // tslint:disable-next-line:radix
     return parseInt(segments[_versionSegments.Major]) * 10000 + parseInt(segments[_versionSegments.Minor]) * 100 + parseInt(segments[_versionSegments.Build]);
 }
 

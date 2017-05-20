@@ -57,7 +57,7 @@ export class Restaurants extends BasePage implements OnInit {
                 const orderedRestaurants = this.orderRestaurants(restaurants, settings);
 
                 console.timeEnd("timerName");
-                this.noMatchForQuery = query && restaurants.length === 0;
+                this.noMatchForQuery = restaurants.length === 0 && (query || settings.cityId || settings.cuisineId) as any;
                 return orderedRestaurants;
             });
         // .do(() => this.ui.hideLoading());
