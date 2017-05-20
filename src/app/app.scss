@@ -72,3 +72,24 @@ button[ion-fab] {
         height: 40px;
     }
 }
+
+ion-card {
+    // img shadow
+    box-shadow: none !important;
+    background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat !important; //0 100% no-repeat;//
+    padding-bottom: 10px;
+    background-size: contain;
+    // img shadow
+    +ion-card {
+        margin-top: 0 !important;
+    }
+    ion-card-header,
+    ion-card-content {
+        background: white;
+    }
+}
+
+.toolbar-title {
+    font-weight: normal;
+    font-size: 1.8rem;
+}

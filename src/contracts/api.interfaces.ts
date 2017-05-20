@@ -69,7 +69,7 @@ export interface IVariation {
     id: number;
     name: string[];
     price: string;
-    description?: string;
+    description?: string[];
     photo?: string;
     rate: number; // float
 }
@@ -89,6 +89,17 @@ export interface IBranchRateSummary { // via auto mapper
     rated2: number; // calculated on client
     rated1: number; // calculated on client
 }
+export interface IDeal {
+    id: number;
+    name: string[];
+    description: string[];
+    oldPrice?: number;
+    newPrice?: number;
+    photo?: string;
+    restaurantId: number;
+}
+
+// ========================== for post requests ============================
 export interface IUser {
     id: number;
     name: string;
@@ -99,8 +110,6 @@ export interface IUser {
     */
     uuid: string;
 }
-
-// ========================== for post requests ============================
 export interface IBranchRate {
     quality: number; // 1 <--> 5
     service: number; // 1 <--> 5

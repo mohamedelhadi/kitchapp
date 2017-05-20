@@ -33,8 +33,5 @@ export class BranchesData {
 
     getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
         return this.api.get(`branches/restaurantbranches/${restaurantId}`);
-        /*.subscribe((branches: IBranch[]) => {
-            this.branches.next(branches);
-        });*/
     }
 }

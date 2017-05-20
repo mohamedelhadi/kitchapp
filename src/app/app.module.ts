@@ -32,6 +32,8 @@ import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popove
 import { VariationsPopover } from "../pages/restaurant/details/variations/variations.popover";
 import { BranchRatePopover } from "../pages/restaurant/branches/rate/rate.popover";
 import { VariationRatePopover } from "../pages/restaurant/details/variation-rate/rate.popover";
+import { DealsData } from "../pages/restaurant/deals/deals.data";
+import { Deals } from "../pages/restaurant/deals/deals";
 
 const _pages = [
     App,
@@ -43,7 +45,8 @@ const _pages = [
     Favorites,
     RestaurantTabs,
     Restaurant,
-    Branches
+    Branches,
+    Deals
 ];
 
 const _components = [
@@ -84,7 +87,8 @@ export function data_services() {
         CitiesData,
         CuisinesData,
         DataLoader,
-        BranchesData
+        BranchesData,
+        DealsData
     ];
 }
 

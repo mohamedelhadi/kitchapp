@@ -3,10 +3,6 @@ page-restaurants {
         .icon {
             font-size: x-large;
         }
-        .icon[name="swap"] {
-            display: inline-block;
-            transform: rotate(90deg);
-        }
     }
     ion-content {}
 }
