@@ -86,14 +86,10 @@ export class Restaurant extends BasePage implements OnInit {
             .debounceTime(300)
             .map(([restaurant, query]) => {
                 this.restaurant = restaurant;
-
-                console.time("timerName");
                 // query
                 const categories = this.search(Utils.deepClone(restaurant.categories), query);
                 // order
                 // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[0]);
-                console.timeEnd("timerName");
-
                 this.noMatchForQuery = query && categories.length === 0;
                 return categories;
             });

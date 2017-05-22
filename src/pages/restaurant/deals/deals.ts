@@ -7,6 +7,7 @@ import { Logger, UI } from "../../../app/helpers/";
 import { DealsData } from "./deals.data";
 import { IRestaurant, IDeal } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
+import { has } from "lodash";
 
 @Component({
     selector: "page-deals",
@@ -21,7 +22,7 @@ export class Deals extends BasePage {
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: DealsData) {
         super(config, appSettings, logger);
-        this.restaurant = navParams.data;
+        this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
         // TODO: consider adding pull-to-refresh
     }
     ionViewDidLoad() {
@@ -41,7 +42,11 @@ export class Deals extends BasePage {
         }
     }
     back() {
-        this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
+        if (this.restaurant) { // coming from restaurant details
+            this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
+        } else { // coming from home
+            this.navCtrl.canGoBack();
+        }
         this.leavingTab.next();
     }
 }

@@ -9,6 +9,8 @@ import { Restaurants } from "../restaurants/restaurants";
 import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
+import { Cuisines } from "../cuisines/cuisines";
+import { Deals } from "../restaurant/deals/deals";
 
 @Component({
     selector: "page-home",
@@ -19,10 +21,11 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
 export class Home {
     query: string = "";
     constructor(private splashScreen: SplashScreen, private config: Configuration, private api: Api, private logger: Logger, private restaurantsData: RestaurantsData, private menu: MenuController, private navCtrl: NavController) {
-        // this.menu.enable(false);
+        this.menu.enable(false);
     }
     ionViewDidLoad() {
         this.splashScreen.hide();
+        // this.viewCuisines();
         /*this.restaurantsData.Restaurants.subscribe(restaurants => {
             if (restaurants.length) {
                 this.navCtrl.push(RestaurantTabs, restaurants[0]);
@@ -34,5 +37,11 @@ export class Home {
     }
     viewFavorites() {
         this.navCtrl.push(Favorites);
+    }
+    viewCuisines() {
+        this.navCtrl.push(Cuisines);
+    }
+    viewDeals() {
+        this.navCtrl.push(Deals);
     }
 }

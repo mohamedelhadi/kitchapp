@@ -1,7 +1,39 @@
 page-home {
     ion-content {
-        background: url("../assets/images/home3.jpg") !important;
+        background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("../assets/images/home-background.jpg") !important;
+        background: url("../assets/images/home-background.jpg") !important;
         background-size: cover !important;
         background-position: center !important;
+        .main-menu {
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            bottom: 110px;
+            @media screen and (orientation: landscape) {
+                bottom: 10px;
+            }
+            .button {
+                min-width: 150px;
+                background-color: rgba(218, 55, 67, 0.8);
+                border: solid 0.1em rgba(255, 255, 255, 0.4);
+                .button-inner {
+                    justify-content: space-between;
+                    span {
+                        width: 100%;
+                    }
+                }
+                /*.icon[name="pizza"] {
+                    display: inline-block;
+                    transform: rotate(-90deg);
+                }*/
+            }
+        }
+    }
+    ion-footer {
+        .toolbar-background {
+            background: url("../assets/images/mtn2.png");
+            background-size: contain;
+            background-position: center;
+        }
     }
 }

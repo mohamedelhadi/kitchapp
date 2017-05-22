@@ -78,7 +78,7 @@ ion-card {
     box-shadow: none !important;
     background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat !important; //0 100% no-repeat;//
     padding-bottom: 10px;
-    background-size: contain;
+    background-size: contain !important;
     // img shadow
     +ion-card {
         margin-top: 0 !important;

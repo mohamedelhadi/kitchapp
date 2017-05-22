@@ -25,8 +25,8 @@ export interface IBranch {
     restaurantId: number;
     name: string[];
     location: ILocation;
-    rate: IBranchRateSummary; // to delay or not!?
-    phones: IPhone[]; // delayed // contact: IContact;  // delayed
+    rate: IBranchRateSummary;
+    phones: IPhone[]; // delayed
     photos: string[]; // delayed
 }
 export interface ICuisine { // predefined in db, pre-include in app as well

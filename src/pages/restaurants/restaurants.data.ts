@@ -37,8 +37,9 @@ export class RestaurantsData {
             this.api.get("restaurants").subscribe((restaurants: IRestaurant[]) => {
                 for (const restaurant of restaurants) {
                     if (!restaurant.icon) {
-                        restaurant.icon = "assets/images/restaurant_placeholder.png";
+                        // TODO: move below icon assignment in here
                     }
+                    restaurant.icon = "assets/images/restaurant.png";
                 }
                 this.restaurants.next(restaurants);
             });
@@ -51,9 +52,9 @@ export class RestaurantsData {
         }
     }
 
-    getCategories(restaurantId: number): Observable<ICategory[]> {
+    /*getCategories(restaurantId: number): Observable<ICategory[]> {
         return this.api.get(`restaurants/categories/${restaurantId}`);
-    }
+    }*/
 
     getRestaurant(id: number): Observable<IRestaurant> {
         return this.api.get(`restaurants/${id}`);

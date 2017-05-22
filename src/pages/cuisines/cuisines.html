@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Cuisines</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6 col-xs col-sm-3 col-md-4 col-lg-2 *ngFor="let cuisine of data.Cuisines | async; let i = index">
+                <!--{{cuisine.name[0]}}-->
+                <img [src]="i<=5 ? 'assets/images/cuisine'+(i+1)+'.jpg': 'assets/images/cuisine.png'">
+                <div class="after" (click)="viewRestaurants(cuisine.id)">
+                    <div>{{cuisine.name[0]}}</div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

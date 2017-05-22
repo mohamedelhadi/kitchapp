@@ -19,7 +19,7 @@
         "android-dev": "npm run initialize dev && ionic build android && npm run finalize dev",
         "android-testing": "npm run initialize testing && ionic build android && npm run finalize testing",
         "android-staging": "npm run initialize staging && ionic build android && npm run finalize staging",
-        "android-production": "npm run initialize production && ionic build android --release --prod --generateSourceMap && npm run finalize production",
+        "android-production": "npm run initialize production && ionic run android --release --prod --generateSourceMap && npm run finalize production",
         "ios-dev": "%npm_package_cli% dev ios && ionic run ios",
         "ios-testing": "%npm_package_cli% testing ios && ionic run ios",
         "ios-staging": "%npm_package_cli% staging ios && ionic run ios",

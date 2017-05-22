@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-buttons left>
+        <ion-buttons left *ngIf="restaurant">
             <button ion-button icon-only (click)="back()">
               <ion-icon name="arrow-back"></ion-icon>
             </button>
@@ -18,10 +18,14 @@
             <ion-row>
                 <ion-col>
                     <h3>{{deal.name[0]}}</h3>
-                    <p>{{deal.description[0]}}</p>
                 </ion-col>
                 <ion-col class="price" col-3 *ngIf="deal.newPrice"><b>{{deal.newPrice}}</b> SDG</ion-col>
                 <ion-col class="price old" col-3 *ngIf="deal.oldPrice"><b>{{deal.oldPrice}}</b> SDG</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p>{{deal.description[0]}}</p>
+                </ion-col>
             </ion-row>
             <!--<ion-badge item-right>{{deal.price}} SDG</ion-badge>-->
         </ion-item>

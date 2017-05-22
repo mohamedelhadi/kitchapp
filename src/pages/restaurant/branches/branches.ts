@@ -26,16 +26,18 @@ export class Branches extends BasePage {
         this.restaurant = navParams.data;
     }
     ionViewDidLoad() {
-        this.data.getRestaurantBranches(this.restaurant.id).subscribe(branches => {
-            branches.forEach(branch => {
-                branch.rate.rated1 = Math.floor(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
-                branch.rate.rated2 = Math.floor(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
-                branch.rate.rated3 = Math.floor(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
-                branch.rate.rated4 = Math.floor(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
-                branch.rate.rated5 = Math.floor(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
+        this.data.getRestaurantBranches(this.restaurant.id)
+            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
+            .subscribe(branches => {
+                branches.forEach(branch => {
+                    branch.rate.rated1 = Math.floor(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
+                    branch.rate.rated2 = Math.floor(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
+                    branch.rate.rated3 = Math.floor(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
+                    branch.rate.rated4 = Math.floor(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
+                    branch.rate.rated5 = Math.floor(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
+                });
+                this.restaurant.branches = branches;
             });
-            this.restaurant.branches = branches;
-        });
     }
     showLocation(ev, branch: IBranch) {
         const popover = this.popoverCtrl.create(LocationPopover,

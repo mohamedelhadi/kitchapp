@@ -1,8 +1,29 @@
 <ion-header no-border="no-border">
-    <button ion-button menuToggle class="menu-btn" color="light">
+    <!--<button ion-button menuToggle class="menu-btn" color="light">
         <ion-icon name="menu"></ion-icon>
-    </button>
+    </button>-->
 </ion-header>
 <ion-content text-center>
-    <button margin-top ion-button (click)="viewRestaurants()">Restaurants</button>
+    <div class="main-menu">
+        <button ion-button icon-left (click)="viewRestaurants()">
+            <ion-icon name='restaurant'></ion-icon>
+            <span>Restaurants</span>
+        </button>
+        <button ion-button icon-right (click)="viewFavorites()">
+            <span>Favorites</span>
+            <ion-icon name='heart'></ion-icon>
+        </button>
+        <button ion-button icon-left (click)="viewDeals()">
+            <ion-icon name='pricetags'></ion-icon>
+            <span>Deals</span>
+        </button>
+        <button ion-button icon-right (click)="viewCuisines()">
+            <span>Cuisines</span>
+            <ion-icon name='pizza'></ion-icon>
+        </button>
+    </div>
 </ion-content>
+<ion-footer>
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-footer>

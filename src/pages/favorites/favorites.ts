@@ -13,18 +13,23 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
     templateUrl: "favorites.html"
 })
 export class Favorites implements OnInit {
-
     favorites: Observable<IRestaurant[]>;
-
     constructor(private config: Configuration, private api: Api, private logger: Logger, private data: RestaurantsData, private navCtrl: NavController) {
     }
-
     ngOnInit() {
+        // init
+    }
+    ionViewDidLoad() {
+        /* subscriptions aren't disposed
         this.data.Favorites.subscribe(favorites => {
             this.favorites = this.data.Restaurants.map(restaurants => restaurants.filter(restaurant => favorites[restaurant.id]));
+        });*/
+        this.favorites = this.data.Favorites.flatMap(favorites => {
+            return this.data.Restaurants.map(restaurants =>
+                restaurants.filter(restaurant => favorites[restaurant.id])
+            );
         });
     }
-
     viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, restaurant);
     }

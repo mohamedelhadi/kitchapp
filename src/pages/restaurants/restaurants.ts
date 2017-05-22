@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Configuration } from "../../environments/env.config";
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
-import { MenuController, NavController, PopoverController, LoadingController } from "ionic-angular";
+import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
 import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory } from "../../contracts";
 import { RestaurantsData } from "./restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
@@ -32,9 +32,14 @@ export class Restaurants extends BasePage implements OnInit {
 
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private navCtrl: NavController, private popoverCtrl: PopoverController,
+        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
         super(config, appSettings, logger);
+        if (navParams.data.cuisineId) {
+            const settings = this.searchSettings.getValue();
+            settings.cuisineId = navParams.data.cuisineId;
+            this.searchSettings.next(settings);
+        }
     }
 
     ngOnInit() {
@@ -42,8 +47,10 @@ export class Restaurants extends BasePage implements OnInit {
     }
 
     ionViewDidLoad() {
+        // this.ui.showLoading();
         this.data.getRestaurants();
         this.restaurants = this.data.Restaurants
+            // .do(() => this.ui.hideLoading())
             .combineLatest(this.query.startWith("").distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {

@@ -34,6 +34,7 @@ import { BranchRatePopover } from "../pages/restaurant/branches/rate/rate.popove
 import { VariationRatePopover } from "../pages/restaurant/details/variation-rate/rate.popover";
 import { DealsData } from "../pages/restaurant/deals/deals.data";
 import { Deals } from "../pages/restaurant/deals/deals";
+import { Cuisines } from "../pages/cuisines/cuisines";
 
 const _pages = [
     App,
@@ -46,7 +47,8 @@ const _pages = [
     RestaurantTabs,
     Restaurant,
     Branches,
-    Deals
+    Deals,
+    Cuisines
 ];
 
 const _components = [
