@@ -17,13 +17,12 @@ import { Home, Settings, SideMenu, Splash } from "../pages";
 import { Favorites } from "../pages/favorites/favorites";
 import { Restaurants } from "../pages/restaurants/restaurants";
 import { RestaurantsData } from "../pages/restaurants/restaurants.data";
-import { App } from "./app.component";
+import { AppComponent } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
 import { Api } from "./services";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
-import { AppSettings } from "./services";
 import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
 import { BranchesData } from "../pages/restaurant/branches/branches.data";
 import { Branches } from "../pages/restaurant/branches/branches";
@@ -35,9 +34,10 @@ import { VariationRatePopover } from "../pages/restaurant/details/variation-rate
 import { DealsData } from "../pages/restaurant/deals/deals.data";
 import { Deals } from "../pages/restaurant/deals/deals";
 import { Cuisines } from "../pages/cuisines/cuisines";
+import { AppSettings } from "./infrastructure/index";
 
 const _pages = [
-    App,
+    AppComponent,
     Splash,
     SideMenu,
     Home,
@@ -114,7 +114,7 @@ export function providers() {
         BrowserModule,
         HttpModule,
         BrowserAnimationsModule,
-        IonicModule.forRoot(App),
+        IonicModule.forRoot(AppComponent),
         IonicStorageModule.forRoot(),
         Ionic2RatingModule,
         IonicImageViewerModule

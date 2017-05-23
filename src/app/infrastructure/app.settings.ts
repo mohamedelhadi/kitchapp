@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Configuration } from "../../environments/env.config";
 import { defaults } from "lodash";
-import { IAppSettings, Language } from "../../contracts";
 import { Storage } from "@ionic/storage";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { IAppSettings, Language } from "../../contracts/index";
+import { Configuration } from "../../environments/env.config";
 
 @Injectable()
 export class AppSettings {

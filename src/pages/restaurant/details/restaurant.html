@@ -1,7 +1,7 @@
 <ion-header no-border>
     <ion-navbar #navbar>
         <ion-buttons left>
-            <button ion-button icon-only (click)="back()">
+            <button ion-button icon-only (click)="onBackButton()">
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
@@ -15,12 +15,12 @@
     <button class="search-toggle" clear ion-button icon-only (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
         <ion-icon name="search"></ion-icon>
     </button>
-    <ion-searchbar (ionInput)="onQueryChanged($event)" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="Search menu items" [@searchbarState]="searchState"></ion-searchbar>
+    <ion-searchbar (ionInput)="onQueryChanged($event)" [(ngModel)]="queryText" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="Search menu items" [@searchbarState]="searchState"></ion-searchbar>
 </ion-header>
 <ion-content (ionScroll)="onScroll($event)">
     <div class="banner">
         <ion-item no-border class="banner-content">
-            <ion-thumbnail item-left>
+            <ion-thumbnail item-start>
                 <img [src]="restaurant.icon">
             </ion-thumbnail>
             <ion-row>
@@ -55,16 +55,16 @@
             <ion-card-header>
                 <button ion-item no-padding (click)="category.expanded=!category.expanded;">
                     {{category.name[0]}}
-                    <ion-icon [name]="category.expanded? 'ios-arrow-up' : 'ios-arrow-down'" item-right></ion-icon>
+                    <ion-icon [name]="category.expanded? 'ios-arrow-up' : 'ios-arrow-down'" item-end></ion-icon>
                 </button>
             </ion-card-header>
             <ion-list [hidden]="!category.expanded" [class.expanded]="category.expanded">
                 <button ion-item *ngFor="let item of category.categoryItems" (click)="showVariations($event, item)">
-                    <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-left></ion-icon>
+                    <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-start></ion-icon>
                     {{item.name[0]}}
                     <!--<p style="white-space: normal">Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.</p>-->
-                    <!--<ion-icon name="ios-arrow-forward" item-right></ion-icon>-->
-                    <ion-badge color="secondary" item-right><b>{{item.variations[0].price}}</b> SDG</ion-badge>
+                    <!--<ion-icon name="ios-arrow-forward" item-end></ion-icon>-->
+                    <ion-badge color="secondary" item-end><b>{{item.variations[0].price}}</b> SDG</ion-badge>
                 </button>
             </ion-list>
         </ion-card>

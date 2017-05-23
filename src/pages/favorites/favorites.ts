@@ -31,6 +31,9 @@ export class Favorites implements OnInit {
         });
     }
     viewRestaurant(restaurant: IRestaurant) {
-        this.navCtrl.push(RestaurantTabs, restaurant);
+        this.navCtrl.push(RestaurantTabs, { restaurant });
+    }
+    viewBranches(restaurant: IRestaurant) {
+        this.navCtrl.push(RestaurantTabs, { restaurant, tabIndex: 1 });
     }
 }

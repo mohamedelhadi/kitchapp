@@ -1,19 +1,18 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController } from "ionic-angular";
+import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController } from "ionic-angular";
 import { Logger } from "../../../app/helpers/logger";
 import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { IRestaurant, ICategoryItem, ICategory } from "../../../contracts";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
-import { AppSettings } from "../../../app/services/index";
-import { BasePage } from "../../index";
 import { UI } from "../../../app/helpers/index";
 import { orderBy, some } from "lodash";
 import { Utils } from "../../../app/helpers/utils";
 import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
+import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 
 @Component({
     selector: "page-restaurant",
@@ -54,14 +53,19 @@ export class Restaurant extends BasePage implements OnInit {
     hideBio: boolean = true;
     categories: Observable<ICategory[]>;
     query = new BehaviorSubject<string>("");
+    queryText: string;
     noMatchForQuery: boolean;
-    leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController,
+        private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData) {
-        super(config, appSettings, logger);
-        this.restaurant = navParams.data;
+        super({ config, appSettings, logger });
+        this.restaurant = navParams.data.restaurant;
+        if (navParams.data.query) {
+            this.queryText = navParams.data.query;
+            this.query.next(this.queryText);
+            this.searchState = "focused";
+        }
         this.rating = this.restaurant.branches[0].rate.overall;
     }
 
@@ -82,7 +86,7 @@ export class Restaurant extends BasePage implements OnInit {
         this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
             .do(() => this.ui.hideLoading())
-            .combineLatest(this.query.startWith("").distinctUntilChanged())
+            .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
             .map(([restaurant, query]) => {
                 this.restaurant = restaurant;
@@ -94,7 +98,7 @@ export class Restaurant extends BasePage implements OnInit {
                 return categories;
             });
         this.data.isFavorite(this.restaurant)
-            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
+            .takeUntil(this.viewCtrl.willUnload)
             .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
     search(categories: ICategory[], query: string) {
@@ -145,9 +149,8 @@ export class Restaurant extends BasePage implements OnInit {
     onRateChange($event) {
         // rate change
     }
-    back() {
+    onBackButton() {
         this.navCtrl.parent.parent.pop();
-        this.leavingTab.next();
     }
     onScroll(event) {
         event.domWrite(() => {

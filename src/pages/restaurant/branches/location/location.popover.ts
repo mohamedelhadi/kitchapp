@@ -2,20 +2,23 @@ import { ViewController, NavParams } from "ionic-angular";
 import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
 import { IBranch } from "../../../../contracts";
 import { DomSanitizer } from "@angular/platform-browser";
+import { BasePopover } from "../../../../app/infrastructure/index";
 
 @Component({
     templateUrl: "location.popover.html",
     selector: "location-popover"
 })
-export class LocationPopover implements OnInit {
+export class LocationPopover extends BasePopover implements OnInit {
     @ViewChild("map") map: ElementRef;
     branch: IBranch;
     locationUrl: any;
     constructor(public viewCtrl: ViewController, private params: NavParams, private sanitizer: DomSanitizer) {
+        super({ viewCtrl });
         this.branch = params.data.branch;
         this.locationUrl = this.sanitizer.bypassSecurityTrustUrl("geo:" + this.branch.location.latitude + "," + this.branch.location.longitude);
     }
     ngOnInit(): void {
+        super.ngOnInit();
         // Load map only after view is initialize
         this.loadMap();
     }

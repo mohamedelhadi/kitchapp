@@ -14,7 +14,7 @@
     </ion-toolbar>
     <ion-list>
         <ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
-            <ion-avatar item-left>
+            <ion-avatar item-start>
                 <img [src]="restaurant.icon">
             </ion-avatar>
             <h2>{{restaurant.name[settings.language]}}</h2>

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-buttons left>
-            <button ion-button icon-only (click)="back()">
+            <button ion-button icon-only (click)="onBackButton()">
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
@@ -14,8 +14,8 @@
         <ion-card-header>
             {{branch.name[0]}}
             <div class="header-buttons">
-                <ion-icon name="map" color="primary" item-right (click)="showLocation($event, branch)"></ion-icon>
-                <ion-icon name="call" color="primary" item-right (click)="showPhones($event, branch)"></ion-icon>
+                <ion-icon name="map" color="primary" item-end (click)="showLocation($event, branch)"></ion-icon>
+                <ion-icon name="call" color="primary" item-end (click)="showPhones($event, branch)"></ion-icon>
             </div>
         </ion-card-header>
         <ion-card-content>

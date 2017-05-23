@@ -3,7 +3,7 @@ import { Configuration } from "../../environments/env.config";
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
 import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
-import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory } from "../../contracts";
+import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory, City, Cuisine } from "../../contracts";
 import { RestaurantsData } from "./restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
 import { orderBy, some } from "lodash";
@@ -13,12 +13,10 @@ import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Subject } from "rxjs/Subject";
-import { AppSettings } from "../../app/services";
-import { BasePage } from "../index";
 import { CitiesData, CuisinesData } from "../../app/shared/data-services";
+import { BasePage, AppSettings } from "../../app/infrastructure/index";
 
 // import * as moment from 'moment';
-
 @Component({
     selector: "page-restaurants",
     templateUrl: "restaurants.html"
@@ -26,32 +24,33 @@ import { CitiesData, CuisinesData } from "../../app/shared/data-services";
 export class Restaurants extends BasePage implements OnInit {
 
     restaurants: Observable<IRestaurant[]>;
-    searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: null, cuisineId: null }); // should load from storage, maybe in v2?
-    query = new Subject<string>();
+    none: number = -1;
+    allCities = new City(this.none, ["All", "الكل"]);
+    allCuisines = new Cuisine(this.none, ["All", "الكل"]);
+    searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: this.none, cuisineId: this.none }); // should load from storage, maybe in v2?
+    query = new BehaviorSubject<string>("");
     noMatchForQuery: boolean;
 
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
-        super(config, appSettings, logger);
+        super({ config, appSettings, logger });
         if (navParams.data.cuisineId) {
             const settings = this.searchSettings.getValue();
             settings.cuisineId = navParams.data.cuisineId;
             this.searchSettings.next(settings);
         }
     }
-
     ngOnInit() {
         // init
     }
-
     ionViewDidLoad() {
         // this.ui.showLoading();
         this.data.getRestaurants();
         this.restaurants = this.data.Restaurants
             // .do(() => this.ui.hideLoading())
-            .combineLatest(this.query.startWith("").distinctUntilChanged(), this.searchSettings.startWith())
+            .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {
                 console.time("timerName");
@@ -64,49 +63,49 @@ export class Restaurants extends BasePage implements OnInit {
                 const orderedRestaurants = this.orderRestaurants(restaurants, settings);
 
                 console.timeEnd("timerName");
-                this.noMatchForQuery = restaurants.length === 0 && (query || settings.cityId || settings.cuisineId) as any;
+                // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
+                this.noMatchForQuery = restaurants.length === 0 && (query || +settings.cityId !== this.none || settings.cuisineId !== +this.none) as any;
                 return orderedRestaurants;
             });
         // .do(() => this.ui.hideLoading());
     }
-
     viewRestaurant(restaurant: IRestaurant) {
-        this.navCtrl.push(RestaurantTabs, restaurant);
+        this.navCtrl.push(RestaurantTabs, { restaurant, query: this.query.getValue() });
     }
-
     onQueryChanged(ev: any) {
         this.query.next(ev.target.value);
     }
-
     showPopover(ev) {
         const popover = this.popoverCtrl.create(RestaurantsPopover, {
             settings: this.searchSettings,
-            cities: this.cities.Cities,
-            cuisines: this.cuisines.Cuisines
+            cities: this.cities.Cities.map(cities => [this.allCities].concat(cities)),
+            cuisines: this.cuisines.Cuisines.map(cuisines => [this.allCuisines].concat(cuisines))
         });
         popover.present({ ev });
     }
-
     filter(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings) {
-        if (settings.cityId) {
+        // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
+        if (settings.cityId && +settings.cityId !== this.none) {
             restaurants = restaurants.filter(restaurant => {
-                // tslint:disable-next-line:triple-equals
-                return some(restaurant.branches, branch => branch.location.cityId == settings.cityId); // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
+                return some(restaurant.branches, branch => branch.location.cityId === +settings.cityId);
             });
         }
-        if (settings.cuisineId) {
+        if (settings.cuisineId && +settings.cuisineId !== this.none) {
             restaurants = restaurants.filter(restaurant => {
-                // tslint:disable-next-line:triple-equals
-                return some(restaurant.cuisineIds, cuisineId => cuisineId == settings.cuisineId);
+                return some(restaurant.cuisineIds, cuisineId => cuisineId === +settings.cuisineId);
             });
         }
         return restaurants;
     }
-
     search(restaurants: IRestaurant[], query: string) {
         if (query && query.trim() !== "") {
             return restaurants.filter(restaurant => {
                 query = query.trim().toLowerCase();
+                // search in restaurant name
+                const matchesRestaurantName = restaurant.name[0].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
+                if (matchesRestaurantName) {
+                    return true;
+                }
                 // search in restaurant tags
                 const matchesRestaurantTags = restaurant.tags.indexOf(query) > -1;
                 if (matchesRestaurantTags) {
@@ -119,11 +118,6 @@ export class Restaurants extends BasePage implements OnInit {
                     });
                 });
                 if (matchesItemName) {
-                    return true;
-                }
-                // search in restaurant name
-                const matchesRestaurantName = restaurant.name[0].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
-                if (matchesRestaurantName) {
                     return true;
                 }
                 // search in branches address
@@ -155,7 +149,6 @@ export class Restaurants extends BasePage implements OnInit {
         }
         return Observable.of(restaurants);
     }
-
     orderByNearest(restaurants: IRestaurant[]) {
         return new Promise((resolve, reject) => {
             this.ui.showLoading("Loading your position..", false);
@@ -186,7 +179,6 @@ export class Restaurants extends BasePage implements OnInit {
             );
         });
     }
-
     getDistanceFromClosestBranch(latitude: number, longitude: number, branches: IBranch[]) {
         let closestDistance = 99999999;
         for (const branch of branches) {

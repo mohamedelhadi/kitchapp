@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, PopoverController } from "ionic-angular";
-import { BasePage } from "../../";
+import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
 import { Configuration } from "../../../environments/env.config";
-import { AppSettings } from "../../../app/services/";
 import { Logger, UI } from "../../../app/helpers/";
 import { BranchesData } from "./branches.data";
 import { IRestaurant, IBranch } from "../../../contracts/";
@@ -10,6 +8,7 @@ import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
+import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 
 @Component({
     selector: "page-branches",
@@ -17,17 +16,16 @@ import { BranchRatePopover } from "./rate/rate.popover";
 })
 export class Branches extends BasePage {
     restaurant: IRestaurant;
-    leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
+        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: BranchesData) {
-        super(config, appSettings, logger);
+        super({ config, appSettings, logger });
         this.restaurant = navParams.data;
     }
     ionViewDidLoad() {
         this.data.getRestaurantBranches(this.restaurant.id)
-            .takeUntil(this.navCtrl.viewWillLeave.merge(this.leavingTab))
+            .takeUntil(this.viewCtrl.willUnload)
             .subscribe(branches => {
                 branches.forEach(branch => {
                     branch.rate.rated1 = Math.floor(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
@@ -65,8 +63,7 @@ export class Branches extends BasePage {
             this.ui.showToast("You have already rated this branch!");
         }
     }
-    back() {
+    onBackButton() {
         this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
-        this.leavingTab.next();
     }
 }

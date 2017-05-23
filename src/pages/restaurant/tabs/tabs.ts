@@ -14,9 +14,11 @@ export class RestaurantTabs {
     tab2 = Branches;
     tab3 = Deals;
     restaurant: IRestaurant;
+    query: string;
 
     constructor(private navParams: NavParams) {
         this.index = navParams.data.tabIndex || 0;
-        this.restaurant = navParams.data;
+        this.restaurant = navParams.data.restaurant;
+        this.query = navParams.data.query;
     }
 }

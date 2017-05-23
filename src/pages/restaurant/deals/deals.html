@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-buttons left *ngIf="restaurant">
-            <button ion-button icon-only (click)="back()">
+            <button ion-button icon-only (click)="onBackButton()">
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
@@ -11,8 +11,8 @@
 
 <ion-content>
     <ion-list no-padding no-margin>
-        <ion-item *ngFor="let deal of deals">
-            <ion-thumbnail item-left>
+        <ion-item *ngFor="let deal of deals | async">
+            <ion-thumbnail item-start>
                 <img [src]="deal.photo ? deal.photo  : 'assets/images/deal.png'" imageViewer />
             </ion-thumbnail>
             <ion-row>
@@ -27,8 +27,8 @@
                     <p>{{deal.description[0]}}</p>
                 </ion-col>
             </ion-row>
-            <!--<ion-badge item-right>{{deal.price}} SDG</ion-badge>-->
+            <!--<ion-badge item-end>{{deal.price}} SDG</ion-badge>-->
         </ion-item>
-        <ion-item no-padding *ngIf="!deals || !deals.length" text-center class="no-match">No deals</ion-item>
+        <ion-item no-padding *ngIf="(deals | async)?.length == 0" text-center class="no-match">No deals</ion-item>
     </ion-list>
 </ion-content>

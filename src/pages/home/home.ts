@@ -20,7 +20,14 @@ import { Deals } from "../restaurant/deals/deals";
 })
 export class Home {
     query: string = "";
-    constructor(private splashScreen: SplashScreen, private config: Configuration, private api: Api, private logger: Logger, private restaurantsData: RestaurantsData, private menu: MenuController, private navCtrl: NavController) {
+    constructor(
+        private splashScreen: SplashScreen,
+        private config: Configuration,
+        private api: Api,
+        private logger: Logger,
+        private restaurantsData: RestaurantsData,
+        private menu: MenuController,
+        private navCtrl: NavController) {
         this.menu.enable(false);
     }
     ionViewDidLoad() {

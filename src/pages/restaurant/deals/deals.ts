@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, PopoverController } from "ionic-angular";
-import { BasePage } from "../../";
+import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
 import { Configuration } from "../../../environments/env.config";
-import { AppSettings } from "../../../app/services/";
 import { Logger, UI } from "../../../app/helpers/";
 import { DealsData } from "./deals.data";
 import { IRestaurant, IDeal } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
 import { has } from "lodash";
+import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: "page-deals",
@@ -15,23 +15,18 @@ import { has } from "lodash";
 })
 export class Deals extends BasePage {
     restaurant: IRestaurant;
-    deals: IDeal[];
-    leavingTab = new Subject(); // because navCtrl.willLeave event doesn't fire for tabs
+    deals: Observable<IDeal[]>;
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
+        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: DealsData) {
-        super(config, appSettings, logger);
+        super({ config, appSettings, logger });
         this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
         // TODO: consider adding pull-to-refresh
     }
     ionViewDidLoad() {
         this.ui.showLoading();
-        this.getDeals()
-            .do(() => this.ui.hideLoading())
-            .subscribe(deals => {
-                this.deals = deals;
-            });
+        this.deals = this.getDeals().do(() => this.ui.hideLoading());
     }
     getDeals() {
         if (this.restaurant) {
@@ -41,12 +36,11 @@ export class Deals extends BasePage {
             return this.data.Deals;
         }
     }
-    back() {
+    onBackButton() {
         if (this.restaurant) { // coming from restaurant details
-            this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
+            this.navCtrl.parent.select(0);
         } else { // coming from home
             this.navCtrl.canGoBack();
         }
-        this.leavingTab.next();
     }
 }

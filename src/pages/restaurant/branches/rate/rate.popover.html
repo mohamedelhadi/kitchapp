@@ -3,7 +3,7 @@
     <ion-item no-lines class="branch">
         <ion-label>
             Branch
-            <p *ngIf="!canChangeBranch">{{branches[selectedBranchId].name[0]}}</p>
+            <p *ngIf="!canChangeBranch">{{selectedBranch.name[0]}}</p>
         </ion-label>
         <ion-select *ngIf="canChangeBranch" interface="popover" (ionChange)="onChange()" placeholder="Select a branch" [(ngModel)]="selectedBranchId">
             <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[0]}}</ion-option>
@@ -70,10 +70,10 @@
         </ion-range>
     </ion-item>
     <ion-item margin-top class="popover-footer">
-        <button color="dark" ion-button clear item-left (click)="close()">
+        <button color="dark" ion-button clear item-start (click)="close()">
             Close
         </button>
-        <button color="primary" ion-button clear item-right (click)="close()">
+        <button color="primary" ion-button clear item-end (click)="close()">
             Submit
         </button>
     </ion-item>
