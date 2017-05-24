@@ -29,6 +29,6 @@
             </ion-row>
             <!--<ion-badge item-end>{{deal.price}} SDG</ion-badge>-->
         </ion-item>
-        <ion-item no-padding *ngIf="(deals | async)?.length == 0" text-center class="no-match">No deals</ion-item>
+        <ion-item no-padding *ngIf="!dealsList || dealsList.length == 0" text-center class="no-match">No deals</ion-item>
     </ion-list>
 </ion-content>

@@ -5,12 +5,13 @@ import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
+import { RestaurantsData } from "../../restaurants/restaurants.data";
 
 @Injectable()
 export class BranchesData {
     private branches = new BehaviorSubject<IBranch[]>([]);
 
-    constructor(private api: Api, private storage: Storage) {
+    constructor(private api: Api, private storage: Storage, private restaurantsData: RestaurantsData) {
         storage.ready().then(() => {
             this.storage.get(BRANCHES).then((branches: IBranch[]) => {
                 if (branches) {
@@ -30,8 +31,8 @@ export class BranchesData {
             });
         }
     }
-
     getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
-        return this.api.get(`branches/restaurantbranches/${restaurantId}`);
+        return this.restaurantsData.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
+        // return this.api.get(`branches/restaurantbranches/${restaurantId}`);
     }
 }

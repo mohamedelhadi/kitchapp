@@ -6,7 +6,7 @@ import { Storage } from "@ionic/storage";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 
-// import * as tmp from "../../data/restaurants.json";
+import * as tmp from "../../data/restaurants.json";
 
 @Injectable()
 export class RestaurantsData {
@@ -15,6 +15,7 @@ export class RestaurantsData {
 
     constructor(private api: Api, private storage: Storage) {
         // this._restaurants.startWith([]); // load from storage first, if empty startWith[] (same with _favorites)
+        this.restaurants.next(tmp);
         storage.ready().then(() => {
             this.storage.get(FAVORITE_RESTAURANTS).then((favorites: IFavorites) => {
                 if (favorites) {
@@ -23,18 +24,15 @@ export class RestaurantsData {
             });
         });
     }
-
     get Restaurants() {
         return this.restaurants.asObservable();
     }
-
     get Favorites() {
         return this.favorites.asObservable();
     }
-
     getRestaurants(forceUpdate?: boolean) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
-            this.api.get("restaurants").subscribe((restaurants: IRestaurant[]) => {
+            this.api.get("restaurants/prefetch").subscribe((restaurants: IRestaurant[]) => {
                 for (const restaurant of restaurants) {
                     if (!restaurant.icon) {
                         // TODO: move below icon assignment in here
@@ -57,7 +55,8 @@ export class RestaurantsData {
     }*/
 
     getRestaurant(id: number): Observable<IRestaurant> {
-        return this.api.get(`restaurants/${id}`);
+        return this.restaurants.map(restaurants => restaurants.find(restaurant => restaurant.id === id));
+        // return this.api.get(`restaurants/${id}`);
     }
 
     isFavorite(restaurant: IRestaurant): Observable<boolean> {

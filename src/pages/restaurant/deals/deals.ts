@@ -16,6 +16,7 @@ import { Observable } from "rxjs/Observable";
 export class Deals extends BasePage {
     restaurant: IRestaurant;
     deals: Observable<IDeal[]>;
+    dealsList: IDeal[];
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
@@ -26,7 +27,10 @@ export class Deals extends BasePage {
     }
     ionViewDidLoad() {
         this.ui.showLoading();
-        this.deals = this.getDeals().do(() => this.ui.hideLoading());
+        this.deals = this.getDeals().do((deals) => {
+            this.ui.hideLoading();
+            this.dealsList = deals;
+        });
     }
     getDeals() {
         if (this.restaurant) {

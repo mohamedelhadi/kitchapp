@@ -32,6 +32,7 @@ export interface IBranch {
 export interface ICuisine { // predefined in db, pre-include in app as well
     id: number;
     name: string[];
+    photo?: string;
 }
 export interface ICategory {
     id: number;

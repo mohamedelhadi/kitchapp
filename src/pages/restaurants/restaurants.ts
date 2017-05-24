@@ -53,16 +53,12 @@ export class Restaurants extends BasePage implements OnInit {
             .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {
-                console.time("timerName");
-
                 // filter
                 restaurants = this.filter(restaurants, settings);
                 // query
                 restaurants = this.search(restaurants, query);
                 // order
                 const orderedRestaurants = this.orderRestaurants(restaurants, settings);
-
-                console.timeEnd("timerName");
                 // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
                 this.noMatchForQuery = restaurants.length === 0 && (query || +settings.cityId !== this.none || settings.cuisineId !== +this.none) as any;
                 return orderedRestaurants;
