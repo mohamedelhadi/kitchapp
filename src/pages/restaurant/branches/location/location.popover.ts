@@ -3,8 +3,9 @@ import { Component, ViewChild, ElementRef, OnInit, Renderer2 } from "@angular/co
 import { IBranch } from "../../../../contracts";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BasePopover } from "../../../../app/infrastructure/index";
-import { Network } from "@ionic-native/network";
 import { Utils } from "../../../../app/helpers/index";
+
+declare const google;
 
 @Component({
     templateUrl: "location.popover.html",
@@ -25,7 +26,7 @@ export class LocationPopover extends BasePopover implements OnInit {
         if (Utils.isOnline()) {
             this.loadMap();
         } else {
-            this.renderer.setStyle(this.map.nativeElement, "display", "none");
+            this.renderer.setStyle(this.map.nativeElement, "display", "none"); // because ngIf causes @ViewChild("map") to fail
         }
     }
     sanitize(url: string) {

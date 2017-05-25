@@ -2,15 +2,12 @@ import { Injectable } from "@angular/core";
 import { Configuration } from "../../environments/env.config";
 import { Environments } from "../../environments/configuration";
 import { IDropdownOption } from "../../contracts";
-
-declare const navigator: any;
-declare const Connection: any;
+import { Network } from "@ionic-native/network";
 
 @Injectable()
 export class Utils {
     static isOnline() {
-        // tslint:disable-next-line:triple-equals
-        return navigator && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
+        return navigator.onLine; // && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
         /*Connection.UNKNOWN
         Connection.ETHERNET
         Connection.WIFI
@@ -189,8 +186,12 @@ export class Utils {
         return null;
     }*/
 
-    constructor(private config: Configuration) { }
+    constructor(private config: Configuration, private network: Network) { }
     isDev() {
         return this.config.Environment === Environments.Dev || this.config.Environment === Environments.Simulator;
     }
+    /*isOnline() {
+        // The type property will return one of the following connection types: unknown, ethernet, wifi, 2g, 3g, 4g, cellular, none
+        return this.network.type !== Connection.NONE && this.network.type !== Connection.UNKNOWN;
+    }*/
 }
