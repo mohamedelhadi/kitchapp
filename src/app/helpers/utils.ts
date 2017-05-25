@@ -3,8 +3,23 @@ import { Configuration } from "../../environments/env.config";
 import { Environments } from "../../environments/configuration";
 import { IDropdownOption } from "../../contracts";
 
+declare const navigator: any;
+declare const Connection: any;
+
 @Injectable()
 export class Utils {
+    static isOnline() {
+        // tslint:disable-next-line:triple-equals
+        return navigator && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
+        /*Connection.UNKNOWN
+        Connection.ETHERNET
+        Connection.WIFI
+        Connection.CELL_2G
+        Connection.CELL_3G
+        Connection.CELL_4G
+        Connection.CELL
+        Connection.NONE*/
+    }
     static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
         const deg2rad = 0.017453292519943295; // === Math.PI / 180
         const cos = Math.cos;

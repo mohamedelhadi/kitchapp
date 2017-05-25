@@ -6,7 +6,7 @@ import { Storage } from "@ionic/storage";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 
-import * as tmp from "../../data/restaurants.json";
+import * as savedRestaurants from "../../data/restaurants.json";
 
 @Injectable()
 export class RestaurantsData {
@@ -15,7 +15,7 @@ export class RestaurantsData {
 
     constructor(private api: Api, private storage: Storage) {
         // this._restaurants.startWith([]); // load from storage first, if empty startWith[] (same with _favorites)
-        this.restaurants.next(tmp);
+        this.restaurants.next(savedRestaurants);
         storage.ready().then(() => {
             this.storage.get(FAVORITE_RESTAURANTS).then((favorites: IFavorites) => {
                 if (favorites) {

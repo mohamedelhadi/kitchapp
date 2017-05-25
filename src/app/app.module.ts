@@ -9,6 +9,7 @@ import { IonicImageViewerModule } from "ionic-img-viewer";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { Network } from "@ionic-native/network";
 
 import { IonicStorageModule } from "@ionic/storage";
 import { Environments } from "../environments/configuration";
@@ -83,7 +84,7 @@ export function services() {
     ];
 }
 
-export function data_services() {
+export function dataServices() {
     return [
         RestaurantsData,
         CitiesData,
@@ -94,17 +95,23 @@ export function data_services() {
     ];
 }
 
-export function providers() {
+export function plugins() {
     return [
         StatusBar,
         SplashScreen,
+        Network
+    ];
+}
 
+export function providers() {
+    return [
+        ...plugins(),
         ...services(),
         {
             provide: ErrorHandler,
             useClass: AppErrorHandler // env === Environments.Simulator || env === Environments.Dev ? IonicErrorHandler : AppErrorHandler
         },
-        ...data_services()
+        ...dataServices()
     ];
 }
 

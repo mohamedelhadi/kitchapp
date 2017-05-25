@@ -1,7 +1,15 @@
 page-restaurant {
     ion-header {
+        .bar-buttons {
+            .bar-button {
+                width: 40px;
+            }
+        }
         .toolbar-background {
             opacity: 0;
+        }
+        .toolbar-title {
+            padding: 0;
         }
         .icon {
             color: white;

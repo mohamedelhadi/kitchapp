@@ -33,10 +33,10 @@ export class Deals extends BasePage {
         });
     }
     getDeals() {
+        this.data.getDeals();
         if (this.restaurant) {
             return this.data.getRestaurantDeals(this.restaurant.id);
         } else {
-            this.data.getDeals();
             return this.data.Deals;
         }
     }

@@ -1,8 +1,10 @@
 import { ViewController, NavParams } from "ionic-angular";
-import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, OnInit, Renderer2 } from "@angular/core";
 import { IBranch } from "../../../../contracts";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BasePopover } from "../../../../app/infrastructure/index";
+import { Network } from "@ionic-native/network";
+import { Utils } from "../../../../app/helpers/index";
 
 @Component({
     templateUrl: "location.popover.html",
@@ -12,7 +14,7 @@ export class LocationPopover extends BasePopover implements OnInit {
     @ViewChild("map") map: ElementRef;
     branch: IBranch;
     locationUrl: any;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private sanitizer: DomSanitizer) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private sanitizer: DomSanitizer, private renderer: Renderer2) {
         super({ viewCtrl });
         this.branch = params.data.branch;
         this.locationUrl = this.sanitizer.bypassSecurityTrustUrl("geo:" + this.branch.location.latitude + "," + this.branch.location.longitude);
@@ -20,7 +22,11 @@ export class LocationPopover extends BasePopover implements OnInit {
     ngOnInit(): void {
         super.ngOnInit();
         // Load map only after view is initialize
-        this.loadMap();
+        if (Utils.isOnline()) {
+            this.loadMap();
+        } else {
+            this.renderer.setStyle(this.map.nativeElement, "display", "none");
+        }
     }
     sanitize(url: string) {
         return this.sanitizer.bypassSecurityTrustUrl(url);

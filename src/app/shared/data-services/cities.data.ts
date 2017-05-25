@@ -5,6 +5,8 @@ import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
 
+import * as savedCities from "../../../data/cities.json";
+
 @Injectable()
 export class CitiesData {
     private cities = new BehaviorSubject<ICity[]>([]);
@@ -14,6 +16,8 @@ export class CitiesData {
             this.storage.get(CITIES).then((cities: ICity[]) => {
                 if (cities) {
                     this.cities.next(cities);
+                } else {
+                    this.cities.next(savedCities);
                 }
             });
         });
@@ -26,33 +30,6 @@ export class CitiesData {
             this.api.get("cities").subscribe((cities: ICity[]) => {
                 this.cities.next(cities);
             });
-            /*setTimeout(() => {
-                this.cities.next(this.tmp);
-            }, 0);*/
         }
     }
-
-    /*tmp: ICity[] = [
-    {
-        "id": 0,
-        "name": [
-            "North Omabury",
-            "Courbevoie"
-        ]
-    },
-    {
-        "id": 1,
-        "name": [
-            "New Marcoside",
-            "Chambéry"
-        ]
-    },
-    {
-        "id": 2,
-        "name": [
-            "West Garland",
-            "Montreuil"
-        ]
-    }
-];*/
 }
