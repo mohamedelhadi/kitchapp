@@ -1,9 +1,9 @@
 import { ViewController, NavParams, Select } from "ionic-angular";
 import { Component, ViewChild } from "@angular/core";
-import { IRestaurantsSearchSettings, ICity, ICuisine, InternalError } from "../../../contracts";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { BasePopover } from "../../../app/infrastructure/index";
+import { IRestaurantsSearchSettings, ICity, ICuisine } from "../../../app/contracts/index";
 
 @Component({
     templateUrl: "popover.html",

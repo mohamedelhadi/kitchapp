@@ -1,9 +1,9 @@
 import { NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
-import { IRestaurant } from "../../../contracts";
 import { Restaurant } from "../details/restaurant";
 import { Branches } from "../branches/branches";
 import { Deals } from "../deals/deals";
+import { IRestaurant } from "../../../app/contracts/index";
 
 @Component({
     templateUrl: "tabs.html"

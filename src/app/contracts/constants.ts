@@ -8,5 +8,12 @@ export const DEALS = "DEALS";
 export const USER = "USER";
 
 // Errors
-export const OFFLINE = "OFFLINE";
-export const MAP_ERROR = "MAP_ERROR";
+export enum ErrorCode {
+    Unknown,
+    Offline,
+    GeolocationPositionError
+}
+export enum ServerErrorCode {
+    AlreadyRatedBranch,
+    AlreadyRatedItem
+}

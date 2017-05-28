@@ -1,8 +1,8 @@
 import { ViewController, NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
-import { IBranch } from "../../../../contracts";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BasePopover } from "../../../../app/infrastructure/index";
+import { IBranch } from "../../../../app/contracts/index";
 
 @Component({
     templateUrl: "phones.popover.html",

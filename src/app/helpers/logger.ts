@@ -11,6 +11,7 @@ export class Logger {
 
     log(data: any) {
         if (typeof data === "string") {
+            // tslint:disable-next-line:no-console
             console.log(data);
         } else {
             const json = "\n" + JSON.stringify(data, null, 2) + "\n";

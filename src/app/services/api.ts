@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
-import { Configuration } from "../../environments/env.config";
 import { AppErrorHandler } from "../helpers/error.handler";
 
 import { Observable } from "rxjs/Observable";
@@ -8,9 +7,10 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import { defaults } from "lodash";
-import { IApiOptions, InternalError, OFFLINE } from "../../contracts";
-import { Utils, UI } from "../helpers/index";
-import { HttpError } from "../../contracts/errors/http.error";
+
+import { IApiOptions, InternalError, ErrorCode, HttpError } from "../contracts/index";
+import { Configuration } from "../environments/env.config";
+import { UI, Utils } from "../helpers/index";
 
 @Injectable()
 export class Api {
@@ -39,7 +39,7 @@ export class Api {
     private request(method: string, { url, data, options = {} }: { url: string, data?: any, options: IApiOptions }) {
         defaults(options, this.defaults);
         if (!Utils.isOnline()) {
-            this.errorHandler.handleError(new InternalError("No internet connection", OFFLINE, options.handleError));
+            this.errorHandler.handleError(new InternalError("No internet connection", ErrorCode.Offline, options.handleError));
             return Observable.empty();
         }
         options.method = method;

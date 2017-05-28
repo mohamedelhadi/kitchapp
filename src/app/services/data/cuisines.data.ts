@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
-import { ICuisine, CUISINES, IApiOptions } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
 
-import * as savedCuisines from "../../../data/cuisines.json";
+import * as bundledCuisines from "../../../assets/data/cuisines.json";
+import { ICuisine, CUISINES, IApiOptions } from "../../contracts/index";
 
 @Injectable()
 export class CuisinesData {
@@ -17,7 +17,7 @@ export class CuisinesData {
                 if (cuisines) {
                     this.cuisines.next(cuisines);
                 } else {
-                    this.cuisines.next(savedCuisines);
+                    this.cuisines.next(bundledCuisines);
                 }
             });
         });

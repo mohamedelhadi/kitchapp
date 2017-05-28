@@ -1,5 +1,6 @@
-/* *** App only *** */
+/* *** App only interfaces *** */
 import { RequestOptionsArgs } from "@angular/http";
+import { ServerErrorCode } from "./index";
 
 export interface IRestaurantsSearchSettings {
     // order settings
@@ -37,12 +38,8 @@ export interface IApiOptions extends RequestOptionsArgs {
     timeout?: any;
     cache?: boolean;*/
 }
-export enum ErrorCode {
-    AlreadyRatedBranch,
-    AlreadyRatedItem
-}
 export interface IServerError {
-    code: ErrorCode;
+    code: ServerErrorCode;
     message?: string;
 }
 export interface IErrorMessagesDictionary {

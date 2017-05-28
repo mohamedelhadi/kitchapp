@@ -1,10 +1,7 @@
 import { ErrorHandler, Injectable } from "@angular/core";
 import { UI, Logger, Utils } from "./";
 import { Response } from "@angular/http";
-import { Configuration } from "../../environments/env.config";
-import { OFFLINE, IServerError, IErrorMessagesDictionary, ErrorCode } from "../../contracts";
-import { InternalError } from "../../contracts/errors/internal.error";
-import { HttpError } from "../../contracts/errors/http.error";
+import { InternalError, HttpError, ErrorCode, IServerError, IErrorMessagesDictionary, ServerErrorCode } from "../contracts/index";
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
@@ -25,7 +22,7 @@ export class AppErrorHandler extends ErrorHandler {
     }
     handleInternalError(err: InternalError) {
         if (err.handleError) {
-            if (err.code === OFFLINE) {
+            if (err.code === ErrorCode.Offline) {
                 this.ui.showToast("Kindly check your internet connection.");
                 return;
             }
@@ -49,5 +46,5 @@ export function isServerError(err: IServerError): err is IServerError {
     return (err as IServerError).code !== undefined;
 }
 export const errors: IErrorMessagesDictionary = {};
-errors[ErrorCode.AlreadyRatedBranch] = "You have already rated this branch!";
-errors[ErrorCode.AlreadyRatedItem] = "You have already rated this variation!";
+errors[ServerErrorCode.AlreadyRatedBranch] = "You have already rated this branch!";
+errors[ServerErrorCode.AlreadyRatedItem] = "You have already rated this variation!";

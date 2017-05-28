@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
-import { ICity, CITIES, IApiOptions } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
 
-import * as savedCities from "../../../data/cities.json";
+import * as bundledCities from "../../../assets/data/cities.json";
+import { ICity, CITIES, IApiOptions } from "../../contracts/index";
 
 @Injectable()
 export class CitiesData {
@@ -17,7 +17,7 @@ export class CitiesData {
                 if (cities) {
                     this.cities.next(cities);
                 } else {
-                    this.cities.next(savedCities);
+                    this.cities.next(bundledCities);
                 }
             });
         });

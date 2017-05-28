@@ -1,9 +1,9 @@
 import { ViewController, NavParams, PopoverController } from "ionic-angular";
 import { Component } from "@angular/core";
-import { ICategoryItem } from "../../../../contracts";
-import { UI } from "../../../../app/helpers";
 import { VariationRatePopover } from "../variation-rate/rate.popover";
 import { BasePopover } from "../../../../app/infrastructure/index";
+import { ICategoryItem } from "../../../../app/contracts/index";
+import { UI } from "../../../../app/helpers/index";
 
 @Component({
     templateUrl: "variations.popover.html",

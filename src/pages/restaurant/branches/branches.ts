@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
-import { Configuration } from "../../../environments/env.config";
-import { Logger, UI } from "../../../app/helpers/";
-import { IRestaurant, IBranch } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
+import { IRestaurant, IBranch } from "../../../app/contracts/index";
+import { Configuration } from "../../../app/environments/env.config";
+import { Logger, UI } from "../../../app/helpers/index";
 
 @Component({
     selector: "page-branches",

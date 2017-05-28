@@ -1,12 +1,12 @@
 ﻿import { Injectable } from "@angular/core";
-import { Api } from "../../app/services/api";
-import { IRestaurant, IFavorites, FAVORITE_RESTAURANTS, ICategory, IVariationRate, IApiOptions, IBranch, IBranchRateSummary, IBranchRate, RESTAURANTS } from "../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 
-import * as savedRestaurants from "../../data/restaurants.json";
+import * as bundledRestaurants from "../../assets/data/restaurants.json";
+import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate } from "../../app/contracts/index";
+import { Api } from "../../app/services/index";
 
 @Injectable()
 export class RestaurantsData {
@@ -20,7 +20,7 @@ export class RestaurantsData {
                 if (restaurants) {
                     this.restaurants.next(restaurants);
                 } else {
-                    this.restaurants.next(savedRestaurants);
+                    this.restaurants.next(bundledRestaurants);
                 }
             });
             this.storage.get(FAVORITE_RESTAURANTS).then((favorites: IFavorites) => {
@@ -62,7 +62,7 @@ export class RestaurantsData {
         this.storage.set(FAVORITE_RESTAURANTS, favorites);
         this.favorites.next(favorites);
     }
-    rateVariation(rate: IVariationRate) {
+    rateVariation(rate: IVariationRate): Observable<number> {
         return this.api.post("restaurants/rate-variation", rate);
     }
     getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {

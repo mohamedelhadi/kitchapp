@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { defaults } from "lodash";
 import { Storage } from "@ionic/storage";
-import { IAppSettings, Language } from "../../contracts/index";
-import { Configuration } from "../../environments/env.config";
 import { ReplaySubject } from "rxjs/ReplaySubject";
+import { IAppSettings, Language } from "../contracts/index";
+import { Configuration } from "../environments/env.config";
 
 @Injectable()
 export class AppSettings {

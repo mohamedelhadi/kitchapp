@@ -1,12 +1,12 @@
 ﻿import { IConfiguration, Environments } from "./configuration";
-import { dev } from "../_build/json/endpoints.json";
+import { production } from "../../_build/json/endpoints.json";
 
 export class Configuration implements IConfiguration {
 
-    Environment: string = Environments.Dev;
-    OneSignalAppID: string = "db8f18a5-e5fd-4074-96af-e3f7e3a94dc0";
+    Environment: string = Environments.Production;
+    OneSignalAppID: string = "2e4b08ae-8c5a-4da8-8ca2-5ba56ecea4b6";
 
-    private baseUrl: string = dev; // "http://10.0.0.172:37864/"; // "http://10.0.2.2:37864/"; //"http://192.168.137.20/bSmart/";
+    private baseUrl: string = production;
 
     constructor() {
         this.init();

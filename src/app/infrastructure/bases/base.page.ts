@@ -1,7 +1,7 @@
-import { IAppSettings } from "../../../contracts/index";
-import { Configuration } from "../../../environments/env.config";
 import { Logger } from "../../helpers/index";
 import { AppSettings } from "../index";
+import { IAppSettings } from "../../contracts/index";
+import { Configuration } from "../../environments/env.config";
 
 export abstract class BasePage {
     protected settings: IAppSettings;

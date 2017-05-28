@@ -1,22 +1,19 @@
 import { Component, OnInit } from "@angular/core";
-import { Configuration } from "../../environments/env.config";
-import { Api } from "../../app/services/api";
-import { Logger } from "../../app/helpers/logger";
 import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
-import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory, City, Cuisine, MAP_ERROR } from "../../contracts";
 import { RestaurantsData } from "./restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
 import { orderBy, some } from "lodash";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
-import { Utils, UI } from "../../app/helpers";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Subject } from "rxjs/Subject";
-import { CitiesData, CuisinesData } from "../../app/shared/data-services";
 import { BasePage, AppSettings } from "../../app/infrastructure/index";
+import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCode, IBranch } from "../../app/contracts/index";
+import { Configuration } from "../../app/environments/env.config";
+import { Logger, UI, Utils } from "../../app/helpers/index";
+import { CitiesData, CuisinesData } from "../../app/services/data/index";
 
-// import * as moment from 'moment';
 @Component({
     selector: "page-restaurants",
     templateUrl: "restaurants.html"
@@ -46,10 +43,8 @@ export class Restaurants extends BasePage implements OnInit {
         // init
     }
     ionViewDidLoad() {
-        // this.ui.showLoading();
         this.data.getRestaurants();
         this.restaurants = this.data.Restaurants
-            // .do(() => this.ui.hideLoading())
             .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {
@@ -63,7 +58,6 @@ export class Restaurants extends BasePage implements OnInit {
                 this.noMatchForQuery = restaurants.length === 0 && (query || +settings.cityId !== this.none || settings.cuisineId !== +this.none) as any;
                 return orderedRestaurants;
             });
-        // .do(() => this.ui.hideLoading());
     }
     viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant, query: this.query.getValue() });
@@ -128,7 +122,6 @@ export class Restaurants extends BasePage implements OnInit {
     }
 
     orderRestaurants(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings): Observable<IRestaurant[]> {
-        // this.logger.error(new InternalError("ordering.."));
         if (restaurants.length === 0) {
             return Observable.of([]);
         }
@@ -165,7 +158,7 @@ export class Restaurants extends BasePage implements OnInit {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.logger.error(new InternalError("Couldn't retrieve coordinates", MAP_ERROR, false, err));
+                    this.logger.error(new InternalError("Couldn't retrieve coordinates", ErrorCode.GeolocationPositionError, false, err));
                     this.searchSettings.getValue().nearby = false;
                     this.ui.hideLoading();
                     this.ui.showToast("Couldn't retrieve your coordinations");

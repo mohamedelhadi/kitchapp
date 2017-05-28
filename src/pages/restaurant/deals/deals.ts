@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
-import { Configuration } from "../../../environments/env.config";
-import { Logger, UI } from "../../../app/helpers/";
 import { DealsData } from "./deals.data";
-import { IRestaurant, IDeal } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
 import { has } from "lodash";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 import { Observable } from "rxjs/Observable";
+import { IRestaurant, IDeal } from "../../../app/contracts/index";
+import { Configuration } from "../../../app/environments/env.config";
+import { Logger, UI } from "../../../app/helpers/index";
 
 @Component({
     selector: "page-deals",

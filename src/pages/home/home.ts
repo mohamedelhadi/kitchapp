@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { Configuration } from "../../environments/env.config";
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
 import { RestaurantsData } from "../restaurants/restaurants.data";
@@ -11,6 +10,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
 import { Deals } from "../restaurant/deals/deals";
+import { Configuration } from "../../app/environments/env.config";
 
 @Component({
     selector: "page-home",

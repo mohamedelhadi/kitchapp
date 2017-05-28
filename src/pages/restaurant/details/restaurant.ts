@@ -1,18 +1,16 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
 import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController } from "ionic-angular";
-import { Logger } from "../../../app/helpers/logger";
-import { Configuration } from "../../../environments/env.config";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
-import { IRestaurant, ICategoryItem, ICategory } from "../../../contracts";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
-import { UI } from "../../../app/helpers/index";
+import { UI, Logger, Utils } from "../../../app/helpers/index";
 import { orderBy, some } from "lodash";
-import { Utils } from "../../../app/helpers/utils";
 import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { IRestaurant, ICategory, ICategoryItem } from "../../../app/contracts/index";
+import { Configuration } from "../../../app/environments/env.config";
 
 @Component({
     selector: "page-restaurant",
@@ -83,9 +81,7 @@ export class Restaurant extends BasePage implements OnInit {
         // init
     }
     ionViewDidLoad() {
-        // this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
-            // .do(() => this.ui.hideLoading())
             .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
             .map(([restaurant, query]) => {
@@ -133,16 +129,13 @@ export class Restaurant extends BasePage implements OnInit {
             { branches: this.restaurant.branches },
             { cssClass: "wide-popover" }
         );
-        popover.present(); // { ev });
+        popover.present();
     }
     call() {
         this.navCtrl.parent.select(1);
     }
     toggleFavorite() {
         this.data.setFavorite(this.restaurant, !this.isFavorite);
-    }
-    onRateChange($event) {
-        // rate change
     }
     onBackButton() {
         this.navCtrl.parent.parent.pop();

@@ -35,10 +35,10 @@ function _copyConfiguration(env) {
     console.log(color.cyan("Copying " + env + " configurations..."));
     // fs.renameSync('../environments/' + env + '.config.ts', '../environments/env.config.ts');
     return new Promise((resolve, reject) => {
-        gulp.src("src/environments/" + env + ".config.ts").pipe(rename("env.config.ts")).pipe(gulp.dest("src/environments"))
+        gulp.src("src/app/environments/" + env + ".config.ts").pipe(rename("env.config.ts")).pipe(gulp.dest("src/app/environments"))
             .on("error", err => {
                 console.log(color.red(err));
-                console.log(color.white("\nCouldn't save new version to file version.json!\n"));
+                console.log(color.white("\nCouldn't rename env config file!\n"));
                 reject();
             })
             .on("end", () => {

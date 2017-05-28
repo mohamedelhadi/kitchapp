@@ -1,21 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Configuration } from "../../environments/env.config";
-import { Environments } from "../../environments/configuration";
-import { IDropdownOption } from "../../contracts";
 import { Network } from "@ionic-native/network";
+import { IDropdownOption } from "../contracts/index";
+import { Configuration } from "../environments/env.config";
+import { Environments } from "../environments/configuration";
 
 @Injectable()
 export class Utils {
     static isOnline() {
         return navigator.onLine; // && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
-        /*Connection.UNKNOWN
-        Connection.ETHERNET
-        Connection.WIFI
-        Connection.CELL_2G
-        Connection.CELL_3G
-        Connection.CELL_4G
-        Connection.CELL
-        Connection.NONE*/
+        /*Connection.UNKNOWN, Connection.ETHERNET, Connection.WIFI, Connection.CELL_2G, Connection.CELL_3G, Connection.CELL_4G, Connection.CELL, Connection.NONE*/
     }
     static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
         const deg2rad = 0.017453292519943295; // === Math.PI / 180
@@ -33,13 +26,10 @@ export class Utils {
     }
     static deepClone(o) { // recursiveDeepCopy2 =>  https://jsperf.com/js-deep-copy/7
         // use with discretion!
-
         // tslint:disable-next-line:one-variable-per-declaration
         let newO, i;
-
         if (typeof o !== "object") { return o; }
         if (!o) { return o; }
-
         if (o.constructor === Array) {
             newO = [];
             for (i = 0; i < o.length; i += 1) {
@@ -47,7 +37,6 @@ export class Utils {
             }
             return newO;
         }
-
         newO = {};
         // tslint:disable-next-line:forin
         for (i in o) {

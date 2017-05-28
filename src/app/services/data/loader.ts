@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
+import { CitiesData, CuisinesData } from "./index";
 import { Logger } from "../../helpers/index";
 import { RestaurantsData } from "../../../pages/restaurants/restaurants.data";
-import { CitiesData, CuisinesData } from "./index";
 
 @Injectable()
 export class DataLoader {

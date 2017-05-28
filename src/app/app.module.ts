@@ -14,8 +14,6 @@ import { Storage } from "@ionic/storage";
 import { Device } from "@ionic-native/device";
 
 import { IonicStorageModule } from "@ionic/storage";
-import { Environments } from "../environments/configuration";
-import { Configuration } from "../environments/env.config";
 import { Home, Settings, SideMenu, Splash } from "../pages";
 import { Favorites } from "../pages/favorites/favorites";
 import { Restaurants } from "../pages/restaurants/restaurants";
@@ -26,7 +24,6 @@ import { Api } from "./services";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
-import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
 import { Branches } from "../pages/restaurant/branches/branches";
 import { LocationPopover } from "../pages/restaurant/branches/location/location.popover";
 import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popover";
@@ -38,9 +35,12 @@ import { Deals } from "../pages/restaurant/deals/deals";
 import { Cuisines } from "../pages/cuisines/cuisines";
 import { AppSettings } from "./infrastructure/index";
 import { Subject } from "rxjs/Subject";
-import { USER, IUser } from "../contracts/index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { DeviceMock } from "../mocks/device";
+import { Configuration } from "./environments/env.config";
+import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
+import { Environments } from "./environments/configuration";
+import { IUser, USER } from "./contracts/index";
 
 const _pages = [
     AppComponent,

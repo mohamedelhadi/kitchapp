@@ -2,8 +2,7 @@ import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { SideMenu } from "../side-menu/side-menu";
 import { RestaurantsData } from "../restaurants/restaurants.data";
-import { DataLoader } from "../../app/shared/data-services";
-
+import { DataLoader } from "../../app/services/data/index";
 
 @Component({
     selector: "page-splash",
@@ -12,10 +11,6 @@ import { DataLoader } from "../../app/shared/data-services";
 export class Splash {
 
     constructor(public navCtrl: NavController, private loader: DataLoader) { }
-
-    ionViewDidLoad() {
-        // loaded
-    }
 
     ngOnInit() {
         this.loader.load();

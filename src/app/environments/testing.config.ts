@@ -1,12 +1,12 @@
 ﻿import { IConfiguration, Environments } from "./configuration";
-import { production } from "../_build/json/endpoints.json";
+import { testing } from "../../_build/json/endpoints.json";
 
 export class Configuration implements IConfiguration {
 
-    Environment: string = Environments.Production;
-    OneSignalAppID: string = "2e4b08ae-8c5a-4da8-8ca2-5ba56ecea4b6";
+    Environment: string = Environments.Testing;
+    OneSignalAppID: string = "d8f974a9-a14a-49cf-a713-cca37f801505";
 
-    private baseUrl: string = production;
+    private baseUrl: string = testing;
 
     constructor() {
         this.init();

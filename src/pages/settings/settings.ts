@@ -10,6 +10,6 @@ export class Settings {
     constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
     ionViewDidLoad() {
+        // did load
     }
-
 }

@@ -8,7 +8,19 @@ import { Subject } from "rxjs/Subject";
 export const onBack = new Subject<string>();
 
 @Component({
-    templateUrl: "app.component.html",
+    template: `<ion-menu [content]="content">
+                    <ion-header>
+                        <ion-toolbar>
+                            <ion-title>Menu</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+
+                    <ion-content>
+                    </ion-content>
+                </ion-menu>
+
+                <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+                <ion-nav #content swipeBackEnabled="false"></ion-nav>`,
     providers: [LoadingController, ToastController]
 })
 export class AppComponent implements OnInit {

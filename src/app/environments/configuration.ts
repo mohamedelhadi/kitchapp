@@ -1,4 +1,4 @@
-import { default as environments } from "../_build/json/environments.json";
+import { default as environments } from "../../_build/json/environments.json";
 
 export const Environments: IEnvironments = environments;
 

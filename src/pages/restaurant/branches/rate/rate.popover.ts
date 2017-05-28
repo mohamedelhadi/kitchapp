@@ -1,10 +1,10 @@
 import { ViewController, NavParams } from "ionic-angular";
 import { Component, Inject } from "@angular/core";
-import { IBranch, IUser, USER, IBranchRate, IServerError, ErrorCode } from "../../../../contracts";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
+import { IBranch, USER, IUser, IBranchRate } from "../../../../app/contracts/index";
 
 @Component({
     templateUrl: "rate.popover.html",
