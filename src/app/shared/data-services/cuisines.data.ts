@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
-import { ICuisine, CUISINES } from "../../../contracts";
+import { ICuisine, CUISINES, IApiOptions } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
@@ -25,9 +25,9 @@ export class CuisinesData {
     get Cuisines() {
         return this.cuisines.asObservable();
     }
-    getCuisines(forceUpdate?: boolean) {
+    getCuisines(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cuisines.getValue().length === 0) {
-            this.api.get("cuisines").subscribe((cuisines: ICuisine[]) => {
+            this.api.get("cuisines", options).subscribe((cuisines: ICuisine[]) => {
                 this.cuisines.next(cuisines);
             });
         }

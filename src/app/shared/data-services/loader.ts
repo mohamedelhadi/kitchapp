@@ -11,8 +11,8 @@ export class DataLoader {
     }
 
     load() {
-        this.cities.getCities(true);
-        this.cuisines.getCuisines(true);
-        this.restaurants.getRestaurants(true);
+        this.cities.getCities(true, { showLoading: false, handleError: false });
+        this.cuisines.getCuisines(true, { showLoading: false, handleError: false });
+        this.restaurants.getRestaurants(true, { showLoading: false, handleError: false });
     }
 }

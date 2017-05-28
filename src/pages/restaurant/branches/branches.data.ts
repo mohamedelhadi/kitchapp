@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
+/*import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
-import { IBranch, BRANCHES } from "../../../contracts";
+import { IBranch, BRANCHES, IBranchRate, IBranchRateSummary, IApiOptions } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
@@ -23,7 +23,7 @@ export class BranchesData {
     get Branches() {
         return this.branches.asObservable();
     }
-    getBranches(forceUpdate?: boolean) {
+    getBranches(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.branches.getValue().length === 0) {
             // { params: new URLSearchParams(`restaurantId=${restaurantId}`) }
             this.api.get("branches").subscribe((branches: IBranch[]) => {
@@ -35,4 +35,14 @@ export class BranchesData {
         return this.restaurantsData.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
         // return this.api.get(`branches/restaurantbranches/${restaurantId}`);
     }
+    rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
+        return this.api.post("branches/rate", rate).do(rateSummary => {
+            const branches = this.branches.getValue();
+
+            const ratedBranch = branches.find(branch => branch.id === +rate.branchId);
+            ratedBranch.rate = rateSummary;
+            this.branches.next(branches);
+        });
+    }
 }
+*/

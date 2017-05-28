@@ -13,8 +13,14 @@ export const onBack = new Subject<string>();
 })
 export class AppComponent implements OnInit {
     @ViewChild(Nav) nav: Nav;
+    // @Inject(BACK_EVENT) private onBack: Subject<string>;
 
-    constructor(private app: App, private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private menu: MenuController) {
+    constructor(
+        private app: App,
+        private platform: Platform,
+        private statusBar: StatusBar,
+        private splashScreen: SplashScreen,
+        private menu: MenuController) {
         this.initializeApp();
     }
 
@@ -32,7 +38,7 @@ export class AppComponent implements OnInit {
                         // normal navigations from page to another
                         nav.pop();
                     } else if (nav instanceof Tab) {
-                        // override tabs default behavior which takes which pop's out completely to the previous page
+                        // override tabs default behavior which only takes to previous tab
                         if (nav.index === 0) {
                             nav.parent.parent.pop();
                         } else {

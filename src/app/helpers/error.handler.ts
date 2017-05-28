@@ -2,21 +2,52 @@ import { ErrorHandler, Injectable } from "@angular/core";
 import { UI, Logger, Utils } from "./";
 import { Response } from "@angular/http";
 import { Configuration } from "../../environments/env.config";
-import { isHttpError } from "../services/api";
-import { IHttpError } from "../../contracts";
+import { OFFLINE, IServerError, IErrorMessagesDictionary, ErrorCode } from "../../contracts";
+import { InternalError } from "../../contracts/errors/internal.error";
+import { HttpError } from "../../contracts/errors/http.error";
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
 
     constructor(private ui: UI, private logger: Logger, private utils: Utils) {
-        super(false);
+        super();
     }
 
-    handleError(err: IHttpError | Error): void {
+    handleError(err: Error | InternalError | HttpError): void {
         this.logger.error(err);
-        const shouldShowError = isHttpError(err) ? err.options.shouldHandleErrors : true;
-        if (shouldShowError) {
+        if (err instanceof InternalError) {
+            this.handleInternalError(err);
+        } else if (err instanceof HttpError) {
+            this.handleHttpError(err);
+        } else {
             this.ui.showError(this.utils.isDev() ? err.message : null);
         }
     }
+    handleInternalError(err: InternalError) {
+        if (err.handleError) {
+            if (err.code === OFFLINE) {
+                this.ui.showToast("Kindly check your internet connection.");
+                return;
+            }
+            this.ui.showError(this.utils.isDev() ? err.message : null);
+        }
+    }
+    handleHttpError(err: HttpError): void {
+        this.logger.error(err);
+        if (err.options.handleError) {
+            const error = err.body;
+            if (isServerError(error)) {
+                const message = errors[error.code];
+                this.ui.showError(message);
+            } else {
+                this.ui.showError(this.utils.isDev() ? err.message : null);
+            }
+        }
+    }
 }
+export function isServerError(err: IServerError): err is IServerError {
+    return (err as IServerError).code !== undefined;
+}
+export const errors: IErrorMessagesDictionary = {};
+errors[ErrorCode.AlreadyRatedBranch] = "You have already rated this branch!";
+errors[ErrorCode.AlreadyRatedItem] = "You have already rated this variation!";

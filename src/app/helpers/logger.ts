@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-//import { ViewWrappedError } from "@angular/core/src/linker/errors";
+// import { ViewWrappedError } from "@angular/core/src/linker/errors";
 
 @Injectable()
 export class Logger {
@@ -13,20 +13,21 @@ export class Logger {
         if (typeof data === "string") {
             console.log(data);
         } else {
-            let json = "\n" + JSON.stringify(data, null, 2) + "\n";
+            const json = "\n" + JSON.stringify(data, null, 2) + "\n";
             this.highlightJsonSyntax(json);
         }
     }
 
     highlightJsonSyntax(json) {
-        let arr = [],
+        // tslint:disable-next-line:one-variable-per-declaration
+        const arr = [],
             _string = "color:brown",
             _number = "color:green",
             _boolean = "color:blue",
             _null = "color:magenta",
             _key = "color:dimgray";
 
-        json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
             let style = _number;
             if (/^"/.test(match)) {
                 if (/:$/.test(match)) {

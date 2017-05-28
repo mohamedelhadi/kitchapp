@@ -1,6 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Api } from "../../app/services/api";
-import { IRestaurant, IFavorites, FAVORITE_RESTAURANTS, ICategory } from "../../contracts";
+import { IRestaurant, IFavorites, FAVORITE_RESTAURANTS, ICategory, IVariationRate, IApiOptions, IBranch, IBranchRateSummary, IBranchRate, RESTAURANTS } from "../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { Subject, BehaviorSubject } from "rxjs";
@@ -15,8 +15,14 @@ export class RestaurantsData {
 
     constructor(private api: Api, private storage: Storage) {
         // this._restaurants.startWith([]); // load from storage first, if empty startWith[] (same with _favorites)
-        this.restaurants.next(savedRestaurants);
         storage.ready().then(() => {
+            this.storage.get(RESTAURANTS).then((restaurants: IRestaurant[]) => {
+                if (restaurants) {
+                    this.restaurants.next(restaurants);
+                } else {
+                    this.restaurants.next(savedRestaurants);
+                }
+            });
             this.storage.get(FAVORITE_RESTAURANTS).then((favorites: IFavorites) => {
                 if (favorites) {
                     this.favorites.next(favorites);
@@ -30,43 +36,46 @@ export class RestaurantsData {
     get Favorites() {
         return this.favorites.asObservable();
     }
-    getRestaurants(forceUpdate?: boolean) {
+    getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
-            this.api.get("restaurants/prefetch").subscribe((restaurants: IRestaurant[]) => {
+            this.api.get("restaurants/prefetch", options).subscribe((restaurants: IRestaurant[]) => {
                 for (const restaurant of restaurants) {
                     if (!restaurant.icon) {
-                        // TODO: move below icon assignment in here
+                        restaurant.icon = "assets/images/restaurant.png";
                     }
-                    restaurant.icon = "assets/images/restaurant.png";
                 }
+                this.storage.set(RESTAURANTS, restaurants);
                 this.restaurants.next(restaurants);
             });
-            /*setTimeout(() => {
-                for (const restaurant of tmp) {
-                    restaurant.icon = "assets/images/restaurant_placeholder.png";
-                }
-                this.restaurants.next(tmp);
-            }, 0);*/
         }
     }
-
-    /*getCategories(restaurantId: number): Observable<ICategory[]> {
-        return this.api.get(`restaurants/categories/${restaurantId}`);
-    }*/
-
     getRestaurant(id: number): Observable<IRestaurant> {
         return this.restaurants.map(restaurants => restaurants.find(restaurant => restaurant.id === id));
         // return this.api.get(`restaurants/${id}`);
     }
-
     isFavorite(restaurant: IRestaurant): Observable<boolean> {
         return this.favorites.map(favorites => favorites[restaurant.id]);
     }
-
     setFavorite(restaurant: IRestaurant, favorite: boolean) {
         const favorites = this.favorites.getValue();
         favorites[restaurant.id] = favorite;
         this.storage.set(FAVORITE_RESTAURANTS, favorites);
         this.favorites.next(favorites);
     }
+    rateVariation(rate: IVariationRate) {
+        return this.api.post("restaurants/rate-variation", rate);
+    }
+    getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
+        return this.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
+        // return this.api.get(`branches/restaurantbranches/${restaurantId}`);
+    }
+    rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
+        return this.api.post("branches/rate", rate);
+    }
+    updateStream() {
+        this.restaurants.next(this.restaurants.getValue());
+    }
+    /*getCategories(restaurantId: number): Observable<ICategory[]> {
+        return this.api.get(`restaurants/categories/${restaurantId}`);
+    }*/
 }

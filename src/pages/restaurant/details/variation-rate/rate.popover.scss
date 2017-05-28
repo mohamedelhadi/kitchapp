@@ -21,24 +21,14 @@ variation-rate-popover {
             .item-inner {
                 padding-right: 16px;
             }
-            /*.label {
-                margin: 5px 0;
-                .col {
-                    line-height: 29px;
-                }
-                rating {
-                    ul {
-                        margin: 4px 0 0 0;
-                        margin: 0;
-                        padding: 0;
-                        color: #FFC200;
-                        font-size: 22px;
-                        li {
-                            padding: 1px !important;
-                        }
-                    }
-                }
-            }*/
+        }
+        .comment {
+            padding-left: 8px;
+            font-size: 14px;
+            .item-inner {
+                margin-right: 8px;
+                padding-right: 0;
+            }
         }
     }
 }

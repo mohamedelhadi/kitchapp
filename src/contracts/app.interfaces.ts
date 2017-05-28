@@ -28,15 +28,23 @@ export enum Language {
 export interface IAppSettings {
     language: Language;
 }
-export interface IHttpError extends Response {
-    options: IApiOptions;
-    message: string;
-}
 export interface IApiOptions extends RequestOptionsArgs {
-    shouldAppendBaseUrl?: boolean;
-    shouldHandleErrors?: boolean;
+    appendBaseUrl?: boolean;
+    handleError?: boolean;
+    showLoading?: boolean;
 
     /*responseType?: string;
     timeout?: any;
     cache?: boolean;*/
+}
+export enum ErrorCode {
+    AlreadyRatedBranch,
+    AlreadyRatedItem
+}
+export interface IServerError {
+    code: ErrorCode;
+    message?: string;
+}
+export interface IErrorMessagesDictionary {
+    [index: number]: string;
 }

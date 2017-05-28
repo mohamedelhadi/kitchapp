@@ -3,7 +3,7 @@ import { Configuration } from "../../environments/env.config";
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
 import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
-import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory, City, Cuisine } from "../../contracts";
+import { IRestaurant, IRestaurantsSearchSettings, IDistanceDictionary, IBranch, InternalError, ICategory, City, Cuisine, MAP_ERROR } from "../../contracts";
 import { RestaurantsData } from "./restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
 import { orderBy, some } from "lodash";
@@ -165,7 +165,7 @@ export class Restaurants extends BasePage implements OnInit {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.logger.error(new InternalError("Couldn't retrieve coordinates", err));
+                    this.logger.error(new InternalError("Couldn't retrieve coordinates", MAP_ERROR, false, err));
                     this.searchSettings.getValue().nearby = false;
                     this.ui.hideLoading();
                     this.ui.showToast("Couldn't retrieve your coordinations");

@@ -10,6 +10,8 @@ import { IonicImageViewerModule } from "ionic-img-viewer";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Network } from "@ionic-native/network";
+import { Storage } from "@ionic/storage";
+import { Device } from "@ionic-native/device";
 
 import { IonicStorageModule } from "@ionic/storage";
 import { Environments } from "../environments/configuration";
@@ -25,7 +27,6 @@ import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
 import { CitiesData, CuisinesData, DataLoader } from "./shared/data-services";
-import { BranchesData } from "../pages/restaurant/branches/branches.data";
 import { Branches } from "../pages/restaurant/branches/branches";
 import { LocationPopover } from "../pages/restaurant/branches/location/location.popover";
 import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popover";
@@ -36,6 +37,10 @@ import { DealsData } from "../pages/restaurant/deals/deals.data";
 import { Deals } from "../pages/restaurant/deals/deals";
 import { Cuisines } from "../pages/cuisines/cuisines";
 import { AppSettings } from "./infrastructure/index";
+import { Subject } from "rxjs/Subject";
+import { USER, IUser } from "../contracts/index";
+import { ReplaySubject } from "rxjs/ReplaySubject";
+import { DeviceMock } from "../mocks/device";
 
 const _pages = [
     AppComponent,
@@ -83,30 +88,53 @@ export function services() {
         AppSettings
     ];
 }
-
 export function dataServices() {
     return [
         RestaurantsData,
         CitiesData,
         CuisinesData,
         DataLoader,
-        BranchesData,
         DealsData
     ];
 }
-
+export let browserMocks = [];
+if (Configuration.Instance.Environment === Environments.Simulator) {
+    browserMocks = [
+        DeviceMock,
+        { provide: Device, useClass: DeviceMock }
+    ];
+}
 export function plugins() {
     return [
         StatusBar,
         SplashScreen,
-        Network
+        Network,
+        Device,
+        ...browserMocks
     ];
 }
-
+export function userFactory(storage: Storage, device: Device) {
+    const user = new ReplaySubject<IUser>(1);
+    storage.ready().then(() => {
+        storage.get(USER).then((savedUser: IUser) => {
+            if (savedUser) {
+                user.next(savedUser);
+            } else {
+                user.next({ uuid: device.uuid } as IUser);
+            }
+        });
+    });
+    return user;
+}
 export function providers() {
     return [
         ...plugins(),
         ...services(),
+        {
+            provide: USER,
+            useFactory: userFactory,
+            deps: [Storage, Device]
+        },
         {
             provide: ErrorHandler,
             useClass: AppErrorHandler // env === Environments.Simulator || env === Environments.Dev ? IonicErrorHandler : AppErrorHandler

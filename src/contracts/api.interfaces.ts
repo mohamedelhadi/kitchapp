@@ -104,6 +104,7 @@ export interface IDeal {
 export interface IUser {
     id: number;
     name: string;
+    phone: string;
 
     /*  instead of preventing the user from rating,
         run server side background check and see if a particular variation has been rated by the same device more than 2 times,

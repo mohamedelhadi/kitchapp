@@ -8,17 +8,20 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import { defaults } from "lodash";
-import { IApiOptions, IHttpError } from "../../contracts";
+import { IApiOptions, InternalError, OFFLINE } from "../../contracts";
+import { Utils, UI } from "../helpers/index";
+import { HttpError } from "../../contracts/errors/http.error";
 
 @Injectable()
 export class Api {
 
     private readonly defaults: IApiOptions = {
-        shouldAppendBaseUrl: true,
-        shouldHandleErrors: true
+        appendBaseUrl: true,
+        handleError: true,
+        showLoading: true
     };
 
-    constructor(private http: Http, private config: Configuration, private errorHandler: AppErrorHandler) { }
+    constructor(private http: Http, private config: Configuration, private errorHandler: AppErrorHandler, private ui: UI) { }
 
     get(url: string, options?: IApiOptions) {
         return this.request("GET", { url, options });
@@ -35,15 +38,24 @@ export class Api {
 
     private request(method: string, { url, data, options = {} }: { url: string, data?: any, options: IApiOptions }) {
         defaults(options, this.defaults);
+        if (!Utils.isOnline()) {
+            this.errorHandler.handleError(new InternalError("No internet connection", OFFLINE, options.handleError));
+            return Observable.empty();
+        }
         options.method = method;
         options.body = data || {};
-        url = (options.shouldAppendBaseUrl) ? this.appendBaseUrl(url) : url;
+        url = (options.appendBaseUrl) ? this.appendBaseUrl(url) : url;
+        if (options.showLoading) {
+            this.ui.showLoading();
+        }
         return this.http
             .request(url, options)
-            .map(res => res.json())
+            .do(() => this.ui.hideLoading())
+            .timeout(55000)
+            .map(res => res.text() ? res.json() : {})
             .catch(err => {
-                err.options = options;
-                err.message = err.message || "Http Error";
+                this.ui.hideLoading();
+                this.errorHandler.handleError(new HttpError(err.message || "Http Error", options, err));
                 return Observable.throw(err);
             });
     }
@@ -55,8 +67,4 @@ export class Api {
         }*/
         return this.config.BaseUrl + "api/" + shortUrl;
     }
-}
-
-export function isHttpError(err: IHttpError | Error): err is IHttpError {
-    return (err as IHttpError).options !== undefined;
 }

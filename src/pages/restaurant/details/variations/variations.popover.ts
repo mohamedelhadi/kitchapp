@@ -16,16 +16,11 @@ export class VariationsPopover extends BasePopover {
         this.item = params.data.item;
     }
     showVariationRate(ev, variation) {
-        const firstTime = true;
-        if (firstTime) {
-            const popover = this.popoverCtrl.create(VariationRatePopover,
-                { variation }
-                // { cssClass: "wide-popover" }
-            );
-            popover.present(); // { ev });
-        } else {
-            this.ui.showToast("You have already rated this variation!");
-        }
+        const popover = this.popoverCtrl.create(VariationRatePopover,
+            { variation }
+            // { cssClass: "wide-popover" }
+        );
+        popover.present(); // { ev });
     }
     close() {
         this.viewCtrl.dismiss();

@@ -114,8 +114,8 @@ function _callback(successMessage, errorMessage, resolve, reject) {
 }
 
 function _getConfigDetails(env) {
-    let appName = "App";
-    let packageName = "com.app";
+    let appName = "Kitchapp";
+    let packageName = "com.sudapps.kitchapp";
     switch (env) {
         case environments.Production:
             break;
@@ -136,6 +136,10 @@ function _getEndpoint(env) {
         case environments.Dev:
             return "*";
         default:
-            return endpoints[env].replace(/^((\w+:)?\/\/[^\/]+\/?).*$/, "$1").replace(/\/$/, "");
+            return _getOrigin(endpoints[env]);
     }
+}
+
+function _getOrigin(url) {
+    return url.replace(/^((\w+:)?\/\/[^\/]+\/?).*$/, "$1").replace(/\/$/, "");
 }

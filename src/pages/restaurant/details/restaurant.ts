@@ -83,9 +83,9 @@ export class Restaurant extends BasePage implements OnInit {
         // init
     }
     ionViewDidLoad() {
-        this.ui.showLoading();
+        // this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
-            .do(() => this.ui.hideLoading())
+            // .do(() => this.ui.hideLoading())
             .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
             .map(([restaurant, query]) => {
@@ -129,16 +129,11 @@ export class Restaurant extends BasePage implements OnInit {
         popover.present();
     }
     showBranchRate(ev) {
-        const firstTime = true;
-        if (firstTime) {
-            const popover = this.popoverCtrl.create(BranchRatePopover,
-                { branches: this.restaurant.branches },
-                { cssClass: "wide-popover" }
-            );
-            popover.present(); // { ev });
-        } else {
-            this.ui.showToast("You have already rated this branch!");
-        }
+        const popover = this.popoverCtrl.create(BranchRatePopover,
+            { branches: this.restaurant.branches },
+            { cssClass: "wide-popover" }
+        );
+        popover.present(); // { ev });
     }
     call() {
         this.navCtrl.parent.select(1);

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
-import { ICity, CITIES } from "../../../contracts";
+import { ICity, CITIES, IApiOptions } from "../../../contracts";
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
@@ -25,9 +25,9 @@ export class CitiesData {
     get Cities() {
         return this.cities.asObservable();
     }
-    getCities(forceUpdate?: boolean) {
+    getCities(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cities.getValue().length === 0) {
-            this.api.get("cities").subscribe((cities: ICity[]) => {
+            this.api.get("cities", options).subscribe((cities: ICity[]) => {
                 this.cities.next(cities);
             });
         }

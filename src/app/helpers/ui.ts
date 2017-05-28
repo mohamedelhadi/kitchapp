@@ -5,13 +5,12 @@ import { AlertController, LoadingController, Loading, ToastController } from "io
 export class UI {
 
     loading: Loading;
-    constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController
-    ) { }
+    constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
     showError(msg?: string) {
         const alert = this.alertCtrl.create({
             // title: "Error",
-            subTitle: msg || "An error occurred",
+            subTitle: msg || "An error occurred, please try again",
             buttons: ["Dismiss"]
         });
         alert.present();

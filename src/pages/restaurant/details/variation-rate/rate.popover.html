@@ -3,25 +3,20 @@
         <p>{{variation.name[0]}}</p>
     </ion-item>
     <ion-item margin-top no-lines class="range-item">
-        <!--<ion-row>
-            <ion-col>
-                Quality {{quality}}/5
-            </ion-col>
-            <ion-col>
-                <rating [(ngModel)]="quality" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
-            </ion-col>
-        </ion-row>-->
         <ion-label class="rate-label" no-margin>{{rate}}/5</ion-label>
         <ion-range min="1" max="5" [(ngModel)]="rate" color="primary">
             <ion-label range-left>1</ion-label>
             <ion-label range-right>5</ion-label>
         </ion-range>
     </ion-item>
+    <ion-item class="comment">
+        <ion-textarea [(ngModel)]="comment" type="text" placeholder="Comment (Optional)"></ion-textarea>
+    </ion-item>
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-start (click)="close()">
             Close
         </button>
-        <button color="primary" ion-button clear item-end (click)="close()">
+        <button color="primary" ion-button clear item-end (click)="submit()">
             Submit
         </button>
     </ion-item>

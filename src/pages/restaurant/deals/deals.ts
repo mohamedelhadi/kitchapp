@@ -23,17 +23,15 @@ export class Deals extends BasePage {
         private data: DealsData) {
         super({ config, appSettings, logger });
         this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
-        // TODO: consider adding pull-to-refresh
     }
     ionViewDidLoad() {
-        this.ui.showLoading();
+        // TODO: consider adding pull-to-refresh
         this.deals = this.getDeals().do((deals) => {
-            this.ui.hideLoading();
             this.dealsList = deals;
         });
     }
     getDeals() {
-        this.data.getDeals();
+        this.data.getDeals(true);
         if (this.restaurant) {
             return this.data.getRestaurantDeals(this.restaurant.id);
         } else {

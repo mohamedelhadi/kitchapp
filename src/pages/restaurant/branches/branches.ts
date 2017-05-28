@@ -2,13 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
 import { Configuration } from "../../../environments/env.config";
 import { Logger, UI } from "../../../app/helpers/";
-import { BranchesData } from "./branches.data";
 import { IRestaurant, IBranch } from "../../../contracts/";
 import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { RestaurantsData } from "../../restaurants/restaurants.data";
 
 @Component({
     selector: "page-branches",
@@ -19,7 +19,7 @@ export class Branches extends BasePage {
     constructor(
         private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
-        private data: BranchesData) {
+        private data: RestaurantsData) {
         super({ config, appSettings, logger });
         this.restaurant = navParams.data;
     }
@@ -52,16 +52,11 @@ export class Branches extends BasePage {
         popover.present();
     }
     showRate(ev, branch: IBranch) {
-        const firstTime = true;
-        if (firstTime) {
-            const popover = this.popoverCtrl.create(BranchRatePopover,
-                { branch, branches: this.restaurant.branches },
-                { cssClass: "wide-popover" }
-            );
-            popover.present();
-        } else {
-            this.ui.showToast("You have already rated this branch!");
-        }
+        const popover = this.popoverCtrl.create(BranchRatePopover,
+            { branch, branches: this.restaurant.branches },
+            { cssClass: "wide-popover" }
+        );
+        popover.present();
     }
     onBackButton() {
         this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural

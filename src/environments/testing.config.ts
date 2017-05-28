@@ -6,18 +6,18 @@ export class Configuration implements IConfiguration {
     Environment: string = Environments.Testing;
     OneSignalAppID: string = "d8f974a9-a14a-49cf-a713-cca37f801505";
 
-    private _baseUrl: string = testing;
+    private baseUrl: string = testing;
 
     constructor() {
         this.init();
     }
 
     init(): void {
-        this._baseUrl = this._baseUrl.replace(/\/?(\?|#|$)/, "/$1"); // append "/" if it's not already appended
+        this.baseUrl = this.baseUrl.replace(/\/?(\?|#|$)/, "/$1"); // append "/" if it's not already appended
     }
 
     get BaseUrl(): string {
-        return this._baseUrl;
+        return this.baseUrl;
     }
 
     static get Instance() {
