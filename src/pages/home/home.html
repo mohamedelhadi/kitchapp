@@ -2,23 +2,29 @@
     <!--<button ion-button menuToggle class="menu-btn" color="light">
         <ion-icon name="menu"></ion-icon>
     </button>-->
+    <ion-buttons [attr.left]="isRtl() ? '' : null" [attr.right]="isLtr() ? '' : null">
+        <button icon-right ion-button color="dark" clear small (click)="toggle()" *ngIf="settings">
+            {{translation.Languages[toggleLanguage] | translate}}
+            <ion-icon name="globe"></ion-icon>
+        </button>
+    </ion-buttons>
 </ion-header>
 <ion-content text-center>
     <div class="main-menu">
-        <button ion-button icon-left (click)="viewRestaurants()">
+        <button ion-button icon-start (click)="viewRestaurants()">
             <ion-icon name='restaurant'></ion-icon>
-            <span>Restaurants</span>
+            <span>{{translation.Home.Restaurants | translate}}</span>
         </button>
-        <button ion-button icon-right (click)="viewFavorites()">
-            <span>Favorites</span>
+        <button ion-button icon-end (click)="viewFavorites()">
+            <span>{{translation.Home.Favorites | translate}}</span>
             <ion-icon name='heart'></ion-icon>
         </button>
-        <button ion-button icon-left (click)="viewDeals()">
+        <button ion-button icon-start (click)="viewDeals()">
             <ion-icon name='pricetags'></ion-icon>
-            <span>Deals</span>
+            <span>{{translation.Home.Deals | translate}}</span>
         </button>
-        <button ion-button icon-right (click)="viewCuisines()">
-            <span>Cuisines</span>
+        <button ion-button icon-end (click)="viewCuisines()">
+            <span>{{translation.Home.Cuisines | translate}}</span>
             <ion-icon name='pizza'></ion-icon>
         </button>
     </div>

@@ -6,6 +6,7 @@ export const CUISINES = "CUISINES";
 export const BRANCHES = "BRANCHES";
 export const DEALS = "DEALS";
 export const USER = "USER";
+export const SETTINGS = "SETTINGS";
 
 // Errors
 export enum ErrorCode {
@@ -16,4 +17,17 @@ export enum ErrorCode {
 export enum ServerErrorCode {
     AlreadyRatedBranch,
     AlreadyRatedItem
+}
+
+// Language
+export enum Language {
+    en = 0,
+    ar = 1
+}
+export const defaultLanguage: Language = Language.en;
+export const supportedLanguages: string[] = []; // contains codes of the supported languages
+for (const l in Language) {
+    if (Language.hasOwnProperty(l) && /^\d+$/.test(l)) { // discard the string keys of the enum
+        supportedLanguages[l] = Language[l];
+    }
 }

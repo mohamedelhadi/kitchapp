@@ -1,6 +1,6 @@
 /* *** App only interfaces *** */
 import { RequestOptionsArgs } from "@angular/http";
-import { ServerErrorCode } from "./index";
+import { ServerErrorCode, Language } from "./index";
 
 export interface IRestaurantsSearchSettings {
     // order settings
@@ -22,12 +22,9 @@ export interface IDropdownOption {
 export interface IDistanceDictionary {
     [index: number]: number;
 }
-export enum Language {
-    en = 0,
-    ar = 1
-}
 export interface IAppSettings {
     language: Language;
+    firstLaunch: boolean;
 }
 export interface IApiOptions extends RequestOptionsArgs {
     appendBaseUrl?: boolean;
@@ -40,8 +37,5 @@ export interface IApiOptions extends RequestOptionsArgs {
 }
 export interface IServerError {
     code: ServerErrorCode;
-    message?: string;
-}
-export interface IErrorMessagesDictionary {
-    [index: number]: string;
+    args?: any[];
 }

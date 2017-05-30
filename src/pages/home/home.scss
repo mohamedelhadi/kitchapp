@@ -1,4 +1,14 @@
 page-home {
+    ion-header {
+        .toolbar-background {
+            background: transparent;
+        }
+        .bar-buttons {
+            .button {
+                color: color($shades-of-gray, darker-gray);
+            }
+        }
+    }
     ion-content {
         background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("../assets/images/home-background.jpg") !important;
         background: url("../assets/images/home-background.jpg") !important;
@@ -22,10 +32,6 @@ page-home {
                         width: 100%;
                     }
                 }
-                /*.icon[name="pizza"] {
-                    display: inline-block;
-                    transform: rotate(-90deg);
-                }*/
             }
         }
     }

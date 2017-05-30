@@ -1,0 +1,43 @@
+{
+    "Common": {
+        "Done": "Done",
+        "Ok": "OK",
+        "Save": "Save",
+        "Update": "Update",
+        "Exit": "Exit",
+        "Close": "Close",
+        "Dismiss": "Dismiss",
+        "Cancel": "Cancel",
+        "Write": "Write..",
+        "Search": "Search",
+        "Edit": "Edit",
+        "Delete": "Delete",
+        "Sorry": "Sorry",
+        "Error": "Error",
+        "Abort": "Abort",
+        "Ignore": "Ignore",
+        "SignOut": "SIGN OUT"
+    },
+    "Messages": {
+        "LoadingPosition": "Loading your position.."
+    },
+    "Errors": {
+        "0": "An error occurred, please try again.",
+        "1": "Kindly check your internet connection.",
+        "2": "Couldn't retrieve your coordinations."
+    },
+    "ServerErrors": {
+        "0": "You have already rated this branch!",
+        "1": "You have already rated this variation!"
+    },
+    "Languages": {
+        "0": "English",
+        "1": "عربي"
+    },
+    "Home": {
+        "Restaurants": "Restaurants",
+        "Favorites": "Favorites",
+        "Cuisines": "Cuisines",
+        "Deals": "Deals"
+    }
+}

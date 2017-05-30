@@ -10,25 +10,25 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
 import { Deals } from "../restaurant/deals/deals";
-import { Configuration } from "../../app/environments/env.config";
+import { AppSettings, BasePage } from "../../app/infrastructure/index";
+import { Language } from "../../app/contracts/index";
 
 @Component({
     selector: "page-home",
-    templateUrl: "home.html",
-    animations: [
-    ]
+    templateUrl: "home.html"
 })
-export class Home {
-    query: string = "";
+export class Home extends BasePage {
+    toggleLanguage: Language;
     constructor(
+        private appSettings: AppSettings, private logger: Logger,
         private splashScreen: SplashScreen,
-        private config: Configuration,
-        private api: Api,
-        private logger: Logger,
         private restaurantsData: RestaurantsData,
-        private menu: MenuController,
-        private navCtrl: NavController) {
+        private menu: MenuController, private navCtrl: NavController) {
+        super({ appSettings, logger });
         this.menu.enable(false);
+        this.appSettings.Settings.subscribe(settings => {
+            this.toggleLanguage = this.settings.language === Language.en ? Language.ar : Language.en;
+        });
     }
     ionViewDidLoad() {
         this.splashScreen.hide();
@@ -38,6 +38,9 @@ export class Home {
                 this.navCtrl.push(RestaurantTabs, restaurants[0]);
             }
         });*/
+    }
+    toggle() {
+        this.appSettings.setLanguage(this.toggleLanguage, this.settings);
     }
     viewRestaurants() {
         this.navCtrl.push(Restaurants);

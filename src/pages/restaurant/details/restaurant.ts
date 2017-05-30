@@ -10,7 +10,6 @@ import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 import { IRestaurant, ICategory, ICategoryItem } from "../../../app/contracts/index";
-import { Configuration } from "../../../app/environments/env.config";
 
 @Component({
     selector: "page-restaurant",
@@ -39,7 +38,7 @@ import { Configuration } from "../../../app/environments/env.config";
         ])
     ]
 })
-export class Restaurant extends BasePage implements OnInit {
+export class Restaurant extends BasePage {
 
     @ViewChild("navbar") navbar: Navbar;
     @ViewChild("searchbar") searchbar: Searchbar;
@@ -54,10 +53,10 @@ export class Restaurant extends BasePage implements OnInit {
     queryText: string;
     noMatchForQuery: boolean;
     constructor(
-        private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData) {
-        super({ config, appSettings, logger });
+        super({ appSettings, logger });
         this.restaurant = navParams.data.restaurant;
         if (navParams.data.query) {
             this.queryText = navParams.data.query;
@@ -76,9 +75,6 @@ export class Restaurant extends BasePage implements OnInit {
             this.searchState = "collapsed";
             // TODO: hide keyboard if still visible
         }
-    }
-    ngOnInit() {
-        // init
     }
     ionViewDidLoad() {
         this.categories = this.data.getRestaurant(this.restaurant.id)

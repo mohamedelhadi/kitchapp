@@ -6,18 +6,19 @@ import { Api } from "../../app/services/api";
 import { RestaurantsData } from "../restaurants/restaurants.data";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { IRestaurant } from "../../app/contracts/index";
-import { Configuration } from "../../app/environments/env.config";
+import { AppSettings, BasePage } from "../../app/infrastructure/index";
 
 @Component({
     selector: "page-favorites",
     templateUrl: "favorites.html"
 })
-export class Favorites implements OnInit {
+export class Favorites extends BasePage {
     favorites: Observable<IRestaurant[]>;
-    constructor(private config: Configuration, private api: Api, private logger: Logger, private data: RestaurantsData, private navCtrl: NavController) {
-    }
-    ngOnInit() {
-        // init
+    constructor(
+        private appSettings: AppSettings, private logger: Logger,
+        private data: RestaurantsData,
+        private navCtrl: NavController) {
+        super({ appSettings, logger });
     }
     ionViewDidLoad() {
         /* subscriptions aren't disposed

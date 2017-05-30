@@ -6,7 +6,6 @@ import { has } from "lodash";
 import { BasePage, AppSettings } from "../../../app/infrastructure/index";
 import { Observable } from "rxjs/Observable";
 import { IRestaurant, IDeal } from "../../../app/contracts/index";
-import { Configuration } from "../../../app/environments/env.config";
 import { Logger, UI } from "../../../app/helpers/index";
 
 @Component({
@@ -18,10 +17,10 @@ export class Deals extends BasePage {
     deals: Observable<IDeal[]>;
     dealsList: IDeal[];
     constructor(
-        private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: DealsData) {
-        super({ config, appSettings, logger });
+        super({ appSettings, logger });
         this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
     }
     ionViewDidLoad() {

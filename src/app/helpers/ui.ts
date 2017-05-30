@@ -1,31 +1,34 @@
 import { Injectable } from "@angular/core";
 import { AlertController, LoadingController, Loading, ToastController } from "ionic-angular";
+import { TranslateService } from "@ngx-translate/core";
+import { TranslationKeys, ErrorCode } from "../contracts/index";
 
 @Injectable()
 export class UI {
 
     loading: Loading;
-    constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
+    constructor(
+        private alertCtrl: AlertController,
+        private loadingCtrl: LoadingController,
+        private toastCtrl: ToastController,
+        private translate: TranslateService) { }
 
-    showError(msg?: string) {
+    showError(messageKey?: string, interpolateParams?: any) {
         const alert = this.alertCtrl.create({
             // title: "Error",
-            subTitle: msg || "An error occurred, please try again",
-            buttons: ["Dismiss"]
+            subTitle: this.translate.instant(messageKey || TranslationKeys.Errors[ErrorCode.Unknown], interpolateParams),
+            buttons: [this.translate.instant(TranslationKeys.Common.Dismiss)]
         });
         alert.present();
         return alert;
     }
-    showLoading(content?: string, showBackdrop: boolean = true) {
+    showLoading(content?: string, interpolateParams?: any, showBackdrop: boolean = true) {
         if (!this.loading) {
             this.loading = this.loadingCtrl.create({
                 spinner: "crescent",
-                content,
+                content: content ? this.translate.instant(content, interpolateParams) : null,
                 showBackdrop
-                /*cssClass,
-                delay,
-                dismissOnPageChange,
-                duration*/
+                /*cssClass, delay, dismissOnPageChange, duration*/
             });
             this.loading.present();
         } else {
@@ -38,9 +41,9 @@ export class UI {
             this.loading = null;
         }
     }
-    showToast(message: string, duration: number = 3000, position: string = "bottom") {
+    showToast(messageKey: string, interpolateParams?: any, duration: number = 3000, position: string = "bottom") {
         const toast = this.toastCtrl.create({
-            message,
+            message: this.translate.instant(messageKey, interpolateParams),
             duration,
             position,
             dismissOnPageChange: true

@@ -23,6 +23,19 @@ page-branches {
                         border-left: solid 1px #bbbbbb;
                     }
                 }
+                [dir="rtl"] & {
+                    padding: 16px 16px 8px 70px;
+                    .header-buttons {
+                        right: initial;
+                        left: 10px;
+                        .icon:nth-child(2) {
+                            padding-left: initial;
+                            padding-right: 5px;
+                            border-left: none;
+                            border-right: solid 1px #bbbbbb;
+                        }
+                    }
+                }
             }
             .card-content {
                 //padding: 10px;
@@ -69,6 +82,10 @@ page-branches {
                             position: absolute;
                             top: 0;
                             left: 10px;
+                            [dir="rtl"] & {
+                                right: 10px;
+                                left: initial;
+                            }
                             .animate {
                                 display: block;
                                 height: 11px;

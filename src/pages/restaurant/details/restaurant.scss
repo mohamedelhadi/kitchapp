@@ -4,6 +4,13 @@ page-restaurant {
             .bar-button {
                 width: 40px;
             }
+            .call-btn {
+                margin-right: 50px;
+                [dir="rtl"] & {
+                    margin-right: initial;
+                    margin-left: 50px;
+                }
+            }
         }
         .toolbar-background {
             opacity: 0;
@@ -20,6 +27,10 @@ page-restaurant {
             right: 5px;
             width: 45px;
             height: 42px;
+            [dir="rtl"] & {
+                left: 5px;
+                right: auto;
+            }
         }
         ion-searchbar {
             position: absolute;

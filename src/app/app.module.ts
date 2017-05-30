@@ -1,11 +1,14 @@
 ﻿import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
-import { HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { Ionic2RatingModule } from "ionic2-rating";
 import { IonicImageViewerModule } from "ionic-img-viewer";
+import { Globalization } from "@ionic-native/globalization";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -110,6 +113,7 @@ export function plugins() {
         SplashScreen,
         Network,
         Device,
+        Globalization,
         ...browserMocks
     ];
 }
@@ -142,7 +146,9 @@ export function providers() {
         ...dataServices()
     ];
 }
-
+export function createTranslateLoader(http: Http) {
+    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 @NgModule({
     declarations: declarations(),
     imports: [
@@ -151,6 +157,13 @@ export function providers() {
         BrowserAnimationsModule,
         IonicModule.forRoot(AppComponent),
         IonicStorageModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [Http]
+            }
+        }),
         Ionic2RatingModule,
         IonicImageViewerModule
     ],

@@ -1,7 +1,7 @@
 import { ErrorHandler, Injectable } from "@angular/core";
 import { UI, Logger, Utils } from "./";
 import { Response } from "@angular/http";
-import { InternalError, HttpError, ErrorCode, IServerError, IErrorMessagesDictionary, ServerErrorCode } from "../contracts/index";
+import { InternalError, HttpError, ErrorCode, IServerError, ServerErrorCode, TranslationKeys } from "../contracts/index";
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
@@ -23,7 +23,7 @@ export class AppErrorHandler extends ErrorHandler {
     handleInternalError(err: InternalError) {
         if (err.handleError) {
             if (err.code === ErrorCode.Offline) {
-                this.ui.showToast("Kindly check your internet connection.");
+                this.ui.showToast(TranslationKeys.Errors[ErrorCode.Offline]);
                 return;
             }
             this.ui.showError(this.utils.isDev() ? err.message : null);
@@ -34,8 +34,7 @@ export class AppErrorHandler extends ErrorHandler {
         if (err.options.handleError) {
             const error = err.body;
             if (isServerError(error)) {
-                const message = errors[error.code];
-                this.ui.showError(message);
+                this.ui.showError(TranslationKeys.ServerErrors[error.code]);
             } else {
                 this.ui.showError(this.utils.isDev() ? err.message : null);
             }
@@ -45,6 +44,3 @@ export class AppErrorHandler extends ErrorHandler {
 export function isServerError(err: IServerError): err is IServerError {
     return (err as IServerError).code !== undefined;
 }
-export const errors: IErrorMessagesDictionary = {};
-errors[ServerErrorCode.AlreadyRatedBranch] = "You have already rated this branch!";
-errors[ServerErrorCode.AlreadyRatedItem] = "You have already rated this variation!";

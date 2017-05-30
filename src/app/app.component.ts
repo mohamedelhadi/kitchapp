@@ -4,6 +4,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Splash } from "../pages/splash/splash";
 import { Subject } from "rxjs/Subject";
+import { AppSettings } from "./infrastructure/app.settings";
 
 export const onBack = new Subject<string>();
 
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit {
         private platform: Platform,
         private statusBar: StatusBar,
         private splashScreen: SplashScreen,
-        private menu: MenuController) {
+        private menu: MenuController,
+        private settings: AppSettings) {
         this.initializeApp();
     }
 
@@ -66,6 +68,7 @@ export class AppComponent implements OnInit {
                     }*/
                 }
             });
+            this.settings.initLanguage();
         });
     }
 

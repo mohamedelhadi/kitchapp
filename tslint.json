@@ -12,6 +12,7 @@
         "max-line-length": [
             false
         ],
+        "eofline": false,
         "variable-name": [
             true,
             "ban-keywords",
@@ -43,6 +44,7 @@
         "no-console": [
             false
         ],
+        "eofline": false,
         "trailing-comma": [
             true,
             {

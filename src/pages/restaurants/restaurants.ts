@@ -9,8 +9,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Subject } from "rxjs/Subject";
 import { BasePage, AppSettings } from "../../app/infrastructure/index";
-import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCode, IBranch } from "../../app/contracts/index";
-import { Configuration } from "../../app/environments/env.config";
+import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCode, IBranch, TranslationKeys } from "../../app/contracts/index";
 import { Logger, UI, Utils } from "../../app/helpers/index";
 import { CitiesData, CuisinesData } from "../../app/services/data/index";
 
@@ -29,10 +28,10 @@ export class Restaurants extends BasePage implements OnInit {
     noMatchForQuery: boolean;
 
     constructor(
-        private config: Configuration, private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private appSettings: AppSettings, private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
-        super({ config, appSettings, logger });
+        super({ appSettings, logger });
         if (navParams.data.cuisineId) {
             const settings = this.searchSettings.getValue();
             settings.cuisineId = navParams.data.cuisineId;
@@ -140,7 +139,7 @@ export class Restaurants extends BasePage implements OnInit {
     }
     orderByNearest(restaurants: IRestaurant[]) {
         return new Promise((resolve, reject) => {
-            this.ui.showLoading("Loading your position..", false);
+            this.ui.showLoading(TranslationKeys.Messages.LoadingPosition, false);
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const latitude = position.coords.latitude;
@@ -161,7 +160,7 @@ export class Restaurants extends BasePage implements OnInit {
                     this.logger.error(new InternalError("Couldn't retrieve coordinates", ErrorCode.GeolocationPositionError, false, err));
                     this.searchSettings.getValue().nearby = false;
                     this.ui.hideLoading();
-                    this.ui.showToast("Couldn't retrieve your coordinations");
+                    this.ui.showToast(TranslationKeys.Errors[ErrorCode.GeolocationPositionError]);
                     resolve(restaurants); // to keep chain from breaking and apply other order settings
                 },
                 { maximumAge: 7000, timeout: 7000 }

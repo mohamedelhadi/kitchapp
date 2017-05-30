@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
 import { CitiesData, CuisinesData } from "./index";
 import { Logger } from "../../helpers/index";
 import { RestaurantsData } from "../../../pages/restaurants/restaurants.data";
@@ -7,9 +6,7 @@ import { RestaurantsData } from "../../../pages/restaurants/restaurants.data";
 @Injectable()
 export class DataLoader {
 
-    constructor(private logger: Logger, private restaurants: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
-    }
-
+    constructor(private logger: Logger, private restaurants: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) { }
     load() {
         this.cities.getCities(true, { showLoading: false, handleError: false });
         this.cuisines.getCuisines(true, { showLoading: false, handleError: false });
