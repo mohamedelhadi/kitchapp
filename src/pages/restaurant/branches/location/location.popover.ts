@@ -44,10 +44,10 @@ export class LocationPopover extends BasePopover implements OnInit {
         const marker = new google.maps.Marker({
             position: coordinates,
             map,
-            title: this.branch.name[0]
+            title: this.branch.name[this.settings.language]
         });
         const infoWindow = new google.maps.InfoWindow({
-            content: this.branch.name[0]
+            content: this.branch.name[this.settings.language]
         });
         marker.addListener("click", () => {
             infoWindow.open(map, marker);

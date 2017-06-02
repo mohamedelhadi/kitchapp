@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Favorites</ion-title>
+        <ion-title>{{translation.Home.Favorites | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content>
@@ -9,7 +9,7 @@
             <ion-avatar item-start>
                 <img [src]="restaurant.icon">
             </ion-avatar>
-            <h2>{{restaurant.name[0]}}</h2>
+            <h2>{{restaurant.name[settings.language]}}</h2>
             <p>{{restaurant.slogan}}</p>
             <ion-icon name="call" item-end (click)="viewBranches(restaurant); $event.stopPropagation()"></ion-icon>
         </ion-item>

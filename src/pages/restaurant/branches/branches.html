@@ -5,14 +5,14 @@
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>{{restaurant.name}}</ion-title>
+        <ion-title>{{restaurant.name[settings.language]}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
     <ion-card *ngFor="let branch of restaurant.branches">
         <ion-card-header>
-            {{branch.name[0]}}
+            {{branch.name[settings.language]}}
             <div class="header-buttons">
                 <ion-icon name="map" color="primary" item-end (click)="showLocation($event, branch)"></ion-icon>
                 <ion-icon name="call" color="primary" item-end (click)="showPhones($event, branch)"></ion-icon>
@@ -20,7 +20,7 @@
         </ion-card-header>
         <ion-card-content>
             <ion-item no-padding>
-                {{branch.location.address[0]}}
+                {{branch.location.address[settings.language]}}
             </ion-item>
             <div class="photos" *ngIf="branch.photos && branch.photos.length">
                 <img [src]="branch.photos[0]" imageViewer />
@@ -66,10 +66,10 @@
                     </ion-col>
                 </ion-row>
                 <ion-row text-center>
-                    <ion-col>Quality<br/>{{branch.rate.quality}}</ion-col>
-                    <ion-col>Service<br/>{{branch.rate.service}}</ion-col>
-                    <ion-col>Place<br/>{{branch.rate.place}}</ion-col>
-                    <ion-col>Price<br/>{{branch.rate.price}}</ion-col>
+                    <ion-col>{{translation.Restaurant.Quality | translate}}<br/>{{branch.rate.quality}}</ion-col>
+                    <ion-col>{{translation.Restaurant.Service | translate}}<br/>{{branch.rate.service}}</ion-col>
+                    <ion-col>{{translation.Restaurant.Place | translate}}<br/>{{branch.rate.place}}</ion-col>
+                    <ion-col>{{translation.Restaurant.Price | translate}}<br/>{{branch.rate.price}}</ion-col>
                 </ion-row>
             </div>
         </ion-card-content>

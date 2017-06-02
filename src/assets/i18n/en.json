@@ -16,10 +16,17 @@
         "Error": "Error",
         "Abort": "Abort",
         "Ignore": "Ignore",
-        "SignOut": "SIGN OUT"
+        "SignOut": "SIGN OUT",
+        "Pound": "Pound",
+        "Submit": "Submit",
+        "Navigate": "Navigate"
     },
     "Messages": {
-        "LoadingPosition": "Loading your position.."
+        "LoadingPosition": "Loading your position..",
+        "NoMatch": "No Match",
+        "NoDeals": "No deals",
+        "NoPhones": "No phones found",
+        "SelectBranch": "Kindly select a branch from the list."
     },
     "Errors": {
         "0": "An error occurred, please try again.",
@@ -39,5 +46,32 @@
         "Favorites": "Favorites",
         "Cuisines": "Cuisines",
         "Deals": "Deals"
+    },
+    "Restaurants": {
+        "Order": "Order",
+        "AtoZ": "A - Z",
+        "Nearby": "Nearby",
+        "TopRated": "Top rated",
+        "Filter": "Filter",
+        "City": "City",
+        "Cuisine": "Cuisine",
+        "SearchPlaceholder": "Search: meals, restaurants, etc..."
+    },
+    "Tabs": {
+        "Menu": "Menu",
+        "Branches": "Branches",
+        "Deals": "Deals"
+    },
+    "Restaurant": {
+        "Bio": "Bio",
+        "Quality": "Quality",
+        "Service": "Service",
+        "Place": "Place",
+        "Price": "Price",
+        "Phones": "Phones",
+        "Branch": "Branch",
+        "BranchesSelectPlaceholder": "Select a branch",
+        "CommentPlaceholder": "Comment.. (Optional)",
+        "SearchPlaceholder": "Search menu items"
     }
 }

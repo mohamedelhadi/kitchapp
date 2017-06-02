@@ -10,7 +10,7 @@ import { IRestaurantsSearchSettings, ICity, ICuisine } from "../../../app/contra
     selector: "restaurants-popover"
 })
 export class RestaurantsPopover extends BasePopover {
-    settings: IRestaurantsSearchSettings;
+    searchSettings: IRestaurantsSearchSettings;
     cities: Observable<ICity[]>;
     cuisines: Observable<ICuisine[]>;
     // @ViewChild(Select) select: Select; picks the first select only
@@ -18,7 +18,7 @@ export class RestaurantsPopover extends BasePopover {
     @ViewChild("cuisinesSelect") cuisinesSelect: Select;
     constructor(public viewCtrl: ViewController, private params: NavParams) {
         super({ viewCtrl });
-        (params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).subscribe(settings => this.settings = settings);
+        (params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).subscribe(settings => this.searchSettings = settings);
         this.cities = params.data.cities;
         this.cuisines = params.data.cuisines;
     }
@@ -30,9 +30,9 @@ export class RestaurantsPopover extends BasePopover {
         });
     }
     onChange() {
-        (this.params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).next(this.settings);
+        (this.params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).next(this.searchSettings);
     }
     close() {
-        this.viewCtrl.dismiss(this.settings);
+        this.viewCtrl.dismiss(this.searchSettings);
     }
 }

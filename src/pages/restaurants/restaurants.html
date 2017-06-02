@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-navbar>
-        <ion-title>Restaurants</ion-title>
+        <ion-title>{{translation.Home.Restaurants | translate}}</ion-title>
         <ion-buttons end>
             <button ion-button (click)="showPopover($event)">
                 <ion-icon name="menu"></ion-icon>
@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content>
     <ion-toolbar>
-        <ion-searchbar #searchbar color="primary" (ionInput)="onQueryChanged($event)" placeholder="Search: meals, restaurants, etc..."></ion-searchbar>
+        <ion-searchbar #searchbar color="primary" (ionInput)="onQueryChanged($event)" placeholder="{{ translation.Restaurants.SearchPlaceholder | translate }}"></ion-searchbar>
     </ion-toolbar>
     <ion-list>
         <button ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
@@ -18,8 +18,8 @@
                 <img [src]="restaurant.icon">
             </ion-avatar>
             <h2>{{restaurant.name[settings.language]}}</h2>
-            <p>{{restaurant.branches[0].location.address[0]}}</p>
+            <p>{{restaurant.branches[0].location.address[settings.language]}}</p>
         </button>
-        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">No Match</ion-item>
+        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">{{translation.Messages.NoMatch | translate}}</ion-item>
     </ion-list>
 </ion-content>

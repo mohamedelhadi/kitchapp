@@ -1,15 +1,15 @@
 <div #map class="map"></div>
 <ion-item class="address" no-border>
-    <h2>{{branch.name[0]}}</h2>
-    <p>{{branch.location.address[0]}}</p>
+    <h2>{{branch.name[settings.language]}}</h2>
+    <p>{{branch.location.address[settings.language]}}</p>
 </ion-item>
 
 <ion-item class="popover-footer">
     <button color="dark" ion-button clear item-start (click)="close()">
-        Close
+        {{translation.Common.Close | translate}}
     </button>
     <a [href]="locationUrl" ion-button icon-right clear item-end>
-        Navigate
+        {{translation.Common.Navigate | translate}}
         <ion-icon name="navigate"></ion-icon>
     </a>
 </ion-item>

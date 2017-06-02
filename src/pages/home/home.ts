@@ -24,7 +24,7 @@ export class Home extends BasePage {
         private splashScreen: SplashScreen,
         private restaurantsData: RestaurantsData,
         private menu: MenuController, private navCtrl: NavController) {
-        super({ appSettings, logger });
+        super({ logger });
         this.menu.enable(false);
         this.appSettings.Settings.subscribe(settings => {
             this.toggleLanguage = this.settings.language === Language.en ? Language.ar : Language.en;

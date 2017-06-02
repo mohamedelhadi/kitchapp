@@ -91,3 +91,45 @@ ion-card {
     font-weight: normal;
     font-size: 1.8rem;
 }
+
+ion-range {
+    .emoji {
+        margin-top: 4px;
+        max-width: 25px;
+        max-height: 25px;
+    }
+}
+
+ion-range {
+    @include rtl() {
+        direction: ltr;
+        [range-left] {
+            margin-right: 12px !important;
+            margin-left: initial !important;
+        }
+        [range-right] {
+            margin-left: 12px !important;
+            margin-right: initial !important;
+        }
+        .range-slider {
+            .range-bar {
+                right: initial;
+                left: 0;
+            }
+            .range-knob-handle {
+                right: initial;
+                left: 0;
+                margin-right: initial;
+                margin-left: -21px;
+            }
+        }
+    }
+}
+
+.rating {
+    @include rtl() {
+        ion-icon {
+            transform: scaleX(-1);
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Cuisines</ion-title>
+        <ion-title>{{translation.Home.Cuisines | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -8,13 +8,13 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6 col-xs col-sm-3 col-md-4 col-lg-2 *ngFor="let cuisine of data.Cuisines | async; let i = index" (click)="viewRestaurants(cuisine.id)">
-                <!--{{cuisine.name[0]}}-->
+                <!--{{cuisine.name[settings.language]}}-->
                 <!--<div [ngStyle]="{'background': cuisine.photo}" class="cuisine"></div>-->
                 <img width="200" height="160" [src]="i<=5 ? 'assets/images/cuisine'+(i+1)+'.jpg': 'assets/images/cuisine.png'">
-                <div class="title">{{cuisine.name[0]}}</div>
+                <div class="title">{{cuisine.name[settings.language]}}</div>
                 <!--<img [src]="i<=5 ? 'assets/images/cuisine'+(i+1)+'.jpg': 'assets/images/cuisine.png'">
                 <div class="after" (click)="viewRestaurants(cuisine.id)">
-                    <div>{{cuisine.name[0]}}</div>
+                    <div>{{cuisine.name[settings.language]}}</div>
                 </div>-->
             </ion-col>
         </ion-row>

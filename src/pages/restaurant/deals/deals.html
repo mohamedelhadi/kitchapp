@@ -5,7 +5,7 @@
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>{{restaurant ? restaurant.name : "Deals"}}</ion-title>
+        <ion-title>{{restaurant ? restaurant.name : translation.Home.Deals | translate}}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -17,18 +17,18 @@
             </ion-thumbnail>
             <ion-row>
                 <ion-col>
-                    <h3>{{deal.name[0]}}</h3>
+                    <h3>{{deal.name[settings.language]}}</h3>
                 </ion-col>
-                <ion-col class="price" col-3 *ngIf="deal.newPrice"><b>{{deal.newPrice}}</b> SDG</ion-col>
-                <ion-col class="price old" col-3 *ngIf="deal.oldPrice"><b>{{deal.oldPrice}}</b> SDG</ion-col>
+                <ion-col class="price" col-3 *ngIf="deal.newPrice"><b>{{deal.newPrice}}</b> {{translation.Common.Pound | translate}}</ion-col>
+                <ion-col class="price old" col-3 *ngIf="deal.oldPrice"><b>{{deal.oldPrice}}</b> {{translation.Common.Pound | translate}}</ion-col>
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <p>{{deal.description[0]}}</p>
+                    <p>{{deal.description[settings.language]}}</p>
                 </ion-col>
             </ion-row>
-            <!--<ion-badge item-end>{{deal.price}} SDG</ion-badge>-->
+            <!--<ion-badge item-end>{{deal.price}} {{translation.Common.Pound | translate}}</ion-badge>-->
         </ion-item>
-        <ion-item no-padding *ngIf="!dealsList || dealsList.length == 0" text-center class="no-match">No deals</ion-item>
+        <ion-item no-padding *ngIf="!dealsList || dealsList.length == 0" text-center class="no-match">{{translation.Messages.NoDeals | translate}}</ion-item>
     </ion-list>
 </ion-content>

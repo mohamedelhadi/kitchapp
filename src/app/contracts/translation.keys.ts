@@ -1,5 +1,5 @@
 import { default as language } from "../../assets/i18n/en.json";
-import { Keys } from "./translation.keys.d";
+import { ITranslationKeys } from "./translation.interface";
 
 const replaceValuesWithNamespace = (item, ancestor?) => {
     for (const property in item) {
@@ -14,4 +14,4 @@ const replaceValuesWithNamespace = (item, ancestor?) => {
 
 replaceValuesWithNamespace(language);
 
-export const TranslationKeys = language as Keys;
+export const TranslationKeys = language as ITranslationKeys;

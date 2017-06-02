@@ -1,24 +1,24 @@
 <ion-list no-padding no-margin>
-    <ion-list-header no-margin>{{item.name[0]}}</ion-list-header>
+    <ion-list-header no-margin>{{item.name[settings.language]}}</ion-list-header>
     <!--<ion-item *ngFor="let variation of item.variations">
         <ion-icon name="call" item-start></ion-icon>
-        <h3>{{variation.name[0]}}</h3>
+        <h3>{{variation.name[settings.language]}}</h3>
         <p>{{variation.number}}</p>
     </ion-item>-->
     <ion-item *ngFor="let variation of item.variations" no-lines>
         <ion-thumbnail item-start>
             <img [src]="variation.photo ? variation.photo  : 'assets/images/item.png'" imageViewer />
         </ion-thumbnail>
-        <h3>{{variation.name[0]}}</h3>
+        <h3>{{variation.name[settings.language]}}</h3>
         <rating (click)="showVariationRate($event, variation)" readOnly="true" [(ngModel)]="variation.rate" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
-        <p><b>{{variation.price}}</b> SDG</p>
+        <p><b>{{variation.price}}</b> {{translation.Common.Pound | translate}}</p>
         <!--<p>{{variation.description}}</p> show description at bottom when user clicks on photo to view it-->
-        <!--<ion-badge item-end>{{variation.price}} SDG</ion-badge>-->
+        <!--<ion-badge item-end>{{variation.price}} {{translation.Common.Pound | translate}}</ion-badge>-->
     </ion-item>
     <!-- all items must have at least one variation <ion-item no-padding *ngIf="!item.variations || !item.variations.length" text-center class="no-match">No variations</ion-item>-->
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-start (click)="close()">
-            Close
+            {{translation.Common.Close | translate}}
         </button>
     </ion-item>
 </ion-list>

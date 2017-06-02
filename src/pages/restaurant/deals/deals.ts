@@ -3,7 +3,7 @@ import { NavController, NavParams, PopoverController, ViewController } from "ion
 import { DealsData } from "./deals.data";
 import { Subject } from "rxjs/Subject";
 import { has } from "lodash";
-import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { BasePage } from "../../../app/infrastructure/index";
 import { Observable } from "rxjs/Observable";
 import { IRestaurant, IDeal } from "../../../app/contracts/index";
 import { Logger, UI } from "../../../app/helpers/index";
@@ -17,10 +17,10 @@ export class Deals extends BasePage {
     deals: Observable<IDeal[]>;
     dealsList: IDeal[];
     constructor(
-        private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: DealsData) {
-        super({ appSettings, logger });
+        super({ logger });
         this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
     }
     ionViewDidLoad() {

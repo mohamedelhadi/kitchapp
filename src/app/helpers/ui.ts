@@ -41,7 +41,7 @@ export class UI {
             this.loading = null;
         }
     }
-    showToast(messageKey: string, interpolateParams?: any, duration: number = 3000, position: string = "bottom") {
+    showToast(messageKey: string, interpolateParams?: any, duration: number = 4000, position: string = "bottom") {
         const toast = this.toastCtrl.create({
             message: this.translate.instant(messageKey, interpolateParams),
             duration,

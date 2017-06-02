@@ -4,7 +4,7 @@ import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
-import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { BasePage } from "../../../app/infrastructure/index";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { IRestaurant, IBranch } from "../../../app/contracts/index";
 import { Logger, UI } from "../../../app/helpers/index";
@@ -16,10 +16,10 @@ import { Logger, UI } from "../../../app/helpers/index";
 export class Branches extends BasePage {
     restaurant: IRestaurant;
     constructor(
-        private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData) {
-        super({ appSettings, logger });
+        super({ logger });
         this.restaurant = navParams.data;
     }
     ionViewDidLoad() {

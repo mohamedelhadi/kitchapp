@@ -2,6 +2,6 @@
     "simulator": "http://192.168.1.109",
     "dev": "http://192.168.1.109",
     "testing": "http://localhost:53882",
-    "staging": "https://209.208.110.88/Kitchserver",
+    "staging": "https://www.sudapps.com/Kitchserver",
     "production": "https://www.sudapps.com/Kitchserver"
 }

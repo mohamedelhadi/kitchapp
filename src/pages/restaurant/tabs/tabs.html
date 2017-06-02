@@ -1,5 +1,5 @@
 <ion-tabs [selectedIndex]="index">
-    <ion-tab [root]="tab1" [rootParams]="{ restaurant: restaurant, query: query }" tabTitle="Menu" tabIcon="book"></ion-tab>
-    <ion-tab [root]="tab2" [rootParams]="restaurant" tabTitle="Branches" tabIcon="git-merge"></ion-tab>
-    <ion-tab [root]="tab3" [rootParams]="restaurant" tabTitle="Deals" tabIcon="pricetags"></ion-tab>
+    <ion-tab [root]="tab1" [rootParams]="{ restaurant: restaurant, query: query }" tabTitle="{{translation.Tabs.Menu | translate}}" tabIcon="book"></ion-tab>
+    <ion-tab [root]="tab2" [rootParams]="restaurant" tabTitle="{{translation.Tabs.Branches | translate}}" tabIcon="git-merge"></ion-tab>
+    <ion-tab [root]="tab3" [rootParams]="restaurant" tabTitle="{{translation.Tabs.Deals | translate}}" tabIcon="pricetags"></ion-tab>
 </ion-tabs>

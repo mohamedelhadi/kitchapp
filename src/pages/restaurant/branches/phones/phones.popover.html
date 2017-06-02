@@ -1,14 +1,14 @@
 <ion-list no-padding no-margin>
-    <ion-list-header>Phones</ion-list-header>
+    <ion-list-header>{{translation.Restaurant.Phones | translate}}</ion-list-header>
     <a ion-item *ngFor="let phone of branch.phones" [href]="sanitize(phone.number)" no-lines>
         <ion-icon name="call" item-start></ion-icon>
-        <h3>{{phone.name[0]}}</h3>
+        <h3>{{phone.name[settings.language]}}</h3>
         <p>{{phone.number}}</p>
     </a>
-    <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-match">No phones found</ion-item>
+    <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-match">{{translation.Messages.NoPhones | translate}}</ion-item>
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-start (click)="close()">
-            Close
+            {{translation.Common.Close | translate}}
         </button>
     </ion-item>
 </ion-list>

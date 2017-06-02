@@ -8,10 +8,11 @@ import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";
 
+export const settings = new ReplaySubject<IAppSettings>(1);
+
 @Injectable()
 export class AppSettings {
 
-    private settings = new ReplaySubject<IAppSettings>(1);
     constructor(
         private config: Configuration,
         private storage: Storage,
@@ -19,61 +20,59 @@ export class AppSettings {
         private globalization: Globalization,
         private platform: Platform) {
         this.storage.ready().then(() => {
-            this.storage.get(SETTINGS).then((settings: IAppSettings) => {
+            this.storage.get(SETTINGS).then((savedSetting: IAppSettings) => {
                 // load settings from storage
-                if (settings) {
-                    this.settings.next(settings);
+                if (savedSetting) {
+                    settings.next(savedSetting);
                 } else {
                     this.storage.set(SETTINGS, { language: defaultLanguage, firstLaunch: false })
                         .then(() => {
-                            this.settings.next({ language: defaultLanguage, firstLaunch: true });
+                            settings.next({ language: defaultLanguage, firstLaunch: true });
                         });
                 }
             });
         });
     }
     get Settings() {
-        return this.settings.asObservable();
+        return settings.asObservable();
     }
     initLanguage() {
         this.translate.setDefaultLang(Language[defaultLanguage]);
-        const subscription = this.settings.subscribe(settings => {
-            subscription.unsubscribe();
-            if (settings.firstLaunch) {
+        const subscription = settings.subscribe(setting => {
+            if (setting.firstLaunch) {
                 if ((window as any).cordova) {
                     this.globalization.getPreferredLanguage().then(result => {
                         const langCode = result.value.substring(0, 2).toLowerCase();
                         const language = supportedLanguages.some(code => code === langCode) ? Language[langCode] : defaultLanguage;
-                        this.setLanguage(language, settings);
+                        this.setLanguage(language, setting);
                     });
                 } else {
                     const langCode = (this.translate.getBrowserLang() || Language[defaultLanguage]).substring(0, 2).toLowerCase();
                     const language = supportedLanguages.some(code => code === langCode) ? Language[langCode] : defaultLanguage;
-                    this.setLanguage(language, settings);
+                    this.setLanguage(language, setting);
                 }
             } else {
-                this.applyLanguage(Language[settings.language]);
+                this.applyLanguage(Language[setting.language]);
             }
         });
+        subscription.unsubscribe();
     }
-    setLanguage(language: Language, settings: IAppSettings) {
+    setLanguage(language: Language, setting: IAppSettings) {
         this.applyLanguage(Language[language]);
-        settings.language = language;
-        this.settings.next(settings);
-        this.saveSelectedLanguage(settings.language);
+        setting.language = language;
+        settings.next(setting);
+        this.saveSelectedLanguage(setting.language);
     }
     private applyLanguage(langCode: string) {
         this.translate.use(langCode);
         this.platform.setLang(langCode, true);
-        if (langCode === Language[Language.ar]) {
-            this.platform.setDir("rtl", true);
-        }
+        this.platform.setDir(langCode === Language[Language.ar] ? "rtl" : "ltr", true);
     }
     private saveSelectedLanguage(language: Language) {
         this.storage.ready().then(() => {
-            this.storage.get(SETTINGS).then((settings: IAppSettings) => {
-                settings.language = language;
-                this.storage.set(SETTINGS, settings);
+            this.storage.get(SETTINGS).then((setting: IAppSettings) => {
+                setting.language = language;
+                this.storage.set(SETTINGS, setting);
             });
         });
     }

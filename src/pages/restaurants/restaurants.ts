@@ -8,7 +8,7 @@ import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Subject } from "rxjs/Subject";
-import { BasePage, AppSettings } from "../../app/infrastructure/index";
+import { BasePage } from "../../app/infrastructure/index";
 import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCode, IBranch, TranslationKeys } from "../../app/contracts/index";
 import { Logger, UI, Utils } from "../../app/helpers/index";
 import { CitiesData, CuisinesData } from "../../app/services/data/index";
@@ -28,10 +28,10 @@ export class Restaurants extends BasePage implements OnInit {
     noMatchForQuery: boolean;
 
     constructor(
-        private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
-        super({ appSettings, logger });
+        super({ logger });
         if (navParams.data.cuisineId) {
             const settings = this.searchSettings.getValue();
             settings.cuisineId = navParams.data.cuisineId;
@@ -91,7 +91,7 @@ export class Restaurants extends BasePage implements OnInit {
             return restaurants.filter(restaurant => {
                 query = query.trim().toLowerCase();
                 // search in restaurant name
-                const matchesRestaurantName = restaurant.name[0].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
+                const matchesRestaurantName = restaurant.name[this.settings.language].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
                 if (matchesRestaurantName) {
                     return true;
                 }
@@ -103,7 +103,7 @@ export class Restaurants extends BasePage implements OnInit {
                 // search in category items names
                 const matchesItemName = some(restaurant.categories, (category: ICategory) => {
                     return some(category.categoryItems, item => {
-                        return item.tags.indexOf(query) > -1 || item.name[0].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
+                        return item.tags.indexOf(query) > -1 || item.name[this.settings.language].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
                     });
                 });
                 if (matchesItemName) {

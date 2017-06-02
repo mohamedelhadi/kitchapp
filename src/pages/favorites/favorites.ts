@@ -6,7 +6,7 @@ import { Api } from "../../app/services/api";
 import { RestaurantsData } from "../restaurants/restaurants.data";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { IRestaurant } from "../../app/contracts/index";
-import { AppSettings, BasePage } from "../../app/infrastructure/index";
+import { BasePage } from "../../app/infrastructure/index";
 
 @Component({
     selector: "page-favorites",
@@ -15,16 +15,12 @@ import { AppSettings, BasePage } from "../../app/infrastructure/index";
 export class Favorites extends BasePage {
     favorites: Observable<IRestaurant[]>;
     constructor(
-        private appSettings: AppSettings, private logger: Logger,
+        private logger: Logger,
         private data: RestaurantsData,
         private navCtrl: NavController) {
-        super({ appSettings, logger });
+        super({ logger });
     }
     ionViewDidLoad() {
-        /* subscriptions aren't disposed
-        this.data.Favorites.subscribe(favorites => {
-            this.favorites = this.data.Restaurants.map(restaurants => restaurants.filter(restaurant => favorites[restaurant.id]));
-        });*/
         this.favorites = this.data.Favorites.flatMap(favorites => {
             return this.data.Restaurants.map(restaurants =>
                 restaurants.filter(restaurant => favorites[restaurant.id])

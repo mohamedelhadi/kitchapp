@@ -20,14 +20,26 @@ variation-rate-popover {
             }
             .item-inner {
                 padding-right: 16px;
+                @include rtl() {
+                    padding-left: 16px !important; // !important to override rtl paddings
+                }
             }
         }
         .comment {
             padding-left: 8px;
             font-size: 14px;
+            textarea {
+                margin-bottom: 0px;
+            }
             .item-inner {
                 margin-right: 8px;
                 padding-right: 0;
+            }
+            @include rtl() {
+                padding-right: 8px;
+                .item-inner {
+                    margin-right: 0;
+                }
             }
         }
     }

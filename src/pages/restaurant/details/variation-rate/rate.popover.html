@@ -1,23 +1,23 @@
 <ion-list no-padding no-margin>
     <ion-item no-lines class="variation">
-        <p>{{variation.name[0]}}</p>
+        <p>{{variation.name[settings.language]}}</p>
+    </ion-item>
+    <ion-item class="comment">
+        <ion-textarea [(ngModel)]="comment" type="text" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></ion-textarea>
     </ion-item>
     <ion-item margin-top no-lines class="range-item">
         <ion-label class="rate-label" no-margin>{{rate}}/5</ion-label>
         <ion-range min="1" max="5" [(ngModel)]="rate" color="primary">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
+            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
         </ion-range>
-    </ion-item>
-    <ion-item class="comment">
-        <ion-textarea [(ngModel)]="comment" type="text" placeholder="Comment (Optional)"></ion-textarea>
     </ion-item>
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-start (click)="close()">
-            Close
+            {{translation.Common.Close | translate}}
         </button>
         <button color="primary" ion-button clear item-end (click)="submit()">
-            Submit
+            {{translation.Common.Submit | translate}}
         </button>
     </ion-item>
 </ion-list>

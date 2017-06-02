@@ -5,7 +5,7 @@
               <ion-icon name="arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>{{restaurant.name}}</ion-title>
+        <ion-title>{{restaurant.name[settings.language]}}</ion-title>
         <ion-buttons end>
             <button class="call-btn" ion-button icon-only (click)="call()">
               <ion-icon name="call"></ion-icon>
@@ -15,7 +15,7 @@
     <button class="search-toggle" clear ion-button icon-only (click)="focusSearchbar()" [@searchbarSpriteState]="searchState">
         <ion-icon name="search"></ion-icon>
     </button>
-    <ion-searchbar (ionInput)="onQueryChanged($event)" [(ngModel)]="queryText" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="Search menu items" [@searchbarState]="searchState"></ion-searchbar>
+    <ion-searchbar (ionInput)="onQueryChanged($event)" [(ngModel)]="queryText" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="{{ translation.Restaurant.SearchPlaceholder | translate }}" [@searchbarState]="searchState"></ion-searchbar>
 </ion-header>
 <ion-content (ionScroll)="onScroll($event)">
     <div class="banner">
@@ -37,7 +37,7 @@
         </ion-item>
     </div>
     <ion-card [hidden]="hideBio">
-        <ion-card-header>Bio</ion-card-header>
+        <ion-card-header>{{translation.Restaurant.Bio | translate}}</ion-card-header>
         <ion-card-content>
             <p>{{restaurant.bio}}</p>
             <p margin-top>{{restaurant.email}}</p>
@@ -50,21 +50,21 @@
         <ion-card *ngFor="let category of categories | async">
             <ion-card-header>
                 <button ion-item no-padding (click)="category.expanded=!category.expanded;">
-                    {{category.name[0]}}
+                    {{category.name[settings.language]}}
                     <ion-icon [name]="category.expanded? 'ios-arrow-up' : 'ios-arrow-down'" item-end></ion-icon>
                 </button>
             </ion-card-header>
             <ion-list [hidden]="!category.expanded" [class.expanded]="category.expanded">
                 <button ion-item *ngFor="let item of category.categoryItems" (click)="showVariations($event, item)">
                     <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-start></ion-icon>
-                    {{item.name[0]}}
+                    {{item.name[settings.language]}}
                     <!--<p style="white-space: normal">Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.</p>-->
                     <!--<ion-icon name="ios-arrow-forward" item-end></ion-icon>-->
-                    <ion-badge color="secondary" item-end><b>{{item.variations[0].price}}</b> SDG</ion-badge>
+                    <ion-badge color="secondary" item-end><b>{{item.variations[0].price}}</b> {{translation.Common.Pound | translate}}</ion-badge>
                 </button>
             </ion-list>
         </ion-card>
-        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">No Match</ion-item>
+        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">{{translation.Messages.NoMatch | translate}}</ion-item>
     </div>
     <ion-fab right bottom>
         <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>

@@ -1,4 +1,4 @@
-export interface Keys {
+export interface ITranslationKeys {
   "Common"?: {
     "Done"?: string;
     "Ok"?: string;
@@ -17,10 +17,17 @@ export interface Keys {
     "Abort"?: string;
     "Ignore"?: string;
     "SignOut"?: string;
+    "Pound"?: string;
+    "Submit"?: string;
+    "Navigate"?: string;
     [k: string]: any;
   };
   "Messages"?: {
     "LoadingPosition"?: string;
+    "NoMatch"?: string;
+    "NoDeals"?: string;
+    "NoPhones"?: string;
+    "SelectBranch"?: string;
     [k: string]: any;
   };
   "Errors"?: {
@@ -44,6 +51,36 @@ export interface Keys {
     "Favorites"?: string;
     "Cuisines"?: string;
     "Deals"?: string;
+    [k: string]: any;
+  };
+  "Restaurants"?: {
+    "Order"?: string;
+    "AtoZ"?: string;
+    "Nearby"?: string;
+    "TopRated"?: string;
+    "Filter"?: string;
+    "City"?: string;
+    "Cuisine"?: string;
+    "SearchPlaceholder"?: string;
+    [k: string]: any;
+  };
+  "Tabs"?: {
+    "Menu"?: string;
+    "Branches"?: string;
+    "Deals"?: string;
+    [k: string]: any;
+  };
+  "Restaurant"?: {
+    "Bio"?: string;
+    "Quality"?: string;
+    "Service"?: string;
+    "Place"?: string;
+    "Price"?: string;
+    "Phones"?: string;
+    "Branch"?: string;
+    "BranchesSelectPlaceholder"?: string;
+    "CommentPlaceholder"?: string;
+    "SearchPlaceholder"?: string;
     [k: string]: any;
   };
   [k: string]: any;

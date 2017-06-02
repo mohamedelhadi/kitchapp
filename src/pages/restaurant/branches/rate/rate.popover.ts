@@ -24,7 +24,7 @@ export class BranchRatePopover extends BasePopover {
     constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, @Inject(USER) private userSubject: ReplaySubject<IUser>) {
         super({ viewCtrl });
         this.branches = params.data.branches;
-        this.selectedBranch = params.data.branch ? params.data.branch : null;
+        this.selectedBranch = params.data.branch ? params.data.branch : this.branches.length === 1 ? this.branches[0] : null;
         if (this.selectedBranch) {
             this.selectedBranchId = this.selectedBranch.id;
         } else {
@@ -40,7 +40,7 @@ export class BranchRatePopover extends BasePopover {
     }
     submit() {
         if (!this.selectedBranchId) {
-            this.ui.showToast("Kindly select a branch from the list.");
+            this.ui.showToast(this.translation.Messages.SelectBranch);
             return;
         }
         this.restaurantsData

@@ -8,7 +8,7 @@ import { UI, Logger, Utils } from "../../../app/helpers/index";
 import { orderBy, some } from "lodash";
 import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
-import { BasePage, AppSettings } from "../../../app/infrastructure/index";
+import { BasePage } from "../../../app/infrastructure/index";
 import { IRestaurant, ICategory, ICategoryItem } from "../../../app/contracts/index";
 
 @Component({
@@ -53,10 +53,10 @@ export class Restaurant extends BasePage {
     queryText: string;
     noMatchForQuery: boolean;
     constructor(
-        private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData) {
-        super({ appSettings, logger });
+        super({ logger });
         this.restaurant = navParams.data.restaurant;
         if (navParams.data.query) {
             this.queryText = navParams.data.query;
@@ -85,7 +85,7 @@ export class Restaurant extends BasePage {
                 // query
                 const categories = this.search(Utils.deepClone(restaurant.categories), query);
                 // order
-                // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[0]);
+                // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[settings.language]);
                 this.noMatchForQuery = query && categories.length === 0;
                 return categories;
             });
@@ -99,7 +99,7 @@ export class Restaurant extends BasePage {
                 query = query.trim().toLowerCase();
                 // search in category items names
                 category.categoryItems = category.categoryItems.filter(item => {
-                    return item.tags.indexOf(query) > -1 || item.name[0].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
+                    return item.tags.indexOf(query) > -1 || item.name[this.settings.language].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
                 });
                 const foundMatch = category.categoryItems.length > 0;
                 if (foundMatch) {

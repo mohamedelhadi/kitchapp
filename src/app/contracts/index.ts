@@ -6,5 +6,4 @@ export * from "./errors/base.error";
 export * from "./errors/http.error";
 export * from "./models/city";
 export * from "./models/cuisine";
-export * from "./translation.keys.d";
 export * from "./translation.keys";

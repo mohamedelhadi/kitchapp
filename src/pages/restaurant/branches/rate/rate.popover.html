@@ -2,50 +2,50 @@
     <!--<ion-list-header no-margin>Rate</ion-list-header>-->
     <ion-item no-lines class="branch" margin-top>
         <ion-label>
-            Branch
-            <p *ngIf="!canChangeBranch">{{selectedBranch.name[0]}}</p>
+            {{translation.Restaurant.Branch | translate}}
+            <p *ngIf="!canChangeBranch">{{selectedBranch.name[settings.language]}}</p>
         </ion-label>
-        <ion-select *ngIf="canChangeBranch" interface="popover" placeholder="Select a branch" [(ngModel)]="selectedBranchId">
-            <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[0]}}</ion-option>
+        <ion-select *ngIf="canChangeBranch" interface="popover" placeholder="{{ translation.Restaurant.BranchesSelectPlaceholder | translate }}" [(ngModel)]="selectedBranchId">
+            <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[settings.language]}}</ion-option>
         </ion-select>
     </ion-item>
-    <ion-item margin-top no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>Quality {{quality}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>Service {{service}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="service" color="primary">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>Place {{place}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="place" color="primary">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>Price {{price}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="price" color="primary">
-            <ion-label range-left>1</ion-label>
-            <ion-label range-right>5</ion-label>
-        </ion-range>
-    </ion-item>
     <ion-item class="comment">
-        <ion-textarea [(ngModel)]="comment" type="text" placeholder="Comment (Optional)"></ion-textarea>
+        <ion-textarea [(ngModel)]="comment" type="text" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></ion-textarea>
+    </ion-item>
+    <ion-item margin-top no-lines class="range-item">
+        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Quality | translate}} {{quality}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">
+            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Service | translate}} {{service}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="service" color="primary">
+            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Place | translate}} {{place}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="place" color="primary">
+            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+        </ion-range>
+    </ion-item>
+    <ion-item no-lines class="range-item">
+        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Price | translate}} {{price}}/5</ion-label>
+        <ion-range min="1" max="5" [(ngModel)]="price" color="primary">
+            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+        </ion-range>
     </ion-item>
     <ion-item margin-top class="popover-footer">
         <button color="dark" ion-button clear item-start (click)="close()">
-            Close
+            {{translation.Common.Close | translate}}
         </button>
         <button color="primary" ion-button clear item-end (click)="submit()">
-            Submit
+            {{translation.Common.Submit | translate}}
         </button>
     </ion-item>
 </ion-list>
