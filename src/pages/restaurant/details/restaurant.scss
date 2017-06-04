@@ -44,8 +44,11 @@ page-restaurant {
         .banner {
             height: 141px;
             background-image: url("../assets/images/banner.jpg");
-            background-size: 100%;
+            @include rtl() {
+                background-image: url("../assets/images/banner-ar.jpg");
+            }
             background-repeat: no-repeat;
+            background-size: 100%;
             .banner-content {
                 position: absolute;
                 top: 50px; // move down the navbar

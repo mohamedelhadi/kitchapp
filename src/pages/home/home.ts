@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate, keyframes } from "@angular/
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
 import { RestaurantsData } from "../restaurants/restaurants.data";
-import { MenuController, NavController, Searchbar } from "ionic-angular";
+import { MenuController, NavController, Searchbar, PopoverController } from "ionic-angular";
 import { Restaurants } from "../restaurants/restaurants";
 import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -11,24 +11,20 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
 import { Deals } from "../restaurant/deals/deals";
 import { AppSettings, BasePage } from "../../app/infrastructure/index";
-import { Language } from "../../app/contracts/index";
+import { HomePopover } from "./popover/popover";
 
 @Component({
     selector: "page-home",
     templateUrl: "home.html"
 })
 export class Home extends BasePage {
-    toggleLanguage: Language;
     constructor(
         private appSettings: AppSettings, private logger: Logger,
         private splashScreen: SplashScreen,
         private restaurantsData: RestaurantsData,
-        private menu: MenuController, private navCtrl: NavController) {
+        private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController) {
         super({ logger });
         this.menu.enable(false);
-        this.appSettings.Settings.subscribe(settings => {
-            this.toggleLanguage = this.settings.language === Language.en ? Language.ar : Language.en;
-        });
     }
     ionViewDidLoad() {
         this.splashScreen.hide();
@@ -38,9 +34,6 @@ export class Home extends BasePage {
                 this.navCtrl.push(RestaurantTabs, restaurants[0]);
             }
         });*/
-    }
-    toggle() {
-        this.appSettings.setLanguage(this.toggleLanguage, this.settings);
     }
     viewRestaurants() {
         this.navCtrl.push(Restaurants);
@@ -53,5 +46,9 @@ export class Home extends BasePage {
     }
     viewDeals() {
         this.navCtrl.push(Deals);
+    }
+    showPopover(ev) {
+        const popover = this.popoverCtrl.create(HomePopover, {}, { cssClass: "narrow-popover" });
+        popover.present({ ev });
     }
 }

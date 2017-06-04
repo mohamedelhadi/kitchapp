@@ -38,7 +38,7 @@ export class AppSettings {
     }
     initLanguage() {
         this.translate.setDefaultLang(Language[defaultLanguage]);
-        const subscription = settings.subscribe(setting => {
+        settings.take(1).subscribe(setting => {
             if (setting.firstLaunch) {
                 if ((window as any).cordova) {
                     this.globalization.getPreferredLanguage().then(result => {
@@ -55,7 +55,6 @@ export class AppSettings {
                 this.applyLanguage(Language[setting.language]);
             }
         });
-        subscription.unsubscribe();
     }
     setLanguage(language: Language, setting: IAppSettings) {
         this.applyLanguage(Language[language]);

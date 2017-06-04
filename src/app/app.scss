@@ -48,6 +48,10 @@ button[ion-fab] {
     width: 300px;
 }
 
+.narrow-popover .popover-content {
+    width: 150px;
+}
+
 .item-select {
     ion-select {
         max-width: 70%;

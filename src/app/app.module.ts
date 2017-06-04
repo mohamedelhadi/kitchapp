@@ -44,6 +44,7 @@ import { Configuration } from "./environments/env.config";
 import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
 import { Environments } from "./environments/configuration";
 import { IUser, USER } from "./contracts/index";
+import { HomePopover } from "../pages/home/popover/popover";
 
 const _pages = [
     AppComponent,
@@ -66,7 +67,8 @@ const _components = [
     PhonesPopover,
     VariationsPopover,
     BranchRatePopover,
-    VariationRatePopover
+    VariationRatePopover,
+    HomePopover
 ];
 
 const _directives = [

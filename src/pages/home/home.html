@@ -2,12 +2,13 @@
     <!--<button ion-button menuToggle class="menu-btn" color="light">
         <ion-icon name="menu"></ion-icon>
     </button>-->
-    <ion-buttons [attr.left]="isRtl() ? '' : null" [attr.right]="isLtr() ? '' : null">
-        <button icon-right ion-button color="dark" clear (click)="toggle()" *ngIf="settings">
-            {{translation.Languages[toggleLanguage] | translate}}
-            <ion-icon name="globe"></ion-icon>
-        </button>
-    </ion-buttons>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button (click)="showPopover($event)">
+                <ion-icon name="globe"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 <ion-content text-center>
     <!--<div class="main-menu">
