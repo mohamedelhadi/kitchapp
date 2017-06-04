@@ -16,7 +16,9 @@ $font-path: "../assets/fonts";
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 $colors: ( primary: #da3743, secondary: #EDE6E3, danger: #f53d3d, light: #f4f4f4, dark: #222);
-$toolbar-background: #da3743;
+$toolbar-background: #131a25; //#111215; //rgba(64, 62, 62, 0.82); //rgba(80, 80, 80, 0.5); //rgba(248, 184, 100, 0.78); //#f8b864; //#3e3e3e;
+$toolbar-ios-title-text-color: white;
+$toolbar-md-title-text-color: white;
 $shades-of-gray: (lightest-gray: #F5F3F3, lighter-gray: #e7e7e7, gray: #7f7f7f, darker-gray: #515050, darkest-gray: #383838);
 $font-color: color($shades-of-gray, darker-gray);
 $texture-background: url("../assets/images/background4.png"); // color($shades-of-gray, lightest-gray);

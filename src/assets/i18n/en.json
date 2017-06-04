@@ -45,7 +45,7 @@
         "Restaurants": "Restaurants",
         "Favorites": "Favorites",
         "Cuisines": "Cuisines",
-        "Deals": "Deals"
+        "Deals": "Offers"
     },
     "Restaurants": {
         "Order": "Order",
@@ -60,7 +60,7 @@
     "Tabs": {
         "Menu": "Menu",
         "Branches": "Branches",
-        "Deals": "Deals"
+        "Deals": "Offers"
     },
     "Restaurant": {
         "Bio": "Bio",

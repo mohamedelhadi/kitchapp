@@ -5,15 +5,22 @@ page-home {
         }
         .bar-buttons {
             .button {
-                color: color($shades-of-gray, darker-gray);
+                // color: color($shades-of-gray, darker-gray);
+                color: white !important;
             }
         }
     }
     ion-content {
-        background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("../assets/images/home-background.jpg") !important;
-        background: url("../assets/images/home-background.jpg") !important;
-        background-size: cover !important;
-        background-position: center !important;
+        //background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("../assets/images/home-background.jpg") !important;
+        background: url("../assets/images/background-home.jpg") center no-repeat;
+        background-size: cover;
+        @media screen and (orientation: landscape) {
+            background: url("../assets/images/background-home-rotated.jpg") center no-repeat;
+            background-size: cover;
+        }
+        .scroll-content {
+            overflow: hidden;
+        }
         .main-menu {
             position: absolute;
             text-align: center;
@@ -30,6 +37,43 @@ page-home {
                     justify-content: space-between;
                     span {
                         width: 100%;
+                    }
+                }
+            }
+        }
+        .nav-menu {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            .col {
+                // min-height: 60px;
+                border-left: solid 1px rgba(255, 255, 255, 0.3);
+                border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+                &:first-child {
+                    border-left: none;
+                }
+                @media screen and (orientation: portrait) {
+                    &:nth-child(3) {
+                        border-left: none;
+                    }
+                }
+            }
+            .row {
+                border-top: solid 1px rgba(255, 255, 255, 0.3);
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            .button {
+                color: white;
+                font-weight: normal;
+                font-size: small;
+                min-height: 80px;
+                .button-inner {
+                    flex-direction: column;
+                    .icon {
+                        display: block;
+                        font-size: 30px;
+                        margin-bottom: 10px;
+                        margin-top: -5px;
                     }
                 }
             }

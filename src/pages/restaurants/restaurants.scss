@@ -1,8 +1,33 @@
 page-restaurants {
     ion-header {
+        .toolbar-background {
+            background-color: rgba(17, 18, 21, 0.4);
+        }
         .icon {
             font-size: x-large;
         }
     }
-    ion-content {}
+    ion-content {
+        //background: linear-gradient(0deg, rgba(107, 107, 107, 0.35), rgba(64, 62, 62, 0.62)), url(../assets/images/background-dimmed.jpg) !important;
+        background: url(../assets/images/background-dimmed.jpg) center no-repeat;
+        background-size: cover;
+        .list {
+            .item {
+                color: white;
+                background: transparent;
+                p {
+                    color: darkgray;
+                }
+                img {
+                    border-radius: 3px;
+                }
+                .item-inner {
+                    border-bottom: none;
+                    .input-wrapper {
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+                    }
+                }
+            }
+        }
+    }
 }
