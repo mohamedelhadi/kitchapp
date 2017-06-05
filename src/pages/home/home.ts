@@ -9,10 +9,10 @@ import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
-import { Deals } from "../restaurant/deals/deals";
 import { AppSettings, BasePage } from "../../app/infrastructure/index";
 import { HomePopover } from "./popover/popover";
 import { TranslateService } from "@ngx-translate/core";
+import { Deals } from "../deals/deals";
 
 @Component({
     selector: "page-home",

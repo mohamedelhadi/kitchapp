@@ -96,7 +96,7 @@ export interface IDeal {
     description: string[];
     oldPrice?: number;
     newPrice?: number;
-    photo?: string;
+    photos: string[];
     restaurantId: number;
 }
 

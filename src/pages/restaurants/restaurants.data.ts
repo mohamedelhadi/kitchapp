@@ -43,6 +43,7 @@ export class RestaurantsData {
                     if (!restaurant.icon) {
                         restaurant.icon = "assets/images/restaurant.png";
                     }
+                    restaurant.icon = "assets/images/restaurant.png"; // TODO: Remove after restaurants get their real icons
                 }
                 this.storage.set(RESTAURANTS, restaurants);
                 this.restaurants.next(restaurants);

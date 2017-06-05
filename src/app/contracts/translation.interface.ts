@@ -84,5 +84,9 @@ export interface ITranslationKeys {
     "SearchPlaceholder"?: string;
     [k: string]: any;
   };
+  "Deal"?: {
+    "Deal"?: string;
+    [k: string]: any;
+  };
   [k: string]: any;
 }

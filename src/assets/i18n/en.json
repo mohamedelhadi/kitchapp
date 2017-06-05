@@ -74,5 +74,8 @@
         "BranchesSelectPlaceholder": "Select a branch",
         "CommentPlaceholder": "Comment.. (Optional)",
         "SearchPlaceholder": "Search menu items"
+    },
+    "Deal": {
+        "Deal": "Offer"
     }
 }

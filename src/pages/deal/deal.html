@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ translation.Deal.Deal | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <!--<ion-card class="details">
+            <ion-card-header>
+                <h2>{{deal.name[settings.language]}}</h2>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{deal.description[settings.language]}}</p>
+            </ion-card-content>
+        </ion-card>-->
+
+        <!--<div class="details">
+            <h2>{{deal.name[settings.language]}}</h2>
+            <p>{{deal.description[settings.language]}}</p>
+        </div>
+        <ion-card>
+            <ion-card-content>
+                <img [src]="'assets/images/deal1.jpg'" imageViewer />
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngFor="let photo of deal.photos">
+            <ion-card-content>
+                <img [src]="photo ? photo  : 'assets/images/deal1.jpg'" imageViewer />
+            </ion-card-content>
+        </ion-card>-->
+        <ion-slides *ngIf="isRtl()" class="slider" effect="flip" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true" dir="rtl">
+            <ion-slide *ngFor="let photo of deal.photos">
+                <img src="assets/images/deal1.jpg" class="deal-img" #img imageViewer>
+                <button ion-button icon-only color="light" (click)="img.click()" small>
+                    <ion-icon name="expand"></ion-icon>
+                </button>
+                <div class="shadow"></div>
+            </ion-slide>
+        </ion-slides>
+        <ion-slides *ngIf="isLtr()" class="slider" effect="coverflow" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true">
+            <ion-slide *ngFor="let photo of deal.photos">
+                <img src="assets/images/deal1.jpg" class="deal-img" #img imageViewer>
+                <button ion-button icon-only color="light" (click)="img.click()" small>
+                    <ion-icon name="expand"></ion-icon>
+                </button>
+                <div class="shadow"></div>
+            </ion-slide>
+        </ion-slides>
+        <div class="details">
+            <h2>{{deal.name[settings.language]}}</h2>
+            <p>{{deal.description[settings.language]}}</p>
+            <button margin-top ion-button clear *ngIf="canNavigateToRestaurant && restaurant" (click)="viewRestaurant()">
+                <img [src]="restaurant.icon">
+                {{restaurant.name[settings.language]}}
+            </button>
+        </div>
+    </ion-list>
+</ion-content>

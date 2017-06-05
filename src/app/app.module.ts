@@ -33,8 +33,6 @@ import { PhonesPopover } from "../pages/restaurant/branches/phones/phones.popove
 import { VariationsPopover } from "../pages/restaurant/details/variations/variations.popover";
 import { BranchRatePopover } from "../pages/restaurant/branches/rate/rate.popover";
 import { VariationRatePopover } from "../pages/restaurant/details/variation-rate/rate.popover";
-import { DealsData } from "../pages/restaurant/deals/deals.data";
-import { Deals } from "../pages/restaurant/deals/deals";
 import { Cuisines } from "../pages/cuisines/cuisines";
 import { AppSettings } from "./infrastructure/index";
 import { Subject } from "rxjs/Subject";
@@ -45,6 +43,9 @@ import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
 import { Environments } from "./environments/configuration";
 import { IUser, USER } from "./contracts/index";
 import { HomePopover } from "../pages/home/popover/popover";
+import { Deals } from "../pages/deals/deals";
+import { DealsData } from "../pages/deals/deals.data";
+import { Deal } from "../pages/deal/deal";
 
 const _pages = [
     AppComponent,
@@ -58,7 +59,8 @@ const _pages = [
     Restaurant,
     Branches,
     Deals,
-    Cuisines
+    Cuisines,
+    Deal
 ];
 
 const _components = [

@@ -3,10 +3,11 @@ import { NavController, NavParams, PopoverController, ViewController } from "ion
 import { DealsData } from "./deals.data";
 import { Subject } from "rxjs/Subject";
 import { has } from "lodash";
-import { BasePage } from "../../../app/infrastructure/index";
 import { Observable } from "rxjs/Observable";
-import { IRestaurant, IDeal } from "../../../app/contracts/index";
-import { Logger, UI } from "../../../app/helpers/index";
+import { Deal } from "../deal/deal";
+import { IRestaurant, IDeal } from "../../app/contracts/index";
+import { Logger, UI } from "../../app/helpers/index";
+import { BasePage } from "../../app/infrastructure/index";
 
 @Component({
     selector: "page-deals",
@@ -36,6 +37,9 @@ export class Deals extends BasePage {
         } else {
             return this.data.Deals;
         }
+    }
+    viewDeal(deal: IDeal) {
+        this.navCtrl.push(Deal, { deal, canNavigateToRestaurant: !this.restaurant });
     }
     onBackButton() {
         if (this.restaurant) { // coming from restaurant details

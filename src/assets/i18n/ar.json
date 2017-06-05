@@ -74,5 +74,8 @@
         "BranchesSelectPlaceholder": "اختر أحد الفروع",
         "CommentPlaceholder": "اضف تعليقك (اختياري)",
         "SearchPlaceholder": "إبحث في القائمة"
+    },
+    "Deal": {
+        "Deal": "العرض"
     }
 }
