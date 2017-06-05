@@ -1,20 +1,6 @@
 page-cuisines {
     ion-header {}
     ion-content {
-        /*.cuisine {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-            height: 170px;
-            background: gray;
-            @media (min-width: map-get($screen-breakpoints, md)) and (orientation: portrait) {
-                height: 240px;
-            }
-        }*/
-        /*img {
-            width: 100%;
-            height: 100%;
-        }*/
         .title {
             top: 50%;
             left: 50%;
@@ -23,29 +9,22 @@ page-cuisines {
             font-size: medium;
             color: white;
             transform: translateX(-50%) translateY(-50%);
+            width: 100%;
         }
         .col {
             position: relative;
-        }
-        .col .after {
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin-top: 5px;
-            margin-left: 5px;
-            width: calc(100% - 10px);
-            height: calc(100% - 10px);
-            display: table;
-            color: #FFF;
-            background: rgba(0, 0, 0, .3);
-            text-align: center;
-            div {
-                display: table-cell;
-                vertical-align: middle;
-                font-size: 16px;
-                font-weight: 100;
+            background-color: red;
+            min-height: 180px;
+            background: url("../assets/images/cuisine1.jpg") no-repeat;
+            background-size: 100%;
+            border-top: 1px solid rgba(220, 220, 220, 0.1);
+            border-left: 1px solid rgba(220, 220, 220, 0.1);
+            @media screen and (orientation: landscape) {
+                min-height: 160px;
             }
+            /*@media (min-width: map-get($screen-breakpoints, md)) and (orientation: portrait) {
+                height: 240px;
+            }*/
         }
     }
 }

@@ -28,6 +28,7 @@ export interface ITranslationKeys {
     "NoDeals"?: string;
     "NoPhones"?: string;
     "SelectBranch"?: string;
+    "HavenotSetFavorites"?: string;
     [k: string]: any;
   };
   "Errors"?: {

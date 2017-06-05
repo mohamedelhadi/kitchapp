@@ -17,7 +17,7 @@
         "Abort": "Abort",
         "Ignore": "Ignore",
         "SignOut": "SIGN OUT",
-        "Pound": "Pound",
+        "Pound": "SDG",
         "Submit": "Submit",
         "Navigate": "Navigate"
     },
@@ -26,7 +26,8 @@
         "NoMatch": "No Match",
         "NoDeals": "No deals",
         "NoPhones": "No phones found",
-        "SelectBranch": "Kindly select a branch from the list."
+        "SelectBranch": "Kindly select a branch from the list.",
+        "HavenotSetFavorites": "You haven't set any favorites."
     },
     "Errors": {
         "0": "An error occurred, please try again.",

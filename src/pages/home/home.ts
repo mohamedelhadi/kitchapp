@@ -12,6 +12,7 @@ import { Cuisines } from "../cuisines/cuisines";
 import { Deals } from "../restaurant/deals/deals";
 import { AppSettings, BasePage } from "../../app/infrastructure/index";
 import { HomePopover } from "./popover/popover";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: "page-home",
@@ -22,12 +23,13 @@ export class Home extends BasePage {
         private appSettings: AppSettings, private logger: Logger,
         private splashScreen: SplashScreen,
         private restaurantsData: RestaurantsData,
-        private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController) {
+        private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController,
+        private translate: TranslateService) {
         super({ logger });
         this.menu.enable(false);
     }
     ionViewDidLoad() {
-        this.splashScreen.hide();
+        this.translate.onLangChange.take(1).subscribe(() => this.splashScreen.hide());
         // this.viewCuisines();
         /*this.restaurantsData.Restaurants.subscribe(restaurants => {
             if (restaurants.length) {

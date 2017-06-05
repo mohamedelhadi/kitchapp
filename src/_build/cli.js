@@ -18,7 +18,7 @@ let env = argv._[0] || "simulator",
 if (action === "initialize") {
     initialize(env, platform)
         .then(() => {
-            console.log("\n" + color.yellow("Finished initializing.") + "\n");
+            console.log("\n" + color.yellow("Finished initialization.") + "\n");
         })
         .catch(() => {
             process.exit(1);

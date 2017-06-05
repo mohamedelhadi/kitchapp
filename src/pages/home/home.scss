@@ -4,9 +4,8 @@ page-home {
             background: transparent;
         }
         .bar-buttons {
-            .button {
-                // color: color($shades-of-gray, darker-gray);
-                color: white !important;
+            ion-icon {
+                font-size: x-large;
             }
         }
     }
@@ -47,14 +46,26 @@ page-home {
             width: 100%;
             .col {
                 // min-height: 60px;
-                border-left: solid 1px rgba(255, 255, 255, 0.3);
                 border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+                border-left: solid 1px rgba(255, 255, 255, 0.3);
                 &:first-child {
                     border-left: none;
                 }
                 @media screen and (orientation: portrait) {
                     &:nth-child(3) {
                         border-left: none;
+                    }
+                }
+                @include rtl() {
+                    border-left: none;
+                    border-right: solid 1px rgba(255, 255, 255, 0.3);
+                    &:first-child {
+                        border-right: none;
+                    }
+                    @media screen and (orientation: portrait) {
+                        &:nth-child(3) {
+                            border-right: none;
+                        }
                     }
                 }
             }

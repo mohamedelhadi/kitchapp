@@ -157,7 +157,7 @@ export function createTranslateLoader(http: Http) {
         BrowserModule,
         HttpModule,
         BrowserAnimationsModule,
-        IonicModule.forRoot(AppComponent),
+        IonicModule.forRoot(AppComponent, { animate: false }),
         IonicStorageModule.forRoot(),
         TranslateModule.forRoot({
             loader: {

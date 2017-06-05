@@ -13,5 +13,6 @@
             <p>{{restaurant.slogan}}</p>
             <ion-icon name="call" item-end (click)="viewBranches(restaurant); $event.stopPropagation()"></ion-icon>
         </ion-item>
+        <ion-item no-padding *ngIf="(favorites | async)?.length == 0" text-center class="no-match">{{translation.Messages.HavenotSetFavorites | translate}}</ion-item>
     </ion-list>
 </ion-content>

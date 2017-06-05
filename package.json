@@ -25,7 +25,7 @@
         "ios-staging": "%npm_package_cli% staging ios && ionic run ios",
         "ios-prod": "%npm_package_cli% production ios && ionic run ios",
         "tslint": "tslint \"./src/**/*.ts\"  \"./src/**/*.js\" --color",
-        "translation-keys": "babel-node src/_build/js/translation.keys"
+        "translation-keys": "babel-node src/_build/js/translation"
     },
     "dependencies": {
         "@angular/animations": "4.1.2",

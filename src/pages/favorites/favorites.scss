@@ -1,7 +1,39 @@
 page-favorites {
+    ion-header {
+        .toolbar-background {
+            background-color: rgba(17, 18, 21, 0.4);
+        }
+    }
     ion-content {
         ion-icon {
             color: gray;
+        }
+        background: url(../assets/images/background-dimmed.jpg) center no-repeat;
+        background-size: cover;
+        .scroll-content {
+            background: $texture-background;
+        }
+        .list {
+            margin-bottom: 0;
+            .item {
+                background: transparent;
+                img {
+                    border-radius: 3px;
+                }
+                .item-inner {
+                    border-bottom: none;
+                    .input-wrapper {
+                        border-bottom: 1px solid rgba(155, 155, 155, 0.4);
+                    }
+                }
+                &:last-child {
+                    .item-inner {
+                        .input-wrapper {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
         }
     }
 }
