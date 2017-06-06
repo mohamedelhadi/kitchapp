@@ -23,7 +23,7 @@ import { Restaurants } from "../pages/restaurants/restaurants";
 import { RestaurantsData } from "../pages/restaurants/restaurants.data";
 import { AppComponent } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
-import { Api } from "./services";
+import { Api, Push } from "./services";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
@@ -92,7 +92,8 @@ export function services() {
         UI,
         Api,
         AppErrorHandler,
-        AppSettings
+        AppSettings,
+        Push
     ];
 }
 export function dataServices() {
@@ -153,6 +154,15 @@ export function providers() {
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
+/*
+TranslateModule.forRoot({
+    loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+    }
+}),
+*/
 @NgModule({
     declarations: declarations(),
     imports: [
@@ -161,13 +171,7 @@ export function createTranslateLoader(http: Http) {
         BrowserAnimationsModule,
         IonicModule.forRoot(AppComponent, { animate: false }),
         IonicStorageModule.forRoot(),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [Http]
-            }
-        }),
+        TranslateModule.forRoot(),
         Ionic2RatingModule,
         IonicImageViewerModule
     ],

@@ -5,6 +5,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { Splash } from "../pages/splash/splash";
 import { Subject } from "rxjs/Subject";
 import { AppSettings } from "./infrastructure/app.settings";
+import { Push } from "./services/index";
 
 export const onBack = new Subject<string>();
 
@@ -29,12 +30,10 @@ export class AppComponent implements OnInit {
     // @Inject(BACK_EVENT) private onBack: Subject<string>;
 
     constructor(
-        private app: App,
-        private platform: Platform,
-        private statusBar: StatusBar,
-        private splashScreen: SplashScreen,
-        private menu: MenuController,
-        private settings: AppSettings) {
+        private app: App, private menu: MenuController, private platform: Platform,
+
+        private statusBar: StatusBar, private splashScreen: SplashScreen,
+        private settings: AppSettings, private push: Push) {
         this.initializeApp();
     }
 
@@ -69,6 +68,7 @@ export class AppComponent implements OnInit {
                 }
             });
             this.settings.initLanguage();
+            // this.push.init();
         });
     }
 

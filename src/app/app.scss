@@ -12,6 +12,47 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+/*@font-face {
+    font-family: QUICKSAND;
+    src: url("../assets/fonts/Quicksand-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: ANDIKA;
+    src: url("../assets/fonts/AndikaNewBasic-R.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: CAVIAR;
+    src: url("../assets/fonts/Caviar_Dreams_Bold.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: CAPSUULA;
+    src: url("../assets/fonts/Capsuula.ttf") format("opentype");
+}
+
+div,
+label,
+span,
+translate,
+button,
+a,
+p,
+pre,
+li,
+td,
+h1,
+h2,
+h3,
+h4,
+input,
+textarea {
+    font-family: 'CAVIAR';
+    font-weight: lighter;
+}*/
+
 ion-content {
     background: $texture-background;
 }

@@ -16,6 +16,7 @@ export interface IConfiguration {
     Environment: string; // "simulator" | "dev" | "testing" | "staging" | "production";
     BaseUrl: string;
     OneSignalAppID?: string;
+    GoogleProjectNo?: string;
 
     init(): void;
 }

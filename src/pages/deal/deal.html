@@ -28,7 +28,7 @@
                 <img [src]="photo ? photo  : 'assets/images/deal1.jpg'" imageViewer />
             </ion-card-content>
         </ion-card>-->
-        <ion-slides *ngIf="isRtl()" class="slider" effect="flip" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true" dir="rtl">
+        <ion-slides *ngIf="isRtl()" class="slider" effect="flip" speed="500" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true" dir="rtl">
             <ion-slide *ngFor="let photo of deal.photos">
                 <img src="assets/images/deal1.jpg" class="deal-img" #img imageViewer>
                 <button ion-button icon-only color="light" (click)="img.click()" small>
@@ -37,7 +37,7 @@
                 <div class="shadow"></div>
             </ion-slide>
         </ion-slides>
-        <ion-slides *ngIf="isLtr()" class="slider" effect="coverflow" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true">
+        <ion-slides *ngIf="isLtr()" class="slider" effect="coverflow" speed="500" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true">
             <ion-slide *ngFor="let photo of deal.photos">
                 <img src="assets/images/deal1.jpg" class="deal-img" #img imageViewer>
                 <button ion-button icon-only color="light" (click)="img.click()" small>

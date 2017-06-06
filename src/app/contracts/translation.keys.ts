@@ -1,5 +1,7 @@
-import { default as language } from "../../assets/i18n/en.json";
 import { ITranslationKeys } from "./translation.interface";
+// import { default as language } from "../../assets/i18n/en.json";
+import { en as language } from "../../assets/i18n/en";
+import { cloneDeep } from "lodash";
 
 const replaceValuesWithNamespace = (item, ancestor?) => {
     for (const property in item) {
@@ -11,7 +13,6 @@ const replaceValuesWithNamespace = (item, ancestor?) => {
         }
     }
 };
-
-replaceValuesWithNamespace(language);
-
-export const TranslationKeys = language as ITranslationKeys;
+const keysTable = cloneDeep(language);
+replaceValuesWithNamespace(keysTable);
+export const TranslationKeys = keysTable as ITranslationKeys;

@@ -4,7 +4,8 @@ import { production } from "../../_build/json/endpoints.json";
 export class Configuration implements IConfiguration {
 
     Environment: string = Environments.Production;
-    OneSignalAppID: string = "2e4b08ae-8c5a-4da8-8ca2-5ba56ecea4b6";
+    OneSignalAppID: string = "d0219f81-9edd-413c-840d-b4f71e659d9c";
+    GoogleProjectNo: string = "735993356118";
 
     private baseUrl: string = production;
 

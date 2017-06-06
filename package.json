@@ -1,95 +1,96 @@
 {
-    "name": "app",
-    "version": "1.0.0",
-    "author": "Mohamed Elhadi",
-    "homepage": "",
-    "private": true,
-    "config": {
-        "browser": "\"C:/Users/Silver-Light/AppData/Local/Opera Software/Opera Neon/Application/neon.exe\""
-    },
-    "scripts": {
-        "clean": "ionic-app-scripts clean",
-        "build": "ionic-app-scripts build",
-        "ionic:build": "ionic-app-scripts build",
-        "ionic:serve": "ionic-app-scripts serve --browser %npm_package_config_browser%",
-        "preionic:serve": "npm run initialize",
-        "_preinitialize": "npm run tslint",
-        "initialize": "babel-node src/_build/cli",
-        "finalize": "babel-node src/_build/cli --action copy-output",
-        "android-dev": "npm run initialize dev && ionic run android && npm run finalize dev",
-        "android-testing": "npm run initialize testing && ionic run android && npm run finalize testing",
-        "android-staging": "npm run initialize staging && ionic run android && npm run finalize staging",
-        "android-production": "npm run initialize production && ionic run android --release --prod --generateSourceMap && npm run finalize production",
-        "ios-dev": "%npm_package_cli% dev ios && ionic run ios",
-        "ios-testing": "%npm_package_cli% testing ios && ionic run ios",
-        "ios-staging": "%npm_package_cli% staging ios && ionic run ios",
-        "ios-prod": "%npm_package_cli% production ios && ionic run ios",
-        "tslint": "tslint \"./src/**/*.ts\"  \"./src/**/*.js\" --color",
-        "translation-keys": "babel-node src/_build/js/translation"
-    },
-    "dependencies": {
-        "@angular/animations": "4.1.2",
-        "@angular/common": "4.1.2",
-        "@angular/compiler": "4.1.2",
-        "@angular/compiler-cli": "4.1.2",
-        "@angular/core": "4.1.2",
-        "@angular/forms": "4.1.2",
-        "@angular/http": "4.1.2",
-        "@angular/platform-browser": "4.1.2",
-        "@angular/platform-browser-dynamic": "4.1.2",
-        "@ionic-native/core": "3.6.1",
-        "@ionic-native/device": "^3.10.3",
-        "@ionic-native/globalization": "^3.10.3",
-        "@ionic-native/network": "^3.10.3",
-        "@ionic-native/splash-screen": "3.6.1",
-        "@ionic-native/status-bar": "3.6.1",
-        "@ionic/storage": "2.0.1",
-        "@ngx-translate/core": "^6.0.1",
-        "@ngx-translate/http-loader": "0.0.3",
-        "@types/lodash": "^4.14.64",
-        "ionic-angular": "^3.3.0",
-        "ionic-img-viewer": "^2.1.0",
-        "ionic2-rating": "^1.2.0",
-        "ionicons": "3.0.0",
-        "json-to-typescript": "0.0.3",
-        "lodash": "4.17.4",
-        "moment": "^2.18.1",
-        "rxjs": "5.1.1",
-        "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.10"
-    },
-    "devDependencies": {
-        "@ionic/app-scripts": "1.3.7",
-        "typescript": "2.3.3",
-        "babel-cli": "^6.23.0",
-        "babel-preset-latest": "^6.22.0",
-        "babel-register": "^6.23.0",
-        "cheerio": "^0.22.0",
-        "cli-color": "^1.2.0",
-        "del": "^2.2.2",
-        "gulp": "^3.9.1",
-        "gulp-rename": "^1.2.2",
-        "tslint": "5.1.0",
-        "copy": "^0.3.0"
-    },
-    "babel": {
-        "presets": [
-            "latest"
-        ]
-    },
-    "cordovaPlugins": [
-        "cordova-plugin-statusbar",
-        "cordova-plugin-device",
-        "cordova-plugin-whitelist",
-        "ionic-plugin-keyboard",
-        "cordova-plugin-console",
-        "cordova-plugin-splashscreen"
-    ],
-    "cordovaPlatforms": [],
-    "-vs-binding": {
-        "BeforeBuild": [
-            "ionic:build"
-        ]
-    },
-    "description": "App"
+  "name": "app",
+  "version": "1.0.0",
+  "author": "Mohamed Elhadi",
+  "homepage": "",
+  "private": true,
+  "config": {
+    "browser": "\"C:/Users/Silver-Light/AppData/Local/Opera Software/Opera Neon/Application/neon.exe\""
+  },
+  "scripts": {
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve --browser %npm_package_config_browser%",
+    "preionic:serve": "npm run initialize",
+    "_preinitialize": "npm run tslint",
+    "initialize": "babel-node src/_build/cli",
+    "finalize": "babel-node src/_build/cli --action copy-output",
+    "android-dev": "npm run initialize dev && ionic run android && npm run finalize dev",
+    "android-testing": "npm run initialize testing && ionic run android && npm run finalize testing",
+    "android-staging": "npm run initialize staging && ionic run android && npm run finalize staging",
+    "android-production": "npm run initialize production && ionic run android --release --prod --generateSourceMap && npm run finalize production",
+    "ios-dev": "%npm_package_cli% dev ios && ionic run ios",
+    "ios-testing": "%npm_package_cli% testing ios && ionic run ios",
+    "ios-staging": "%npm_package_cli% staging ios && ionic run ios",
+    "ios-prod": "%npm_package_cli% production ios && ionic run ios",
+    "tslint": "tslint \"./src/**/*.ts\"  \"./src/**/*.js\" --color",
+    "translation-keys": "babel-node src/_build/js/translation"
+  },
+  "dependencies": {
+    "@angular/animations": "4.1.2",
+    "@angular/common": "4.1.2",
+    "@angular/compiler": "4.1.2",
+    "@angular/compiler-cli": "4.1.2",
+    "@angular/core": "4.1.2",
+    "@angular/forms": "4.1.2",
+    "@angular/http": "4.1.2",
+    "@angular/platform-browser": "4.1.2",
+    "@angular/platform-browser-dynamic": "4.1.2",
+    "@ionic-native/core": "3.6.1",
+    "@ionic-native/device": "^3.10.3",
+    "@ionic-native/globalization": "^3.10.3",
+    "@ionic-native/network": "^3.10.3",
+    "@ionic-native/onesignal": "^3.12.1",
+    "@ionic-native/splash-screen": "3.6.1",
+    "@ionic-native/status-bar": "3.6.1",
+    "@ionic/storage": "2.0.1",
+    "@ngx-translate/core": "^6.0.1",
+    "@ngx-translate/http-loader": "0.0.3",
+    "@types/lodash": "^4.14.64",
+    "ionic-angular": "^3.3.0",
+    "ionic-img-viewer": "^2.1.0",
+    "ionic2-rating": "^1.2.0",
+    "ionicons": "3.0.0",
+    "json-to-typescript": "0.0.3",
+    "lodash": "4.17.4",
+    "moment": "^2.18.1",
+    "rxjs": "5.1.1",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.10"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "1.3.7",
+    "typescript": "2.3.3",
+    "babel-cli": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "cheerio": "^0.22.0",
+    "cli-color": "^1.2.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "tslint": "5.1.0",
+    "copy": "^0.3.0"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-statusbar",
+    "cordova-plugin-device",
+    "cordova-plugin-whitelist",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-console",
+    "cordova-plugin-splashscreen"
+  ],
+  "cordovaPlatforms": [],
+  "-vs-binding": {
+    "BeforeBuild": [
+      "ionic:build"
+    ]
+  },
+  "description": "App"
 }

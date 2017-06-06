@@ -7,8 +7,13 @@ import { Configuration } from "../environments/env.config";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";
+/*import { default as en } from "../../assets/i18n/en.json";
+import { default as ar } from "../../assets/i18n/ar.json";*/
+import { en } from "../../assets/i18n/en";
+import { ar } from "../../assets/i18n/ar";
 
 export const settings = new ReplaySubject<IAppSettings>(1);
+export const onLanguageApplied = new ReplaySubject(1);
 
 @Injectable()
 export class AppSettings {
@@ -19,6 +24,8 @@ export class AppSettings {
         private translate: TranslateService,
         private globalization: Globalization,
         private platform: Platform) {
+        this.translate.setTranslation("en", en);
+        this.translate.setTranslation("ar", ar);
         this.storage.ready().then(() => {
             this.storage.get(SETTINGS).then((savedSetting: IAppSettings) => {
                 // load settings from storage
@@ -63,7 +70,7 @@ export class AppSettings {
         this.saveSelectedLanguage(setting.language);
     }
     private applyLanguage(langCode: string) {
-        this.translate.use(langCode);
+        this.translate.use(langCode).first().subscribe(() => onLanguageApplied.next(""));
         this.platform.setLang(langCode, true);
         this.platform.setDir(langCode === Language[Language.ar] ? "rtl" : "ltr", true);
     }

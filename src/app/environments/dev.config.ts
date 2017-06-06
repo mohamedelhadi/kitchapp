@@ -4,7 +4,8 @@ import { dev } from "../../_build/json/endpoints.json";
 export class Configuration implements IConfiguration {
 
     Environment: string = Environments.Dev;
-    OneSignalAppID: string = "db8f18a5-e5fd-4074-96af-e3f7e3a94dc0";
+    OneSignalAppID: string = "d0219f81-9edd-413c-840d-b4f71e659d9c";
+    GoogleProjectNo: string = "735993356118";
 
     private baseUrl: string = dev; // "http://10.0.0.172:37864/"; // "http://10.0.2.2:37864/"; //"http://192.168.137.20/bSmart/";
 

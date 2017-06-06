@@ -4,7 +4,8 @@ import { testing } from "../../_build/json/endpoints.json";
 export class Configuration implements IConfiguration {
 
     Environment: string = Environments.Testing;
-    OneSignalAppID: string = "d8f974a9-a14a-49cf-a713-cca37f801505";
+    OneSignalAppID: string = "d0219f81-9edd-413c-840d-b4f71e659d9c";
+    GoogleProjectNo: string = "735993356118";
 
     private baseUrl: string = testing;
 

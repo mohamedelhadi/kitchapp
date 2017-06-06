@@ -26,6 +26,8 @@
   <preference name="ShowSplashScreenSpinner" value="true"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="LoadUrlTimeoutValue" value="60000"/>
+  <engine name="android" spec="~6.1.0"/>
   <platform name="android">
     <preference name="android-targetSdkVersion" value="25"/>
     <allow-intent href="market:*"/>
