@@ -1,5 +1,6 @@
 import { IApiOptions } from "../index";
 import { BaseError } from "./base.error";
+import { Response } from "@angular/http";
 import { TimeoutError } from "rxjs/util/TimeoutError";
 export class HttpError extends BaseError {
     stacktrace: any;

@@ -45,30 +45,22 @@ page-deal {
                 background: transparent;
                 color: white;
                 background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 90%);
-                .button-inner {
-                    text-transform: none;
-                    color: white;
-                    text-decoration: underline;
-                    img {
-                        margin: 0 5px;
-                        width: 40px;
-                        height: 40px;
+                .button {
+                    height: 100px;
+                    .button-inner {
+                        text-transform: none;
+                        color: white;
+                        text-decoration: underline;
+                        font-size: large;
+                        white-space: normal;
+                        img {
+                            margin: 0 5px;
+                            width: 60px;
+                            height: 60px;
+                        }
                     }
                 }
             }
-            /*.card-content {
-                padding: 0;
-            }
-            .details {
-                text-align: center;
-                width: 100%;
-                padding: 10px;
-                background-color: #fafafa;
-                border-bottom: 1px solid rgba(150, 150, 150, 0.5);
-                .card-content {
-                    padding-bottom: 10px;
-                }
-            }*/
         }
     }
 }

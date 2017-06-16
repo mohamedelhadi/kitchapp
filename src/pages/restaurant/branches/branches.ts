@@ -27,11 +27,11 @@ export class Branches extends BasePage {
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(branches => {
                 branches.forEach(branch => {
-                    branch.rate.rated1 = Math.floor(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
-                    branch.rate.rated2 = Math.floor(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
-                    branch.rate.rated3 = Math.floor(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
-                    branch.rate.rated4 = Math.floor(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
-                    branch.rate.rated5 = Math.floor(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
+                    branch.rate.rated1 = Math.ceil(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
+                    branch.rate.rated2 = Math.ceil(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
+                    branch.rate.rated3 = Math.ceil(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
+                    branch.rate.rated4 = Math.ceil(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
+                    branch.rate.rated5 = Math.ceil(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
                 });
                 this.restaurant.branches = branches;
             });

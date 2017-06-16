@@ -42,5 +42,5 @@ export class AppErrorHandler extends ErrorHandler {
     }
 }
 export function isServerError(err: IServerError): err is IServerError {
-    return (err as IServerError).code !== undefined;
+    return err && (err as IServerError).code !== undefined;
 }
