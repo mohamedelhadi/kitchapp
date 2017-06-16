@@ -7,6 +7,9 @@ page-deal {
     ion-content {
         background: url(../assets/images/background-dimmed.jpg) center no-repeat;
         background-size: cover;
+        .scroll-content {
+            background: none;
+        }
         /*.scroll-content {
             background: $texture-background;
         }*/

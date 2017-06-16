@@ -11,6 +11,7 @@ import { defaults } from "lodash";
 import { IApiOptions, InternalError, ErrorCode, HttpError } from "../contracts/index";
 import { Configuration } from "../environments/env.config";
 import { UI, Utils } from "../helpers/index";
+import { TimeoutError } from "rxjs/util/TimeoutError";
 
 @Injectable()
 export class Api {
@@ -55,7 +56,12 @@ export class Api {
             .map(res => res.text() ? res.json() : {})
             .catch(err => {
                 this.ui.hideLoading();
-                this.errorHandler.handleError(new HttpError(err.message || "Http Error", options, err));
+                if (err instanceof Response || err instanceof TimeoutError) {
+                    this.errorHandler.handleError(new HttpError("Http Error", options, err as any));
+                } else {
+                    // instance of Error
+                    this.errorHandler.handleError(new InternalError(err.message || err.toString(), ErrorCode.Unknown, options.handleError));
+                }
                 return Observable.throw(err);
             });
     }

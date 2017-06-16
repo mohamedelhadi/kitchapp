@@ -4,20 +4,20 @@ import { BasePopover } from "../../../../app/infrastructure/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
-import { IVariation, IUser, USER, IVariationRate } from "../../../../app/contracts/index";
+import { IVariation, IUser, USER, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
 
 @Component({
     templateUrl: "rate.popover.html",
     selector: "variation-rate-popover"
 })
 export class VariationRatePopover extends BasePopover {
-    variation: IVariation;
+    item: ICategoryItem;
     rate: number = 3;
     comment: string = "";
     user: IUser;
     constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, @Inject(USER) private userSubject: ReplaySubject<IUser>) {
         super({ viewCtrl });
-        this.variation = params.data.variation;
+        this.item = params.data.item;
     }
     ngOnInit() {
         super.ngOnInit();
@@ -32,10 +32,10 @@ export class VariationRatePopover extends BasePopover {
                 user: this.user,
                 rate: this.rate,
                 comment: this.comment,
-                variationId: this.variation.id
+                variationId: this.item.variations[0].id
             } as IVariationRate)
             .subscribe(newRate => {
-                this.variation.rate = newRate;
+                this.item.variations[0].rate = newRate;
                 this.restaurantsData.updateStream();
                 this.close();
             },

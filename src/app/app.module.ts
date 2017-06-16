@@ -46,6 +46,7 @@ import { HomePopover } from "../pages/home/popover/popover";
 import { Deals } from "../pages/deals/deals";
 import { DealsData } from "../pages/deals/deals.data";
 import { Deal } from "../pages/deal/deal";
+import { OneSignal } from "@ionic-native/onesignal";
 
 const _pages = [
     AppComponent,
@@ -119,6 +120,7 @@ export function plugins() {
         Network,
         Device,
         Globalization,
+        OneSignal,
         ...browserMocks
     ];
 }
@@ -129,7 +131,7 @@ export function userFactory(storage: Storage, device: Device) {
             if (savedUser) {
                 user.next(savedUser);
             } else {
-                user.next({ uuid: device.uuid } as IUser);
+                user.next({ identifier: device.uuid } as IUser);
             }
         });
     });
@@ -154,15 +156,6 @@ export function providers() {
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
-/*
-TranslateModule.forRoot({
-    loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [Http]
-    }
-}),
-*/
 @NgModule({
     declarations: declarations(),
     imports: [
@@ -171,7 +164,13 @@ TranslateModule.forRoot({
         BrowserAnimationsModule,
         IonicModule.forRoot(AppComponent, { animate: false }),
         IonicStorageModule.forRoot(),
-        TranslateModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [Http]
+            }
+        }),
         Ionic2RatingModule,
         IonicImageViewerModule
     ],

@@ -5,29 +5,6 @@
 </ion-header>
 <ion-content>
     <ion-list>
-        <!--<ion-card class="details">
-            <ion-card-header>
-                <h2>{{deal.name[settings.language]}}</h2>
-            </ion-card-header>
-            <ion-card-content>
-                <p>{{deal.description[settings.language]}}</p>
-            </ion-card-content>
-        </ion-card>-->
-
-        <!--<div class="details">
-            <h2>{{deal.name[settings.language]}}</h2>
-            <p>{{deal.description[settings.language]}}</p>
-        </div>
-        <ion-card>
-            <ion-card-content>
-                <img [src]="'assets/images/deal1.jpg'" imageViewer />
-            </ion-card-content>
-        </ion-card>
-        <ion-card *ngFor="let photo of deal.photos">
-            <ion-card-content>
-                <img [src]="photo ? photo  : 'assets/images/deal1.jpg'" imageViewer />
-            </ion-card-content>
-        </ion-card>-->
         <ion-slides *ngIf="isRtl()" class="slider" effect="flip" speed="500" autoplay="{{ deal.photos && deal.photos.length > 1 ? '3000' : '0' }}" pager="true" dir="rtl">
             <ion-slide *ngFor="let photo of deal.photos">
                 <img src="assets/images/deal1.jpg" class="deal-img" #img imageViewer>

@@ -1,19 +1,11 @@
     page-restaurants {
         ion-header {
-            .toolbar-background {
-                background-color: rgba(17, 18, 21, 0.4);
-            }
             .icon {
                 font-size: x-large;
             }
         }
         ion-content {
             //background: linear-gradient(0deg, rgba(107, 107, 107, 0.35), rgba(64, 62, 62, 0.62)), url(../assets/images/background-dimmed.jpg) !important;
-            background: url(../assets/images/background-dimmed.jpg) center no-repeat;
-            background-size: cover;
-            .scroll-content {
-                background: $texture-background;
-            }
             .list {
                 margin-bottom: 0;
                 .item {

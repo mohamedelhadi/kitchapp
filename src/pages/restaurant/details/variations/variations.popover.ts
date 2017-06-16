@@ -15,14 +15,17 @@ export class VariationsPopover extends BasePopover {
         super({ viewCtrl });
         this.item = params.data.item;
     }
-    showVariationRate(ev, variation) {
+    showVariationRate(ev) {
         const popover = this.popoverCtrl.create(VariationRatePopover,
-            { variation }
+            { item: this.item }
             // { cssClass: "wide-popover" }
         );
         popover.present(); // { ev });
     }
     close() {
         this.viewCtrl.dismiss();
+    }
+    getBackground() {
+        return "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
     }
 }

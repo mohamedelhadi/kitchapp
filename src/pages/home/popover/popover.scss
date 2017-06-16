@@ -1,5 +1,11 @@
 home-popover {
     .list {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
+        .item {
+            padding-right: 16px;
+            @include rtl() {
+                padding-left: 16px;
+            }
+        }
     }
 }

@@ -110,7 +110,7 @@ export interface IUser {
         run server side background check and see if a particular variation has been rated by the same device more than 2 times,
         if a match was found, remove all rates except the first
     */
-    uuid: string;
+    identifier: string;
 }
 export interface IBranchRate {
     quality: number; // 1 <--> 5

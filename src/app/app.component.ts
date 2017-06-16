@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
                 }
             });
             this.settings.initLanguage();
-            // this.push.init();
+            this.push.init();
         });
     }
 

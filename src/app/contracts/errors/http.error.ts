@@ -1,23 +1,28 @@
 import { IApiOptions } from "../index";
 import { BaseError } from "./base.error";
+import { TimeoutError } from "rxjs/util/TimeoutError";
 export class HttpError extends BaseError {
     stacktrace: any;
     name: string;
     body: any;
-    constructor(public message: string, public options: IApiOptions, public response: Response) {
+    constructor(public message: string, public options: IApiOptions, public err: Response | TimeoutError) {
         super();
         this.name = this.constructor.name;
         this.stacktrace = this.getStackTrace(message);
         try {
-            this.body = response.text && response.text() ? response.json() : null; // checking for text first because rxjs TimeoutError doesn't have this function
-        } catch (error) { // parsing errors (e.g. server returning html page unavailable)
-            // nothing needs to be done
+            if (err instanceof Response) {
+                this.body = err.text() ? err.json() : null;
+            } else {
+                this.body = err.message;
+            }
+        } catch (error) { // parsing errors (e.g. server returning html page service unavailable)
+            this.body = err.toString();
         }
     }
 
     getStackTrace(message) {
         const stack = (new Error(message)).stack.split("\n").map(line => line.trim());
-        stack.splice(1, 2); // remove CustomError's (including ServerError, InternalError) frames from stack
+        stack.splice(1, 2); // remove BaseError, ServerError, and InternalError's frames from stack
         return stack;
     }
 }

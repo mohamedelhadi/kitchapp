@@ -1,18 +1,17 @@
 import { ITranslationKeys } from "./translation.interface";
-// import { default as language } from "../../assets/i18n/en.json";
-import { en as language } from "../../assets/i18n/en";
-import { cloneDeep } from "lodash";
+import { default as translationTable } from "../../assets/i18n/en.json";
 
-const replaceValuesWithNamespace = (item, ancestor?) => {
+function replaceTranslationsWithKeys(item, namespace?) {
+    // tslint:disable-next-line:forin
     for (const property in item) {
+        const key = (namespace ? namespace + "." : "") + property;
         if (typeof (item[property]) === "object") {
-            const newAncestor = (ancestor ? ancestor + "." : "") + property;
-            replaceValuesWithNamespace(item[property], newAncestor);
+            replaceTranslationsWithKeys(item[property], key);
         } else if (typeof (item[property]) === "string" || item[property] instanceof String) {
-            item[property] = (ancestor ? ancestor + "." : "") + property;
+            item[property] = key;
         }
     }
-};
-const keysTable = cloneDeep(language);
-replaceValuesWithNamespace(keysTable);
+}
+const keysTable = translationTable;
+replaceTranslationsWithKeys(keysTable);
 export const TranslationKeys = keysTable as ITranslationKeys;

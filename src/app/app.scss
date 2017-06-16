@@ -53,8 +53,23 @@ textarea {
     font-weight: lighter;
 }*/
 
+ion-header {
+    .toolbar-background {
+        background-color: rgba(17, 18, 21, 0.4);
+    }
+}
+
 ion-content {
-    background: $texture-background;
+    background: url(../assets/images/background-dimmed.jpg) center no-repeat;
+    background-size: cover;
+    .scroll-content {
+        background: $texture-background;
+    }
+}
+
+.toolbar-title {
+    font-weight: normal;
+    font-size: 1.8rem;
 }
 
 button[ion-fab] {
@@ -82,7 +97,9 @@ button[ion-fab] {
     height: 120px;
     font-size: large;
     background-color: transparent;
-    border: none !important;
+    .item-inner {
+        border: none !important;
+    }
 }
 
 .wide-popover .popover-content {
@@ -109,8 +126,8 @@ button[ion-fab] {
     padding-left: 4px;
     .button,
     a {
-        padding: 9px 8px 9px 8px;
-        margin: 0;
+        padding: 9px 8px 9px 8px !important;
+        margin: 0 !important;
         width: 90px;
         height: 40px;
     }
@@ -121,8 +138,7 @@ ion-card {
     box-shadow: none !important;
     background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat !important; //0 100% no-repeat;//
     padding-bottom: 10px;
-    background-size: contain !important;
-    // img shadow
+    background-size: contain !important; // img shadow
     +ion-card {
         margin-top: 0 !important;
     }
@@ -130,11 +146,6 @@ ion-card {
     ion-card-content {
         background: white;
     }
-}
-
-.toolbar-title {
-    font-weight: normal;
-    font-size: 1.8rem;
 }
 
 ion-range {

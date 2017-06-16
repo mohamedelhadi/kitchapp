@@ -8,7 +8,7 @@ import { Platform } from "ionic-angular";
 @Injectable()
 export class Push {
 
-    /*constructor(private config: Configuration, private errorHandler: AppErrorHandler, private oneSignal: OneSignal, private platform: Platform) { }
+    constructor(private config: Configuration, private errorHandler: AppErrorHandler, private oneSignal: OneSignal, private platform: Platform) { }
 
     // tslint:disable-next-line:no-empty
     init(onPushReceived: (result: OSNotification) => void = () => { }, onPushOpened: (result: OSNotificationOpenedResult) => void = () => { }) {
@@ -25,5 +25,5 @@ export class Push {
         } else {
             // add browser push configs
         }
-    }*/
+    }
 }

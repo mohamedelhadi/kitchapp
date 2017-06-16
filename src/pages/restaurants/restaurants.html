@@ -7,11 +7,11 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-</ion-header>
-<ion-content>
     <ion-toolbar>
         <ion-searchbar #searchbar color="primary" (ionInput)="onQueryChanged($event)" placeholder="{{ translation.Restaurants.SearchPlaceholder | translate }}"></ion-searchbar>
     </ion-toolbar>
+</ion-header>
+<ion-content>
     <ion-list>
         <button ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-start>

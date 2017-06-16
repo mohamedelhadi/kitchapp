@@ -9,7 +9,7 @@ import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
-import { AppSettings, BasePage, onLanguageApplied } from "../../app/infrastructure/index";
+import { AppSettings, BasePage } from "../../app/infrastructure/index";
 import { HomePopover } from "./popover/popover";
 import { TranslateService } from "@ngx-translate/core";
 import { Deals } from "../deals/deals";
@@ -29,11 +29,7 @@ export class Home extends BasePage {
         this.menu.enable(false);
     }
     ionViewDidLoad() {
-        onLanguageApplied.first().subscribe(() => {
-            setTimeout(() => {
-                this.splashScreen.hide();
-            }, 600);
-        });
+        this.translate.onLangChange.take(1).subscribe(() => this.splashScreen.hide());
         // this.viewCuisines();
         /*this.restaurantsData.Restaurants.subscribe(restaurants => {
             if (restaurants.length) {
