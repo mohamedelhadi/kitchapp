@@ -4,7 +4,8 @@ import { BasePopover } from "../../../../app/infrastructure/index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
-import { IBranch, USER, IUser, IBranchRate } from "../../../../app/contracts/index";
+import { IBranch, IUser, IBranchRate } from "../../../../app/contracts/index";
+import { User } from "../../../../app/services/index";
 
 @Component({
     templateUrl: "rate.popover.html",
@@ -21,7 +22,7 @@ export class BranchRatePopover extends BasePopover {
     comment: string = "";
     user: IUser;
     canChangeBranch = false;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, @Inject(USER) private userSubject: ReplaySubject<IUser>) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, private userService: User) {
         super({ viewCtrl });
         this.branches = params.data.branches;
         this.selectedBranch = params.data.branch ? params.data.branch : this.branches.length === 1 ? this.branches[0] : null;
@@ -33,7 +34,7 @@ export class BranchRatePopover extends BasePopover {
     }
     ngOnInit() {
         super.ngOnInit();
-        this.userSubject.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
+        this.userService.User.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
     }
     close() {
         this.viewCtrl.dismiss();

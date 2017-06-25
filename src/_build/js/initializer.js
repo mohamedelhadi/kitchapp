@@ -6,6 +6,7 @@ let del = require("del");
 
 let gulp = require("gulp");
 let rename = require("gulp-rename");
+let builder = require("content-security-policy-builder");
 
 import {
     getVersionDetails
@@ -16,6 +17,9 @@ import {
 import {
     default as endpoints
 } from "../json/endpoints";
+import {
+    default as whitelist
+} from "../json/whitelist";
 
 export {
     initialize
@@ -89,14 +93,37 @@ function _prepareIndex(env) {
 
     // Content-Security-Policy
     let endpoint = _getEndpoint(env);
-    let content = "default-src 'self' gap: https://ssl.gstatic.com https://fonts.gstatic.com; style-src 'self' https://*.googleapis.com 'unsafe-inline'; img-src https://placeholdit.imgix.net https://placehold.it https://notify.bugsnag.com 'self' https://*.gstatic.com https://*.googleapis.com " + endpoint + " data:; " +
-        "script-src 'unsafe-inline' 'unsafe-eval' 'self' https://*.googleapis.com " + endpoint + "; connect-src 'self' https://*.googleapis.com " + endpoint + "; media-src *;";
-    // script-src https://api.rollbar.com https://sentry.io http://localhost:35729/livereload.js https://codepush.azurewebsites.net
-    // connect-src https://api.rollbar.com https://sentry.io ws://localhost:35729/livereload https://codepush.azurewebsites.net
+    const csp = _getCSP(env, endpoint);
+    $("#csp").attr("content", csp);
 
-    $("#csp").attr("content", content);
     return new Promise((resolve, reject) => {
         fs.writeFile("src/index.html", $.html(), _callback("Done preparing index.html", "Couldn't save index.html!", resolve, reject));
+    });
+
+}
+
+function _getCSP(env, endpoint) {
+    let directives = {
+        defaultSrc: [],
+        styleSrc: [],
+        frameSrc: [],
+        imgSrc: [],
+        scriptSrc: [],
+        connectSrc: []
+    };
+    // tslint:disable-next-line:forin
+    for (const key in whitelist) {
+        if (key === env || key === "default") {
+            directives.defaultSrc = directives.defaultSrc.concat(whitelist[key].defaultSrc ? whitelist[key].defaultSrc : []);
+            directives.styleSrc = directives.styleSrc.concat(whitelist[key].styleSrc ? whitelist[key].styleSrc : []);
+            directives.frameSrc = directives.frameSrc.concat(whitelist[key].frameSrc ? whitelist[key].frameSrc : []);
+            directives.imgSrc = directives.imgSrc.concat(whitelist[key].imgSrc ? whitelist[key].imgSrc : [], endpoint);
+            directives.scriptSrc = directives.scriptSrc.concat(whitelist[key].scriptSrc ? whitelist[key].scriptSrc : [], endpoint);
+            directives.connectSrc = directives.connectSrc.concat(whitelist[key].connectSrc ? whitelist[key].connectSrc : [], endpoint);
+        }
+    }
+    return builder({
+        directives
     });
 }
 

@@ -11,24 +11,8 @@
     </ion-navbar>
 </ion-header>
 <ion-content text-center>
-    <!--<div class="main-menu">
-        <button ion-button icon-start (click)="viewRestaurants()">
-            <ion-icon name='restaurant'></ion-icon>
-            <span>{{translation.Home.Restaurants | translate}}</span>
-        </button>
-        <button ion-button icon-end (click)="viewFavorites()">
-            <span>{{translation.Home.Favorites | translate}}</span>
-            <ion-icon name='heart'></ion-icon>
-        </button>
-        <button ion-button icon-start (click)="viewDeals()">
-            <ion-icon name='pricetags'></ion-icon>
-            <span>{{translation.Home.Deals | translate}}</span>
-        </button>
-        <button ion-button icon-end (click)="viewCuisines()">
-            <span>{{translation.Home.Cuisines | translate}}</span>
-            <ion-icon name='pizza'></ion-icon>
-        </button>
-    </div>-->
+    <button ion-button outline (click)="auth.signInWithFacebook()">Login</button>
+    <button ion-button outline (click)="auth.signOut()">Logout</button>
     <div class="nav-menu">
         <ion-row>
             <ion-col col-6 col-sm>
@@ -57,6 +41,9 @@
             </ion-col>
         </ion-row>
     </div>
+    <ion-fab right middle (click)="showMenu()">
+        <button ion-fab><ion-icon name="book"></ion-icon></button>
+    </ion-fab>
 </ion-content>
 <!--<ion-footer>
     <ion-toolbar>

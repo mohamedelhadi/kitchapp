@@ -40,6 +40,8 @@ export class AppComponent implements OnInit {
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
+            this.settings.initLanguage();
+            this.push.init();
             this.platform.registerBackButtonAction(() => {
                 if (onBack.observers.length > 0) {
                     onBack.next();
@@ -67,8 +69,6 @@ export class AppComponent implements OnInit {
                     }*/
                 }
             });
-            this.settings.initLanguage();
-            this.push.init();
         });
     }
 

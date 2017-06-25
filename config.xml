@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="10000" id="com.sudapps.kitchapp" ios-CFBundleVersion="1.0.0" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Kitchapp</name>
+<widget android-versionCode="100000" id="com.sudapps.kitchapp.dev" ios-CFBundleVersion="1.0.0" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Kitchapp - dev</name>
     <description>Restaurants App.</description>
     <author email="mohamed-elhadi@live.com" href="">Mohamed Elhadi</author>
     <content src="index.html" />
-    <access origin="https://www.sudapps.com" />
+    <access origin="*" />
     <access origin="https://*.googleapis.com" />
     <access origin="https://*.gstatic.com" />
     <access origin="http://placehold.it" />
-    <allow-navigation href="https://www.sudapps.com" />
+    <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -86,6 +86,10 @@
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-console" spec="~1.0.5" />
     <plugin name="cordova-plugin-device" spec="~1.1.4" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="1378368965603493" />
+        <variable name="APP_NAME" value="Kitchapp-dev" />
+    </plugin>
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3" />
     <plugin name="cordova-plugin-googlemaps" spec="~1.4.0">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBrdtOPS5DxXO-R785cuPMzJKDMg466B64" />

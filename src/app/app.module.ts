@@ -23,7 +23,7 @@ import { Restaurants } from "../pages/restaurants/restaurants";
 import { RestaurantsData } from "../pages/restaurants/restaurants.data";
 import { AppComponent } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
-import { Api, Push } from "./services";
+import { Api, Push, Auth, User } from "./services";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
@@ -41,12 +41,33 @@ import { DeviceMock } from "../mocks/device";
 import { Configuration } from "./environments/env.config";
 import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
 import { Environments } from "./environments/configuration";
-import { IUser, USER } from "./contracts/index";
 import { HomePopover } from "../pages/home/popover/popover";
 import { Deals } from "../pages/deals/deals";
 import { DealsData } from "../pages/deals/deals.data";
 import { Deal } from "../pages/deal/deal";
 import { OneSignal } from "@ionic-native/onesignal";
+
+import { Facebook } from "@ionic-native/facebook";
+import { FacebookService } from "ngx-facebook";
+
+/*import { Angular2SocialLoginModule } from "angular2-social-login";
+const socialProviders = {
+    facebook: {
+        clientId: "1378368965603493",
+        apiVersion: "v2.9"
+    }
+};*/
+
+/*import { AngularFireModule } from "angularfire2";
+import { AngularFireAuthModule } from "angularfire2/auth";
+export const firebaseConfig = {
+    apiKey: "AIzaSyBH3VBjXWyFXw4rzUsKMKjOVvyjxHTKFwo",
+    authDomain: "kitchapp-dev.firebaseapp.com",
+    databaseURL: "https://kitchapp-dev.firebaseio.com",
+    projectId: "kitchapp-dev",
+    storageBucket: "kitchapp-dev.appspot.com",
+    messagingSenderId: "735993356118"
+};*/
 
 const _pages = [
     AppComponent,
@@ -94,7 +115,11 @@ export function services() {
         Api,
         AppErrorHandler,
         AppSettings,
-        Push
+        Push,
+        Facebook,
+        FacebookService,
+        Auth,
+        User
     ];
 }
 export function dataServices() {
@@ -124,28 +149,10 @@ export function plugins() {
         ...browserMocks
     ];
 }
-export function userFactory(storage: Storage, device: Device) {
-    const user = new ReplaySubject<IUser>(1);
-    storage.ready().then(() => {
-        storage.get(USER).then((savedUser: IUser) => {
-            if (savedUser) {
-                user.next(savedUser);
-            } else {
-                user.next({ identifier: device.uuid } as IUser);
-            }
-        });
-    });
-    return user;
-}
 export function providers() {
     return [
         ...plugins(),
         ...services(),
-        {
-            provide: USER,
-            useFactory: userFactory,
-            deps: [Storage, Device]
-        },
         {
             provide: ErrorHandler,
             useClass: AppErrorHandler // env === Environments.Simulator || env === Environments.Dev ? IonicErrorHandler : AppErrorHandler
@@ -173,9 +180,13 @@ export function createTranslateLoader(http: Http) {
         }),
         Ionic2RatingModule,
         IonicImageViewerModule
+        // Angular2SocialLoginModule
+        /*AngularFireModule.initializeApp(firebaseConfig),
+        AngularFireAuthModule*/
     ],
     bootstrap: [IonicApp],
     entryComponents: components(),
     providers: providers()
 })
 export class AppModule { }
+// Angular2SocialLoginModule.loadProvidersScripts(socialProviders);

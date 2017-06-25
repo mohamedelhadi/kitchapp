@@ -7,6 +7,9 @@ export const BRANCHES = "BRANCHES";
 export const DEALS = "DEALS";
 export const USER = "USER";
 export const SETTINGS = "SETTINGS";
+export const FB_TOKEN = "FB_TOKEN";
+export const TOKEN = "TOKEN";
+export const EXPIRES_AT = "EXPIRES_AT";
 
 // Errors
 export enum ErrorCode {

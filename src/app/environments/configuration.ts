@@ -17,6 +17,7 @@ export interface IConfiguration {
     BaseUrl: string;
     OneSignalAppID?: string;
     GoogleProjectNo?: string;
+    FacebookAppID?: string;
 
     init(): void;
 }

@@ -4,7 +4,8 @@ import { BasePopover } from "../../../../app/infrastructure/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
-import { IVariation, IUser, USER, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
+import { IVariation, IUser, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
+import { User } from "../../../../app/services/index";
 
 @Component({
     templateUrl: "rate.popover.html",
@@ -15,13 +16,13 @@ export class VariationRatePopover extends BasePopover {
     rate: number = 3;
     comment: string = "";
     user: IUser;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, @Inject(USER) private userSubject: ReplaySubject<IUser>) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, private userService: User) {
         super({ viewCtrl });
         this.item = params.data.item;
     }
     ngOnInit() {
         super.ngOnInit();
-        this.userSubject.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
+        this.userService.User.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
     }
     close() {
         this.viewCtrl.dismiss();

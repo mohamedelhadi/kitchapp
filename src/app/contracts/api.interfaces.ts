@@ -101,16 +101,33 @@ export interface IDeal {
 }
 
 // ========================== for post requests ============================
+export interface INewUser {
+    identifier: string;
+    email: string;
+    password?: string;
+    token?: string;
+    name: string;
+    gender: Gender;
+    photoUrl?: string;
+    profileUrl?: string;
+}
 export interface IUser {
     id: number;
-    name: string;
-    phone: string;
-
     /*  instead of preventing the user from rating,
         run server side background check and see if a particular variation has been rated by the same device more than 2 times,
         if a match was found, remove all rates except the first
     */
     identifier: string;
+    name: string;
+    phoneNumber?: string;
+    email: string;
+    photo?: string;
+    profileUrl?: string;
+    gender?: Gender;
+}
+export enum Gender {
+    Male,
+    Female
 }
 export interface IBranchRate {
     quality: number; // 1 <--> 5
