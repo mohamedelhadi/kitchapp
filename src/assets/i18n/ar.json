@@ -19,7 +19,9 @@
         "SignOut": "خروج",
         "Pound": "جنيه",
         "Submit": "إرسال",
-        "Navigate": "تحديد المسار"
+        "Navigate": "تحديد المسار",
+        "Send": "إرسال",
+        "TypeHere": "اكتب هنا"
     },
     "Messages": {
         "LoadingPosition": "جاري تحديد موقعك..",
@@ -27,16 +29,19 @@
         "NoDeals": "لا يوجد أية عروض",
         "NoPhones": "لا يوجد هواتف",
         "SelectBranch": "من فضلك اختر أحد الفروع.",
-        "HavenotSetFavorites": "لم تُحدد أية تفضيلات بعد."
+        "HavenotSetFavorites": "لم تُحدد أية تفضيلات بعد.",
+        "LoggingIn": "جاري تسجيل الدخول..",
+        "ForgotToEnterFeedback": "لقد نسيت ان تكتب التعليق"
     },
     "Errors": {
-        "0": "حدث خطأ، الرجاء المحاولة مرة أخرى.",
-        "1": "من فضلك تحقق من إتصالك بالشبكة.",
-        "2": "تعذر تحديد موقعك."
+        "Unknown": "حدث خطأ، الرجاء المحاولة مرة أخرى.",
+        "Offline": "من فضلك تحقق من إتصالك بالشبكة.",
+        "GeolocationPositionError": "تعذر تحديد موقعك.",
+        "LoginFailure": "تعذر تسجيل الدخول، الرجاء المحاولة مرة أخرى."
     },
     "ServerErrors": {
-        "0": "لقد قمت بتقييم هذا الفرع مسبقاً!ً",
-        "1": "لقد قمت بتقييم هذا الصنف مسبقاً!"
+        "AlreadyRatedBranch": "لقد قمت بتقييم هذا الفرع مسبقاً!ً",
+        "AlreadyRatedItem": "لقد قمت بتقييم هذا الصنف مسبقاً!"
     },
     "Languages": {
         "0": "English",
@@ -73,7 +78,8 @@
         "Branch": "الفرع",
         "BranchesSelectPlaceholder": "اختر أحد الفروع",
         "CommentPlaceholder": "اضف تعليقا (اختياري)",
-        "SearchPlaceholder": "إبحث في القائمة"
+        "SearchPlaceholder": "إبحث في القائمة",
+        "FeedbackToManagement": "اكتب رسالة لإدارة المطعم"
     },
     "Deal": {
         "Deal": "العرض"

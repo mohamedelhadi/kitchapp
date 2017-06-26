@@ -5,7 +5,7 @@ import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 
 import * as bundledRestaurants from "../../assets/data/restaurants.json";
-import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate } from "../../app/contracts/index";
+import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IUser, IFeedback } from "../../app/contracts/index";
 import { Api } from "../../app/services/index";
 
 @Injectable()
@@ -76,7 +76,7 @@ export class RestaurantsData {
     updateStream() {
         this.restaurants.next(this.restaurants.getValue());
     }
-    /*getCategories(restaurantId: number): Observable<ICategory[]> {
-        return this.api.get(`restaurants/categories/${restaurantId}`);
-    }*/
+    sendFeedback(feedback: IFeedback) {
+        return this.api.post(`restaurants/${feedback.restaurantId}/feedbacks`, feedback);
+    }
 }

@@ -19,7 +19,9 @@
         "SignOut": "SIGN OUT",
         "Pound": "SDG",
         "Submit": "Submit",
-        "Navigate": "Navigate"
+        "Navigate": "Navigate",
+        "Send": "Send",
+        "TypeHere": "Type here.."
     },
     "Messages": {
         "LoadingPosition": "Loading your position..",
@@ -27,16 +29,19 @@
         "NoDeals": "No deals",
         "NoPhones": "No phones found",
         "SelectBranch": "Kindly select a branch from the list.",
-        "HavenotSetFavorites": "You haven't set any favorites."
+        "HavenotSetFavorites": "You haven't set any favorites.",
+        "LoggingIn": "Logging in..",
+        "ForgotToEnterFeedback": "You forgot to enter the feedback"
     },
     "Errors": {
-        "0": "An error occurred, please try again.",
-        "1": "Kindly check your internet connection.",
-        "2": "Couldn't retrieve your coordinations."
+        "Unknown": "An error occurred, please try again.",
+        "Offline": "Kindly check your internet connection.",
+        "GeolocationPositionError": "Couldn't retrieve your coordinations.",
+        "LoginFailure": "Failed to login, please try again."
     },
     "ServerErrors": {
-        "0": "You have already rated this branch!",
-        "1": "You have already rated this variation!"
+        "AlreadyRatedBranch": "You have already rated this branch!",
+        "AlreadyRatedItem": "You have already rated this item!"
     },
     "Languages": {
         "0": "English",
@@ -73,7 +78,8 @@
         "Branch": "Branch",
         "BranchesSelectPlaceholder": "Select a branch",
         "CommentPlaceholder": "Comment.. (Optional)",
-        "SearchPlaceholder": "Search menu items"
+        "SearchPlaceholder": "Search menu items",
+        "FeedbackToManagement": "Write feedback to restaurant's management"
     },
     "Deal": {
         "Deal": "Offer"

@@ -1,4 +1,7 @@
 phones-popover {
+    .list-header {
+        margin-bottom: 0 !important;
+    }
     .list {
         .item {
             .icon {
@@ -6,9 +9,12 @@ phones-popover {
                 margin-bottom: 5px;
             }
             .item-inner {
-                margin-left: 5px;
+                margin-left: 5px !important;
                 .label {
                     margin: 8px 0;
+                }
+                @include rtl() {
+                    margin-right: 5px;
                 }
             }
             h3 {

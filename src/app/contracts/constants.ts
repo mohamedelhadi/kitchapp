@@ -11,17 +11,6 @@ export const FB_TOKEN = "FB_TOKEN";
 export const TOKEN = "TOKEN";
 export const EXPIRES_AT = "EXPIRES_AT";
 
-// Errors
-export enum ErrorCode {
-    Unknown,
-    Offline,
-    GeolocationPositionError
-}
-export enum ServerErrorCode {
-    AlreadyRatedBranch,
-    AlreadyRatedItem
-}
-
 // Language
 export enum Language {
     en = 0,
@@ -33,4 +22,9 @@ for (const l in Language) {
     if (Language.hasOwnProperty(l) && /^\d+$/.test(l)) { // discard the string keys of the enum
         supportedLanguages[l] = Language[l];
     }
+}
+
+export enum AuthenticationStatus {
+    LoggedIn,
+    LoggedOut
 }

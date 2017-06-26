@@ -23,7 +23,7 @@ import { Restaurants } from "../pages/restaurants/restaurants";
 import { RestaurantsData } from "../pages/restaurants/restaurants.data";
 import { AppComponent } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
-import { Api, Push, Auth, User } from "./services";
+import { Api, Push, Auth, Identity } from "./services";
 import { Restaurant } from "../pages/restaurant/details/restaurant";
 import { RestaurantTabs } from "../pages/restaurant/tabs/tabs";
 import { RestaurantsPopover } from "../pages/restaurants/popover/popover";
@@ -49,6 +49,7 @@ import { OneSignal } from "@ionic-native/onesignal";
 
 import { Facebook } from "@ionic-native/facebook";
 import { FacebookService } from "ngx-facebook";
+import { FeedbackPopover } from "../pages/restaurant/details/feedback/feedback.popover";
 
 /*import { Angular2SocialLoginModule } from "angular2-social-login";
 const socialProviders = {
@@ -92,7 +93,8 @@ const _components = [
     VariationsPopover,
     BranchRatePopover,
     VariationRatePopover,
-    HomePopover
+    HomePopover,
+    FeedbackPopover
 ];
 
 const _directives = [
@@ -119,7 +121,7 @@ export function services() {
         Facebook,
         FacebookService,
         Auth,
-        User
+        Identity
     ];
 }
 export function dataServices() {

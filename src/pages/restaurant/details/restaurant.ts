@@ -10,6 +10,8 @@ import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
 import { BasePage } from "../../../app/infrastructure/index";
 import { IRestaurant, ICategory, ICategoryItem } from "../../../app/contracts/index";
+import { Auth } from "../../../app/services/index";
+import { FeedbackPopover } from "./feedback/feedback.popover";
 
 @Component({
     selector: "page-restaurant",
@@ -52,16 +54,18 @@ export class Restaurant extends BasePage {
     query = new BehaviorSubject<string>("");
     queryText: string;
     noMatchForQuery: boolean;
+    isForwardedSearch: boolean;
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
-        private data: RestaurantsData) {
+        private data: RestaurantsData, private auth: Auth) {
         super({ logger });
         this.restaurant = navParams.data.restaurant;
         if (navParams.data.query) {
             this.queryText = navParams.data.query;
             this.query.next(this.queryText);
             this.searchState = "focused";
+            this.isForwardedSearch = true;
         }
         this.rating = this.restaurant.branches[0].rate.overall;
     }
@@ -85,7 +89,7 @@ export class Restaurant extends BasePage {
                 // query
                 const categories = this.search(Utils.deepClone(restaurant.categories), query);
                 // order
-                // const orderedCategories = orderBy(categories, (category: ICategory) => category.name[settings.language]);
+                const orderedCategories = orderBy(categories, (category: ICategory) => category.order);
                 this.noMatchForQuery = query && categories.length === 0;
                 return categories;
             });
@@ -95,7 +99,7 @@ export class Restaurant extends BasePage {
     }
     search(categories: ICategory[], query: string) {
         if (query && query.trim() !== "") {
-            return categories.filter(category => {
+            const result = categories.filter(category => {
                 query = query.trim().toLowerCase();
                 // search in category items names
                 category.categoryItems = category.categoryItems.filter(item => {
@@ -107,6 +111,15 @@ export class Restaurant extends BasePage {
                 }
                 return foundMatch;
             });
+            if (result.length === 0 && this.isForwardedSearch) {
+                // this case happens when the user search for e.g. restaurant name, or branch name in the list screen
+                // there's no such match in category items, thus the reset
+                this.searchState = "collapsed";
+                this.isForwardedSearch = false;
+                this.queryText = "";
+                return categories;
+            }
+            return result;
         }
         return categories;
     }
@@ -121,8 +134,26 @@ export class Restaurant extends BasePage {
         popover.present();
     }
     showBranchRate(ev) {
+        this.auth.isLoggedIn().then(loggedIn => {
+            if (loggedIn) {
+                this.showPopover();
+            } else {
+                this.auth.signInWithFacebook().then(() => {
+                    this.showPopover();
+                });
+            }
+        });
+    }
+    showPopover() {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branches: this.restaurant.branches },
+            { cssClass: "wide-popover" }
+        );
+        popover.present();
+    }
+    showFeedback(ev) {
+        const popover = this.popoverCtrl.create(FeedbackPopover,
+            { restaurant: this.restaurant },
             { cssClass: "wide-popover" }
         );
         popover.present();

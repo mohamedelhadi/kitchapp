@@ -1,6 +1,6 @@
 /* *** App only interfaces *** */
 import { RequestOptionsArgs } from "@angular/http";
-import { ServerErrorCode, Language } from "./index";
+import { Language } from "./index";
 
 export interface IRestaurantsSearchSettings {
     // order settings
@@ -36,6 +36,6 @@ export interface IApiOptions extends RequestOptionsArgs {
     cache?: boolean;*/
 }
 export interface IServerError {
-    code: ServerErrorCode;
+    code: string;
     args?: any[];
 }

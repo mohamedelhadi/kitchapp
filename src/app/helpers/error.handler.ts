@@ -1,7 +1,7 @@
 import { ErrorHandler, Injectable } from "@angular/core";
 import { UI, Logger, Utils } from "./";
 import { Response } from "@angular/http";
-import { InternalError, HttpError, ErrorCode, IServerError, ServerErrorCode, TranslationKeys } from "../contracts/index";
+import { InternalError, HttpError, ErrorCodes, IServerError, ServerErrorCodes, TranslationKeys } from "../contracts/index";
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
@@ -22,11 +22,15 @@ export class AppErrorHandler extends ErrorHandler {
     }
     handleInternalError(err: InternalError) {
         if (err.handleError) {
-            if (err.code === ErrorCode.Offline) {
-                this.ui.showToast(TranslationKeys.Errors[ErrorCode.Offline]);
-                return;
+            switch (err.code) {
+                case ErrorCodes.Offline:
+                case ErrorCodes.GeolocationPositionError:
+                    this.ui.showToast(TranslationKeys.Errors[err.code]);
+                    break;
+                default:
+                    this.ui.showError(this.utils.isDev() ? err.message : TranslationKeys.Errors[err.code]);
+                    break;
             }
-            this.ui.showError(this.utils.isDev() ? err.message : null);
         }
     }
     handleHttpError(err: HttpError): void {

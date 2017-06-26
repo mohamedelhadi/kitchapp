@@ -5,7 +5,7 @@ import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
 import { IBranch, IUser, IBranchRate } from "../../../../app/contracts/index";
-import { User } from "../../../../app/services/index";
+import { Identity } from "../../../../app/services/index";
 
 @Component({
     templateUrl: "rate.popover.html",
@@ -20,9 +20,8 @@ export class BranchRatePopover extends BasePopover {
     place = 3;
     price = 3;
     comment: string = "";
-    user: IUser;
     canChangeBranch = false;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, private userService: User) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.branches = params.data.branches;
         this.selectedBranch = params.data.branch ? params.data.branch : this.branches.length === 1 ? this.branches[0] : null;
@@ -31,10 +30,6 @@ export class BranchRatePopover extends BasePopover {
         } else {
             this.canChangeBranch = true;
         }
-    }
-    ngOnInit() {
-        super.ngOnInit();
-        this.userService.User.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
     }
     close() {
         this.viewCtrl.dismiss();
@@ -46,7 +41,6 @@ export class BranchRatePopover extends BasePopover {
         }
         this.restaurantsData
             .rateBranch({
-                user: this.user,
                 quality: this.quality,
                 service: this.service,
                 place: this.place,

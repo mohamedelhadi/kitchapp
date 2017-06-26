@@ -1,0 +1,25 @@
+feedback-popover {
+    .content {
+        background: white;
+        margin-bottom: 56px;
+        padding: 15px;
+        .scroll-content {
+            background: initial;
+        }
+        h5 {
+            margin-top: 0;
+            color: $font-color;
+        }
+        textarea {
+            border-bottom: solid 1px red;
+            margin: 10px 0 !important;
+            width: 100%;
+            height: 50px;
+        }
+    }
+    ion-footer {
+        .toolbar-background {
+            background: $texture-background;
+        }
+    }
+}

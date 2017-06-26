@@ -17,8 +17,8 @@ import { orderBy, some } from "lodash";
 
 /*import { AngularFireAuth } from "angularfire2/auth";
 import * as firebase from "firebase/app";*/
-import { IRestaurant, IDistanceDictionary, InternalError, ErrorCode, IBranch, TranslationKeys } from "../../app/contracts/index";
-import { UI, Utils } from "../../app/helpers/index";
+import { IRestaurant, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
+import { UI, Utils, AppErrorHandler } from "../../app/helpers/index";
 import { Auth } from "../../app/services/index";
 // import { AuthService } from "angular2-social-login/dist";
 
@@ -29,7 +29,7 @@ import { Auth } from "../../app/services/index";
 export class Home extends BasePage {
     restaurants: IRestaurant[] = [];
     constructor(
-        private appSettings: AppSettings, private logger: Logger, private ui: UI,
+        private appSettings: AppSettings, private logger: Logger, private ui: UI, private errHandler: AppErrorHandler,
         private splashScreen: SplashScreen,
         private restaurantsData: RestaurantsData,
         private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController, private platform: Platform,
@@ -64,9 +64,8 @@ export class Home extends BasePage {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.logger.error(new InternalError("Couldn't retrieve coordinates", ErrorCode.GeolocationPositionError, false, err));
+                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates" + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
                     this.ui.hideLoading();
-                    this.ui.showToast(this.translation.Errors[ErrorCode.GeolocationPositionError]);
                     // reject();
                 },
                 { maximumAge: 7000, timeout: 7000, enableHighAccuracy: true }

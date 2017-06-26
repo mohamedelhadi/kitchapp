@@ -4,6 +4,7 @@ export interface IRestaurant {
     name: string[];
     slogan?: string;
     icon?: string;
+    order: number;
 
     tags: string;
     cuisineIds: number[];
@@ -24,6 +25,7 @@ export interface IBranch {
     id: number;
     restaurantId: number;
     name: string[];
+    order: number;
     location: ILocation;
     rate: IBranchRateSummary;
     phones: IPhone[]; // delayed
@@ -32,11 +34,13 @@ export interface IBranch {
 export interface ICuisine { // predefined in db, pre-include in app as well
     id: number;
     name: string[];
+    order: number;
     photo?: string;
 }
 export interface ICategory {
     id: number;
     name: string[];
+    order: number;
     children: ICategory[];
     categoryItems: ICategoryItem[];
 
@@ -62,6 +66,7 @@ export interface ICity { // predefined in db, pre-include in app as well
 export interface ICategoryItem {
     id: number;
     name: string[];
+    order: number;
     tags: string;
     cuisineId?: number; // null in case of beverages
     variations: IVariation[]; // delayed
@@ -93,6 +98,7 @@ export interface IBranchRateSummary { // via auto mapper
 export interface IDeal {
     id: number;
     name: string[];
+    order: number;
     description: string[];
     oldPrice?: number;
     newPrice?: number;
@@ -135,12 +141,22 @@ export interface IBranchRate {
     place: number; // 1 <--> 5
     price: number; // 1 <--> 5
     comment?: string;
-    user?: IUser;
     branchId: number;
 }
 export interface IVariationRate {
     rate: number; // 1 <--> 5
     comment?: string;
-    user?: IUser;
     variationId: number;
+}
+export interface IFeedback {
+    title?: string;
+    message: string;
+    type?: FeedbackType;
+    restaurantId: number;
+    photo?: any;
+}
+export enum FeedbackType {
+    Complaint,
+    Inquiry,
+    Other = 100
 }

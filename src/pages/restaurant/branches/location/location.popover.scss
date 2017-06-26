@@ -17,8 +17,12 @@ location-popover {
         }
     }
     .item.popover-footer {
+        padding-right: 0;
+        padding-left: 0;
         .item-inner {
-            padding-right: 16px;
+            max-width: 150px;
+            padding-right: 24px !important;
+            padding-left: 24px !important;
             a {
                 span {
                     color: #3282ff;

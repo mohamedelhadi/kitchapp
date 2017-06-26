@@ -5,7 +5,7 @@ import { RestaurantsData } from "../../../restaurants/restaurants.data";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { IVariation, IUser, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
-import { User } from "../../../../app/services/index";
+import { Identity } from "../../../../app/services/index";
 
 @Component({
     templateUrl: "rate.popover.html",
@@ -15,14 +15,9 @@ export class VariationRatePopover extends BasePopover {
     item: ICategoryItem;
     rate: number = 3;
     comment: string = "";
-    user: IUser;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData, private userService: User) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.item = params.data.item;
-    }
-    ngOnInit() {
-        super.ngOnInit();
-        this.userService.User.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
     }
     close() {
         this.viewCtrl.dismiss();
@@ -30,7 +25,6 @@ export class VariationRatePopover extends BasePopover {
     submit() {
         this.restaurantsData
             .rateVariation({
-                user: this.user,
                 rate: this.rate,
                 comment: this.comment,
                 variationId: this.item.variations[0].id

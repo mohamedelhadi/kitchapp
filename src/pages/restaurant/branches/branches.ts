@@ -8,6 +8,7 @@ import { BasePage } from "../../../app/infrastructure/index";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { IRestaurant, IBranch } from "../../../app/contracts/index";
 import { Logger, UI } from "../../../app/helpers/index";
+import { Auth } from "../../../app/services/index";
 
 @Component({
     selector: "page-branches",
@@ -18,7 +19,7 @@ export class Branches extends BasePage {
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
-        private data: RestaurantsData) {
+        private data: RestaurantsData, private auth: Auth) {
         super({ logger });
         this.restaurant = navParams.data;
     }
@@ -51,6 +52,17 @@ export class Branches extends BasePage {
         popover.present();
     }
     showRate(ev, branch: IBranch) {
+        this.auth.isLoggedIn().then(loggedIn => {
+            if (loggedIn) {
+                this.showPopover(branch);
+            } else {
+                this.auth.signInWithFacebook().then(() => {
+                    this.showPopover(branch);
+                });
+            }
+        });
+    }
+    showPopover(branch: IBranch) {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branch, branches: this.restaurant.branches },
             { cssClass: "wide-popover" }

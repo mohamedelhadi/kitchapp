@@ -1,0 +1,20 @@
+<ion-content>
+    <span>{{ translation.Restaurant.FeedbackToManagement | translate}}</span>
+    <ion-textarea [(ngModel)]="message" placeholder="{{ translation.Common.TypeHere | translate }}"></ion-textarea>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col>
+                <button block color="dark" ion-button clear (click)="close()">
+                    {{ translation.Common.Close | translate }}
+                </button>
+            </ion-col>
+            <ion-col>
+                <button block color="dark" ion-button clear (click)="send()">
+                    {{ translation.Common.Send | translate }}
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

@@ -20,6 +20,8 @@ export interface ITranslationKeys {
     "Pound"?: string;
     "Submit"?: string;
     "Navigate"?: string;
+    "Send"?: string;
+    "TypeHere"?: string;
     [k: string]: any;
   };
   "Messages"?: {
@@ -29,17 +31,20 @@ export interface ITranslationKeys {
     "NoPhones"?: string;
     "SelectBranch"?: string;
     "HavenotSetFavorites"?: string;
+    "LoggingIn"?: string;
+    "ForgotToEnterFeedback"?: string;
     [k: string]: any;
   };
   "Errors"?: {
-    "0"?: string;
-    "1"?: string;
-    "2"?: string;
+    "Unknown"?: string;
+    "Offline"?: string;
+    "GeolocationPositionError"?: string;
+    "LoginFailure"?: string;
     [k: string]: any;
   };
   "ServerErrors"?: {
-    "0"?: string;
-    "1"?: string;
+    "AlreadyRatedBranch"?: string;
+    "AlreadyRatedItem"?: string;
     [k: string]: any;
   };
   "Languages"?: {
@@ -82,6 +87,7 @@ export interface ITranslationKeys {
     "BranchesSelectPlaceholder"?: string;
     "CommentPlaceholder"?: string;
     "SearchPlaceholder"?: string;
+    "FeedbackToManagement"?: string;
     [k: string]: any;
   };
   "Deal"?: {

@@ -21,8 +21,11 @@ branch-rate-popover {
                 padding: 0;
             }
             .item-inner {
-                padding-right: 16px;
-                @include rtl() {
+                padding-right: 16px !important;
+            }
+            @include rtl() {
+                padding-right: 0;
+                .item-inner {
                     padding-left: 16px !important; // !important to override rtl paddings
                 }
             }

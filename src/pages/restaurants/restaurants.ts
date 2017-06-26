@@ -9,8 +9,8 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Subject } from "rxjs/Subject";
 import { BasePage } from "../../app/infrastructure/index";
-import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCode, IBranch, TranslationKeys } from "../../app/contracts/index";
-import { Logger, UI, Utils } from "../../app/helpers/index";
+import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
+import { Logger, UI, Utils, AppErrorHandler } from "../../app/helpers/index";
 import { CitiesData, CuisinesData } from "../../app/services/data/index";
 
 @Component({
@@ -28,7 +28,7 @@ export class Restaurants extends BasePage implements OnInit {
     noMatchForQuery: boolean;
 
     constructor(
-        private logger: Logger, private ui: UI,
+        private logger: Logger, private ui: UI, private errHandler: AppErrorHandler,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
         super({ logger });
@@ -119,7 +119,6 @@ export class Restaurants extends BasePage implements OnInit {
         }
         return restaurants;
     }
-
     orderRestaurants(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings): Observable<IRestaurant[]> {
         if (restaurants.length === 0) {
             return Observable.of([]);
@@ -157,10 +156,9 @@ export class Restaurants extends BasePage implements OnInit {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.logger.error(new InternalError("Couldn't retrieve coordinates", ErrorCode.GeolocationPositionError, false, err));
+                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates" + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
                     this.searchSettings.getValue().nearby = false;
                     this.ui.hideLoading();
-                    this.ui.showToast(TranslationKeys.Errors[ErrorCode.GeolocationPositionError]);
                     resolve(restaurants); // to keep chain from breaking and apply other order settings
                 },
                 { maximumAge: 7000, timeout: 7000 }

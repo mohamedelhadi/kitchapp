@@ -7,7 +7,7 @@ import { Storage } from "@ionic/storage";
 import { Device } from "@ionic-native/device";
 
 @Injectable()
-export class User {
+export class Identity {
     user = new ReplaySubject<IUser>(1);
     constructor(private storage: Storage, private device: Device) {
         storage.ready().then(() => {

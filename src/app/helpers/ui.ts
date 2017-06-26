@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AlertController, LoadingController, Loading, ToastController } from "ionic-angular";
 import { TranslateService } from "@ngx-translate/core";
-import { TranslationKeys, ErrorCode } from "../contracts/index";
+import { TranslationKeys, ErrorCodes } from "../contracts/index";
 
 @Injectable()
 export class UI {
@@ -16,7 +16,7 @@ export class UI {
     showError(messageKey?: string, interpolateParams?: any) {
         const alert = this.alertCtrl.create({
             // title: "Error",
-            subTitle: this.translate.instant(messageKey || TranslationKeys.Errors[ErrorCode.Unknown], interpolateParams),
+            subTitle: this.translate.instant(messageKey || TranslationKeys.Errors[ErrorCodes.Unknown], interpolateParams),
             buttons: [this.translate.instant(TranslationKeys.Common.Dismiss)]
         });
         alert.present();
