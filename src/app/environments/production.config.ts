@@ -6,7 +6,7 @@ export class Configuration implements IConfiguration {
     Environment: string = Environments.Production;
     OneSignalAppID: string = "d0219f81-9edd-413c-840d-b4f71e659d9c";
     GoogleProjectNo: string = "735993356118";
-    FacebookAppID: string = "1378368965603493";
+    FacebookAppID: string = "1462290493817069";
 
     private baseUrl: string = production;
 

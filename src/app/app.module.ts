@@ -55,7 +55,7 @@ import { FeedbackPopover } from "../pages/restaurant/details/feedback/feedback.p
 const socialProviders = {
     facebook: {
         clientId: "1378368965603493",
-        apiVersion: "v2.9"
+        apiVersion: "v2.8"
     }
 };*/
 

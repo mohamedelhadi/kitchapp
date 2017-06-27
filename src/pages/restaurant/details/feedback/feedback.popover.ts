@@ -1,9 +1,8 @@
 import { ViewController, NavParams, PopoverController } from "ionic-angular";
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { IUser, IFeedback, IRestaurant } from "../../../../app/contracts/index";
 import { UI } from "../../../../app/helpers/index";
-import { Auth, Identity } from "../../../../app/services/index";
 import { RestaurantsData } from "../../../restaurants/restaurants.data";
 
 @Component({
@@ -11,16 +10,12 @@ import { RestaurantsData } from "../../../restaurants/restaurants.data";
     selector: "feedback-popover"
 })
 export class FeedbackPopover extends BasePopover {
-    restaurant: IRestaurant;
+    @ViewChild("msg") msg: ElementRef;
     message: string = "";
-    user: IUser;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private restaurantsData: RestaurantsData, private identity: Identity) {
+    restaurant: IRestaurant;
+    constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.restaurant = params.data.restaurant;
-    }
-    ngOnInit() {
-        super.ngOnInit();
-        this.identity.User.takeUntil(this.viewCtrl.willUnload).subscribe(user => this.user = user);
     }
     send() {
         if (this.message) {
@@ -36,5 +31,8 @@ export class FeedbackPopover extends BasePopover {
     }
     close() {
         this.viewCtrl.dismiss();
+    }
+    resize() {
+        this.msg.nativeElement.style.height = this.msg.nativeElement.scrollHeight + "px";
     }
 }

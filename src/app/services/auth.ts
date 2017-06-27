@@ -15,7 +15,7 @@ export const AuthStatus = new ReplaySubject<AuthenticationStatus>(1);
 
 @Injectable()
 export class Auth {
-    onInit = new ReplaySubject(1);
+    onInit: Promise<void>; // = new ReplaySubject(1);
     loginOptions: LoginOptions = {
         scope: "public_profile,email",
         return_scopes: true,
@@ -26,14 +26,16 @@ export class Auth {
         private platform: Platform, private storage: Storage,
         private api: Api, private identity: Identity,
         private fbNative: Facebook, private fb: FacebookService) {
-        (window as any).fbAsyncInit = () => {
-            const initParams: InitParams = {
-                appId: this.config.FacebookAppID,
-                xfbml: true,
-                version: "v2.9"
+        this.onInit = new Promise<void>((resolve, reject) => {
+            (window as any).fbAsyncInit = () => {
+                const initParams: InitParams = {
+                    appId: this.config.FacebookAppID,
+                    xfbml: true,
+                    version: "v2.8"
+                };
+                fb.init(initParams).then(resolve, reject); // () => this.onInit.next(""), err => this.onInit.error(err));
             };
-            fb.init(initParams).then(() => this.onInit.next(""), err => this.onInit.error(err));
-        };
+        });
     }
     get User() {
         return this.identity.User;
@@ -52,79 +54,84 @@ export class Auth {
             return false;
         });
     }
-    signInWithFacebook() {
+    signInWithFacebook(): Promise<boolean> {
         // TODO: check if TOKEN exists in storage, if it exists then refresh when close to expiration, if it doesn't exist attempt login
-        return new Promise((resolve, reject) => {
-            if (!Utils.isOnline()) {
-                this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline));
-                reject();
-                return;
-            }
-            const failed = err => {
-                this.errHandler.handleError(new InternalError(err.message || err.toString(), ErrorCodes.LoginFailure));
-                reject();
-            };
-            if (this.platform.is("cordova")) {
-                this.fbNative.login(["email", "public_profile"])
-                    .then(res => {
-                        this.storage.set(FB_TOKEN, res.authResponse.accessToken);
-                        this.ui.showLoading(TranslationKeys.Messages.LoggingIn);
-                        this.fbNative.api("/me?fields=id,name,email,link,gender,picture", ["email", "public_profile"])
-                            .then(profile => {
-                                this.verify(profile, res.authResponse.accessToken, resolve, failed);
-                            })
-                            .catch(failed);
-                    })
-                    .catch(failed);
-            } else {
-                this.onInit.first().subscribe(() => {
-                    this.fb.login(this.loginOptions)
+        if (!Utils.isOnline()) {
+            this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline));
+            return Promise.reject("no internet");
+        }
+        const failed = err => {
+            const message = err ? err.message || err.toString() : "Error in facebook login";
+            this.errHandler.handleError(new InternalError(message, ErrorCodes.LoginFailure));
+            return false;
+            // can't use Promise.reject because it throws undefined error (conflicts with zones)!
+            // return Promise.reject(message);
+        };
+        if (this.platform.is("cordova")) {
+            return this.fbNative.login(["email", "public_profile"])
+                .then(res => {
+                    this.storage.set(FB_TOKEN, res.authResponse.accessToken);
+                    this.ui.showLoading(TranslationKeys.Messages.LoggingIn);
+                    return this.fbNative.api("/me?fields=id,name,email,link,gender,picture", ["email", "public_profile"])
+                        .then(profile => {
+                            return this.verify(profile, res.authResponse.accessToken);
+                        });
+                })
+                .catch(failed);
+        } else {
+            return this.onInit
+                .then(() => {
+                    return this.fb.login(this.loginOptions)
                         .then(res => {
                             this.storage.set(FB_TOKEN, res.authResponse.accessToken);
                             this.ui.showLoading(TranslationKeys.Messages.LoggingIn);
-                            this.fb.api("/me?fields=id,name,email,link,gender,picture")
+                            return this.fb.api("/me?fields=id,name,email,link,gender,picture")
                                 .then(profile => {
-                                    this.verify(profile, res.authResponse.accessToken, resolve, failed);
-                                })
-                                .catch(failed);
-                        })
-                        .catch(failed);
-                });
-            }
-        });
+                                    return this.verify(profile, res.authResponse.accessToken);
+                                });
+                        });
+                })
+                .catch(failed);
+        }
     }
-    verify(profile, accessToken, success, failure) {
-        this.identity.User.first().subscribe(savedUser => {
-            const user: INewUser = {
-                identifier: savedUser.identifier,
-                email: profile.email,
-                token: accessToken,
-                name: profile.name,
-                gender: profile.gender === "male" ? Gender.Male : Gender.Female,
-                photoUrl: profile.picture.data.url,
-                profileUrl: profile.link
-            };
-            this.api.post("auth/verify", user, { handleError: false }).subscribe((result: any) => {
-                this.identity.save(result.user);
-                Promise
-                    .all([this.storage.set(TOKEN, result.auth.token), this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())])
-                    .then(() => {
-                        AuthStatus.next(AuthenticationStatus.LoggedIn);
-                        success();
-                    });
-            }, failure);
+    verify(profile, accessToken): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.identity.User.first().subscribe(savedUser => {
+                const user: INewUser = {
+                    identifier: savedUser.identifier,
+                    email: profile.email,
+                    token: accessToken,
+                    name: profile.name,
+                    gender: profile.gender === "male" ? Gender.Male : Gender.Female,
+                    photoUrl: profile.picture.data.url,
+                    profileUrl: profile.link
+                };
+                this.api.post("auth/verify", user, { handleError: false }).subscribe((result: any) => {
+                    this.identity.save(result.user);
+                    Promise
+                        .all([this.storage.set(TOKEN, result.auth.token), this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())])
+                        .then(() => {
+                            AuthStatus.next(AuthenticationStatus.LoggedIn);
+                            resolve(true);
+                        });
+                }, reject);
+            });
         });
     }
     signOut() {
-        if (this.platform.is("cordova")) {
-            this.fbNative.logout();
-        } else {
-            this.fb.logout().then(() => {
-                // broadcast
-            });
-        }
-        Promise
-            .all([this.storage.remove(TOKEN), this.storage.remove(FB_TOKEN), this.storage.remove(EXPIRES_AT)])
-            .then(() => AuthStatus.next(AuthenticationStatus.LoggedOut));
+        this.onInit.then(() => {
+            if (this.platform.is("cordova")) {
+                this.fbNative.logout();
+            } else {
+                this.fb.getLoginStatus().then(loginStatus => {
+                    this.fb.logout().then(() => {
+                        // broadcast, broadcasted below
+                    });
+                });
+            }
+            Promise
+                .all([this.storage.remove(TOKEN), this.storage.remove(FB_TOKEN), this.storage.remove(EXPIRES_AT)])
+                .then(() => AuthStatus.next(AuthenticationStatus.LoggedOut));
+        });
     }
 }

@@ -43,6 +43,7 @@ export class Restaurants extends BasePage implements OnInit {
     }
     ionViewDidLoad() {
         this.data.getRestaurants();
+        this.ui.showLoading();
         this.restaurants = this.data.Restaurants
             .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
@@ -56,7 +57,8 @@ export class Restaurants extends BasePage implements OnInit {
                 // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
                 this.noMatchForQuery = restaurants.length === 0 && (query || +settings.cityId !== this.none || settings.cuisineId !== +this.none) as any;
                 return orderedRestaurants;
-            });
+            })
+            .do(() => this.ui.hideLoading());
     }
     viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant, query: this.query.getValue() });

@@ -1,5 +1,5 @@
 import { ViewController, NavParams } from "ionic-angular";
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
@@ -20,6 +20,7 @@ export class BranchRatePopover extends BasePopover {
     place = 3;
     price = 3;
     comment: string = "";
+    @ViewChild("txt") txt: ElementRef;
     canChangeBranch = false;
     constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
@@ -58,5 +59,8 @@ export class BranchRatePopover extends BasePopover {
                 this.restaurantsData.updateStream();
                 this.close();
             }, err => this.close());
+    }
+    resize() {
+        this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";
     }
 }

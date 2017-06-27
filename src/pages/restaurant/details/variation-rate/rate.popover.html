@@ -2,9 +2,10 @@
     <ion-item no-lines class="variation">
         <p>{{item.name[settings.language]}}</p>
     </ion-item>
-    <ion-item class="comment">
+    <textarea #txt maxLength="800" (keyup)="resize()" [(ngModel)]="comment" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></textarea>
+    <!--<ion-item class="comment">
         <ion-textarea [(ngModel)]="comment" type="text" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></ion-textarea>
-    </ion-item>
+    </ion-item>-->
     <ion-item margin-top no-lines class="range-item">
         <ion-label class="rate-label" no-margin>{{rate}}/5</ion-label>
         <ion-range min="1" max="5" [(ngModel)]="rate" color="primary">

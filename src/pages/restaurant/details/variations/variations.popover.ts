@@ -21,8 +21,10 @@ export class VariationsPopover extends BasePopover {
             if (loggedIn) {
                 this.showPopover();
             } else {
-                this.auth.signInWithFacebook().then(() => {
-                    this.showPopover();
+                this.auth.signInWithFacebook().then(successfulLogin => {
+                    if (successfulLogin) {
+                        this.showPopover();
+                    }
                 });
             }
         });

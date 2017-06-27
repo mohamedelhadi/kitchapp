@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController } from "ionic-angular";
+import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController, FabContainer } from "ionic-angular";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
@@ -81,6 +81,7 @@ export class Restaurant extends BasePage {
         }
     }
     ionViewDidLoad() {
+        this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
             .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
@@ -92,7 +93,8 @@ export class Restaurant extends BasePage {
                 const orderedCategories = orderBy(categories, (category: ICategory) => category.order);
                 this.noMatchForQuery = query && categories.length === 0;
                 return categories;
-            });
+            })
+            .do(() => this.ui.hideLoading());
         this.data.isFavorite(this.restaurant)
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(isFavorite => this.isFavorite = isFavorite);
@@ -138,8 +140,10 @@ export class Restaurant extends BasePage {
             if (loggedIn) {
                 this.showPopover();
             } else {
-                this.auth.signInWithFacebook().then(() => {
-                    this.showPopover();
+                this.auth.signInWithFacebook().then(successfulLogin => {
+                    if (successfulLogin) {
+                        this.showPopover();
+                    }
                 });
             }
         });
@@ -151,7 +155,8 @@ export class Restaurant extends BasePage {
         );
         popover.present();
     }
-    showFeedback(ev) {
+    showFeedback(fab: FabContainer) {
+        fab.close();
         const popover = this.popoverCtrl.create(FeedbackPopover,
             { restaurant: this.restaurant },
             { cssClass: "wide-popover" }
@@ -161,7 +166,8 @@ export class Restaurant extends BasePage {
     call() {
         this.navCtrl.parent.select(1);
     }
-    toggleFavorite() {
+    toggleFavorite(fab: FabContainer) {
+        fab.close();
         this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
     onBackButton() {
@@ -184,5 +190,8 @@ export class Restaurant extends BasePage {
     }
     setElementOpacity(element: Element, opacity: number) {
         this.renderer.setStyle(element, "opacity", opacity.toString());
+    }
+    closeFab(fab: FabContainer) {
+        fab.close();
     }
 }

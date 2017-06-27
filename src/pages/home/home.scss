@@ -21,26 +21,6 @@ page-home {
             overflow: hidden;
             background: none;
         }
-        .main-menu {
-            position: absolute;
-            text-align: center;
-            width: 100%;
-            bottom: 110px;
-            @media screen and (orientation: landscape) {
-                bottom: 10px;
-            }
-            .button {
-                min-width: 150px;
-                background-color: rgba(218, 55, 67, 0.8);
-                border: solid 0.1em rgba(255, 255, 255, 0.4);
-                .button-inner {
-                    justify-content: space-between;
-                    span {
-                        width: 100%;
-                    }
-                }
-            }
-        }
         .nav-menu {
             position: absolute;
             bottom: 0;
@@ -52,7 +32,8 @@ page-home {
                 &:first-child {
                     border-left: none;
                 }
-                @media screen and (orientation: portrait) {
+                @media (max-width: map-get($screen-breakpoints,
+                xs)) and (orientation: portrait) {
                     &:nth-child(3) {
                         border-left: none;
                     }
@@ -63,7 +44,8 @@ page-home {
                     &:first-child {
                         border-right: none;
                     }
-                    @media screen and (orientation: portrait) {
+                    @media (max-width: map-get($screen-breakpoints,
+                    xs)) and (orientation: portrait) {
                         &:nth-child(3) {
                             border-right: none;
                         }

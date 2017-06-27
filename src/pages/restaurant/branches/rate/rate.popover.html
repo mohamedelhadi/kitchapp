@@ -9,9 +9,10 @@
             <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[settings.language]}}</ion-option>
         </ion-select>
     </ion-item>
-    <ion-item class="comment">
+    <textarea #txt maxLength="800" (keyup)="resize()" [(ngModel)]="comment" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></textarea>
+    <!--<ion-item class="comment">
         <ion-textarea [(ngModel)]="comment" type="text" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></ion-textarea>
-    </ion-item>
+    </ion-item>-->
     <ion-item margin-top no-lines class="range-item">
         <ion-label class="rate-label" no-margin>{{translation.Restaurant.Quality | translate}} {{quality}}/5</ion-label>
         <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">

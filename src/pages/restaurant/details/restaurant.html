@@ -17,7 +17,7 @@
     </button>
     <ion-searchbar (ionInput)="onQueryChanged($event)" [(ngModel)]="queryText" (ionClear)="collapseSearchbar()" (ionBlur)="collapseSearchbar()" #searchbar color="primary" placeholder="{{ translation.Restaurant.SearchPlaceholder | translate }}" [@searchbarState]="searchState"></ion-searchbar>
 </ion-header>
-<ion-content (ionScroll)="onScroll($event)">
+<ion-content (ionScroll)="onScroll($event)" (tap)="closeFab(fab)">
     <div class="banner">
         <ion-item no-border class="banner-content">
             <ion-thumbnail item-start>
@@ -66,13 +66,13 @@
         </ion-card>
         <ion-item *ngIf="noMatchForQuery" text-center class="no-match">{{translation.Messages.NoMatch | translate}}</ion-item>
     </div>
-    <ion-fab right bottom>
-        <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
-        <ion-fab-list side="top">
-            <button ion-fab (click)="showFeedback()"><ion-icon color="primary" name="create"></ion-icon><!--<ion-label>Write Feedback</ion-label>--></button>
-            <button ion-fab (click)="toggleFavorite()"><ion-icon style="margin-top: 3px;" color="primary" [name]="isFavorite ? 'heart' : 'heart-outline'" isActive="isFavorite" item-end></ion-icon><!--<ion-label>Favorites</ion-label>--></button>
-            <!-- TODO: activate in v2 <button ion-fab><ion-icon color="primary" name="ios-image"></ion-icon><ion-label>Add Photo</ion-label></button>-->
-            <!--<button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>-->
-        </ion-fab-list>
-    </ion-fab>
 </ion-content>
+<ion-fab right bottom #fab>
+    <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+        <button ion-fab (click)="showFeedback(fab)"><ion-icon color="primary" name="create"></ion-icon><!--<ion-label>Write Feedback</ion-label>--></button>
+        <button ion-fab (click)="toggleFavorite(fab)"><ion-icon style="margin-top: 3px;" color="primary" [name]="isFavorite ? 'heart' : 'heart-outline'" isActive="isFavorite" item-end></ion-icon><!--<ion-label>Favorites</ion-label>--></button>
+        <!-- TODO: activate in v2 <button ion-fab><ion-icon color="primary" name="ios-image"></ion-icon><ion-label>Add Photo</ion-label></button>-->
+        <!--<button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>-->
+    </ion-fab-list>
+</ion-fab>

@@ -1,6 +1,7 @@
 <ion-content>
     <span>{{ translation.Restaurant.FeedbackToManagement | translate}}</span>
-    <ion-textarea [(ngModel)]="message" placeholder="{{ translation.Common.TypeHere | translate }}"></ion-textarea>
+    <textarea #msg maxLength="800" (keyup)="resize()" [(ngModel)]="message" placeholder="{{ translation.Common.TypeHere | translate }}"></textarea>
+    <!--<textarea [(ngModel)]="message" placeholder="{{ translation.Common.TypeHere | translate }}"></textarea>-->
 </ion-content>
 <ion-footer>
     <ion-toolbar>
