@@ -58,19 +58,22 @@ page-restaurant {
                 padding-left: 5px;
                 padding-right: 5px;
                 ion-thumbnail {
-                    margin: 3px;
+                    margin: 3px !important;
                     img {
                         border-radius: 3px;
                     }
                 }
                 ion-label {
                     margin-right: 0;
-                    .details,
-                    .details h3 {
-                        // ellipses trim
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
+                    .details {
+                        padding: 0 5px;
+                        &,
+                        h3 {
+                            // ellipses trim
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
                     }
                     .favorite-icon-container {
                         max-width: 30px;
@@ -82,15 +85,22 @@ page-restaurant {
                 }
                 .item-inner {
                     border: none;
-                    rating {
-                        ul {
-                            margin: 0;
-                            padding: 0;
-                            color: white; //#FFCF00;
-                            font-size: large;
-                            margin-left: -5px;
-                            li {
-                                padding: 5px;
+                    p {
+                        padding: 5px 0;
+                        rating {
+                            ul {
+                                margin: 0;
+                                padding: 0;
+                                color: white; //#FFCF00;
+                                font-size: large;
+                                margin-left: -5px;
+                                li {
+                                    padding: 5px;
+                                }
+                                @include rtl() {
+                                    margin-right: -5px;
+                                    margin-left: initial;
+                                }
                             }
                         }
                     }
@@ -135,7 +145,7 @@ page-restaurant {
                     }
                 }
                 ion-list {
-                    /*@keyframes example {
+                    @keyframes example {
                         from {
                             max-height: 0;
                         }
@@ -146,7 +156,7 @@ page-restaurant {
                     &.expanded {
                         max-height: 2000px;
                         animation: example 0.5s ease-in;
-                    }*/
+                    }
                     .item {
                         border-bottom: solid 1px color($shades-of-gray, lighter-gray);
                         ion-icon {

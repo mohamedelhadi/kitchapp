@@ -11,7 +11,7 @@ export class UI {
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
-        private translate: TranslateService) { }
+        public translate: TranslateService) { }
 
     showError(messageKey?: string, interpolateParams?: any) {
         const alert = this.alertCtrl.create({

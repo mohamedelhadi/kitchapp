@@ -21,7 +21,9 @@
         "Submit": "Submit",
         "Navigate": "Navigate",
         "Send": "Send",
-        "TypeHere": "Type here.."
+        "TypeHere": "Type here..",
+        "No": "No",
+        "Login": "Login"
     },
     "Messages": {
         "LoadingPosition": "Loading your position..",
@@ -29,9 +31,10 @@
         "NoDeals": "No deals",
         "NoPhones": "No phones found",
         "SelectBranch": "Kindly select a branch from the list.",
-        "HavenotSetFavorites": "You haven't set any favorites.",
+        "HavenotSetFavorites": "You didn't set any favorites.",
         "LoggingIn": "Logging in..",
-        "ForgotToEnterFeedback": "You forgot to enter the feedback"
+        "ForgotToEnterFeedback": "You forgot to enter the feedback",
+        "YouNeedToLoginInOrderToRate": "Login in order to rate"
     },
     "Errors": {
         "Unknown": "An error occurred, please try again.",

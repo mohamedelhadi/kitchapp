@@ -158,7 +158,7 @@ export class Restaurants extends BasePage implements OnInit {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates" + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
+                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates " + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
                     this.searchSettings.getValue().nearby = false;
                     this.ui.hideLoading();
                     resolve(restaurants); // to keep chain from breaking and apply other order settings

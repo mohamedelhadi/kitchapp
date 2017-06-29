@@ -51,6 +51,7 @@
         "@types/lodash": "^4.14.64",
         "cordova-android": "^6.2.3",
         "cordova-plugin-console": "~1.0.5",
+        "cordova-plugin-crosswalk-webview": "2.3.0",
         "cordova-plugin-device": "~1.1.4",
         "cordova-plugin-facebook4": "^1.9.1",
         "cordova-plugin-geolocation": "~2.4.3",
@@ -131,7 +132,8 @@
             "cordova-plugin-facebook4": {
                 "APP_ID": "1462290493817069",
                 "APP_NAME": "Kitchapp"
-            }
+            },
+            "cordova-plugin-crosswalk-webview": {}
         }
     }
 }

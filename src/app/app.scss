@@ -103,6 +103,10 @@ button[ion-fab] {
     }
 }
 
+.top-popover .popover-content {
+    top: 100px !important;
+}
+
 .wide-popover .popover-content {
     width: 300px;
 }
@@ -188,5 +192,16 @@ ion-range {
         ion-icon {
             transform: scaleX(-1);
         }
+    }
+}
+
+.confirm-alert {
+    .cancel {
+        color: gray;
+    }
+    .ok {
+        color: #3282ff;
+        white-space: nowrap;
+        min-width: 60px;
     }
 }

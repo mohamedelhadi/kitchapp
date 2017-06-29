@@ -27,7 +27,7 @@
             <h2>{{deal.name[settings.language]}}</h2>
             <p>{{deal.description[settings.language]}}</p>
             <button margin-top ion-button clear *ngIf="canNavigateToRestaurant && restaurant" (click)="viewRestaurant()">
-                <img [src]="restaurant.icon">
+                <img [src]="restaurant.icon" fallback="assets/images/restaurant.png">
                 {{restaurant.name[settings.language]}}
             </button>
         </div>

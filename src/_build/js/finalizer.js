@@ -12,9 +12,10 @@ import {
     default as environments
 } from "../json/environments.json";
 
+let isCrosswalkApk = fs.existsSync("./plugins/cordova-plugin-crosswalk-webview");
 let paths = {
-    releaseApk: "platforms/android/build/outputs/apk/android-release.apk",
-    debugApk: "platforms/android/build/outputs/apk/android-debug.apk"
+    releaseApk: `platforms/android/build/outputs/apk/${ isCrosswalkApk ? "android-armv7-release" : "android-release" }.apk`,
+    debugApk: `platforms/android/build/outputs/apk/${ isCrosswalkApk ? "android-armv7-debug" : "android-debug" }.apk`
     // TODO add iOS IPAs
 };
 

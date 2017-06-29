@@ -67,7 +67,7 @@ export class Branches extends BasePage {
     showPopover(branch: IBranch) {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branch, branches: this.restaurant.branches },
-            { cssClass: "wide-popover" }
+            { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }

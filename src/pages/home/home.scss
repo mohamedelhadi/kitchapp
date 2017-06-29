@@ -33,7 +33,7 @@ page-home {
                     border-left: none;
                 }
                 @media (max-width: map-get($screen-breakpoints,
-                xs)) and (orientation: portrait) {
+                sm)) and (orientation: portrait) {
                     &:nth-child(3) {
                         border-left: none;
                     }
@@ -45,7 +45,7 @@ page-home {
                         border-right: none;
                     }
                     @media (max-width: map-get($screen-breakpoints,
-                    xs)) and (orientation: portrait) {
+                    sm)) and (orientation: portrait) {
                         &:nth-child(3) {
                             border-right: none;
                         }

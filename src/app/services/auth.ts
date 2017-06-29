@@ -1,7 +1,7 @@
 import { Injectable, Inject } from "@angular/core";
 import { AppErrorHandler, UI, Utils } from "../helpers/index";
 import { Configuration } from "../environments/env.config";
-import { Platform } from "ionic-angular";
+import { Platform, AlertController } from "ionic-angular";
 import { Facebook } from "@ionic-native/facebook";
 import { FacebookService, InitParams, LoginOptions } from "ngx-facebook";
 import { Api, Identity } from "./index";
@@ -23,7 +23,7 @@ export class Auth {
     };
     constructor(
         private config: Configuration, private errHandler: AppErrorHandler, private ui: UI,
-        private platform: Platform, private storage: Storage,
+        private platform: Platform, private storage: Storage, private alertCtrl: AlertController,
         private api: Api, private identity: Identity,
         private fbNative: Facebook, private fb: FacebookService) {
         this.onInit = new Promise<void>((resolve, reject) => {
@@ -54,7 +54,7 @@ export class Auth {
             return false;
         });
     }
-    signInWithFacebook(): Promise<boolean> {
+    signIn(provider: string = "facebook") {
         // TODO: check if TOKEN exists in storage, if it exists then refresh when close to expiration, if it doesn't exist attempt login
         if (!Utils.isOnline()) {
             this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline));
@@ -92,6 +92,36 @@ export class Auth {
                         });
                 })
                 .catch(failed);
+        }
+    }
+    signInWithFacebook(confirm: boolean = true): Promise<boolean> {
+        if (confirm) {
+            return new Promise((resolve, reject) => {
+                const confirmAlert = this.alertCtrl.create({
+                    // title: this.ui.translate.instant(TranslationKeys.Common.Login),
+                    subTitle: this.ui.translate.instant(TranslationKeys.Messages.YouNeedToLoginInOrderToRate),
+                    cssClass: "confirm-alert",
+                    buttons: [
+                        {
+                            cssClass: "cancel",
+                            text: this.ui.translate.instant(TranslationKeys.Common.Cancel),
+                            handler: () => {
+                                // this.logger.info("user declined logging in");
+                            }
+                        },
+                        {
+                            cssClass: "ok",
+                            text: this.ui.translate.instant(TranslationKeys.Common.Ok),
+                            handler: () => {
+                                this.signIn().then(resolve);
+                            }
+                        }
+                    ]
+                });
+                confirmAlert.present();
+            });
+        } else {
+            return this.signIn();
         }
     }
     verify(profile, accessToken): Promise<boolean> {

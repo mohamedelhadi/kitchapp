@@ -5,12 +5,12 @@
         <ion-toggle (ionChange)="onChange();" [(ngModel)]="searchSettings.a_to_z"></ion-toggle>
     </ion-item>
     <ion-item>
-        <ion-label>{{translation.Restaurants.Nearby | translate}}</ion-label>
-        <ion-toggle (ionChange)="onChange();" [(ngModel)]="searchSettings.nearby"></ion-toggle>
-    </ion-item>
-    <ion-item>
         <ion-label>{{translation.Restaurants.TopRated | translate}}</ion-label>
         <ion-toggle (ionChange)="onChange();" [(ngModel)]="searchSettings.topRated"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>{{translation.Restaurants.Nearby | translate}}</ion-label>
+        <ion-toggle (ionChange)="onChange();" [(ngModel)]="searchSettings.nearby"></ion-toggle>
     </ion-item>
     <ion-item-divider>{{translation.Restaurants.Filter | translate}}</ion-item-divider>
     <ion-item>

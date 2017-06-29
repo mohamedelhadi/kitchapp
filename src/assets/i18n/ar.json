@@ -21,7 +21,9 @@
         "Submit": "إرسال",
         "Navigate": "تحديد المسار",
         "Send": "إرسال",
-        "TypeHere": "اكتب هنا"
+        "TypeHere": "اكتب هنا",
+        "No": "لا",
+        "Login": "تسجيل الدخول"
     },
     "Messages": {
         "LoadingPosition": "جاري تحديد موقعك..",
@@ -31,7 +33,8 @@
         "SelectBranch": "من فضلك اختر أحد الفروع.",
         "HavenotSetFavorites": "لم تُحدد أية تفضيلات بعد.",
         "LoggingIn": "جاري تسجيل الدخول..",
-        "ForgotToEnterFeedback": "لقد نسيت ان تكتب التعليق"
+        "ForgotToEnterFeedback": "لقد نسيت ان تكتب التعليق",
+        "YouNeedToLoginInOrderToRate": "قم بتسجيل الدخول حتى تتمكن من التقييم"
     },
     "Errors": {
         "Unknown": "حدث خطأ، الرجاء المحاولة مرة أخرى.",

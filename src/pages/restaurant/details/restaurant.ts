@@ -5,7 +5,7 @@ import { RestaurantsData } from "../../restaurants/restaurants.data";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
 import { UI, Logger, Utils } from "../../../app/helpers/index";
-import { orderBy, some } from "lodash";
+import { orderBy, some, cloneDeep } from "lodash";
 import { VariationsPopover } from "./variations/variations.popover";
 import { BranchRatePopover } from "../branches/rate/rate.popover";
 import { BasePage } from "../../../app/infrastructure/index";
@@ -101,6 +101,7 @@ export class Restaurant extends BasePage {
     }
     search(categories: ICategory[], query: string) {
         if (query && query.trim() !== "") {
+            const copy = cloneDeep(categories);
             const result = categories.filter(category => {
                 query = query.trim().toLowerCase();
                 // search in category items names
@@ -119,7 +120,7 @@ export class Restaurant extends BasePage {
                 this.searchState = "collapsed";
                 this.isForwardedSearch = false;
                 this.queryText = "";
-                return categories;
+                return copy;
             }
             return result;
         }
@@ -151,7 +152,7 @@ export class Restaurant extends BasePage {
     showPopover() {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branches: this.restaurant.branches },
-            { cssClass: "wide-popover" }
+            { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }
@@ -159,7 +160,7 @@ export class Restaurant extends BasePage {
         fab.close();
         const popover = this.popoverCtrl.create(FeedbackPopover,
             { restaurant: this.restaurant },
-            { cssClass: "wide-popover" }
+            { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }
@@ -167,7 +168,7 @@ export class Restaurant extends BasePage {
         this.navCtrl.parent.select(1);
     }
     toggleFavorite(fab: FabContainer) {
-        fab.close();
+        // fab.close();
         this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
     onBackButton() {

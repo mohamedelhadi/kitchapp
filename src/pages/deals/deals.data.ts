@@ -3,7 +3,7 @@ import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
-import { IDeal, DEALS } from "../../app/contracts/index";
+import { IDeal, DEALS, IApiOptions } from "../../app/contracts/index";
 import { Api } from "../../app/services/index";
 
 @Injectable()
@@ -22,9 +22,9 @@ export class DealsData {
     get Deals() {
         return this.deals.asObservable();
     }
-    getDeals(forceUpdate?: boolean) {
+    getDeals(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.deals.getValue().length === 0) {
-            this.api.get("deals").subscribe((deals: IDeal[]) => {
+            this.api.get("deals", options).subscribe((deals: IDeal[]) => {
                 this.storage.set(DEALS, deals);
                 this.deals.next(deals);
             });

@@ -39,12 +39,12 @@ export class RestaurantsData {
     getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
             this.api.get("restaurants/prefetch", options).subscribe((restaurants: IRestaurant[]) => {
-                for (const restaurant of restaurants) {
+                /*for (const restaurant of restaurants) {
                     if (!restaurant.icon) {
                         restaurant.icon = "assets/images/restaurant.png";
                     }
                     restaurant.icon = "assets/images/restaurant.png"; // TODO: Remove after restaurants get their real icons
-                }
+                }*/
                 this.storage.set(RESTAURANTS, restaurants);
                 this.restaurants.next(restaurants);
             });

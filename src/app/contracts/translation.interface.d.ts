@@ -22,6 +22,8 @@ export interface ITranslationKeys {
     "Navigate"?: string;
     "Send"?: string;
     "TypeHere"?: string;
+    "No"?: string;
+    "Login"?: string;
     [k: string]: any;
   };
   "Messages"?: {
@@ -33,6 +35,7 @@ export interface ITranslationKeys {
     "HavenotSetFavorites"?: string;
     "LoggingIn"?: string;
     "ForgotToEnterFeedback"?: string;
+    "YouNeedToLoginInOrderToRate"?: string;
     [k: string]: any;
   };
   "Errors"?: {

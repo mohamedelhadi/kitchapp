@@ -50,6 +50,7 @@ import { OneSignal } from "@ionic-native/onesignal";
 import { Facebook } from "@ionic-native/facebook";
 import { FacebookService } from "ngx-facebook";
 import { FeedbackPopover } from "../pages/restaurant/details/feedback/feedback.popover";
+import { ImageFallback } from "./shared/index";
 
 /*import { Angular2SocialLoginModule } from "angular2-social-login";
 const socialProviders = {
@@ -98,6 +99,7 @@ const _components = [
 ];
 
 const _directives = [
+    ImageFallback
 ];
 
 export function declarations() {

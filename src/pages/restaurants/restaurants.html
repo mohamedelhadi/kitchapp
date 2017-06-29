@@ -15,7 +15,7 @@
     <ion-list>
         <button ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-start>
-                <img [src]="restaurant.icon && false ? restaurant.icon : 'assets/images/restaurant-dark.png'"> <!-- TODO: remove && when restaurants get their icons -->
+                <img [src]="restaurant.icon" fallback="assets/images/restaurant-dark.png"> <!-- TODO: remove && when restaurants get their icons -->
             </ion-avatar>
             <h2>{{restaurant.name[settings.language]}}</h2>
             <p>{{restaurant.branches[0].location.address[settings.language]}}</p>

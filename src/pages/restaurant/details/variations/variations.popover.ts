@@ -31,8 +31,8 @@ export class VariationsPopover extends BasePopover {
     }
     showPopover() {
         const popover = this.popoverCtrl.create(VariationRatePopover,
-            { item: this.item }
-            // { cssClass: "wide-popover" }
+            { item: this.item },
+            { cssClass: "top-popover" }
         );
         popover.present();
     }
@@ -40,6 +40,6 @@ export class VariationsPopover extends BasePopover {
         this.viewCtrl.dismiss();
     }
     getBackground() {
-        return "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
+        return "url(" + this.item.variations[0].photo + ") no-repeat center, url('assets/images/item.png') no-repeat center"; // "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
     }
 }

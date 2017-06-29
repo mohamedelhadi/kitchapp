@@ -31,7 +31,7 @@ export class Deals extends BasePage {
         });
     }
     getDeals() {
-        this.data.getDeals(true);
+        this.data.getDeals(true, { showLoading: false });
         if (this.restaurant) {
             return this.data.getRestaurantDeals(this.restaurant.id);
         } else {

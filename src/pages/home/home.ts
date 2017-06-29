@@ -64,7 +64,7 @@ export class Home extends BasePage {
                 },
                 err => {
                     // GPS is off, user didn't give permission, or failed to get position
-                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates" + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
+                    this.errHandler.handleError(new InternalError("Couldn't retrieve coordinates " + (err.message || err.toString()), ErrorCodes.GeolocationPositionError, true, err));
                     this.ui.hideLoading();
                     // reject();
                 },
