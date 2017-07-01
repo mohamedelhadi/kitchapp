@@ -24,7 +24,7 @@
         "ios-testing": "%npm_package_cli% testing ios && ionic cordova run ios",
         "ios-staging": "%npm_package_cli% staging ios && ionic cordova run ios",
         "ios-prod": "%npm_package_cli% production ios && ionic cordova run ios",
-        "tslint": "tslint \"./src/**/*.ts\"  \"./src/**/*.js\" --color",
+        "tslint": "tslint -c tslint.json './src/**/*.ts' --format codeFrame",
         "generate-translation-keys": "babel-node src/_build/js/translation-keys-generator"
     },
     "dependencies": {
@@ -61,7 +61,7 @@
         "cordova-plugin-whitelist": "~1.3.1",
         "cordova-sqlite-storage": "~2.0.3",
         "ionic-angular": "^3.4.0",
-        "ionic-img-viewer": "^2.3.0",
+        "ionic-img-viewer": "^2.4.0",
         "ionic-plugin-keyboard": "~2.2.1",
         "ionic2-rating": "^1.2.0",
         "ionicons": "3.0.0",
@@ -82,13 +82,14 @@
         "babel-register": "^6.23.0",
         "cheerio": "^0.22.0",
         "cli-color": "^1.2.0",
+        "codelyzer": "^3.1.1",
         "content-security-policy-builder": "^1.1.0",
         "copy": "^0.3.0",
         "del": "^2.2.2",
         "gulp": "^3.9.1",
         "gulp-rename": "^1.2.2",
         "json-to-typescript": "0.0.3",
-        "tslint": "5.1.0",
+        "tslint": "^5.4.3",
         "typescript": "2.3.3"
     },
     "babel": {

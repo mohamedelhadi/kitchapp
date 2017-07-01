@@ -1,5 +1,5 @@
 import { ViewController, NavParams, Select } from "ionic-angular";
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { BasePopover } from "../../../app/infrastructure/index";
@@ -9,7 +9,7 @@ import { IRestaurantsSearchSettings, ICity, ICuisine } from "../../../app/contra
     templateUrl: "popover.html",
     selector: "restaurants-popover"
 })
-export class RestaurantsPopover extends BasePopover {
+export class RestaurantsPopover extends BasePopover implements OnInit {
     searchSettings: IRestaurantsSearchSettings;
     cities: Observable<ICity[]>;
     cuisines: Observable<ICuisine[]>;

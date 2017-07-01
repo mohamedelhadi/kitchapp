@@ -1,20 +1,21 @@
-import { Directive, Input, ElementRef } from "@angular/core";
+import { Directive, Input, ElementRef, HostBinding, HostListener } from "@angular/core";
 
 @Directive({
+    // tslint:disable-next-line:directive-selector
     selector: "img[fallback]",
+    // tslint:disable-next-line:use-host-property-decorator
     host: {
-        "[src]": "setSRC(src)",
-        "(error)": "onError()"
+        "(error)": "onError()" // @HostListener("onError") not working!
     }
 })
-export class ImageFallback {
-    @Input() src: string;
-    @Input() fallback: string | boolean;
+export class ImageFallbackDirective {
+    @Input() public src: string;
+    @Input() public fallback: string | boolean;
     constructor(private el: ElementRef) {
     }
-    public setSRC(src: string) {
-        return src ? src : this.fallback;
-        // setting display none here won't prevent onError from being called
+    @HostBinding("src")
+    public get imgSrc() {
+        return this.src ? this.src : this.fallback;
     }
     public onError() {
         if (this.fallback === "false" || this.fallback === false) {
