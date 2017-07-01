@@ -12,16 +12,16 @@ import { Identity } from "../../../../app/services/index";
     selector: "branch-rate-popover"
 })
 export class BranchRatePopover extends BasePopover {
-    branches: IBranch[];
-    selectedBranch: IBranch;
-    selectedBranchId?: number;
-    quality = 3;
-    service = 3;
-    place = 3;
-    price = 3;
-    comment: string = "";
-    @ViewChild("txt") txt: ElementRef;
-    canChangeBranch = false;
+    public branches: IBranch[];
+    public selectedBranch: IBranch;
+    public selectedBranchId?: number;
+    public quality = 3;
+    public service = 3;
+    public place = 3;
+    public price = 3;
+    public comment: string = "";
+    @ViewChild("txt") public txt: ElementRef;
+    public canChangeBranch = false;
     constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.branches = params.data.branches;
@@ -32,10 +32,10 @@ export class BranchRatePopover extends BasePopover {
             this.canChangeBranch = true;
         }
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
-    submit() {
+    public submit() {
         if (!this.selectedBranchId) {
             this.ui.showToast(this.translation.Messages.SelectBranch);
             return;
@@ -60,7 +60,7 @@ export class BranchRatePopover extends BasePopover {
                 this.close();
             }, err => this.close());
     }
-    resize() {
+    public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";
     }
 }

@@ -27,7 +27,7 @@ import { Auth } from "../../app/services/index";
     templateUrl: "home.html"
 })
 export class Home extends BasePage {
-    restaurants: IRestaurant[] = [];
+    private restaurants: IRestaurant[] = [];
     constructor(
         private appSettings: AppSettings, private logger: Logger, private ui: UI, private errHandler: AppErrorHandler,
         private splashScreen: SplashScreen,
@@ -38,7 +38,33 @@ export class Home extends BasePage {
         super({ logger });
         this.menu.enable(false);
     }
-    showMenu() {
+    public ionViewDidLoad() {
+        this.translate.onLangChange.take(1).subscribe(() => this.splashScreen.hide());
+        this.restaurantsData.Restaurants.subscribe(restaurants => this.restaurants = restaurants);
+        // this.viewCuisines();
+        /*this.restaurantsData.Restaurants.subscribe(restaurants => {
+            if (restaurants.length) {
+                this.navCtrl.push(RestaurantTabs, restaurants[0]);
+            }
+        });*/
+    }
+    public viewRestaurants() {
+        this.navCtrl.push(Restaurants);
+    }
+    public viewFavorites() {
+        this.navCtrl.push(Favorites);
+    }
+    public viewCuisines() {
+        this.navCtrl.push(Cuisines);
+    }
+    public viewDeals() {
+        this.navCtrl.push(Deals);
+    }
+    public showPopover(ev) {
+        const popover = this.popoverCtrl.create(HomePopover, {}, { cssClass: "narrow-popover" });
+        popover.present({ ev });
+    }
+    public showMenu() {
         if (this.settings.firstLaunch) {
             // logic
         }
@@ -46,7 +72,7 @@ export class Home extends BasePage {
             this.navCtrl.push(RestaurantTabs, { restaurant: orderedRestaurants[0], tabIndex: 0 });
         });
     }
-    orderByNearest(restaurants: IRestaurant[]) {
+    private orderByNearest(restaurants: IRestaurant[]) {
         return new Promise((resolve, reject) => {
             this.ui.showLoading(this.translation.Messages.LoadingPosition, false);
             navigator.geolocation.getCurrentPosition(
@@ -72,7 +98,7 @@ export class Home extends BasePage {
             );
         });
     }
-    getDistanceFromClosestBranch(latitude: number, longitude: number, branches: IBranch[]) {
+    private getDistanceFromClosestBranch(latitude: number, longitude: number, branches: IBranch[]) {
         let closestDistance = 99999999;
         for (const branch of branches) {
             const distance: number = Utils.getDistance(latitude, longitude, branch.location.latitude, branch.location.longitude);
@@ -106,30 +132,4 @@ export class Home extends BasePage {
     signOut() {
         this.afAuth.auth.signOut();
     }*/
-    ionViewDidLoad() {
-        this.translate.onLangChange.take(1).subscribe(() => this.splashScreen.hide());
-        this.restaurantsData.Restaurants.subscribe(restaurants => this.restaurants = restaurants);
-        // this.viewCuisines();
-        /*this.restaurantsData.Restaurants.subscribe(restaurants => {
-            if (restaurants.length) {
-                this.navCtrl.push(RestaurantTabs, restaurants[0]);
-            }
-        });*/
-    }
-    viewRestaurants() {
-        this.navCtrl.push(Restaurants);
-    }
-    viewFavorites() {
-        this.navCtrl.push(Favorites);
-    }
-    viewCuisines() {
-        this.navCtrl.push(Cuisines);
-    }
-    viewDeals() {
-        this.navCtrl.push(Deals);
-    }
-    showPopover(ev) {
-        const popover = this.popoverCtrl.create(HomePopover, {}, { cssClass: "narrow-popover" });
-        popover.present({ ev });
-    }
 }

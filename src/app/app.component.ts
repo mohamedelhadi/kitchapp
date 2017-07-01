@@ -7,7 +7,7 @@ import { Subject } from "rxjs/Subject";
 import { AppSettings } from "./infrastructure/app.settings";
 import { Push } from "./services/index";
 
-export const onBack = new Subject<string>();
+export const OnBack = new Subject<string>();
 
 @Component({
     template: `<ion-menu [content]="content">
@@ -21,14 +21,12 @@ export const onBack = new Subject<string>();
                     </ion-content>
                 </ion-menu>
 
-                <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+                <!-- Disable swipe-to-go-back because it's poor UX to combine swipe-to-go-back with side menus -->
                 <ion-nav #content swipeBackEnabled="false"></ion-nav>`,
     providers: [LoadingController, ToastController]
 })
 export class AppComponent implements OnInit {
-    @ViewChild(Nav) nav: Nav;
-    // @Inject(BACK_EVENT) private onBack: Subject<string>;
-
+    @ViewChild(Nav) public nav: Nav;
     constructor(
         private app: App, private menu: MenuController, private platform: Platform,
 
@@ -36,15 +34,14 @@ export class AppComponent implements OnInit {
         private settings: AppSettings, private push: Push) {
         this.initializeApp();
     }
-
-    initializeApp() {
+    public initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.settings.initLanguage();
             this.push.init();
             this.platform.registerBackButtonAction(() => {
-                if (onBack.observers.length > 0) {
-                    onBack.next();
+                if (OnBack.observers.length > 0) {
+                    OnBack.next();
                 } else {
                     const nav = this.app.getActiveNav();
                     if (this.menu && this.menu.isOpen()) {
@@ -71,10 +68,9 @@ export class AppComponent implements OnInit {
             });
         });
     }
-
-    ngOnInit() {
+    public ngOnInit() {
         this.nav.setRoot(Splash).then(() => {
-            // this.splashscreen.hide();
+            // this.splash screen.hide();
         });
     }
 }

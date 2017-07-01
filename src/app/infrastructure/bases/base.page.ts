@@ -9,10 +9,10 @@ export abstract class BasePage {
     constructor({ logger }: { logger: Logger }) {
         settings.subscribe(settings => this.settings = settings);
     }
-    isRtl() {
+    public isRtl() {
         return this.settings && this.settings.language === Language.ar;
     }
-    isLtr() {
+    public isLtr() {
         return !this.isRtl();
     }
     /*ionViewDidLoad() {

@@ -25,7 +25,7 @@ export class CuisinesData {
     get Cuisines() {
         return this.cuisines.asObservable();
     }
-    getCuisines(forceUpdate?: boolean, options?: IApiOptions) {
+    public getCuisines(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cuisines.getValue().length === 0) {
             this.api.get("cuisines", options).subscribe((cuisines: ICuisine[]) => {
                 this.cuisines.next(cuisines);

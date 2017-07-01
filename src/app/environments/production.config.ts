@@ -3,10 +3,10 @@ import { production } from "../../_build/json/endpoints.json";
 
 export class Configuration implements IConfiguration {
 
-    Environment: string = Environments.Production;
-    OneSignalAppID: string = "e968fd14-bd05-47a0-8f5e-462485446a4c";
-    GoogleProjectNo: string = "773081189088";
-    FacebookAppID: string = "1462290493817069";
+    public Environment: string = Environments.Production;
+    public OneSignalAppID: string = "e968fd14-bd05-47a0-8f5e-462485446a4c";
+    public GoogleProjectNo: string = "773081189088";
+    public FacebookAppID: string = "1462290493817069";
 
     private baseUrl: string = production;
 
@@ -14,7 +14,7 @@ export class Configuration implements IConfiguration {
         this.init();
     }
 
-    init(): void {
+    public init(): void {
         this.baseUrl = this.baseUrl.replace(/\/?(\?|#|$)/, "/$1"); // append "/" if it's not already appended
     }
 

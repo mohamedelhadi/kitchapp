@@ -12,15 +12,15 @@ declare const google;
     selector: "location-popover"
 })
 export class LocationPopover extends BasePopover implements OnInit {
-    @ViewChild("map") map: ElementRef;
-    branch: IBranch;
-    locationUrl: any;
+    @ViewChild("map") public map: ElementRef;
+    public branch: IBranch;
+    public locationUrl: any;
     constructor(public viewCtrl: ViewController, private params: NavParams, private sanitizer: DomSanitizer, private renderer: Renderer2) {
         super({ viewCtrl });
         this.branch = params.data.branch;
         this.locationUrl = this.sanitizer.bypassSecurityTrustUrl("geo:" + this.branch.location.latitude + "," + this.branch.location.longitude);
     }
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit();
         // Load map only after view is initialize
         if (Utils.isOnline()) {
@@ -29,10 +29,13 @@ export class LocationPopover extends BasePopover implements OnInit {
             this.renderer.setStyle(this.map.nativeElement, "display", "none"); // because ngIf causes @ViewChild("map") to fail
         }
     }
-    sanitize(url: string) {
+    public sanitize(url: string) {
         return this.sanitizer.bypassSecurityTrustUrl(url);
     }
-    loadMap() {
+    public close() {
+        this.viewCtrl.dismiss();
+    }
+    private loadMap() {
         if (google === undefined) { // failed to load google maps api due to network or whatever
             return;
         }
@@ -52,8 +55,5 @@ export class LocationPopover extends BasePopover implements OnInit {
         marker.addListener("click", () => {
             infoWindow.open(map, marker);
         });
-    }
-    close() {
-        this.viewCtrl.dismiss();
     }
 }

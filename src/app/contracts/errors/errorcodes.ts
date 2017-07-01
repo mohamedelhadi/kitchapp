@@ -1,6 +1,6 @@
 export class ErrorCodes {
-    static Unknown = "Unknown";
-    static Offline = "Offline";
-    static GeolocationPositionError = "GeolocationPositionError";
-    static LoginFailure = "LoginFailure";
+    public static Unknown = "Unknown";
+    public static Offline = "Offline";
+    public static GeolocationPositionError = "GeolocationPositionError";
+    public static LoginFailure = "LoginFailure";
 }

@@ -9,12 +9,12 @@ import { Deals } from "../../deals/deals";
     templateUrl: "tabs.html"
 })
 export class RestaurantTabs {
-    index: number;
-    tab1 = Restaurant;
-    tab2 = Branches;
-    tab3 = Deals;
-    restaurant: IRestaurant;
-    query: string;
+    public index: number;
+    public tab1 = Restaurant;
+    public tab2 = Branches;
+    public tab3 = Deals;
+    public restaurant: IRestaurant;
+    public query: string;
     protected translation = TranslationKeys;
 
     constructor(private navParams: NavParams) {

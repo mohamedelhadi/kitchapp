@@ -9,15 +9,15 @@ import { IBranch } from "../../../../app/contracts/index";
     selector: "phones-popover"
 })
 export class PhonesPopover extends BasePopover {
-    branch: IBranch;
+    public branch: IBranch;
     constructor(public viewCtrl: ViewController, private params: NavParams, private sanitizer: DomSanitizer) {
         super({ viewCtrl });
         this.branch = params.data.branch;
     }
-    sanitize(phone: string) {
+    public sanitize(phone: string) {
         return this.sanitizer.bypassSecurityTrustUrl("tel:" + phone);
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
 }

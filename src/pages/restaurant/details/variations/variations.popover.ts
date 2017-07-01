@@ -11,12 +11,12 @@ import { Auth } from "../../../../app/services/index";
     selector: "variations-popover"
 })
 export class VariationsPopover extends BasePopover {
-    item: ICategoryItem;
+    public item: ICategoryItem;
     constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private auth: Auth) {
         super({ viewCtrl });
         this.item = params.data.item;
     }
-    showVariationRate(ev) {
+    public showVariationRate(ev) {
         this.auth.isLoggedIn().then(loggedIn => {
             if (loggedIn) {
                 this.showPopover();
@@ -29,17 +29,17 @@ export class VariationsPopover extends BasePopover {
             }
         });
     }
-    showPopover() {
+    public showPopover() {
         const popover = this.popoverCtrl.create(VariationRatePopover,
             { item: this.item },
             { cssClass: "top-popover" }
         );
         popover.present();
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
-    getBackground() {
+    public getBackground() {
         return "url(" + this.item.variations[0].photo + ") no-repeat center, url('assets/images/item.png') no-repeat center"; // "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
     }
 }

@@ -42,19 +42,19 @@ import { FeedbackPopover } from "./feedback/feedback.popover";
 })
 export class Restaurant extends BasePage {
 
-    @ViewChild("navbar") navbar: Navbar;
-    @ViewChild("searchbar") searchbar: Searchbar;
-    searchState: string = "collapsed";
+    @ViewChild("navbar") public navbar: Navbar;
+    @ViewChild("searchbar") public searchbar: Searchbar;
+    public searchState: string = "collapsed";
     // categoryState: string = "collapsed";
-    restaurant: IRestaurant;
-    isFavorite: boolean;
-    rating: number;
-    hideBio: boolean = true;
-    categories: Observable<ICategory[]>;
-    query = new BehaviorSubject<string>("");
-    queryText: string;
-    noMatchForQuery: boolean;
-    isForwardedSearch: boolean;
+    public restaurant: IRestaurant;
+    public isFavorite: boolean;
+    public rating: number;
+    public hideBio: boolean = true;
+    public categories: Observable<ICategory[]>;
+    public noMatchForQuery: boolean;
+    public queryText: string;
+    private query = new BehaviorSubject<string>("");
+    private isForwardedSearch: boolean;
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
@@ -70,17 +70,17 @@ export class Restaurant extends BasePage {
         this.rating = this.restaurant.branches[0].rate.overall;
     }
 
-    focusSearchbar() {
+    public focusSearchbar() {
         this.searchState = "focused";
         this.searchbar.setFocus();
     }
-    collapseSearchbar() {
+    public collapseSearchbar() {
         if (!this.query.getValue()) {
             this.searchState = "collapsed";
             // TODO: hide keyboard if still visible
         }
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
             .combineLatest(this.query.distinctUntilChanged())
@@ -99,7 +99,7 @@ export class Restaurant extends BasePage {
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
-    search(categories: ICategory[], query: string) {
+    private search(categories: ICategory[], query: string) {
         if (query && query.trim() !== "") {
             const copy = cloneDeep(categories);
             const result = categories.filter(category => {
@@ -126,17 +126,17 @@ export class Restaurant extends BasePage {
         }
         return categories;
     }
-    onQueryChanged(ev: any) {
+    public onQueryChanged(ev: any) {
         this.query.next(ev.target.value);
     }
-    showVariations(ev, item: ICategoryItem) {
+    public showVariations(ev, item: ICategoryItem) {
         const popover = this.popoverCtrl.create(VariationsPopover,
             { item },
             { cssClass: "wide-popover" }
         );
         popover.present();
     }
-    showBranchRate(ev) {
+    public showBranchRate(ev) {
         this.auth.isLoggedIn().then(loggedIn => {
             if (loggedIn) {
                 this.showPopover();
@@ -149,14 +149,14 @@ export class Restaurant extends BasePage {
             }
         });
     }
-    showPopover() {
+    public showPopover() {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branches: this.restaurant.branches },
             { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }
-    showFeedback(fab: FabContainer) {
+    public showFeedback(fab: FabContainer) {
         fab.close();
         const popover = this.popoverCtrl.create(FeedbackPopover,
             { restaurant: this.restaurant },
@@ -164,17 +164,17 @@ export class Restaurant extends BasePage {
         );
         popover.present();
     }
-    call() {
+    public call() {
         this.navCtrl.parent.select(1);
     }
-    toggleFavorite(fab: FabContainer) {
+    public toggleFavorite(fab: FabContainer) {
         // fab.close();
         this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
-    onBackButton() {
+    public onBackButton() {
         this.navCtrl.parent.parent.pop();
     }
-    onScroll(event) {
+    public onScroll(event) {
         event.domWrite(() => {
             const toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
             const scrollPosition: number = event.scrollTop;
@@ -189,10 +189,10 @@ export class Restaurant extends BasePage {
             }
         });
     }
-    setElementOpacity(element: Element, opacity: number) {
+    private setElementOpacity(element: Element, opacity: number) {
         this.renderer.setStyle(element, "opacity", opacity.toString());
     }
-    closeFab(fab: FabContainer) {
+    public closeFab(fab: FabContainer) {
         fab.close();
     }
 }

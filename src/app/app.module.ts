@@ -52,25 +52,6 @@ import { FacebookService } from "ngx-facebook";
 import { FeedbackPopover } from "../pages/restaurant/details/feedback/feedback.popover";
 import { ImageFallbackDirective } from "./shared/index";
 
-/*import { Angular2SocialLoginModule } from "angular2-social-login";
-const socialProviders = {
-    facebook: {
-        clientId: "1378368965603493",
-        apiVersion: "v2.8"
-    }
-};*/
-
-/*import { AngularFireModule } from "angularfire2";
-import { AngularFireAuthModule } from "angularfire2/auth";
-export const firebaseConfig = {
-    apiKey: "AIzaSyBH3VBjXWyFXw4rzUsKMKjOVvyjxHTKFwo",
-    authDomain: "kitchapp-dev.firebaseapp.com",
-    databaseURL: "https://kitchapp-dev.firebaseio.com",
-    projectId: "kitchapp-dev",
-    storageBucket: "kitchapp-dev.appspot.com",
-    messagingSenderId: "735993356118"
-};*/
-
 const _pages = [
     AppComponent,
     Splash,
@@ -184,13 +165,9 @@ export function createTranslateLoader(http: Http) {
         }),
         Ionic2RatingModule,
         IonicImageViewerModule
-        // Angular2SocialLoginModule
-        /*AngularFireModule.initializeApp(firebaseConfig),
-        AngularFireAuthModule*/
     ],
     bootstrap: [IonicApp],
     entryComponents: components(),
     providers: providers()
 })
 export class AppModule { }
-// Angular2SocialLoginModule.loadProvidersScripts(socialProviders);

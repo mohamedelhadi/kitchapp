@@ -18,13 +18,13 @@ export class Cuisines extends BasePage {
         protected data: CuisinesData) {
         super({ logger });
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.data.getCuisines();
     }
-    viewRestaurants(cuisineId: number) {
+    public viewRestaurants(cuisineId: number) {
         this.navCtrl.push(Restaurants, { cuisineId });
     }
-    back() {
+    public back() {
         this.navCtrl.canGoBack();
     }
 }

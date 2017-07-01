@@ -1,6 +1,6 @@
 import { ViewController, Platform } from "ionic-angular";
 import { Storage, StorageConfig } from "@ionic/storage";
-import { onBack } from "../../app.component";
+import { OnBack } from "../../app.component";
 import { OnInit, ReflectiveInjector } from "@angular/core";
 import { TranslationKeys, IAppSettings } from "../../contracts/index";
 import { Globalization } from "@ionic-native/globalization";
@@ -17,8 +17,8 @@ export class BasePopover implements OnInit {
         this.viewCtrl = viewCtrl;
         settings.subscribe(settings => this.settings = settings);
     }
-    ngOnInit(): void {
-        const subscription = onBack.subscribe(() => this.viewCtrl.dismiss());
+    public ngOnInit(): void {
+        const subscription = OnBack.subscribe(() => this.viewCtrl.dismiss());
         this.viewCtrl.willUnload.subscribe(() => subscription.unsubscribe());
     }
 }

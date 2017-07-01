@@ -36,7 +36,7 @@ export class AppSettings {
     get Settings() {
         return settings.asObservable();
     }
-    initLanguage() {
+    public initLanguage() {
         this.translate.setDefaultLang(Language[defaultLanguage]);
         settings.take(1).subscribe(setting => {
             if (setting.firstLaunch) {
@@ -56,7 +56,7 @@ export class AppSettings {
             }
         });
     }
-    setLanguage(language: Language, setting: IAppSettings) {
+    public setLanguage(language: Language, setting: IAppSettings) {
         this.applyLanguage(Language[language]);
         setting.language = language;
         settings.next(setting);

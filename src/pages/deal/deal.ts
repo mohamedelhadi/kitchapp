@@ -13,9 +13,9 @@ import { BasePage } from "../../app/infrastructure/index";
     templateUrl: "deal.html"
 })
 export class Deal extends BasePage {
-    deal: IDeal;
-    restaurant: IRestaurant;
-    canNavigateToRestaurant: boolean;
+    public deal: IDeal;
+    public restaurant: IRestaurant;
+    public canNavigateToRestaurant: boolean;
     constructor(
         private logger: Logger,
         private navCtrl: NavController, private navParams: NavParams,
@@ -24,10 +24,10 @@ export class Deal extends BasePage {
         this.deal = navParams.data.deal;
         this.canNavigateToRestaurant = navParams.data.canNavigateToRestaurant;
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.restaurantsData.getRestaurant(this.deal.restaurantId).first().subscribe(restaurant => this.restaurant = restaurant);
     }
-    viewRestaurant() {
+    public viewRestaurant() {
         this.navCtrl.push(RestaurantTabs, { restaurant: this.restaurant });
     }
 }

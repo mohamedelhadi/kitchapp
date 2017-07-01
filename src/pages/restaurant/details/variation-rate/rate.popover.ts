@@ -12,18 +12,18 @@ import { Identity } from "../../../../app/services/index";
     selector: "variation-rate-popover"
 })
 export class VariationRatePopover extends BasePopover {
-    item: ICategoryItem;
-    rate: number = 3;
-    comment: string = "";
-    @ViewChild("txt") txt: ElementRef;
+    public item: ICategoryItem;
+    public rate: number = 3;
+    public comment: string = "";
+    @ViewChild("txt") public txt: ElementRef;
     constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.item = params.data.item;
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
-    submit() {
+    public submit() {
         this.restaurantsData
             .rateVariation({
                 rate: this.rate,
@@ -37,7 +37,7 @@ export class VariationRatePopover extends BasePopover {
             },
             err => this.close());
     }
-    resize() {
+    public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";
     }
 }

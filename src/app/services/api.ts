@@ -39,7 +39,7 @@ export class Api {
             }
         });
     }
-    setToken() {
+    private setToken() {
         this.storage.get(TOKEN).then(token => {
             if (token) {
                 this.storage.get(EXPIRES_AT).then(expireAt => {
@@ -53,16 +53,16 @@ export class Api {
             }
         });
     }
-    get(url: string, options?: IApiOptions) {
+    public get(url: string, options?: IApiOptions) {
         return this.request("GET", { url, options });
     }
-    post(url: string, data?: any, options?: IApiOptions) {
+    public post(url: string, data?: any, options?: IApiOptions) {
         return this.request("POST", { url, data, options });
     }
-    update(url: string, data?: any, options?: IApiOptions) {
+    public update(url: string, data?: any, options?: IApiOptions) {
         return this.request("PUT", { url, data, options });
     }
-    delete(url: string, options?: IApiOptions) {
+    public delete(url: string, options?: IApiOptions) {
         return this.request("DELETE", { url, options });
     }
     private request(method: string, { url, data, options = {} }: { url: string, data?: any, options: IApiOptions }) {

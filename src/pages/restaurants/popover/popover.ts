@@ -10,29 +10,29 @@ import { IRestaurantsSearchSettings, ICity, ICuisine } from "../../../app/contra
     selector: "restaurants-popover"
 })
 export class RestaurantsPopover extends BasePopover implements OnInit {
-    searchSettings: IRestaurantsSearchSettings;
-    cities: Observable<ICity[]>;
-    cuisines: Observable<ICuisine[]>;
+    public searchSettings: IRestaurantsSearchSettings;
+    public cities: Observable<ICity[]>;
+    public cuisines: Observable<ICuisine[]>;
     // @ViewChild(Select) select: Select; picks the first select only
-    @ViewChild("citiesSelect") citiesSelect: Select;
-    @ViewChild("cuisinesSelect") cuisinesSelect: Select;
+    @ViewChild("citiesSelect") public citiesSelect: Select;
+    @ViewChild("cuisinesSelect") public cuisinesSelect: Select;
     constructor(public viewCtrl: ViewController, private params: NavParams) {
         super({ viewCtrl });
         (params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).subscribe(settings => this.searchSettings = settings);
         this.cities = params.data.cities;
         this.cuisines = params.data.cuisines;
     }
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit();
         this.viewCtrl.willUnload.subscribe(() => {
             this.citiesSelect.close();
             this.cuisinesSelect.close();
         });
     }
-    onChange() {
+    public onChange() {
         (this.params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).next(this.searchSettings);
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss(this.searchSettings);
     }
 }

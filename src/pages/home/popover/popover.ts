@@ -8,19 +8,16 @@ import { Language } from "../../../app/contracts/index";
     selector: "home-popover"
 })
 export class HomePopover extends BasePopover {
-    en = Language.en;
-    ar = Language.ar;
+    public en = Language.en;
+    public ar = Language.ar;
     constructor(public viewCtrl: ViewController, private params: NavParams, private appSettings: AppSettings) {
         super({ viewCtrl });
     }
-    /*ngOnInit(): void {
-        super.ngOnInit();
-    }*/
-    select(language: Language) {
+    public select(language: Language) {
         this.appSettings.setLanguage(language, this.settings);
         this.close();
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
 }

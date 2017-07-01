@@ -22,7 +22,7 @@ export class DealsData {
     get Deals() {
         return this.deals.asObservable();
     }
-    getDeals(forceUpdate?: boolean, options?: IApiOptions) {
+    public getDeals(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.deals.getValue().length === 0) {
             this.api.get("deals", options).subscribe((deals: IDeal[]) => {
                 this.storage.set(DEALS, deals);
@@ -30,7 +30,7 @@ export class DealsData {
             });
         }
     }
-    getRestaurantDeals(restaurantId: number): Observable<IDeal[]> {
+    public getRestaurantDeals(restaurantId: number): Observable<IDeal[]> {
         return this.deals.map(deals => deals.filter(deal => deal.restaurantId === restaurantId));
         // return this.api.get(`deals/restaurantdeals/${restaurantId}`);
     }

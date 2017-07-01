@@ -11,7 +11,7 @@ export class Push {
     constructor(private config: Configuration, private errorHandler: AppErrorHandler, private oneSignal: OneSignal, private platform: Platform) { }
 
     // tslint:disable-next-line:no-empty
-    init(onPushReceived: (result: OSNotification) => void = () => { }, onPushOpened: (result: OSNotificationOpenedResult) => void = () => { }) {
+    public init(onPushReceived: (result: OSNotification) => void = () => { }, onPushOpened: (result: OSNotificationOpenedResult) => void = () => { }) {
         if (this.platform.is("cordova")) {
             this.oneSignal.startInit(this.config.OneSignalAppID, this.config.GoogleProjectNo);
 

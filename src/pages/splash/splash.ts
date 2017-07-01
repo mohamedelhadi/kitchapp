@@ -12,7 +12,7 @@ export class Splash implements OnInit {
 
     constructor(public navCtrl: NavController, private loader: DataLoader) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.loader.load();
         this.navCtrl.setRoot(SideMenu);
     }

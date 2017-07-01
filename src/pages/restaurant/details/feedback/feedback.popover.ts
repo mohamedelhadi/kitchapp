@@ -10,14 +10,14 @@ import { RestaurantsData } from "../../../restaurants/restaurants.data";
     selector: "feedback-popover"
 })
 export class FeedbackPopover extends BasePopover {
-    @ViewChild("msg") msg: ElementRef;
-    message: string = "";
-    restaurant: IRestaurant;
+    @ViewChild("msg") public msg: ElementRef;
+    public message: string = "";
+    private restaurant: IRestaurant;
     constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.restaurant = params.data.restaurant;
     }
-    send() {
+    public send() {
         if (this.message) {
             this.restaurantsData
                 .sendFeedback({
@@ -29,10 +29,10 @@ export class FeedbackPopover extends BasePopover {
             this.ui.showToast(this.translation.Messages.ForgotToEnterFeedback);
         }
     }
-    close() {
+    public close() {
         this.viewCtrl.dismiss();
     }
-    resize() {
+    public resize() {
         this.msg.nativeElement.style.height = this.msg.nativeElement.scrollHeight + "px";
     }
 }

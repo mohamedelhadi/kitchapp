@@ -15,8 +15,8 @@ export const AuthStatus = new ReplaySubject<AuthenticationStatus>(1);
 
 @Injectable()
 export class Auth {
-    onInit: Promise<void>; // = new ReplaySubject(1);
-    loginOptions: LoginOptions = {
+    private onInit: Promise<void>;
+    private loginOptions: LoginOptions = {
         scope: "public_profile,email",
         return_scopes: true,
         enable_profile_selector: true
@@ -40,7 +40,7 @@ export class Auth {
     get User() {
         return this.identity.User;
     }
-    isLoggedIn() {
+    public isLoggedIn() {
         return this.storage.get(TOKEN).then(token => {
             if (token) {
                 return this.storage.get(EXPIRES_AT).then(expireAt => {
@@ -54,7 +54,7 @@ export class Auth {
             return false;
         });
     }
-    signIn(provider: string = "facebook") {
+    public signIn(provider: string = "facebook") {
         // TODO: check if TOKEN exists in storage, if it exists then refresh when close to expiration, if it doesn't exist attempt login
         if (!Utils.isOnline()) {
             this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline));
@@ -94,7 +94,7 @@ export class Auth {
                 .catch(failed);
         }
     }
-    signInWithFacebook(confirm: boolean = true): Promise<boolean> {
+    public signInWithFacebook(confirm: boolean = true): Promise<boolean> {
         if (confirm) {
             return new Promise((resolve, reject) => {
                 const confirmAlert = this.alertCtrl.create({
@@ -124,7 +124,7 @@ export class Auth {
             return this.signIn();
         }
     }
-    verify(profile, accessToken): Promise<boolean> {
+    private verify(profile, accessToken): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.identity.User.first().subscribe(savedUser => {
                 const user: INewUser = {
@@ -148,7 +148,7 @@ export class Auth {
             });
         });
     }
-    signOut() {
+    public signOut() {
         this.onInit.then(() => {
             if (this.platform.is("cordova")) {
                 this.fbNative.logout();

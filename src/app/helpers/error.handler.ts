@@ -10,7 +10,7 @@ export class AppErrorHandler extends ErrorHandler {
         super();
     }
 
-    handleError(err: Error | InternalError | HttpError): void {
+    public handleError(err: Error | InternalError | HttpError): void {
         this.logger.error(err);
         if (err instanceof InternalError) {
             this.handleInternalError(err);
@@ -20,7 +20,7 @@ export class AppErrorHandler extends ErrorHandler {
             this.ui.showError(this.utils.isDev() ? err.message : null);
         }
     }
-    handleInternalError(err: InternalError) {
+    private handleInternalError(err: InternalError) {
         if (err.handleError) {
             switch (err.code) {
                 case ErrorCodes.Offline:
@@ -33,7 +33,7 @@ export class AppErrorHandler extends ErrorHandler {
             }
         }
     }
-    handleHttpError(err: HttpError): void {
+    private handleHttpError(err: HttpError): void {
         this.logger.error(err);
         if (err.options.handleError) {
             const error = err.body;

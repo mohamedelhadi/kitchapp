@@ -8,7 +8,7 @@ import { Device } from "@ionic-native/device";
 
 @Injectable()
 export class Identity {
-    user = new ReplaySubject<IUser>(1);
+    private user = new ReplaySubject<IUser>(1);
     constructor(private storage: Storage, private device: Device) {
         storage.ready().then(() => {
             storage.get(USER).then((savedUser: IUser) => {
@@ -20,12 +20,10 @@ export class Identity {
             });
         });
     }
-
     get User() {
         return this.user.asObservable();
     }
-
-    save(user: IUser) {
+    public save(user: IUser) {
         this.user.next(user);
         this.storage.set(USER, user);
     }

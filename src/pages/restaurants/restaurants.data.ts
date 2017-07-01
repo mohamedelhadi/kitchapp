@@ -36,7 +36,7 @@ export class RestaurantsData {
     get Favorites() {
         return this.favorites.asObservable();
     }
-    getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
+    public getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
             this.api.get("restaurants/prefetch", options).subscribe((restaurants: IRestaurant[]) => {
                 /*for (const restaurant of restaurants) {
@@ -50,33 +50,33 @@ export class RestaurantsData {
             });
         }
     }
-    getRestaurant(id: number): Observable<IRestaurant> {
+    public getRestaurant(id: number): Observable<IRestaurant> {
         return this.restaurants.map(restaurants => restaurants.find(restaurant => restaurant.id === id));
         // return this.api.get(`restaurants/${id}`);
     }
-    isFavorite(restaurant: IRestaurant): Observable<boolean> {
+    public isFavorite(restaurant: IRestaurant): Observable<boolean> {
         return this.favorites.map(favorites => favorites[restaurant.id]);
     }
-    setFavorite(restaurant: IRestaurant, favorite: boolean) {
+    public setFavorite(restaurant: IRestaurant, favorite: boolean) {
         const favorites = this.favorites.getValue();
         favorites[restaurant.id] = favorite;
         this.storage.set(FAVORITE_RESTAURANTS, favorites);
         this.favorites.next(favorites);
     }
-    rateVariation(rate: IVariationRate): Observable<number> {
+    public rateVariation(rate: IVariationRate): Observable<number> {
         return this.api.post("restaurants/rate-variation", rate);
     }
-    getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
+    public getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
         return this.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
         // return this.api.get(`branches/restaurantbranches/${restaurantId}`);
     }
-    rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
+    public rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
         return this.api.post("branches/rate", rate);
     }
-    updateStream() {
+    public updateStream() {
         this.restaurants.next(this.restaurants.getValue());
     }
-    sendFeedback(feedback: IFeedback) {
+    public sendFeedback(feedback: IFeedback) {
         return this.api.post(`restaurants/${feedback.restaurantId}/feedbacks`, feedback);
     }
 }

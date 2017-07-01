@@ -14,9 +14,9 @@ import { BasePage } from "../../app/infrastructure/index";
     templateUrl: "deals.html"
 })
 export class Deals extends BasePage {
-    restaurant: IRestaurant;
-    deals: Observable<IDeal[]>;
-    dealsList: IDeal[];
+    public restaurant: IRestaurant;
+    public deals: Observable<IDeal[]>;
+    public dealsList: IDeal[];
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
@@ -24,13 +24,13 @@ export class Deals extends BasePage {
         super({ logger });
         this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         // TODO: consider adding pull-to-refresh
         this.deals = this.getDeals().do((deals) => {
             this.dealsList = deals;
         });
     }
-    getDeals() {
+    public getDeals() {
         this.data.getDeals(true, { showLoading: false });
         if (this.restaurant) {
             return this.data.getRestaurantDeals(this.restaurant.id);
@@ -38,10 +38,10 @@ export class Deals extends BasePage {
             return this.data.Deals;
         }
     }
-    viewDeal(deal: IDeal) {
+    public viewDeal(deal: IDeal) {
         this.navCtrl.push(Deal, { deal, canNavigateToRestaurant: !this.restaurant });
     }
-    onBackButton() {
+    public onBackButton() {
         if (this.restaurant) { // coming from restaurant details
             this.navCtrl.parent.select(0);
         } else { // coming from home

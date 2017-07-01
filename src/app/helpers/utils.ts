@@ -6,11 +6,11 @@ import { Environments } from "../environments/configuration";
 
 @Injectable()
 export class Utils {
-    static isOnline() {
+    public static isOnline() {
         return navigator.onLine; // && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
         /*Connection.UNKNOWN, Connection.ETHERNET, Connection.WIFI, Connection.CELL_2G, Connection.CELL_3G, Connection.CELL_4G, Connection.CELL, Connection.NONE*/
     }
-    static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+    public static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
         const deg2rad = 0.017453292519943295; // === Math.PI / 180
         const cos = Math.cos;
         lat1 *= deg2rad;
@@ -24,7 +24,7 @@ export class Utils {
 
         return 12742 * Math.asin(Math.sqrt(a)); // Diameter of the earth in km (2 * 6371)
     }
-    static deepClone(o) { // recursiveDeepCopy2 =>  https://jsperf.com/js-deep-copy/7
+    public static deepClone(o) { // recursiveDeepCopy2 =>  https://jsperf.com/js-deep-copy/7
         // use with discretion!
         // tslint:disable-next-line:one-variable-per-declaration
         let newO, i;
@@ -44,23 +44,23 @@ export class Utils {
         }
         return newO;
     }
-    static containsArabic(text: string): boolean {
+    public static containsArabic(text: string): boolean {
         return /[\u0600-\u06FF]/.test(text);
     }
 
-    static isPhoneNumber(phone: string): boolean {
+    public static isPhoneNumber(phone: string): boolean {
         return phone ? phone.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g) !== null : false;
     }
 
-    static isNumber(value: any): boolean {
+    public static isNumber(value: any): boolean {
         return /^\d+$/.test(value);
     }
 
-    static openBrowser(link: string): void {
+    public static openBrowser(link: string): void {
         (window as any).cordova.InAppBrowser.open(link, "_system", "location=yes");
     }
 
-    static getExtension(file: string | File): string {
+    public static getExtension(file: string | File): string {
         if (typeof (file) === "string" || file instanceof String) {
             // tslint:disable-next-line:no-bitwise
             return file.substr((~-file.lastIndexOf(".") >>> 0) + 2).toLowerCase();
@@ -70,11 +70,11 @@ export class Utils {
         }
     }
 
-    static getPath(filePath: string): string {
+    public static getPath(filePath: string): string {
         return filePath.substring(0, filePath.lastIndexOf("/") + 1);
     }
 
-    static getFileName(file: string | File): string {
+    public static getFileName(file: string | File): string {
         if (typeof (file) === "string" || file instanceof String) {
             return file.substring(file.lastIndexOf("/") + 1);
         } else {
@@ -82,13 +82,13 @@ export class Utils {
         }
     }
 
-    static normalizeFileName(name: string): string {
+    public static normalizeFileName(name: string): string {
         name = name.replace(/[|&;$%@" \-<>()+,]/g, ""); // remove illegal chars
         name = name.replace(/\.(?=.*?\.)/, ""); // remove dots except the extension dot
         return name;
     }
 
-    static enumToDropdown(e): IDropdownOption[] {
+    public static enumToDropdown(e): IDropdownOption[] {
         const options: IDropdownOption[] = [];
         for (const item in e) {
             if (e.hasOwnProperty(item) && !Utils.isNumber(item)) { // discard numeric versions of the enum
@@ -98,7 +98,7 @@ export class Utils {
         return options;
     }
 
-    static getHash(value: string) {
+    public static getHash(value: string) {
         // tslint:disable-next-line:one-variable-per-declaration
         let hash = 0, i, chr, len;
         if (value.length === 0) {
@@ -114,7 +114,7 @@ export class Utils {
         return hash;
     }
 
-    static getMime(name: string): string {
+    public static getMime(name: string): string {
         const extension = this.getExtension(name);
         switch (extension) {
             case "jpg": case "jpeg":
@@ -176,7 +176,7 @@ export class Utils {
     }*/
 
     constructor(private config: Configuration, private network: Network) { }
-    isDev() {
+    public isDev() {
         return this.config.Environment === Environments.Dev || this.config.Environment === Environments.Simulator;
     }
     /*isOnline() {

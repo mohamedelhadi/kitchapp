@@ -4,12 +4,13 @@
 @Injectable()
 export class Logger {
 
-    error(err?: any) {
+    public error(err?: any) {
+        // tslint:disable-next-line:no-console
         console.error(err);
         // log to error tracker
     }
 
-    log(data: any) {
+    public log(data: any) {
         if (typeof data === "string") {
             // tslint:disable-next-line:no-console
             console.log(data);
@@ -19,7 +20,7 @@ export class Logger {
         }
     }
 
-    highlightJsonSyntax(json) {
+    private highlightJsonSyntax(json) {
         // tslint:disable-next-line:one-variable-per-declaration
         const arr = [],
             _string = "color:brown",

@@ -1,4 +1,4 @@
 export class ServerErrorCodes {
-    static AlreadyRatedBranch = "AlreadyRatedBranch";
-    static AlreadyRatedItem = "AlreadyRatedItem";
+    public static AlreadyRatedBranch = "AlreadyRatedBranch";
+    public static AlreadyRatedItem = "AlreadyRatedItem";
 }

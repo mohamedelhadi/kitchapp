@@ -6,14 +6,14 @@ import { TranslationKeys, ErrorCodes } from "../contracts/index";
 @Injectable()
 export class UI {
 
-    loading: Loading;
+    private loading: Loading;
     constructor(
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
         private toastCtrl: ToastController,
         public translate: TranslateService) { }
 
-    showError(messageKey?: string, interpolateParams?: any) {
+    public showError(messageKey?: string, interpolateParams?: any) {
         const alert = this.alertCtrl.create({
             // title: "Error",
             subTitle: this.translate.instant(messageKey || TranslationKeys.Errors[ErrorCodes.Unknown], interpolateParams),
@@ -22,7 +22,7 @@ export class UI {
         alert.present();
         return alert;
     }
-    showLoading(content?: string, interpolateParams?: any, showBackdrop: boolean = true) {
+    public showLoading(content?: string, interpolateParams?: any, showBackdrop: boolean = true) {
         if (!this.loading) {
             this.loading = this.loadingCtrl.create({
                 spinner: "crescent",
@@ -35,13 +35,13 @@ export class UI {
             this.loading.setContent(content);
         }
     }
-    hideLoading() {
+    public hideLoading() {
         if (this.loading) {
             this.loading.dismiss();
             this.loading = null;
         }
     }
-    showToast(messageKey: string, interpolateParams?: any, duration: number = 4000, position: string = "bottom") {
+    public showToast(messageKey: string, interpolateParams?: any, duration: number = 4000, position: string = "bottom") {
         const toast = this.toastCtrl.create({
             message: this.translate.instant(messageKey, interpolateParams),
             duration,

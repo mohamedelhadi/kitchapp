@@ -25,7 +25,7 @@ export class CitiesData {
     get Cities() {
         return this.cities.asObservable();
     }
-    getCities(forceUpdate?: boolean, options?: IApiOptions) {
+    public getCities(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cities.getValue().length === 0) {
             this.api.get("cities", options).subscribe((cities: ICity[]) => {
                 this.cities.next(cities);

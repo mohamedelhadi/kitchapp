@@ -13,24 +13,24 @@ import { BasePage } from "../../app/infrastructure/index";
     templateUrl: "favorites.html"
 })
 export class Favorites extends BasePage {
-    favorites: Observable<IRestaurant[]>;
+    public favorites: Observable<IRestaurant[]>;
     constructor(
         private logger: Logger,
         private data: RestaurantsData,
         private navCtrl: NavController) {
         super({ logger });
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.favorites = this.data.Favorites.flatMap(favorites => {
             return this.data.Restaurants.map(restaurants =>
                 restaurants.filter(restaurant => favorites[restaurant.id])
             );
         });
     }
-    viewRestaurant(restaurant: IRestaurant) {
+    public viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant });
     }
-    viewBranches(restaurant: IRestaurant) {
+    public viewBranches(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant, tabIndex: 1 });
     }
 }

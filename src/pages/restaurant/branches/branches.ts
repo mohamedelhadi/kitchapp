@@ -15,7 +15,7 @@ import { Auth } from "../../../app/services/index";
     templateUrl: "branches.html"
 })
 export class Branches extends BasePage {
-    restaurant: IRestaurant;
+    public restaurant: IRestaurant;
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
@@ -23,7 +23,7 @@ export class Branches extends BasePage {
         super({ logger });
         this.restaurant = navParams.data;
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.data.getRestaurantBranches(this.restaurant.id)
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(branches => {
@@ -37,21 +37,21 @@ export class Branches extends BasePage {
                 this.restaurant.branches = branches;
             });
     }
-    showLocation(ev, branch: IBranch) {
+    public showLocation(ev, branch: IBranch) {
         const popover = this.popoverCtrl.create(LocationPopover,
             { branch },
             { cssClass: "wide-popover" }
         );
         popover.present();
     }
-    showPhones(ev, branch: IBranch) {
+    public showPhones(ev, branch: IBranch) {
         const popover = this.popoverCtrl.create(PhonesPopover,
             { branch },
             { cssClass: "wide-popover" }
         );
         popover.present();
     }
-    showRate(ev, branch: IBranch) {
+    public showRate(ev, branch: IBranch) {
         this.auth.isLoggedIn().then(loggedIn => {
             if (loggedIn) {
                 this.showPopover(branch);
@@ -64,14 +64,14 @@ export class Branches extends BasePage {
             }
         });
     }
-    showPopover(branch: IBranch) {
+    public showPopover(branch: IBranch) {
         const popover = this.popoverCtrl.create(BranchRatePopover,
             { branch, branches: this.restaurant.branches },
             { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }
-    onBackButton() {
+    public onBackButton() {
         this.navCtrl.parent.select(0); // this.navCtrl.parent.parent.pop(); switch to first tab because it feels natural
     }
 }

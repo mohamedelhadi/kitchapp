@@ -19,13 +19,13 @@ import { CitiesData, CuisinesData } from "../../app/services/data/index";
 })
 export class Restaurants extends BasePage implements OnInit {
 
-    restaurants: Observable<IRestaurant[]>;
-    none: number = -1;
-    allCities = new City(this.none, ["All", "الكل"]);
-    allCuisines = new Cuisine(this.none, ["All", "الكل"]);
-    searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: this.none, cuisineId: this.none }); // should load from storage, maybe in v2?
-    query = new BehaviorSubject<string>("");
-    noMatchForQuery: boolean;
+    public restaurants: Observable<IRestaurant[]>;
+    private none: number = -1;
+    private allCities = new City(this.none, ["All", "الكل"]);
+    private allCuisines = new Cuisine(this.none, ["All", "الكل"]);
+    private searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: this.none, cuisineId: this.none }); // should load from storage, maybe in v2?
+    private query = new BehaviorSubject<string>("");
+    public noMatchForQuery: boolean;
 
     constructor(
         private logger: Logger, private ui: UI, private errHandler: AppErrorHandler,
@@ -38,10 +38,10 @@ export class Restaurants extends BasePage implements OnInit {
             this.searchSettings.next(settings);
         }
     }
-    ngOnInit() {
+    public ngOnInit() {
         // init
     }
-    ionViewDidLoad() {
+    public ionViewDidLoad() {
         this.data.getRestaurants();
         this.ui.showLoading();
         this.restaurants = this.data.Restaurants
@@ -60,13 +60,13 @@ export class Restaurants extends BasePage implements OnInit {
             })
             .do(() => this.ui.hideLoading());
     }
-    viewRestaurant(restaurant: IRestaurant) {
+    public viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant, query: this.query.getValue() });
     }
-    onQueryChanged(ev: any) {
+    public onQueryChanged(ev: any) {
         this.query.next(ev.target.value);
     }
-    showPopover(ev) {
+    public showPopover(ev) {
         const popover = this.popoverCtrl.create(RestaurantsPopover, {
             settings: this.searchSettings,
             cities: this.cities.Cities.map(cities => [this.allCities].concat(cities)),
@@ -74,7 +74,7 @@ export class Restaurants extends BasePage implements OnInit {
         });
         popover.present({ ev });
     }
-    filter(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings) {
+    private filter(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings) {
         // settings.cityId is being passed as a string from ion-select (potentially ngFor/ngModel bug)
         if (settings.cityId && +settings.cityId !== this.none) {
             restaurants = restaurants.filter(restaurant => {
@@ -88,7 +88,7 @@ export class Restaurants extends BasePage implements OnInit {
         }
         return restaurants;
     }
-    search(restaurants: IRestaurant[], query: string) {
+    private search(restaurants: IRestaurant[], query: string) {
         if (query && query.trim() !== "") {
             return restaurants.filter(restaurant => {
                 query = query.trim().toLowerCase();
@@ -121,7 +121,7 @@ export class Restaurants extends BasePage implements OnInit {
         }
         return restaurants;
     }
-    orderRestaurants(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings): Observable<IRestaurant[]> {
+    private orderRestaurants(restaurants: IRestaurant[], settings: IRestaurantsSearchSettings): Observable<IRestaurant[]> {
         if (restaurants.length === 0) {
             return Observable.of([]);
         }
@@ -138,7 +138,7 @@ export class Restaurants extends BasePage implements OnInit {
         }
         return Observable.of(restaurants);
     }
-    orderByNearest(restaurants: IRestaurant[]) {
+    private orderByNearest(restaurants: IRestaurant[]) {
         return new Promise((resolve, reject) => {
             this.ui.showLoading(TranslationKeys.Messages.LoadingPosition, false);
             navigator.geolocation.getCurrentPosition(
@@ -167,7 +167,7 @@ export class Restaurants extends BasePage implements OnInit {
             );
         });
     }
-    getDistanceFromClosestBranch(latitude: number, longitude: number, branches: IBranch[]) {
+    private getDistanceFromClosestBranch(latitude: number, longitude: number, branches: IBranch[]) {
         let closestDistance = 99999999;
         for (const branch of branches) {
             const distance: number = Utils.getDistance(latitude, longitude, branch.location.latitude, branch.location.longitude);
