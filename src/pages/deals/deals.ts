@@ -16,7 +16,6 @@ import { BasePage } from "../../app/infrastructure/index";
 export class Deals extends BasePage {
     public restaurant: IRestaurant;
     public deals: Observable<IDeal[]>;
-    public dealsList: IDeal[];
     constructor(
         private logger: Logger, private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
@@ -26,9 +25,7 @@ export class Deals extends BasePage {
     }
     public ionViewDidLoad() {
         // TODO: consider adding pull-to-refresh
-        this.deals = this.getDeals().do((deals) => {
-            this.dealsList = deals;
-        });
+        this.deals = this.getDeals();
     }
     public getDeals() {
         this.data.getDeals(true, { showLoading: false });

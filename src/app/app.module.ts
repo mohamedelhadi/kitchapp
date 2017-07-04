@@ -13,7 +13,6 @@ import { Globalization } from "@ionic-native/globalization";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Network } from "@ionic-native/network";
-import { Storage } from "@ionic/storage";
 import { Device } from "@ionic-native/device";
 
 import { IonicStorageModule } from "@ionic/storage";

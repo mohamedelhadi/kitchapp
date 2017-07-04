@@ -22,7 +22,7 @@
             <ion-item no-padding>
                 {{branch.location.address[settings.language]}}
             </ion-item>
-            <div class="photos" *ngIf="branch.photos && branch.photos.length">
+            <div class="photos" *ngIf="branch.photos?.length">
                 <img [src]="branch.photos[0]" [fallback]="false" imageViewer />
                 <!-- ion-slides/ionic gallery <button ion-button small color="light">See All</button>-->
             </div>
