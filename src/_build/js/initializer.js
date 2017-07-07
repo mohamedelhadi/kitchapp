@@ -30,7 +30,7 @@ function initialize(env, platform) {
     let configPromise = _copyConfiguration(env);
     let resPromise = _copyResources(env, platform);
     let cordovaPromise = _prepareCordovaConfig(env);
-    let indexPromise = _prepareIndex(env);
+    let indexPromise = _prepareIndex(env, platform);
 
     return Promise.all([configPromise, resPromise, cordovaPromise, indexPromise]);
 }
@@ -80,7 +80,7 @@ function _prepareCordovaConfig(env) {
     });
 }
 
-function _prepareIndex(env) {
+function _prepareIndex(env, platform) {
     console.log(color.cyan("Preparing index.html..."));
 
     let $ = cheerio.load(fs.readFileSync("src/index.html"), {
@@ -88,8 +88,18 @@ function _prepareIndex(env) {
     });
     // if target is the simulator (browser) omit cordova.js otherwise add it
     // cordova script performs initializations that doesn't work on the simulator so we remove it (however cordova script is required on an emulator/real device)
-    let cordovaScript = env === environments.Simulator ? "" : "cordova.js";
+    let cordovaScript = env === environments.Simulator || platform === "pwa" ? "" : "cordova.js";
     $("#cordova-script").attr("src", cordovaScript);
+
+    let text = $("#service-worker").text();
+    if (platform === "pwa") {
+        text = text.replace(/(\/\*|\*\/)/g, "");
+        $("#service-worker").text(text);
+    } else {
+        if (text.indexOf("/*") === -1) {
+            $("#service-worker").text(`/*${text}*/`);
+        }
+    }
 
     // Content-Security-Policy
     let endpoint = _getEndpoint(env);

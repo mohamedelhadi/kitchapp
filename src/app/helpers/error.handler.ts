@@ -34,7 +34,6 @@ export class AppErrorHandler extends ErrorHandler {
         }
     }
     private handleHttpError(err: HttpError): void {
-        this.logger.error(err);
         if (err.options.handleError) {
             const error = err.body;
             if (isServerError(error)) {

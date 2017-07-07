@@ -71,6 +71,7 @@ export class Api {
             this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline, options.handleError));
             return Observable.empty();
         }
+        // options.url = url;
         options.method = method;
         options.body = data || {};
         url = (options.appendBaseUrl) ? this.appendBaseUrl(url) : url;

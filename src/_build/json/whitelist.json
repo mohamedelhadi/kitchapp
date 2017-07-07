@@ -10,8 +10,8 @@
         "frameSrc": ["https://*.facebook.com", "http://*.facebook.com"],
         "defaultSrc": ["'self'", "gap:", "https://ssl.gstatic.com", "https://fonts.gstatic.com"],
         "styleSrc": ["'self'", "https://*.googleapis.com", "'unsafe-inline'"],
-        "imgSrc": ["'self'", "data:", "https://*.gstatic.com", "https://*.googleapis.com", "https://placeholdit.imgix.net", "https://placehold.it"],
-        "scriptSrc": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://*.googleapis.com", "http://*.facebook.net"],
+        "imgSrc": ["'self'", "data:", "https://*.gstatic.com", "https://*.googleapis.com", "https://*.facebook.com", "https://placeholdit.imgix.net", "https://placehold.it"],
+        "scriptSrc": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://*.googleapis.com", "https://*.facebook.com", "http://*.facebook.net"],
         "connectSrc": ["'self'", "https://*.googleapis.com"],
         "mediaSrc": ["*"]
     }
