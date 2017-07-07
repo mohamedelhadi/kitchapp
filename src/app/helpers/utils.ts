@@ -26,8 +26,8 @@ export class Utils {
     }
     public static deepClone(o) { // recursiveDeepCopy2 =>  https://jsperf.com/js-deep-copy/7
         // use with discretion!
-        // tslint:disable-next-line:one-variable-per-declaration
-        let newO, i;
+        let newO;
+        let i;
         if (typeof o !== "object") { return o; }
         if (!o) { return o; }
         if (o.constructor === Array) {
@@ -38,6 +38,11 @@ export class Utils {
             return newO;
         }
         newO = {};
+        /* might reduce performance
+        for (let index = 0, keys = Object.keys(o); index < keys.length; index++) {
+            const key = keys[index];
+            newO[key] = Utils.deepClone(o[key]);
+        }*/
         // tslint:disable-next-line:forin
         for (i in o) {
             newO[i] = Utils.deepClone(o[i]);

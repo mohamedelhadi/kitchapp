@@ -56,7 +56,7 @@ export class Branches extends BasePage {
             if (loggedIn) {
                 this.showPopover(branch);
             } else {
-                this.auth.signInWithFacebook().then(successfulLogin => {
+                this.auth.loginWithFacebook().then(successfulLogin => {
                     if (successfulLogin) {
                         this.showPopover(branch);
                     }

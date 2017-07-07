@@ -25,6 +25,6 @@ export class Identity {
     }
     public save(user: IUser) {
         this.user.next(user);
-        this.storage.set(USER, user);
+        return this.storage.set(USER, user);
     }
 }

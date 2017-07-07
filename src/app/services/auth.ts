@@ -6,7 +6,7 @@ import { Facebook } from "@ionic-native/facebook";
 import { FacebookService, InitParams, LoginOptions } from "ngx-facebook";
 import { Api, Identity } from "./index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import { USER, IUser, Gender, FB_TOKEN, INewUser, TOKEN, EXPIRES_AT, InternalError, ErrorCodes, TranslationKeys, AuthenticationStatus } from "../contracts/index";
+import { USER, IUser, Gender, FB_TOKEN, INewUser, TOKEN, EXPIRES_AT, InternalError, ErrorCodes, TranslationKeys, AuthenticationStatus, ICredentials } from "../contracts/index";
 import { Observable } from "rxjs/Observable";
 import { Storage } from "@ionic/storage";
 import * as moment from "moment";
@@ -54,7 +54,7 @@ export class Auth {
             return false;
         });
     }
-    public signIn(provider: string = "facebook") {
+    public login(provider: string = "facebook") {
         // TODO: check if TOKEN exists in storage, if it exists then refresh when close to expiration, if it doesn't exist attempt login
         if (!Utils.isOnline()) {
             this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline));
@@ -94,7 +94,7 @@ export class Auth {
                 .catch(failed);
         }
     }
-    public signInWithFacebook(confirm: boolean = true): Promise<boolean> {
+    public loginWithFacebook(confirm: boolean = true): Promise<boolean> {
         if (confirm) {
             return new Promise((resolve, reject) => {
                 const confirmAlert = this.alertCtrl.create({
@@ -113,7 +113,7 @@ export class Auth {
                             cssClass: "ok",
                             text: this.ui.translate.instant(TranslationKeys.Common.Ok),
                             handler: () => {
-                                this.signIn().then(resolve);
+                                this.login().then(resolve);
                             }
                         }
                     ]
@@ -121,7 +121,7 @@ export class Auth {
                 confirmAlert.present();
             });
         } else {
-            return this.signIn();
+            return this.login();
         }
     }
     private verify(profile, accessToken): Promise<boolean> {
@@ -136,20 +136,45 @@ export class Auth {
                     photoUrl: profile.picture.data.url,
                     profileUrl: profile.link
                 };
-                this.api.post("auth/verify", user, { handleError: false }).subscribe((result: any) => {
-                    this.identity.save(result.user);
+                this.ui.showLoading();
+                this.api.post("auth/verify", user, { handleError: false, showLoading: false }).subscribe((result: any) => {
                     Promise
-                        .all([this.storage.set(TOKEN, result.auth.token), this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())])
+                        .all([
+                            this.identity.save(result.user),
+                            this.storage.set(TOKEN, result.auth.token),
+                            this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
+                        ])
                         .then(() => {
+                            this.ui.hideLoading();
                             AuthStatus.next(AuthenticationStatus.LoggedIn);
                             resolve(true);
-                        });
+                        })
+                        .catch(() => this.ui.hideLoading());
                 }, reject);
             });
         });
     }
-    public signOut() {
-        this.onInit.then(() => {
+    public loginWithCredentials(credentials: ICredentials) {
+        return new Promise((resolve, reject) => {
+            this.ui.showLoading();
+            this.api.post("auth/token", credentials, { showLoading: false }).subscribe((result: any) => {
+                Promise
+                    .all([
+                        this.identity.save(result.user),
+                        this.storage.set(TOKEN, result.auth.token),
+                        this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
+                    ])
+                    .then(() => {
+                        this.ui.hideLoading();
+                        AuthStatus.next(AuthenticationStatus.LoggedIn);
+                        resolve(true);
+                    })
+                    .catch(() => this.ui.hideLoading());
+            }, reject);
+        });
+    }
+    public logout() {
+        return this.onInit.then(() => {
             if (this.platform.is("cordova")) {
                 this.fbNative.logout();
             } else {
@@ -159,7 +184,7 @@ export class Auth {
                     });
                 });
             }
-            Promise
+            return Promise
                 .all([this.storage.remove(TOKEN), this.storage.remove(FB_TOKEN), this.storage.remove(EXPIRES_AT)])
                 .then(() => AuthStatus.next(AuthenticationStatus.LoggedOut));
         });

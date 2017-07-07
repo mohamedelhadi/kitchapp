@@ -160,3 +160,7 @@ export enum FeedbackType {
     Inquiry,
     Other = 100
 }
+export interface ICredentials {
+    email: string;
+    password: string;
+}

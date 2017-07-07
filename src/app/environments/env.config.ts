@@ -1,15 +1,14 @@
 import { IConfiguration, Environments } from "./configuration";
-import { simulator } from "../../_build/json/endpoints.json";
+import { production } from "../../_build/json/endpoints.json";
 
 export class Configuration implements IConfiguration {
 
-    public Environment: string = Environments.Simulator;
-    public Seed = true;
-    public OneSignalAppID: string = "d0219f81-9edd-413c-840d-b4f71e659d9c";
-    public GoogleProjectNo: string = "735993356118";
-    public FacebookAppID: string = "1378368965603493";
+    public Environment: string = Environments.Production;
+    public OneSignalAppID: string = "e968fd14-bd05-47a0-8f5e-462485446a4c";
+    public GoogleProjectNo: string = "773081189088";
+    public FacebookAppID: string = "1462290493817069";
 
-    private baseUrl: string = simulator; // "http://localhost:8101/json/"; // "http://localhost:37864/"; //
+    private baseUrl: string = production;
 
     constructor() {
         this.init();
@@ -17,11 +16,6 @@ export class Configuration implements IConfiguration {
 
     public init(): void {
         this.baseUrl = this.baseUrl.replace(/\/?(\?|#|$)/, "/$1"); // append "/" if it's not already appended
-        /*window.onload = (event) => {
-            if (window.location.hash.indexOf("#/app") > -1) {
-                window.location.replace("http://localhost:3000/");
-            }
-        };*/
     }
 
     get BaseUrl(): string {
