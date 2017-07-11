@@ -1,7 +1,9 @@
 page-branches {
     ion-header {}
-    ion-content {
+    .content {
         .card {
+            margin-bottom: 0;
+            margin-top: 5px;
             .card-header {
                 position: relative;
                 white-space: normal;
@@ -55,6 +57,12 @@ page-branches {
                         bottom: 0;
                         right: 2px;
                     }
+                    /*@media (min-width: map-get($screen-breakpoints, sm)) {
+                        img {
+                            max-width: 600px !important;
+                            margin: 0 auto 15px auto !important;
+                        }
+                    }*/
                 }
                 .rate {
                     overflow: hidden;

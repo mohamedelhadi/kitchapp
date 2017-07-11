@@ -145,17 +145,21 @@ page-restaurant {
                     }
                 }
                 ion-list {
+                    /*max-height: 0px;
+                    transition: max-height .7s ease-in;
+                    &.expanded {
+                        max-height: 2000px;
+                    }*/
                     @keyframes example {
                         from {
                             max-height: 0;
                         }
                         to {
-                            max-height: 200px;
+                            max-height: 2000px;
                         }
                     }
                     &.expanded {
-                        max-height: 2000px;
-                        animation: example 0.5s ease-in;
+                        animation: example 0.7s ease-in;
                     }
                     .item {
                         border-bottom: solid 1px color($shades-of-gray, lighter-gray);

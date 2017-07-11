@@ -10,68 +10,74 @@
 </ion-header>
 
 <ion-content>
-    <ion-card *ngFor="let branch of restaurant.branches">
-        <ion-card-header>
-            {{branch.name[settings.language]}}
-            <div class="header-buttons">
-                <ion-icon name="map" color="primary" item-end (click)="showLocation($event, branch)"></ion-icon>
-                <ion-icon name="call" color="primary" item-end (click)="showPhones($event, branch)"></ion-icon>
-            </div>
-        </ion-card-header>
-        <ion-card-content>
-            <ion-item no-padding>
-                {{branch.location.address[settings.language]}}
-            </ion-item>
-            <div class="photos" *ngIf="branch.photos?.length">
-                <img [src]="branch.photos[0]" [fallback]="false" imageViewer />
-                <!-- ion-slides/ionic gallery <button ion-button small color="light">See All</button>-->
-            </div>
-            <div class="rate" (click)="showRate($event, branch)">
-                <ion-row>
-                    <ion-col col-3 text-center>
-                        <rating readOnly="true" [(ngModel)]="branch.rate.overall" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
-                        <h1>{{branch.rate.overall}}</h1>
-                    </ion-col>
-                    <ion-col>
-                        <div class="rating-bar">
-                            5
-                            <div class="rate-{{branch.rate.rated5}}">
-                                <div class="animate"></div>
-                            </div>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 col-xs col-sm-6 col-md-6 col-lg-3 *ngFor="let branch of restaurant.branches">
+                <ion-card>
+                    <ion-card-header>
+                        {{branch.name[settings.language]}}
+                        <div class="header-buttons">
+                            <ion-icon name="map" color="primary" item-end (click)="showLocation($event, branch)"></ion-icon>
+                            <ion-icon name="call" color="primary" item-end (click)="showPhones($event, branch)"></ion-icon>
                         </div>
-                        <div class="rating-bar">
-                            4
-                            <div class="rate-{{branch.rate.rated4}}">
-                                <div class="animate"></div>
-                            </div>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-item no-padding>
+                            {{branch.location.address[settings.language]}}
+                        </ion-item>
+                        <div class="photos" *ngIf="branch.photos?.length">
+                            <img [src]="branch.photos[0]" [fallback]="false" imageViewer />
+                            <!-- ion-slides/ionic gallery <button ion-button small color="light">See All</button>-->
                         </div>
-                        <div class="rating-bar">
-                            3
-                            <div class="rate-{{branch.rate.rated3}}">
-                                <div class="animate"></div>
-                            </div>
+                        <div class="rate" (click)="showRate($event, branch)">
+                            <ion-row>
+                                <ion-col col-3 text-center>
+                                    <rating readOnly="true" [(ngModel)]="branch.rate.overall" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+                                    <h1>{{branch.rate.overall}}</h1>
+                                </ion-col>
+                                <ion-col>
+                                    <div class="rating-bar">
+                                        5
+                                        <div class="rate-{{branch.rate.rated5}}">
+                                            <div class="animate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="rating-bar">
+                                        4
+                                        <div class="rate-{{branch.rate.rated4}}">
+                                            <div class="animate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="rating-bar">
+                                        3
+                                        <div class="rate-{{branch.rate.rated3}}">
+                                            <div class="animate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="rating-bar">
+                                        2
+                                        <div class="rate-{{branch.rate.rated2}}">
+                                            <div class="animate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="rating-bar">
+                                        1
+                                        <div class="rate-{{branch.rate.rated1}}">
+                                            <div class="animate"></div>
+                                        </div>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row text-center>
+                                <ion-col>{{translation.Restaurant.Quality | translate}}<br/>{{branch.rate.quality}}</ion-col>
+                                <ion-col>{{translation.Restaurant.Service | translate}}<br/>{{branch.rate.service}}</ion-col>
+                                <ion-col>{{translation.Restaurant.Place | translate}}<br/>{{branch.rate.place}}</ion-col>
+                                <ion-col>{{translation.Restaurant.Price | translate}}<br/>{{branch.rate.price}}</ion-col>
+                            </ion-row>
                         </div>
-                        <div class="rating-bar">
-                            2
-                            <div class="rate-{{branch.rate.rated2}}">
-                                <div class="animate"></div>
-                            </div>
-                        </div>
-                        <div class="rating-bar">
-                            1
-                            <div class="rate-{{branch.rate.rated1}}">
-                                <div class="animate"></div>
-                            </div>
-                        </div>
-                    </ion-col>
-                </ion-row>
-                <ion-row text-center>
-                    <ion-col>{{translation.Restaurant.Quality | translate}}<br/>{{branch.rate.quality}}</ion-col>
-                    <ion-col>{{translation.Restaurant.Service | translate}}<br/>{{branch.rate.service}}</ion-col>
-                    <ion-col>{{translation.Restaurant.Place | translate}}<br/>{{branch.rate.place}}</ion-col>
-                    <ion-col>{{translation.Restaurant.Price | translate}}<br/>{{branch.rate.price}}</ion-col>
-                </ion-row>
-            </div>
-        </ion-card-content>
-    </ion-card>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

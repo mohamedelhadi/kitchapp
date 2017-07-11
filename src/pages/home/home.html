@@ -13,26 +13,26 @@
 <ion-content text-center>
     <div class="nav-menu">
         <ion-row>
-            <ion-col col-6 col-sm>
-                <button ion-button clear (click)="viewRestaurants()">
+            <ion-col col-6 col-sm (tap)="viewRestaurants()">
+                <button ion-button clear>
                     <ion-icon name='restaurant'></ion-icon>
                     {{translation.Home.Restaurants | translate}}
                 </button>
             </ion-col>
-            <ion-col col-6 col-sm>
-                <button ion-button clear (click)="viewFavorites()">
+            <ion-col col-6 col-sm (tap)="viewFavorites()">
+                <button ion-button clear>
                     <ion-icon name='heart'></ion-icon>
                     {{translation.Home.Favorites | translate}}
                 </button>
             </ion-col>
-            <ion-col col-6 col-sm>
-                <button ion-button clear (click)="viewDeals()">
+            <ion-col col-6 col-sm (tap)="viewDeals()">
+                <button ion-button clear>
                     <ion-icon name='pricetags'></ion-icon>
                     {{translation.Home.Deals | translate}}
                 </button>
             </ion-col>
-            <ion-col col-6 col-sm>
-                <button ion-button clear (click)="viewCuisines()">
+            <ion-col col-6 col-sm (tap)="viewCuisines()">
+                <button ion-button clear>
                     <ion-icon name='pizza'></ion-icon>
                     {{translation.Home.Cuisines | translate}}
                 </button>
