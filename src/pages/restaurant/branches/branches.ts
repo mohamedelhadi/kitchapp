@@ -10,6 +10,8 @@ import { IRestaurant, IBranch } from "../../../app/contracts/index";
 import { Logger, UI } from "../../../app/helpers/index";
 import { Auth } from "../../../app/services/index";
 
+import "rxjs/add/operator/takeUntil";
+
 @Component({
     selector: "page-branches",
     templateUrl: "branches.html"

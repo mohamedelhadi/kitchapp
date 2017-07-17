@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
 import { Storage } from "@ionic/storage";
 
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import * as bundledCities from "../../../assets/data/cities.json";
 import { ICity, CITIES, IApiOptions } from "../../contracts/index";

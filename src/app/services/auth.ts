@@ -6,6 +6,7 @@ import { Facebook } from "@ionic-native/facebook";
 import { FacebookService, InitParams, LoginOptions } from "ngx-facebook";
 import { Api, Identity } from "./index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
+import "rxjs/add/operator/first";
 import { USER, IUser, Gender, FB_TOKEN, INewUser, TOKEN, EXPIRES_AT, InternalError, ErrorCodes, TranslationKeys, AuthenticationStatus, ICredentials } from "../contracts/index";
 import { Observable } from "rxjs/Observable";
 import { Storage } from "@ionic/storage";

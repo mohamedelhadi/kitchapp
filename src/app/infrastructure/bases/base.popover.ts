@@ -7,7 +7,6 @@ import { Globalization } from "@ionic-native/globalization";
 import { TranslateService } from "@ngx-translate/core";
 import { Configuration } from "../../environments/env.config";
 import { settings } from "../index";
-import { ReplaySubject } from "rxjs/Rx";
 
 export class BasePopover implements OnInit {
     public viewCtrl: ViewController;

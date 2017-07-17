@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
 import { IDeal, DEALS, IApiOptions } from "../../app/contracts/index";
 import { Api } from "../../app/services/index";
 

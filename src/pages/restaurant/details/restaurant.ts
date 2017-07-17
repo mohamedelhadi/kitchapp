@@ -2,8 +2,15 @@
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
 import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController, FabContainer } from "ionic-angular";
 import { RestaurantsData } from "../../restaurants/restaurants.data";
-import { Subject, BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/combineLatest";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/takeUntil";
+import "rxjs/add/operator/distinctUntilChanged";
 import { UI, Logger, Utils } from "../../../app/helpers/index";
 import { orderBy, some, cloneDeep } from "lodash";
 import { VariationsPopover } from "./variations/variations.popover";

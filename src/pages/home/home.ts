@@ -94,7 +94,7 @@ export class Home extends BasePage {
                     this.ui.hideLoading();
                     // reject();
                 },
-                { maximumAge: 7000, timeout: 7000, enableHighAccuracy: true }
+                { maximumAge: 5000, timeout: 15000, enableHighAccuracy: true }
             );
         });
     }

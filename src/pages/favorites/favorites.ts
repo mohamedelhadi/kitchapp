@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { MenuController, NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/mergeMap";
 import { Logger } from "../../app/helpers/logger";
 import { Api } from "../../app/services/api";
 import { RestaurantsData } from "../restaurants/restaurants.data";

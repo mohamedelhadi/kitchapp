@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Api } from "../../../app/services/api";
 import { Storage } from "@ionic/storage";
 
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import * as bundledCuisines from "../../../assets/data/cuisines.json";
 import { ICuisine, CUISINES, IApiOptions } from "../../contracts/index";

@@ -7,6 +7,7 @@ import { Configuration } from "../environments/env.config";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";
+import "rxjs/add/operator/take";
 
 export const settings = new ReplaySubject<IAppSettings>(1);
 

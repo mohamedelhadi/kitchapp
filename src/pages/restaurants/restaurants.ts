@@ -7,6 +7,13 @@ import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/distinctUntilChanged";
+import "rxjs/add/operator/startWith";
+import "rxjs/add/operator/mergeMap";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/combineLatest";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/observable/fromPromise";
 import { Subject } from "rxjs/Subject";
 import { BasePage } from "../../app/infrastructure/index";
 import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
@@ -163,7 +170,7 @@ export class Restaurants extends BasePage implements OnInit {
                     this.ui.hideLoading();
                     resolve(restaurants); // to keep chain from breaking and apply other order settings
                 },
-                { maximumAge: 7000, timeout: 7000 }
+                { maximumAge: 10000, timeout: 15000 }
             );
         });
     }
