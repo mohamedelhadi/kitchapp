@@ -49,16 +49,18 @@ export class BranchRatePopover extends BasePopover {
                 comment: this.comment,
                 branchId: this.selectedBranchId
             } as IBranchRate)
-            .subscribe(rateSummary => {
-                if (this.selectedBranch) {
-                    this.selectedBranch.rate = rateSummary;
-                } else {
-                    const selectedBranch = this.branches.find(branch => branch.id === +this.selectedBranchId);
-                    selectedBranch.rate = rateSummary;
-                }
-                this.restaurantsData.updateStream();
-                this.close();
-            }, err => this.close());
+            .subscribe(
+                rateSummary => {
+                    if (this.selectedBranch) {
+                        this.selectedBranch.rate = rateSummary;
+                    } else {
+                        const selectedBranch = this.branches.find(branch => branch.id === +this.selectedBranchId);
+                        selectedBranch.rate = rateSummary;
+                    }
+                    this.restaurantsData.updateStream();
+                    this.close();
+                },
+                err => this.close());
     }
     public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";

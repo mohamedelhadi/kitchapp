@@ -30,7 +30,8 @@ export class VariationsPopover extends BasePopover {
         });
     }
     public showPopover() {
-        const popover = this.popoverCtrl.create(VariationRatePopover,
+        const popover = this.popoverCtrl.create(
+            VariationRatePopover,
             { item: this.item },
             { cssClass: "top-popover" }
         );

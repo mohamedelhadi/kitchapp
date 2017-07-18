@@ -36,7 +36,7 @@ import { FeedbackPopover } from "./feedback/feedback.popover";
         ]),
         trigger("searchbarState", [
             state("collapsed", style({
-                "opacity": 0,
+                opacity: 0,
                 "pointer-events": "none"
             })),
             state("focused", style({
@@ -137,7 +137,8 @@ export class Restaurant extends BasePage {
         this.query.next(ev.target.value);
     }
     public showVariations(ev, item: ICategoryItem) {
-        const popover = this.popoverCtrl.create(VariationsPopover,
+        const popover = this.popoverCtrl.create(
+            VariationsPopover,
             { item },
             { cssClass: "wide-popover" }
         );
@@ -157,7 +158,8 @@ export class Restaurant extends BasePage {
         });
     }
     public showPopover() {
-        const popover = this.popoverCtrl.create(BranchRatePopover,
+        const popover = this.popoverCtrl.create(
+            BranchRatePopover,
             { branches: this.restaurant.branches },
             { cssClass: "wide-popover top-popover" }
         );
@@ -165,7 +167,8 @@ export class Restaurant extends BasePage {
     }
     public showFeedback(fab: FabContainer) {
         fab.close();
-        const popover = this.popoverCtrl.create(FeedbackPopover,
+        const popover = this.popoverCtrl.create(
+            FeedbackPopover,
             { restaurant: this.restaurant },
             { cssClass: "wide-popover top-popover" }
         );

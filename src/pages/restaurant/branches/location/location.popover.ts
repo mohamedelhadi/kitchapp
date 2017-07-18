@@ -45,8 +45,8 @@ export class LocationPopover extends BasePopover implements OnInit {
             zoom: 16
         });
         const marker = new google.maps.Marker({
-            position: coordinates,
             map,
+            position: coordinates,
             title: this.branch.name[this.settings.language]
         });
         const infoWindow = new google.maps.InfoWindow({

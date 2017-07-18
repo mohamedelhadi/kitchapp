@@ -25,9 +25,9 @@ export class UI {
     public showLoading(content?: string, interpolateParams?: any, showBackdrop: boolean = true) {
         if (!this.loading) {
             this.loading = this.loadingCtrl.create({
+                showBackdrop,
                 spinner: "crescent",
-                content: content ? this.translate.instant(content, interpolateParams) : null,
-                showBackdrop
+                content: content ? this.translate.instant(content, interpolateParams) : null
                 /*cssClass, delay, dismissOnPageChange, duration*/
             });
             this.loading.present();
@@ -43,9 +43,9 @@ export class UI {
     }
     public showToast(messageKey: string, interpolateParams?: any, duration: number = 4000, position: string = "bottom") {
         const toast = this.toastCtrl.create({
-            message: this.translate.instant(messageKey, interpolateParams),
             duration,
             position,
+            message: this.translate.instant(messageKey, interpolateParams),
             dismissOnPageChange: true
         });
         toast.present();

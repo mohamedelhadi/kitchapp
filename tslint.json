@@ -1,12 +1,22 @@
 ﻿{
     "extends": [
         "tslint:recommended",
-        "tslint-eslint-rules"
+        "tslint-eslint-rules",
+        "tslint-config-airbnb"
     ],
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
     "rules": {
+        "no-param-reassign": false,
+        "ter-indent": [true, 4, {
+            "SwitchCase": 1
+        }],
+        "quotemark": [
+            "double"
+        ],
+        "no-increment-decrement": false,
+        "ter-arrow-parens": false,
         "member-ordering": [
             true
         ],

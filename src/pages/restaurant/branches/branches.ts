@@ -40,14 +40,16 @@ export class Branches extends BasePage {
             });
     }
     public showLocation(ev, branch: IBranch) {
-        const popover = this.popoverCtrl.create(LocationPopover,
+        const popover = this.popoverCtrl.create(
+            LocationPopover,
             { branch },
             { cssClass: "wide-popover" }
         );
         popover.present();
     }
     public showPhones(ev, branch: IBranch) {
-        const popover = this.popoverCtrl.create(PhonesPopover,
+        const popover = this.popoverCtrl.create(
+            PhonesPopover,
             { branch },
             { cssClass: "wide-popover" }
         );
@@ -68,8 +70,8 @@ export class Branches extends BasePage {
     }
     public showPopover(branch: IBranch) {
         const popover = this.popoverCtrl.create(BranchRatePopover,
-            { branch, branches: this.restaurant.branches },
-            { cssClass: "wide-popover top-popover" }
+                                                { branch, branches: this.restaurant.branches },
+                                                { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }

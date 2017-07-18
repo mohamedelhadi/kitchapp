@@ -1,6 +1,5 @@
 import { Logger } from "../../helpers/index";
-import { IAppSettings } from "../../contracts/index";
-import { TranslationKeys, Language } from "../../contracts/index";
+import { IAppSettings, TranslationKeys, Language } from "../../contracts/index";
 import { settings } from "../index";
 
 export abstract class BasePage {

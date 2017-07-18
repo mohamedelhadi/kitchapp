@@ -30,12 +30,13 @@ export class VariationRatePopover extends BasePopover {
                 comment: this.comment,
                 variationId: this.item.variations[0].id
             } as IVariationRate)
-            .subscribe(newRate => {
-                this.item.variations[0].rate = newRate;
-                this.restaurantsData.updateStream();
-                this.close();
-            },
-            err => this.close());
+            .subscribe(
+                newRate => {
+                    this.item.variations[0].rate = newRate;
+                    this.restaurantsData.updateStream();
+                    this.close();
+                },
+                err => this.close());
     }
     public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";

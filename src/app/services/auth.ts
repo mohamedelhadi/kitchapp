@@ -138,28 +138,31 @@ export class Auth {
                     profileUrl: profile.link
                 };
                 this.ui.showLoading();
-                this.api.post("auth/verify", user, { handleError: false, showLoading: false }).subscribe((result: any) => {
-                    Promise
-                        .all([
-                            this.identity.save(result.user),
-                            this.storage.set(TOKEN, result.auth.token),
-                            this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
-                        ])
-                        .then(() => {
-                            this.ui.hideLoading();
-                            AuthStatus.next(AuthenticationStatus.LoggedIn);
-                            resolve(true);
-                        })
-                        .catch(() => this.ui.hideLoading());
-                }, reject);
+                this.api.post("auth/verify", user, { handleError: false, showLoading: false }).subscribe(
+                    (result: any) => {
+                        Promise
+                            .all([
+                                this.identity.save(result.user),
+                                this.storage.set(TOKEN, result.auth.token),
+                                this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
+                            ])
+                            .then(() => {
+                                this.ui.hideLoading();
+                                AuthStatus.next(AuthenticationStatus.LoggedIn);
+                                resolve(true);
+                            })
+                            .catch(() => this.ui.hideLoading());
+                    },
+                    reject);
             });
         });
     }
     public loginWithCredentials(credentials: ICredentials) {
         return new Promise((resolve, reject) => {
             this.ui.showLoading();
-            this.api.post("auth/token", credentials, { showLoading: false }).subscribe((result: any) => {
-                Promise
+            this.api.post("auth/token", credentials, { showLoading: false }).subscribe(
+                (result: any) => {
+                    Promise
                     .all([
                         this.identity.save(result.user),
                         this.storage.set(TOKEN, result.auth.token),
@@ -171,7 +174,8 @@ export class Auth {
                         resolve(true);
                     })
                     .catch(() => this.ui.hideLoading());
-            }, reject);
+                },
+                reject);
         });
     }
     public logout() {
