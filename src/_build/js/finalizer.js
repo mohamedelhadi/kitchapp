@@ -5,12 +5,8 @@ let color = require("cli-color");
 let gulp = require("gulp");
 let rename = require("gulp-rename");
 
-import {
-    getVersionDetails
-} from "./version";
-import {
-    default as environments
-} from "../json/environments.json";
+import { getVersionDetails } from "./version";
+import { default as environments } from "../json/environments.json";
 
 let isCrosswalkApk = fs.existsSync("./plugins/cordova-plugin-crosswalk-webview");
 let paths = {
@@ -56,7 +52,8 @@ function _deployToNox(path) {
         if (error) {
             console.log(color.red("Failed to install on Nox"));
             console.log(error);
-        } else {
+        }
+        else {
             console.log(color.green("Done deploying."));
         }
     });

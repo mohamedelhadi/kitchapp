@@ -8,22 +8,12 @@ let gulp = require("gulp");
 let rename = require("gulp-rename");
 let builder = require("content-security-policy-builder");
 
-import {
-    getVersionDetails
-} from "./version";
-import {
-    default as environments
-} from "../json/environments";
-import {
-    default as endpoints
-} from "../json/endpoints";
-import {
-    default as whitelist
-} from "../json/whitelist";
+import { getVersionDetails } from "./version";
+import { default as environments } from "../json/environments";
+import { default as endpoints } from "../json/endpoints";
+import { default as whitelist } from "../json/whitelist";
 
-export {
-    initialize
-};
+export { initialize };
 
 function initialize(env, platform) {
     console.log("\ninitializer.js\nTargeted Environment: ", color.yellow("'" + env + "'"), "\nTargeted Platform: ", color.yellow("'" + platform + "'\n"));
@@ -95,7 +85,8 @@ function _prepareIndex(env, platform) {
     if (platform === "pwa") {
         text = text.replace(/(\/\*|\*\/)/g, "");
         $("#service-worker").text(text);
-    } else {
+    }
+    else {
         if (text.indexOf("/*") === -1) {
             $("#service-worker").text(`/*${text}*/`);
         }
@@ -143,7 +134,8 @@ function _callback(successMessage, errorMessage, resolve, reject) {
             console.log(color.red(err));
             console.log(color.white(errorMessage + "\n"));
             reject();
-        } else {
+        }
+        else {
             console.log(color.green(successMessage));
             resolve();
         }

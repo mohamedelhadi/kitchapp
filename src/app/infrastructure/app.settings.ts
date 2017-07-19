@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { defaults } from "lodash";
 import { Storage } from "@ionic/storage";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { IAppSettings, Language, defaultLanguage, SETTINGS, supportedLanguages } from "../contracts/index";

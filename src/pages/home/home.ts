@@ -13,14 +13,12 @@ import { AppSettings, BasePage } from "../../app/infrastructure/index";
 import { HomePopover } from "./popover/popover";
 import { TranslateService } from "@ngx-translate/core";
 import { Deals } from "../deals/deals";
-import { orderBy, some } from "lodash";
+import orderBy from "lodash/orderBy";
+import some from "lodash/some";
 
-/*import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";*/
 import { IRestaurant, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
 import { UI, Utils, AppErrorHandler } from "../../app/helpers/index";
 import { Auth } from "../../app/services/index";
-// import { AuthService } from "angular2-social-login/dist";
 
 @Component({
     selector: "page-home",
@@ -108,28 +106,4 @@ export class Home extends BasePage {
         }
         return closestDistance;
     }
-    /*ngOnInit() {
-        this.afAuth.authState.subscribe(user => {
-            if (!user) {
-                console.log("no user");
-                return;
-            }
-            console.log("user: ", user);
-        });
-    }
-    signInWithFacebook() {
-        if (this.platform.is("cordova")) {
-            return this.fb.login(["email", "public_profile"]).then(res => {
-                const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-                return firebase.auth().signInWithCredential(facebookCredential);
-            });
-        } else {
-            return this.afAuth.auth
-                .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-                .then(res => console.log(res));
-        }
-    }
-    signOut() {
-        this.afAuth.auth.signOut();
-    }*/
 }

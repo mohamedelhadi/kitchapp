@@ -1,16 +1,10 @@
 let fs = require("fs");
 let color = require("cli-color");
 
-import {
-    default as environments
-} from "../json/environments";
-import {
-    default as versions
-} from "../json/versions";
+import { default as environments } from "../json/environments";
+import { default as versions } from "../json/versions";
 
-export {
-    getVersionDetails
-};
+export { getVersionDetails };
 
 let _versionSegments = {
     Major: 0,
@@ -75,7 +69,8 @@ function _saveChanges(env, versionDetails) {
                 console.log(color.red(err));
                 console.log("\nCouldn't save new version to file version.json!\n");
                 reject();
-            } else {
+            }
+            else {
                 resolve(versionDetails);
             }
         });

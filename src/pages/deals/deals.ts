@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
 import { DealsData } from "./deals.data";
 import { Subject } from "rxjs/Subject";
-import { has } from "lodash";
+import has from "lodash/has";
 import { Observable } from "rxjs/Observable";
 import { Deal } from "../deal/deal";
 import { IRestaurant, IDeal } from "../../app/contracts/index";
