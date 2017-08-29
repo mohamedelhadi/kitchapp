@@ -13,7 +13,7 @@ import "rxjs/add/observable/empty";
 import defaults from "lodash/defaults";
 
 import { IApiOptions, InternalError, ErrorCodes, HttpError, TOKEN, EXPIRES_AT, AuthenticationStatus } from "../contracts/index";
-import { Configuration } from "../environments/env.config";
+import { Configuration } from "../config/env.config";
 import { UI, Utils } from "../helpers/index";
 import { TimeoutError } from "rxjs/util/TimeoutError";
 
@@ -42,19 +42,17 @@ export class Api {
             }
         });
     }
-    private setToken() {
-        this.storage.get(TOKEN).then(token => {
-            if (token) {
-                this.storage.get(EXPIRES_AT).then(expireAt => {
-                    const now = moment();
-                    if (expireAt > now.valueOf()) {
-                        this.token = token;
-                    } else {
-                        this.token = null;
-                    }
-                });
+    private async setToken() {
+        const token = await this.storage.get(TOKEN);
+        if (token) {
+            const expireAt = await this.storage.get(EXPIRES_AT);
+            const now = moment();
+            if (expireAt > now.valueOf()) {
+                this.token = token;
+            } else {
+                this.token = null;
             }
-        });
+        }
     }
     public get(url: string, options?: IApiOptions) {
         return this.request("GET", { url, options });
@@ -102,10 +100,6 @@ export class Api {
             });
     }
     private appendBaseUrl(shortUrl: string) {
-        /*var user = this.session.getUser();
-        if (user != null && user.CompanyId) {
-            return config.getBaseApiUrl() + user.CompanyId + "/" + shortUrl;
-        }*/
         return this.config.BaseUrl + "api/" + shortUrl;
     }
 }

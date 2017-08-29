@@ -30,10 +30,6 @@ export interface IApiOptions extends RequestOptionsArgs {
     appendBaseUrl?: boolean;
     handleError?: boolean;
     showLoading?: boolean;
-
-    /*responseType?: string;
-    timeout?: any;
-    cache?: boolean;*/
 }
 export interface IServerError {
     code: string;

@@ -1,7 +1,0 @@
-﻿{
-    "Simulator": "simulator",
-    "Dev": "dev",
-    "Testing": "testing",
-    "Staging": "staging",
-    "Production": "production"
-}

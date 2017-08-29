@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AppErrorHandler } from "../helpers/index";
 import { Observable } from "rxjs/Observable";
-import { Configuration } from "../environments/env.config";
+import { Configuration } from "../config/env.config";
 import { OneSignal, OSNotification, OSNotificationOpenedResult } from "@ionic-native/onesignal";
 import { Platform } from "ionic-angular";
 

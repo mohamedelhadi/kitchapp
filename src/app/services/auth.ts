@@ -1,6 +1,6 @@
 import { Injectable, Inject } from "@angular/core";
 import { AppErrorHandler, UI, Utils } from "../helpers/index";
-import { Configuration } from "../environments/env.config";
+import { Configuration } from "../config/env.config";
 import { Platform, AlertController } from "ionic-angular";
 import { Facebook } from "@ionic-native/facebook";
 import { FacebookService, InitParams, LoginOptions } from "ngx-facebook";
@@ -163,17 +163,17 @@ export class Auth {
             this.api.post("auth/token", credentials, { showLoading: false }).subscribe(
                 (result: any) => {
                     Promise
-                    .all([
-                        this.identity.save(result.user),
-                        this.storage.set(TOKEN, result.auth.token),
-                        this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
-                    ])
-                    .then(() => {
-                        this.ui.hideLoading();
-                        AuthStatus.next(AuthenticationStatus.LoggedIn);
-                        resolve(true);
-                    })
-                    .catch(() => this.ui.hideLoading());
+                        .all([
+                            this.identity.save(result.user),
+                            this.storage.set(TOKEN, result.auth.token),
+                            this.storage.set(EXPIRES_AT, moment(result.auth.expires_at).valueOf())
+                        ])
+                        .then(() => {
+                            this.ui.hideLoading();
+                            AuthStatus.next(AuthenticationStatus.LoggedIn);
+                            resolve(true);
+                        })
+                        .catch(() => this.ui.hideLoading());
                 },
                 reject);
         });

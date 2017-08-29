@@ -5,7 +5,7 @@ import { OnInit, ReflectiveInjector } from "@angular/core";
 import { TranslationKeys, IAppSettings } from "../../contracts/index";
 import { Globalization } from "@ionic-native/globalization";
 import { TranslateService } from "@ngx-translate/core";
-import { Configuration } from "../../environments/env.config";
+import { Configuration } from "../../config/env.config";
 import { settings } from "../index";
 
 export class BasePopover implements OnInit {

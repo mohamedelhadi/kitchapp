@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Network } from "@ionic-native/network";
 import { IDropdownOption } from "../contracts/index";
-import { Configuration } from "../environments/env.config";
-import { Environments } from "../environments/configuration";
+import { Configuration } from "../config/env.config";
+import { environments } from "../config/configuration";
 
 @Injectable()
 export class Utils {
@@ -167,22 +167,9 @@ export class Utils {
         }
     }
 
-    /*static searchAndMark(value: string, text: string): string {
-        // find matching characters and mark them
-        if (text) {
-            let index = text.toLowerCase().indexOf(value);
-            if (index !== -1) {
-                text = text.insertAt(index + value.length, "</mark>");
-                text = text.insertAt(index, "<mark>");
-                return text;
-            }
-        }
-        return null;
-    }*/
-
     constructor(private config: Configuration, private network: Network) { }
     public isDev() {
-        return this.config.Environment === Environments.Dev || this.config.Environment === Environments.Simulator;
+        return this.config.environment === environments.dev || this.config.environment === environments.browser;
     }
     /*isOnline() {
         // The type property will return one of the following connection types: unknown, ethernet, wifi, 2g, 3g, 4g, cellular, none

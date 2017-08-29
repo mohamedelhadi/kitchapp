@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { IAppSettings, Language, defaultLanguage, SETTINGS, supportedLanguages } from "../contracts/index";
-import { Configuration } from "../environments/env.config";
+import { Configuration } from "../config/env.config";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";

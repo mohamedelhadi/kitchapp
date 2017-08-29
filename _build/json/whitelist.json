@@ -1,18 +1,16 @@
 {
-    "simulator": {
-        "frameSrc": ["https://kitchapp-dev.firebaseapp.com"]
-    },
+    "browser": {},
     "dev": {},
     "testing": {},
     "staging": {},
     "production": {},
     "default": {
-        "frameSrc": ["https://*.facebook.com", "http://*.facebook.com"],
         "defaultSrc": ["'self'", "gap:", "https://ssl.gstatic.com", "https://fonts.gstatic.com"],
-        "styleSrc": ["'self'", "https://*.googleapis.com", "'unsafe-inline'"],
-        "imgSrc": ["'self'", "data:", "https://*.gstatic.com", "https://*.googleapis.com", "https://*.facebook.com", "https://placeholdit.imgix.net", "https://placehold.it"],
+        "styleSrc": ["'self'", "'unsafe-inline'", "https://*.googleapis.com"],
         "scriptSrc": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://*.googleapis.com", "https://*.facebook.com", "http://*.facebook.net"],
         "connectSrc": ["'self'", "https://*.googleapis.com"],
+        "imgSrc": ["'self'", "data:", "https://*.gstatic.com", "https://*.googleapis.com", "https://*.facebook.com", "https://placeholdit.imgix.net", "https://placehold.it"],
+        "frameSrc": ["https://*.facebook.com", "http://*.facebook.com"],
         "mediaSrc": ["*"]
     }
 }

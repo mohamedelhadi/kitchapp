@@ -2,10 +2,10 @@
 import { enableProdMode } from "@angular/core";
 
 import { AppModule } from "./app.module";
-import { Environments } from "./environments/configuration";
-import { Configuration } from "./environments/env.config";
+import { environments } from "./config/configuration";
+import { Configuration } from "./config/env.config";
 
-if (Configuration.Instance.Environment === Environments.Production) {
+if (Configuration.Instance.environment === environments.production) {
     enableProdMode();
 }
 

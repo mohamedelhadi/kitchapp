@@ -37,9 +37,9 @@ import { AppSettings } from "./infrastructure/index";
 import { Subject } from "rxjs/Subject";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { DeviceMock } from "../mocks/device";
-import { Configuration } from "./environments/env.config";
+import { Configuration } from "./config/env.config";
 import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
-import { Environments } from "./environments/configuration";
+import { environments } from "./config/configuration";
 import { HomePopover } from "../pages/home/popover/popover";
 import { Deals } from "../pages/deals/deals";
 import { DealsData } from "../pages/deals/deals.data";
@@ -116,7 +116,7 @@ export function dataServices() {
     ];
 }
 export let browserMocks = [];
-if (Configuration.Instance.Environment === Environments.Simulator) {
+if (Configuration.Instance.environment === environments.browser) {
     browserMocks = [
         DeviceMock,
         { provide: Device, useClass: DeviceMock }
