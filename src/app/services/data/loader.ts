@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { CitiesData, CuisinesData } from "./index";
+import { CitiesData, CuisinesData, RestaurantsData } from "./index";
 import { Logger } from "../../helpers/index";
-import { RestaurantsData } from "../../../pages/restaurants/restaurants.data";
 
 @Injectable()
 export class DataLoader {

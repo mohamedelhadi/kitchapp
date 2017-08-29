@@ -2,7 +2,7 @@
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
 import { Api } from "../../app/services/api";
 import { Logger } from "../../app/helpers/logger";
-import { RestaurantsData } from "../restaurants/restaurants.data";
+import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { MenuController, NavController, Searchbar, PopoverController, Platform } from "ionic-angular";
 import { Restaurants } from "../restaurants/restaurants";
 import { Favorites } from "../favorites/favorites";

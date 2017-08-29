@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
-import { DealsData } from "./deals.data";
+import { DealsData } from "../../app/services/data/deals.data";
 import { Subject } from "rxjs/Subject";
-import has from "lodash/has";
 import { Observable } from "rxjs/Observable";
 import { Deal } from "../deal/deal";
 import { IRestaurant, IDeal } from "../../app/contracts/index";
@@ -21,7 +20,7 @@ export class Deals extends BasePage {
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: DealsData) {
         super({ logger });
-        this.restaurant = navParams.data && has(navParams.data, "id") ? navParams.data : null;
+        this.restaurant = navParams.data && navParams.data.id ? navParams.data : null;
     }
     public ionViewDidLoad() {
         // TODO: consider adding pull-to-refresh

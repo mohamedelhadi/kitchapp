@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { IUser, IFeedback, IRestaurant } from "../../../../app/contracts/index";
 import { UI } from "../../../../app/helpers/index";
-import { RestaurantsData } from "../../../restaurants/restaurants.data";
+import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
 
 @Component({
     templateUrl: "feedback.popover.html",

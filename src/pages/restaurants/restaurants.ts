@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
-import { RestaurantsData } from "./restaurants.data";
+import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
 import orderBy from "lodash/orderBy";
 import some from "lodash/some";

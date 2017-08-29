@@ -1,7 +1,7 @@
 import { ViewController, NavParams } from "ionic-angular";
 import { Component, Inject, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
-import { RestaurantsData } from "../../../restaurants/restaurants.data";
+import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { IVariation, IUser, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
@@ -31,12 +31,12 @@ export class VariationRatePopover extends BasePopover {
                 variationId: this.item.variations[0].id
             } as IVariationRate)
             .subscribe(
-                newRate => {
-                    this.item.variations[0].rate = newRate;
-                    this.restaurantsData.updateStream();
-                    this.close();
-                },
-                err => this.close());
+            newRate => {
+                this.item.variations[0].rate = newRate;
+                this.restaurantsData.updateStream();
+                this.close();
+            },
+            err => this.close());
     }
     public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";

@@ -1,7 +1,7 @@
 ﻿import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
 import { MenuController, NavController, NavParams, Navbar, Searchbar, PopoverController, ViewController, FabContainer } from "ionic-angular";
-import { RestaurantsData } from "../../restaurants/restaurants.data";
+import { RestaurantsData } from "../../../app/services/data/restaurants.data";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";

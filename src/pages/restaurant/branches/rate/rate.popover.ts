@@ -3,7 +3,7 @@ import { Component, Inject, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
-import { RestaurantsData } from "../../../restaurants/restaurants.data";
+import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
 import { IBranch, IUser, IBranchRate } from "../../../../app/contracts/index";
 import { Identity } from "../../../../app/services/index";
 
@@ -50,17 +50,17 @@ export class BranchRatePopover extends BasePopover {
                 branchId: this.selectedBranchId
             } as IBranchRate)
             .subscribe(
-                rateSummary => {
-                    if (this.selectedBranch) {
-                        this.selectedBranch.rate = rateSummary;
-                    } else {
-                        const selectedBranch = this.branches.find(branch => branch.id === +this.selectedBranchId);
-                        selectedBranch.rate = rateSummary;
-                    }
-                    this.restaurantsData.updateStream();
-                    this.close();
-                },
-                err => this.close());
+            rateSummary => {
+                if (this.selectedBranch) {
+                    this.selectedBranch.rate = rateSummary;
+                } else {
+                    const selectedBranch = this.branches.find(branch => branch.id === +this.selectedBranchId);
+                    selectedBranch.rate = rateSummary;
+                }
+                this.restaurantsData.updateStream();
+                this.close();
+            },
+            err => this.close());
     }
     public resize() {
         this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";

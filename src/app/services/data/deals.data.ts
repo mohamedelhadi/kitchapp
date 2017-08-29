@@ -4,8 +4,8 @@ import { Storage } from "@ionic/storage";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import { IDeal, DEALS, IApiOptions } from "../../app/contracts/index";
-import { Api } from "../../app/services/index";
+import { IDeal, DEALS, IApiOptions } from "../../contracts";
+import { Api } from "../../services";
 
 @Injectable()
 export class DealsData {

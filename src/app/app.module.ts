@@ -19,7 +19,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { Home, Settings, SideMenu, Splash } from "../pages";
 import { Favorites } from "../pages/favorites/favorites";
 import { Restaurants } from "../pages/restaurants/restaurants";
-import { RestaurantsData } from "../pages/restaurants/restaurants.data";
+import { RestaurantsData } from "./services/data/restaurants.data";
 import { AppComponent } from "./app.component";
 import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
 import { Api, Push, Auth, Identity } from "./services";
@@ -42,7 +42,7 @@ import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
 import { environments } from "./config/configuration";
 import { HomePopover } from "../pages/home/popover/popover";
 import { Deals } from "../pages/deals/deals";
-import { DealsData } from "../pages/deals/deals.data";
+import { DealsData } from "./services/data/deals.data";
 import { Deal } from "../pages/deal/deal";
 import { OneSignal } from "@ionic-native/onesignal";
 

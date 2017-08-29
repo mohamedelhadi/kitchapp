@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { SideMenu } from "../side-menu/side-menu";
-import { RestaurantsData } from "../restaurants/restaurants.data";
+import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { DataLoader } from "../../app/services/data/index";
 
 @Component({

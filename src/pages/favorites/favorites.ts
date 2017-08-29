@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/mergeMap";
 import { Logger } from "../../app/helpers/logger";
 import { Api } from "../../app/services/api";
-import { RestaurantsData } from "../restaurants/restaurants.data";
+import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { IRestaurant } from "../../app/contracts/index";
 import { BasePage } from "../../app/infrastructure/index";

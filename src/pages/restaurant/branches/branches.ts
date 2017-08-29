@@ -5,7 +5,7 @@ import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
 import { BasePage } from "../../../app/infrastructure/index";
-import { RestaurantsData } from "../../restaurants/restaurants.data";
+import { RestaurantsData } from "../../../app/services/data/restaurants.data";
 import { IRestaurant, IBranch } from "../../../app/contracts/index";
 import { Logger, UI } from "../../../app/helpers/index";
 import { Auth } from "../../../app/services/index";
@@ -70,8 +70,8 @@ export class Branches extends BasePage {
     }
     public showPopover(branch: IBranch) {
         const popover = this.popoverCtrl.create(BranchRatePopover,
-                                                { branch, branches: this.restaurant.branches },
-                                                { cssClass: "wide-popover top-popover" }
+            { branch, branches: this.restaurant.branches },
+            { cssClass: "wide-popover top-popover" }
         );
         popover.present();
     }
