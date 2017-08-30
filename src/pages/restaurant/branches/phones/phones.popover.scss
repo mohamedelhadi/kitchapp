@@ -1,28 +1,30 @@
 phones-popover {
-    .list-header {
-        margin-bottom: 0 !important;
-    }
-    .list {
-        .item {
-            .icon {
-                margin-top: 5px;
-                margin-bottom: 5px;
+    .content {
+        .list {
+            .list-header {
+                margin-bottom: 0;
             }
-            .item-inner {
-                margin-left: 5px !important;
-                .label {
-                    margin: 8px 0;
+            .item {
+                .icon {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
                 }
-                @include rtl() {
-                    margin-right: 5px;
+                .item-inner {
+                    margin-left: 5px;
+                    .label {
+                        margin: 8px 0;
+                    }
+                    @include rtl() {
+                        margin-right: 5px;
+                    }
+                }
+                h3 {
+                    white-space: normal;
                 }
             }
-            h3 {
-                white-space: normal;
+            .no-match {
+                height: 30px;
             }
-        }
-        .no-match {
-            height: 30px;
         }
     }
 }

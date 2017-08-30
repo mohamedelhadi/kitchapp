@@ -1,18 +1,16 @@
 page-favorites {
-    ion-header {}
     ion-content {
         ion-icon {
             color: gray;
         }
-        background: url(../assets/images/background-dimmed.jpg) center no-repeat;
+        background-image: url(../assets/images/background-dimmed.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
         background-size: cover;
-        .scroll-content {
-            background: $texture-background;
-        }
         .list {
             margin-bottom: 0;
             .item {
-                background: transparent;
+                background-color: transparent;
                 img {
                     border-radius: 3px;
                 }

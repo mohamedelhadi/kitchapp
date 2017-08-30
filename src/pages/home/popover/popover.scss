@@ -1,10 +1,12 @@
-home-popover {
-    .list {
-        margin-bottom: 0 !important;
-        .item {
-            padding-right: 16px;
-            @include rtl() {
-                padding-left: 16px;
+.popover-viewport {
+    home-popover {
+        .list {
+            margin-bottom: 0;
+            .item {
+                padding-right: 16px;
+                @include rtl() {
+                    padding-left: 16px;
+                }
             }
         }
     }

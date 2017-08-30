@@ -1,5 +1,4 @@
 page-cuisines {
-    ion-header {}
     ion-content {
         .title {
             top: 50%;
@@ -13,9 +12,9 @@ page-cuisines {
         }
         .col {
             position: relative;
-            background-color: red;
             min-height: 180px;
-            background: url("../assets/images/cuisine1.jpg") no-repeat;
+            background-image: url("../assets/images/cuisine1.jpg");
+            background-repeat: no-repeat;
             background-size: 100%;
             border-top: 1px solid rgba(220, 220, 220, 0.1);
             border-left: 1px solid rgba(220, 220, 220, 0.1);

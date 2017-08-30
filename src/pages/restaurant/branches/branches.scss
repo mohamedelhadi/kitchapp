@@ -1,5 +1,4 @@
 page-branches {
-    ion-header {}
     .content {
         .card {
             margin-bottom: 0;
@@ -25,7 +24,7 @@ page-branches {
                         border-left: solid 1px #bbbbbb;
                     }
                 }
-                [dir="rtl"] & {
+                @include rtl() {
                     padding: 16px 16px 8px 70px;
                     .header-buttons {
                         right: initial;
@@ -40,10 +39,10 @@ page-branches {
                 }
             }
             .card-content {
-                //padding: 10px;
                 ion-item {
                     .item-inner {
-                        padding-right: 0 !important;
+                        padding-right: 0;
+                        padding-left: 0;
                         ion-label {
                             white-space: normal;
                             margin: 0;
@@ -52,6 +51,7 @@ page-branches {
                 }
                 .photos {
                     position: relative;
+                    margin-bottom: 5px;
                     button {
                         position: absolute;
                         bottom: 0;
@@ -59,21 +59,21 @@ page-branches {
                     }
                     /*@media (min-width: map-get($screen-breakpoints, sm)) {
                         img {
-                            max-width: 600px !important;
-                            margin: 0 auto 15px auto !important;
+                            max-width: 600px;
+                            margin: 0 auto 15px auto;
                         }
                     }*/
                 }
                 .rate {
                     overflow: hidden;
                     rating {
-                        ul {
+                        .rating {
                             margin: 0;
                             padding: 0;
                             color: #FFCF00;
                             font-size: medium;
                             li {
-                                padding: 1px !important;
+                                padding: 1px;
                             }
                         }
                     }
@@ -90,7 +90,7 @@ page-branches {
                             position: absolute;
                             top: 0;
                             left: 10px;
-                            [dir="rtl"] & {
+                            @include rtl() {
                                 right: 10px;
                                 left: initial;
                             }
@@ -132,11 +132,9 @@ page-branches {
                     .rate-10 {
                         width: 100%;
                     }
-                    /* CSS3 Animation */
                     .animate {
                         animation: progress 0.3s linear;
                     }
-                    /* Span fills 100% of parent div (.rate-n) which may be 10-100% of the width of black bar (.rating) */
                     @keyframes progress {
                         from {
                             width: 0%

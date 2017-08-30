@@ -1,52 +1,60 @@
-<ion-list no-padding no-margin>
-    <!--<ion-list-header no-margin>Rate</ion-list-header>-->
-    <ion-item no-lines class="branch" margin-top>
-        <ion-label>
-            {{translation.Restaurant.Branch | translate}}
-            <p *ngIf="!canChangeBranch">{{selectedBranch.name[settings.language]}}</p>
-        </ion-label>
-        <ion-select *ngIf="canChangeBranch" interface="popover" placeholder="{{ translation.Restaurant.BranchesSelectPlaceholder | translate }}" [(ngModel)]="selectedBranchId">
-            <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[settings.language]}}</ion-option>
-        </ion-select>
-    </ion-item>
-    <textarea #txt maxLength="800" (keyup)="resize()" [(ngModel)]="comment" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></textarea>
-    <!--<ion-item class="comment">
-        <ion-textarea [(ngModel)]="comment" type="text" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></ion-textarea>
-    </ion-item>-->
-    <ion-item margin-top no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Quality | translate}} {{quality}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">
-            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
-            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Service | translate}} {{service}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="service" color="primary">
-            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
-            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Place | translate}} {{place}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="place" color="primary">
-            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
-            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item no-lines class="range-item">
-        <ion-label class="rate-label" no-margin>{{translation.Restaurant.Price | translate}} {{price}}/5</ion-label>
-        <ion-range min="1" max="5" [(ngModel)]="price" color="primary">
-            <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
-            <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
-        </ion-range>
-    </ion-item>
-    <ion-item margin-top class="popover-footer">
-        <button color="dark" ion-button clear item-start (click)="close()">
-            {{translation.Common.Close | translate}}
-        </button>
-        <button color="primary" ion-button clear item-end (click)="submit()">
-            {{translation.Common.Submit | translate}}
-        </button>
-    </ion-item>
-</ion-list>
+<div class="popover-with-footer">
+    <ion-content>
+        <ion-list no-padding no-margin>
+            <ion-item no-lines class="branch" margin-top>
+                <ion-label>
+                    {{translation.Restaurant.Branch | translate}}
+                    <p *ngIf="!canChangeBranch">{{selectedBranch.name[settings.language]}}</p>
+                </ion-label>
+                <ion-select *ngIf="canChangeBranch" interface="popover" placeholder="{{ translation.Restaurant.BranchesSelectPlaceholder | translate }}" [(ngModel)]="selectedBranchId">
+                    <ion-option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.name[settings.language]}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <textarea #txt maxLength="800" (keyup)="resize()" [(ngModel)]="comment" placeholder="{{ translation.Restaurant.CommentPlaceholder | translate }}"></textarea>
+            <ion-item margin-top no-lines class="range-item">
+                <ion-label class="rate-label" no-margin>{{translation.Restaurant.Quality | translate}} {{quality}}/5</ion-label>
+                <ion-range min="1" max="5" [(ngModel)]="quality" color="primary">
+                    <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+                    <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item no-lines class="range-item">
+                <ion-label class="rate-label" no-margin>{{translation.Restaurant.Service | translate}} {{service}}/5</ion-label>
+                <ion-range min="1" max="5" [(ngModel)]="service" color="primary">
+                    <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+                    <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item no-lines class="range-item">
+                <ion-label class="rate-label" no-margin>{{translation.Restaurant.Place | translate}} {{place}}/5</ion-label>
+                <ion-range min="1" max="5" [(ngModel)]="place" color="primary">
+                    <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+                    <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item no-lines class="range-item">
+                <ion-label class="rate-label" no-margin>{{translation.Restaurant.Price | translate}} {{price}}/5</ion-label>
+                <ion-range min="1" max="5" [(ngModel)]="price" color="primary">
+                    <ion-label range-left><img src="assets/images/angry-emoji.jpg" class="emoji"></ion-label>
+                    <ion-label range-right><img src="assets/images/happy-emoji.jpg" class="emoji"></ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-row>
+                <ion-col>
+                    <button color="dark" ion-button clear block (click)="close()">
+                        {{translation.Common.Close | translate}}
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button color="primary" ion-button clear block (click)="submit()">
+                        {{translation.Common.Submit | translate}}
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </ion-footer>
+</div>

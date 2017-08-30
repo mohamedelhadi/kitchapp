@@ -1,15 +1,26 @@
-<div #map class="map"></div>
-<ion-item class="address" no-border>
-    <h2>{{branch.name[settings.language]}}</h2>
-    <p>{{branch.location.address[settings.language]}}</p>
-</ion-item>
-
-<ion-item class="popover-footer">
-    <button color="dark" ion-button clear item-start (click)="close()">
-        {{translation.Common.Close | translate}}
-    </button>
-    <a [href]="locationUrl" ion-button icon-end clear item-end>
-        {{translation.Common.Navigate | translate}}
-        <ion-icon name="navigate"></ion-icon>
-    </a>
-</ion-item>
+<div class="popover-with-footer">
+    <ion-content>
+        <div #map class="map"></div>
+        <ion-item class="address" no-border>
+            <h2>{{branch.name[settings.language]}}</h2>
+            <p>{{branch.location.address[settings.language]}}</p>
+        </ion-item>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-row>
+                <ion-col>
+                    <button color="dark" ion-button clear block (click)="close()">
+                    {{translation.Common.Close | translate}}
+                </button>
+                </ion-col>
+                <ion-col>
+                    <a [href]="locationUrl" ion-button icon-end clear block>
+                    {{translation.Common.Navigate | translate}}
+                    <ion-icon name="navigate"></ion-icon>
+                </a>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+    </ion-footer>
+</div>

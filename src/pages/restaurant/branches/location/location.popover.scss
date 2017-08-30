@@ -1,10 +1,10 @@
 location-popover {
     .map {
-        height: 300px;
         width: 100%;
-        /*@media (min-width: 767px) {
+        height: 300px;
+        /* @media (min-width: map-get($screen-breakpoints, md)) and (orientation: portrait) {
             height: 550px;
-        }*/
+        } */
     }
     .item.address {
         padding-left: 0;
@@ -14,20 +14,6 @@ location-popover {
         .item-inner {
             padding-left: 16px;
             border: none;
-        }
-    }
-    .item.popover-footer {
-        padding-right: 0;
-        padding-left: 0;
-        .item-inner {
-            max-width: 150px;
-            padding-right: 24px !important;
-            padding-left: 24px !important;
-            a {
-                span {
-                    color: #3282ff;
-                }
-            }
         }
     }
 }

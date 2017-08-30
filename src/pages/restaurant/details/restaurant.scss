@@ -6,7 +6,7 @@ page-restaurant {
             }
             .call-btn {
                 margin-right: 50px;
-                [dir="rtl"] & {
+                @include rtl() {
                     margin-right: initial;
                     margin-left: 50px;
                 }
@@ -28,7 +28,7 @@ page-restaurant {
             right: 5px;
             width: 45px;
             height: 42px;
-            [dir="rtl"] & {
+            @include rtl() {
                 left: 5px;
                 right: auto;
             }
@@ -40,7 +40,7 @@ page-restaurant {
     }
     ion-content {
         .scroll-content {
-            margin-top: 0 !important;
+            margin-top: 0 !important; // to override ionic's inline margin
         }
         .banner {
             height: 141px;
@@ -57,8 +57,8 @@ page-restaurant {
                 color: white;
                 padding-left: 5px;
                 padding-right: 5px;
-                ion-thumbnail {
-                    margin: 3px !important;
+                .thumnail-wrapper {
+                    margin: 3px;
                     img {
                         border-radius: 3px;
                     }
@@ -107,17 +107,8 @@ page-restaurant {
                 }
             }
         }
-        .top-container {
-            padding: 10px;
-            background: white;
-            border-bottom: solid 1px color($shades-of-gray, lighter-gray);
-            margin-bottom: 5px;
-            p {
-                margin: 5px 0 0 0;
-            }
-        }
         .category-items-container {
-            background: $texture-background; // url("../../../assets/images/test.jpg") fixed no-repeat bottom right
+            background-image: $texture-background;
             position: relative;
             padding: 35px 10px 10px 10px;
             padding-top: 10px; // TODO: remove once pictured menu is added
@@ -129,9 +120,6 @@ page-restaurant {
             .card {
                 margin: 0;
                 width: 100%;
-                +.card {
-                    margin-top: 10px;
-                }
                 ion-card-header {
                     padding: 10px 16px;
                     button {
@@ -145,11 +133,6 @@ page-restaurant {
                     }
                 }
                 ion-list {
-                    /*max-height: 0px;
-                    transition: max-height .7s ease-in;
-                    &.expanded {
-                        max-height: 2000px;
-                    }*/
                     @keyframes example {
                         from {
                             max-height: 0;

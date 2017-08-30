@@ -12,64 +12,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
-/*@font-face {
-    font-family: QUICKSAND;
-    src: url("../assets/fonts/Quicksand-Regular.otf") format("opentype");
-}
-
-@font-face {
-    font-family: ANDIKA;
-    src: url("../assets/fonts/AndikaNewBasic-R.ttf") format("opentype");
-}
-
-@font-face {
-    font-family: CAVIAR;
-    src: url("../assets/fonts/Caviar_Dreams_Bold.ttf") format("opentype");
-}
-
-@font-face {
-    font-family: CAPSUULA;
-    src: url("../assets/fonts/Capsuula.ttf") format("opentype");
-}
-
-div,
-label,
-span,
-translate,
-button,
-a,
-p,
-pre,
-li,
-td,
-h1,
-h2,
-h3,
-h4,
-input,
-textarea {
-    font-family: 'CAVIAR';
-    font-weight: lighter;
-}*/
-
 ion-header {
     .toolbar-background {
         background-color: rgba(17, 18, 21, 0.4);
     }
 }
 
-ion-content {
-    background: url(../assets/images/background-dimmed.jpg) center no-repeat;
-    background-size: cover;
-    .scroll-content {
-        background: $texture-background;
-    }
-}
-
 .toolbar-title {
     font-weight: normal;
     font-size: 1.8rem;
+}
+
+.ion-page {
+    ion-content {
+        background-image: url(../assets/images/background-dimmed.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .scroll-content {
+            background: $texture-background;
+        }
+    }
 }
 
 button[ion-fab] {
@@ -115,6 +78,23 @@ button[ion-fab] {
     width: 150px;
 }
 
+.popover-with-footer {
+    ion-content {
+        margin-bottom: 42px;
+    }
+    ion-footer {
+        .toolbar-background {
+            background-image: $texture-background;
+        }
+        .toolbar {
+            min-height: 25px;
+            .button {
+                height: 25px;
+            }
+        }
+    }
+}
+
 .item-select {
     ion-select {
         max-width: 70%;
@@ -124,53 +104,33 @@ button[ion-fab] {
     }
 }
 
-.popover-footer {
-    border-top: 1px solid #dedede;
-    border-width: 1px;
-    background: $texture-background;
-    padding-left: 4px;
-    .button,
-    a {
-        padding: 9px 8px 9px 8px !important;
-        margin: 0 !important;
-        width: 90px;
-        height: 40px;
-    }
-}
-
-ion-card {
+.card {
     // img shadow
-    box-shadow: none !important;
-    background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat !important; //0 100% no-repeat;//
+    box-shadow: none;
+    background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat;
     padding-bottom: 10px;
-    background-size: contain !important; // img shadow
-    +ion-card {
-        margin-top: 0 !important;
-    }
+    background-size: contain;
     ion-card-header,
     ion-card-content {
         background: white;
     }
 }
 
-ion-range {
+.range {
     .emoji {
         margin-top: 4px;
         max-width: 25px;
         max-height: 25px;
     }
-}
-
-ion-range {
     @include rtl() {
         direction: ltr;
         [range-left] {
-            margin-right: 12px !important;
-            margin-left: initial !important;
+            margin-right: 12px;
+            margin-left: initial;
         }
         [range-right] {
-            margin-left: 12px !important;
-            margin-right: initial !important;
+            margin-left: 12px;
+            margin-right: initial;
         }
         .range-slider {
             .range-bar {

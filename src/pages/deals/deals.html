@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-list no-padding no-margin>
+    <ion-list no-padding no-margin no-lines>
         <ion-row *ngIf="deals | async; let deals;">
             <ion-col no-margin no-padding col-12 col-xs col-sm-6 col-md-6 col-lg-4 *ngFor="let deal of deals">
-                <button (tap)="viewDeal(deal)" ion-item [ngStyle]="{'background': (deal.photos && deal.photos.length && false ? 'url('+deal.photos[0]+')'  : 'url(assets/images/deal1.jpg)')}">
+                <button (tap)="viewDeal(deal)" ion-item [ngStyle]="{'background-image': (deal.photos && deal.photos.length && false ? 'url('+deal.photos[0]+')'  : 'url(assets/images/deal1.jpg)')}">
                     <div class="title">
                         <h3>{{deal.description[settings.language]}}</h3>
                     </div>

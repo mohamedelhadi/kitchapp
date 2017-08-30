@@ -5,11 +5,10 @@
             }
         }
         ion-content {
-            //background: linear-gradient(0deg, rgba(107, 107, 107, 0.35), rgba(64, 62, 62, 0.62)), url(../assets/images/background-dimmed.jpg) !important;
             .list {
                 margin-bottom: 0;
                 .item {
-                    background: transparent;
+                    background-color: transparent;
                     img {
                         border-radius: 3px;
                     }

@@ -22,11 +22,11 @@ export class LocationPopover extends BasePopover implements OnInit {
     }
     public ngOnInit(): void {
         super.ngOnInit();
-        // Load map only after view is initialize
+        // Load map only after view is initialized
         if (Utils.isOnline()) {
             this.loadMap();
         } else {
-            this.renderer.setStyle(this.map.nativeElement, "display", "none"); // because ngIf causes @ViewChild("map") to fail
+            this.renderer.setStyle(this.map.nativeElement, "display", "none"); // manually hiding because ngIf causes @ViewChild("map") to fail
         }
     }
     public sanitize(url: string) {
@@ -36,7 +36,7 @@ export class LocationPopover extends BasePopover implements OnInit {
         this.viewCtrl.dismiss();
     }
     private loadMap() {
-        if (google === undefined) { // failed to load google maps api due to network or whatever
+        if (google === undefined) { // failed to load google maps script due to network, ad-block, ..etc.
             return;
         }
         const coordinates = { lat: this.branch.location.latitude, lng: this.branch.location.longitude };

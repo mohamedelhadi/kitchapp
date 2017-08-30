@@ -41,6 +41,6 @@ export class VariationsPopover extends BasePopover {
         this.viewCtrl.dismiss();
     }
     public getBackground() {
-        return "url(" + this.item.variations[0].photo + ") no-repeat center, url('assets/images/item.png') no-repeat center"; // "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
+        return `url(${this.item.variations[0].photo}) no-repeat center, url('assets/images/item.png') no-repeat center`; // "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
     }
 }
