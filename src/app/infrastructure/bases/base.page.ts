@@ -1,12 +1,24 @@
 import { Logger } from "../../helpers/index";
-import { IAppSettings, TranslationKeys, Language } from "../../contracts/index";
-import { settings } from "../index";
+import { IAppSettings, TranslationKeys, Language, IonPageEvents } from "../../contracts/index";
+import { Settings$ } from "../index";
+import { Subject } from "rxjs/Subject";
+import "rxjs/add/operator/filter";
 
 export abstract class BasePage {
+    protected logger: Logger;
     protected settings: IAppSettings;
     protected translation = TranslationKeys;
-    constructor({ logger }: { logger: Logger }) {
-        settings.subscribe(settings => this.settings = settings);
+    protected ionPageEvents = new Subject<IonPageEvents>();
+    constructor({ logger }: { logger?: Logger }) {
+        this.logger = logger;
+        Settings$.takeUntil(this.ionPageEvents.filter(event => event === IonPageEvents.ionViewWillUnload)).subscribe(settings => this.settings = settings);
+    }
+    protected ionViewWillUnload() {
+        if (this.logger) {
+            this.logger.log({ event: "ionViewWillUnload", component: this });
+        }
+        this.ionPageEvents.next(IonPageEvents.ionViewWillUnload);
+        this.ionPageEvents.complete();
     }
     public isRtl() {
         return this.settings && this.settings.language === Language.ar;
@@ -14,12 +26,4 @@ export abstract class BasePage {
     public isLtr() {
         return !this.isRtl();
     }
-    /*ionViewDidLoad() {
-    }
-    ionViewWillEnter() {
-    }
-    ionViewWillLeave() {
-    }
-    ionViewDidEnter() {
-    }*/
 }

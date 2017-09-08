@@ -35,6 +35,7 @@ export interface Messages {
     LoggingIn: string;
     ForgotToEnterFeedback: string;
     YouNeedToLoginInOrderToRate: string;
+    FeedbackSubmitted: string;
 }
 
 export interface Errors {

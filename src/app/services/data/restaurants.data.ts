@@ -16,37 +16,27 @@ export class RestaurantsData {
     private favorites = new BehaviorSubject<IFavorites>({});
 
     constructor(private api: Api, private storage: Storage) {
-        // this._restaurants.startWith([]); // load from storage first, if empty startWith[] (same with _favorites)
-        storage.ready().then(() => {
-            this.storage.get(RESTAURANTS).then((restaurants: IRestaurant[]) => {
-                if (restaurants) {
-                    this.restaurants.next(restaurants);
-                } else {
-                    this.restaurants.next(bundledRestaurants);
-                }
-            });
-            this.storage.get(FAVORITE_RESTAURANTS).then((favorites: IFavorites) => {
-                if (favorites) {
-                    this.favorites.next(favorites);
-                }
-            });
-        });
+        this.init();
     }
-    get Restaurants() {
+    private async init() {
+        const pRestaurants: Promise<IRestaurant[]> = this.storage.get(RESTAURANTS);
+        const pFavorites = this.storage.get(FAVORITE_RESTAURANTS);
+
+        this.restaurants.next(await pRestaurants || bundledRestaurants);
+        const favorites: IFavorites = await pFavorites;
+        if (favorites) {
+            this.favorites.next(favorites);
+        }
+    }
+    get restaurants$() {
         return this.restaurants.asObservable();
     }
-    get Favorites() {
+    get favorites$() {
         return this.favorites.asObservable();
     }
     public getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
             this.api.get("restaurants/prefetch", options).subscribe((restaurants: IRestaurant[]) => {
-                /*for (const restaurant of restaurants) {
-                    if (!restaurant.icon) {
-                        restaurant.icon = "assets/images/restaurant.png";
-                    }
-                    restaurant.icon = "assets/images/restaurant.png"; // TODO: Remove after restaurants get their real icons
-                }*/
                 this.storage.set(RESTAURANTS, restaurants);
                 this.restaurants.next(restaurants);
             });
@@ -70,7 +60,7 @@ export class RestaurantsData {
     }
     public getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
         return this.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
-        // return this.api.get(`branches/restaurantbranches/${restaurantId}`);
+        // return this.api.get(`restaurants/${restaurantId}/branches`);
     }
     public rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
         return this.api.post("branches/rate", rate);

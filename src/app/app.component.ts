@@ -7,7 +7,7 @@ import { Subject } from "rxjs/Subject";
 import { AppSettings } from "./infrastructure/app.settings";
 import { Push } from "./services/index";
 
-export const OnBack = new Subject<string>();
+export const OnBack$ = new Subject<string>();
 
 @Component({
     template: `<ion-menu [content]="content">
@@ -29,48 +29,39 @@ export class AppComponent implements OnInit {
     @ViewChild(Nav) public nav: Nav;
     constructor(
         private app: App, private menu: MenuController, private platform: Platform,
-
         private statusBar: StatusBar, private splashScreen: SplashScreen,
         private settings: AppSettings, private push: Push) {
         this.initializeApp();
     }
-    public initializeApp() {
-        this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.settings.initLanguage();
-            this.push.init();
-            this.platform.registerBackButtonAction(() => {
-                if (OnBack.observers.length > 0) {
-                    OnBack.next();
-                } else {
-                    const nav = this.app.getActiveNav();
-                    if (this.menu && this.menu.isOpen()) {
-                        return this.menu.close();
-                    } else if (nav.canGoBack()) {
-                        // normal navigations from page to another
-                        nav.pop();
-                    } else if (nav instanceof Tab) {
-                        // override tabs default behavior which only takes to previous tab
-                        if (nav.index === 0) {
-                            nav.parent.parent.pop();
-                        } else {
-                            nav.parent.select(0);
-                        }
+    public async initializeApp() {
+        await this.platform.ready();
+        this.statusBar.styleDefault();
+        this.settings.initLanguage();
+        this.push.init();
+        this.platform.registerBackButtonAction(() => {
+            if (OnBack$.observers.length > 0) {
+                OnBack$.next();
+            } else {
+                const nav = this.app.getActiveNav();
+                if (this.menu && this.menu.isOpen()) {
+                    return this.menu.close();
+                } else if (nav.canGoBack()) {
+                    // normal navigations from page to another
+                    nav.pop();
+                } else if (nav instanceof Tab) {
+                    // override tabs default behavior which only takes to previous tab
+                    if (nav.index === 0) {
+                        nav.parent.parent.pop();
                     } else {
-                        this.platform.exitApp();
+                        nav.parent.select(0);
                     }
-                    /* in case needed in future
-                    const activeView: ViewController = nav.getActive();
-                    if (typeof activeView.instance.onBackButton === "function") {
-                        activeView.instance.onBackButton();
-                    }*/
+                } else {
+                    this.platform.exitApp();
                 }
-            });
+            }
         });
     }
     public ngOnInit() {
-        this.nav.setRoot(Splash).then(() => {
-            // this.splash screen.hide();
-        });
+        this.nav.setRoot(Splash);
     }
 }

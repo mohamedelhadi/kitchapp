@@ -58,8 +58,6 @@
                 <button ion-item *ngFor="let item of category.categoryItems" (click)="showVariations($event, item)">
                     <ion-icon [name]="item.variations.length && item.variations[0].photo ? 'ios-image' : 'ios-image-outline'" item-start></ion-icon>
                     {{item.name[settings.language]}}
-                    <!--<p style="white-space: normal">Native: tried calling StatusBar.styleDefault, but Cordova is not available. Make sure to include cordova.</p>-->
-                    <!--<ion-icon name="ios-arrow-forward" item-end></ion-icon>-->
                     <ion-badge color="secondary" item-end><b>{{item.variations[0].price}}</b> {{translation.Common.Pound | translate}}</ion-badge>
                 </button>
             </ion-list>
@@ -73,6 +71,5 @@
         <button ion-fab (click)="showFeedback(fab)"><ion-icon color="primary" name="create"></ion-icon><!--<ion-label>Write Feedback</ion-label>--></button>
         <button ion-fab (click)="toggleFavorite(fab)"><ion-icon style="margin-top: 3px;" color="primary" [name]="isFavorite ? 'heart' : 'heart-outline'" isActive="isFavorite" item-end></ion-icon><!--<ion-label>Favorites</ion-label>--></button>
         <!-- TODO: activate in v2 <button ion-fab><ion-icon color="primary" name="ios-image"></ion-icon><ion-label>Add Photo</ion-label></button>-->
-        <!--<button ion-fab><ion-icon color="primary" name="star"></ion-icon><ion-label>Rate</ion-label></button>-->
     </ion-fab-list>
 </ion-fab>

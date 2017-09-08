@@ -16,10 +16,10 @@ export class Deals extends BasePage {
     public restaurant: IRestaurant;
     public deals: Observable<IDeal[]>;
     constructor(
-        private logger: Logger, private ui: UI,
+        private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: DealsData) {
-        super({ logger });
+        super({});
         this.restaurant = navParams.data && navParams.data.id ? navParams.data : null;
     }
     public ionViewDidLoad() {
@@ -27,20 +27,20 @@ export class Deals extends BasePage {
         this.deals = this.getDeals();
     }
     public getDeals() {
-        this.data.getDeals(true, { showLoading: false });
+        this.data.getDeals(true, { handleLoading: false });
         if (this.restaurant) {
             return this.data.getRestaurantDeals(this.restaurant.id);
         } else {
-            return this.data.Deals;
+            return this.data.deals$;
         }
     }
     public viewDeal(deal: IDeal) {
         this.navCtrl.push(Deal, { deal, canNavigateToRestaurant: !this.restaurant });
     }
     public onBackButton() {
-        if (this.restaurant) { // coming from restaurant details
+        if (this.restaurant) { // came to this view from restaurant details
             this.navCtrl.parent.select(0);
-        } else { // coming from home
+        } else { // came from home
             this.navCtrl.canGoBack();
         }
     }

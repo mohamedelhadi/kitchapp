@@ -16,15 +16,32 @@ export enum Language {
     en = 0,
     ar = 1
 }
-export const defaultLanguage: Language = Language.en;
-export const supportedLanguages: string[] = []; // contains codes of the supported languages
+export const DefaultLanguage: Language = Language.en;
+export const SupportedLanguages: string[] = []; // contains codes of the supported languages
 for (const l in Language) {
     if (Language.hasOwnProperty(l) && /^\d+$/.test(l)) { // discard the string keys of the enum
-        supportedLanguages[l] = Language[l];
+        SupportedLanguages[l] = Language[l];
     }
 }
 
 export enum AuthenticationStatus {
     LoggedIn,
     LoggedOut
+}
+
+export enum IonPageEvents {
+    ionViewDidLoad,
+    ionViewWillEnter,
+    ionViewDidEnter,
+    ionViewWillLeave,
+    ionViewDidLeave,
+    ionViewWillUnload,
+    ionViewCanEnter,
+    ionViewCanLeave
+}
+
+export enum LoginProvider {
+    Facebook,
+    Gmail,
+    Microsoft
 }

@@ -12,17 +12,13 @@ export class CuisinesData {
     private cuisines = new BehaviorSubject<ICuisine[]>([]);
 
     constructor(private api: Api, private storage: Storage) {
-        storage.ready().then(() => {
-            this.storage.get(CUISINES).then((cuisines: ICuisine[]) => {
-                if (cuisines) {
-                    this.cuisines.next(cuisines);
-                } else {
-                    this.cuisines.next(bundledCuisines);
-                }
-            });
-        });
+        this.init();
     }
-    get Cuisines() {
+    private async init() {
+        const cuisines: ICuisine[] = await this.storage.get(CUISINES);
+        this.cuisines.next(cuisines || bundledCuisines);
+    }
+    get cuisines$() {
         return this.cuisines.asObservable();
     }
     public getCuisines(forceUpdate?: boolean, options?: IApiOptions) {

@@ -1,7 +1,6 @@
 import { ViewController, NavParams } from "ionic-angular";
 import { Component, Inject, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
-import { ReplaySubject } from "rxjs/ReplaySubject";
 import { UI } from "../../../../app/helpers/index";
 import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
 import { IBranch, IUser, IBranchRate } from "../../../../app/contracts/index";

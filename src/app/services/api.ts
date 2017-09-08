@@ -18,23 +18,23 @@ import { UI, Utils } from "../helpers/index";
 import { TimeoutError } from "rxjs/util/TimeoutError";
 
 import * as moment from "moment";
-import { AuthStatus } from "./index";
+import { AuthStatus$ } from "./index";
 
 @Injectable()
 export class Api {
     private readonly defaults: IApiOptions = {
         appendBaseUrl: true,
         handleError: true,
-        showLoading: true
+        handleLoading: true
     };
     private token: string;
 
     constructor(private http: Http, private config: Configuration, private errHandler: AppErrorHandler, private ui: UI, private storage: Storage) {
-        this.setToken();
-        AuthStatus.subscribe(status => {
+        this.loadToken();
+        AuthStatus$.subscribe(status => {
             switch (status) {
                 case AuthenticationStatus.LoggedIn:
-                    this.setToken();
+                    this.loadToken();
                     break;
                 case AuthenticationStatus.LoggedOut:
                     this.token = null;
@@ -42,16 +42,12 @@ export class Api {
             }
         });
     }
-    private async setToken() {
+    private async loadToken() {
         const token = await this.storage.get(TOKEN);
         if (token) {
             const expireAt = await this.storage.get(EXPIRES_AT);
             const now = moment();
-            if (expireAt > now.valueOf()) {
-                this.token = token;
-            } else {
-                this.token = null;
-            }
+            this.token = expireAt > now.valueOf() ? token : null;
         }
     }
     public get(url: string, options?: IApiOptions) {
@@ -66,7 +62,7 @@ export class Api {
     public delete(url: string, options?: IApiOptions) {
         return this.request("DELETE", { url, options });
     }
-    private request(method: string, { url, data, options = {} }: { url: string, data?: any, options: IApiOptions }) {
+    private request(method: string, { url, data = {}, options = {} }: { url: string, data?: any, options: IApiOptions }) {
         defaults(options, this.defaults);
         if (!Utils.isOnline()) {
             this.errHandler.handleError(new InternalError("No internet connection", ErrorCodes.Offline, options.handleError));
@@ -75,21 +71,21 @@ export class Api {
         url = (options.appendBaseUrl) ? this.appendBaseUrl(url) : url;
         options.url = url;
         options.method = method;
-        options.body = data || {};
+        options.body = data;
         options.headers = new Headers({ "Content-Type": "application/json" });
         if (this.token) {
             options.headers.set("Authorization", `bearer ${this.token}`);
         }
-        if (options.showLoading) {
+        if (options.handleLoading) {
             this.ui.showLoading();
         }
         return this.http
             .request(url, options)
-            .do(() => this.ui.hideLoading())
+            .do(() => { if (options.handleLoading) { this.ui.hideLoading(); } })
             .timeout(55000)
             .map(res => res.text() ? res.json() : {})
             .catch(err => {
-                this.ui.hideLoading();
+                if (options.handleLoading) { this.ui.hideLoading(); }
                 if (err instanceof Response || err instanceof TimeoutError) {
                     this.errHandler.handleError(new HttpError("Http Error", options, err as any));
                 } else {
@@ -100,6 +96,6 @@ export class Api {
             });
     }
     private appendBaseUrl(shortUrl: string) {
-        return this.config.BaseUrl + "api/" + shortUrl;
+        return this.config.baseUrl + "api/" + shortUrl;
     }
 }

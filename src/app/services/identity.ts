@@ -10,17 +10,13 @@ import { Device } from "@ionic-native/device";
 export class Identity {
     private user = new ReplaySubject<IUser>(1);
     constructor(private storage: Storage, private device: Device) {
-        storage.ready().then(() => {
-            storage.get(USER).then((savedUser: IUser) => {
-                if (savedUser) {
-                    this.user.next(savedUser);
-                } else {
-                    this.user.next({ identifier: device.uuid } as IUser);
-                }
-            });
-        });
+        this.init();
     }
-    get User() {
+    private async init() {
+        const user: IUser = await this.storage.get(USER);
+        this.user.next(user || {} as IUser);
+    }
+    get user$() {
         return this.user.asObservable();
     }
     public save(user: IUser) {

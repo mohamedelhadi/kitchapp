@@ -17,10 +17,9 @@ export class Deal extends BasePage {
     public restaurant: IRestaurant;
     public canNavigateToRestaurant: boolean;
     constructor(
-        private logger: Logger,
         private navCtrl: NavController, private navParams: NavParams,
         private restaurantsData: RestaurantsData) {
-        super({ logger });
+        super({});
         this.deal = navParams.data.deal;
         this.canNavigateToRestaurant = navParams.data.canNavigateToRestaurant;
     }

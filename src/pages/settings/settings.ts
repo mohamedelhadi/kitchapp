@@ -6,10 +6,5 @@ import { NavController, NavParams } from "ionic-angular";
     templateUrl: "settings.html"
 })
 export class Settings {
-
     constructor(public navCtrl: NavController, public navParams: NavParams) { }
-
-    public ionViewDidLoad() {
-        // did load
-    }
 }

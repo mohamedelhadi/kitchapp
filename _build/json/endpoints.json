@@ -1,7 +1,7 @@
 {
     "browser": "https://www.sudapps.com/Kitchserver",
     "dev": "https://192.168.1.109",
-    "testing": "https://localhost:44336",
+    "testing": "https://localhost:44381",
     "staging": "https://192.168.1.109",
     "production": "https://www.sudapps.com/Kitchserver"
 }

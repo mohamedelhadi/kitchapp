@@ -34,7 +34,8 @@
         "HavenotSetFavorites": "You didn't set any favorites.",
         "LoggingIn": "Logging in..",
         "ForgotToEnterFeedback": "You forgot to enter the feedback",
-        "YouNeedToLoginInOrderToRate": "Login in order to rate"
+        "YouNeedToLoginInOrderToRate": "Login in order to rate",
+        "FeedbackSubmitted": "Submitted successfully"
     },
     "Errors": {
         "Unknown": "An error occurred, please try again.",

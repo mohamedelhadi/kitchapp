@@ -36,7 +36,7 @@ export class Restaurants extends BasePage implements OnInit {
     public noMatchForQuery: boolean;
 
     constructor(
-        private logger: Logger, private ui: UI, private errHandler: AppErrorHandler,
+        private ui: UI, private errHandler: AppErrorHandler, logger: Logger,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         private data: RestaurantsData, private cities: CitiesData, private cuisines: CuisinesData) {
         super({ logger });
@@ -52,7 +52,7 @@ export class Restaurants extends BasePage implements OnInit {
     public ionViewDidLoad() {
         this.data.getRestaurants();
         this.ui.showLoading();
-        this.restaurants = this.data.Restaurants
+        this.restaurants = this.data.restaurants$
             .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {
@@ -77,8 +77,8 @@ export class Restaurants extends BasePage implements OnInit {
     public showPopover(ev) {
         const popover = this.popoverCtrl.create(RestaurantsPopover, {
             settings: this.searchSettings,
-            cities: this.cities.Cities.map(cities => [this.allCities].concat(cities)),
-            cuisines: this.cuisines.Cuisines.map(cuisines => [this.allCuisines].concat(cuisines))
+            cities: this.cities.cities$.map(cities => [this.allCities].concat(cities)),
+            cuisines: this.cuisines.cuisines$.map(cuisines => [this.allCuisines].concat(cuisines))
         });
         popover.present({ ev });
     }

@@ -1,5 +1,5 @@
 {
-    "name": "app",
+    "name": "kitchapp",
     "version": "1.0.0",
     "author": "Mohamed Elhadi",
     "homepage": "",
@@ -23,7 +23,7 @@
         "ios-staging": "npm run initialize staging ios && ionic cordova run ios --release --prod --generateSourceMap --target='iPhone-6'",
         "ios-prod": "npm run initialize production ios && ionic cordova run ios --release --prod --generateSourceMap --target='device'",
         "pwa": "npm run initialize production pwa && npm run build --prod --generateSourceMap",
-        "tslint": "tslint -c tslint.json './src/**/*.ts' --format codeFrame",
+        "tslint": "tslint -c tslint.json './src/**/*.ts' --format codeFrame --exclude './src/app/contracts/translation/*'",
         "generate-translation-keys": "node _build/translation-keys-generator",
         "initialize": "hybrid-build-kit initialize",
         "finalize": "hybrid-build-kit --copy-output"

@@ -11,10 +11,10 @@ export interface IRestaurant {
     branches: IBranch[];
     categories: ICategory[];
 
-    bio: string; // delayed
-    picturedCategories: IPicturedCategory[]; // delayed
-    email?: string; // delayed
-    website?: string; // delayed
+    bio: string;
+    picturedCategories: IPicturedCategory[];
+    email?: string;
+    website?: string;
 }
 export interface IPicturedCategory {
     id: number;
@@ -28,10 +28,10 @@ export interface IBranch {
     order: number;
     location: ILocation;
     rate: IBranchRateSummary;
-    phones: IPhone[]; // delayed
-    photos: string[]; // delayed
+    phones: IPhone[];
+    photos: string[];
 }
-export interface ICuisine { // predefined in db, pre-include in app as well
+export interface ICuisine {
     id: number;
     name: string[];
     order: number;
@@ -58,7 +58,7 @@ export interface ILocation {
     longitude: number;
     latitude: number;
 }
-export interface ICity { // predefined in db, pre-include in app as well
+export interface ICity {
     id: number;
     name: string[];
 }
@@ -68,8 +68,8 @@ export interface ICategoryItem {
     name: string[];
     order: number;
     tags: string;
-    cuisineId?: number; // null in case of beverages
-    variations: IVariation[]; // delayed
+    cuisineId?: number;
+    variations: IVariation[];
 }
 export interface IVariation {
     id: number;
@@ -81,19 +81,19 @@ export interface IVariation {
 }
 export interface IBranchRateSummary { // via auto mapper
     overall: number; // overall = sum of below overalls / 4
-    quality: number; // quality overall
-    service: number; // service overall
-    place: number; // place overall
-    price: number; // price overall
+    quality: number;
+    service: number;
+    place: number;
+    price: number;
 
-    ratesCounts?: number[]; // delayed
-    usersCount?: number; // delayed
+    ratesCounts?: number[];
+    usersCount?: number;
 
-    rated5: number; // calculated on client
-    rated4: number; // calculated on client
-    rated3: number; // calculated on client
-    rated2: number; // calculated on client
-    rated1: number; // calculated on client
+    nUserGaveRate5: number; // calculated on client
+    nUserGaveRate4: number; // calculated on client
+    nUserGaveRate3: number; // calculated on client
+    nUserGaveRate2: number; // calculated on client
+    nUserGaveRate1: number; // calculated on client
 }
 export interface IDeal {
     id: number;
@@ -108,7 +108,6 @@ export interface IDeal {
 
 // ========================== for post requests ============================
 export interface INewUser {
-    identifier: string;
     email: string;
     password?: string;
     token?: string;
@@ -116,20 +115,17 @@ export interface INewUser {
     gender: Gender;
     photoUrl?: string;
     profileUrl?: string;
+    identifier?: string;
 }
 export interface IUser {
     id: number;
-    /*  instead of preventing the user from rating,
-        run server side background check and see if a particular variation has been rated by the same device more than 2 times,
-        if a match was found, remove all rates except the first
-    */
-    identifier: string;
     name: string;
     phoneNumber?: string;
     email: string;
     photo?: string;
     profileUrl?: string;
     gender?: Gender;
+    identifier?: string;
 }
 export enum Gender {
     Male,

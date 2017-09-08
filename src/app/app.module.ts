@@ -35,11 +35,10 @@ import { VariationRatePopover } from "../pages/restaurant/details/variation-rate
 import { Cuisines } from "../pages/cuisines/cuisines";
 import { AppSettings } from "./infrastructure/index";
 import { Subject } from "rxjs/Subject";
-import { ReplaySubject } from "rxjs/ReplaySubject";
 import { DeviceMock } from "../mocks/device";
 import { Configuration } from "./config/env.config";
 import { CitiesData, CuisinesData, DataLoader } from "./services/data/index";
-import { environments } from "./config/configuration";
+import { Environments } from "./config/configuration";
 import { HomePopover } from "../pages/home/popover/popover";
 import { Deals } from "../pages/deals/deals";
 import { DealsData } from "./services/data/deals.data";
@@ -116,7 +115,7 @@ export function dataServices() {
     ];
 }
 export let browserMocks = [];
-if (Configuration.Instance.environment === environments.browser) {
+if (Configuration.instance.environment === Environments.browser) {
     browserMocks = [
         DeviceMock,
         { provide: Device, useClass: DeviceMock }
@@ -139,7 +138,7 @@ export function providers() {
         ...services(),
         {
             provide: ErrorHandler,
-            useClass: AppErrorHandler // env === Environments.Simulator || env === Environments.Dev ? IonicErrorHandler : AppErrorHandler
+            useClass: AppErrorHandler
         },
         ...dataServices()
     ];

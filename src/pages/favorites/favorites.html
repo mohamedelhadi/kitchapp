@@ -7,7 +7,6 @@
     <ion-list *ngIf="favorites | async; let favorites">
         <ion-item *ngFor="let restaurant of favorites" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-start>
-                <!-- TODO: remove && when restaurants get their icons -->
                 <img [src]="restaurant.icon" fallback="assets/images/restaurant-dark.png">
             </ion-avatar>
             <h2>{{restaurant.name[settings.language]}}</h2>

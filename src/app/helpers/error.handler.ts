@@ -5,11 +5,9 @@ import { InternalError, HttpError, ErrorCodes, IServerError, ServerErrorCodes, T
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
-
     constructor(private ui: UI, private logger: Logger, private utils: Utils) {
         super();
     }
-
     public handleError(err: Error | InternalError | HttpError): void {
         this.logger.error(err);
         if (err instanceof InternalError) {

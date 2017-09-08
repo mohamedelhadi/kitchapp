@@ -2,13 +2,12 @@ import { Injectable } from "@angular/core";
 import { Network } from "@ionic-native/network";
 import { IDropdownOption } from "../contracts/index";
 import { Configuration } from "../config/env.config";
-import { environments } from "../config/configuration";
+import { Environments } from "../config/configuration";
 
 @Injectable()
 export class Utils {
     public static isOnline() {
-        return navigator.onLine; // && navigator.connection && navigator.connection.type != Connection.NONE && navigator.connection.type != Connection.UNKNOWN;
-        /*Connection.UNKNOWN, Connection.ETHERNET, Connection.WIFI, Connection.CELL_2G, Connection.CELL_3G, Connection.CELL_4G, Connection.CELL, Connection.NONE*/
+        return navigator.onLine;
     }
     public static getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
         const deg2rad = 0.017453292519943295; // === Math.PI / 180
@@ -38,7 +37,7 @@ export class Utils {
             return newO;
         }
         newO = {};
-        /* might reduce performance
+        /* may reduce performance
         for (let index = 0, keys = Object.keys(o); index < keys.length; index++) {
             const key = keys[index];
             newO[key] = Utils.deepClone(o[key]);
@@ -52,19 +51,15 @@ export class Utils {
     public static containsArabic(text: string): boolean {
         return /[\u0600-\u06FF]/.test(text);
     }
-
     public static isPhoneNumber(phone: string): boolean {
         return phone ? phone.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g) !== null : false;
     }
-
     public static isNumber(value: any): boolean {
         return /^\d+$/.test(value);
     }
-
     public static openBrowser(link: string): void {
         (window as any).cordova.InAppBrowser.open(link, "_system", "location=yes");
     }
-
     public static getExtension(file: string | File): string {
         if (typeof (file) === "string" || file instanceof String) {
             // tslint:disable-next-line:no-bitwise
@@ -74,11 +69,6 @@ export class Utils {
             return file.name.substr((~-file.name.lastIndexOf(".") >>> 0) + 2).toLowerCase();
         }
     }
-
-    public static getPath(filePath: string): string {
-        return filePath.substring(0, filePath.lastIndexOf("/") + 1);
-    }
-
     public static getFileName(file: string | File): string {
         if (typeof (file) === "string" || file instanceof String) {
             return file.substring(file.lastIndexOf("/") + 1);
@@ -86,23 +76,23 @@ export class Utils {
             return file.name;
         }
     }
-
+    public static getPath(filePath: string): string {
+        return filePath.substring(0, filePath.lastIndexOf("/") + 1);
+    }
     public static normalizeFileName(name: string): string {
         name = name.replace(/[|&;$%@" \-<>()+,]/g, ""); // remove illegal chars
         name = name.replace(/\.(?=.*?\.)/, ""); // remove dots except the extension dot
         return name;
     }
-
     public static enumToDropdown(e): IDropdownOption[] {
         const options: IDropdownOption[] = [];
         for (const item in e) {
-            if (e.hasOwnProperty(item) && !Utils.isNumber(item)) { // discard numeric versions of the enum
+            if (e.hasOwnProperty(item) && !Utils.isNumber(item)) { // discard numeric keys of the enum
                 options.push({ text: item, value: e[item] });
             }
         }
         return options;
     }
-
     public static getHash(value: string) {
         // tslint:disable-next-line:one-variable-per-declaration
         let hash = 0, i, chr, len;
@@ -118,7 +108,6 @@ export class Utils {
         }
         return hash;
     }
-
     public static getMime(name: string): string {
         const extension = this.getExtension(name);
         switch (extension) {
@@ -169,10 +158,6 @@ export class Utils {
 
     constructor(private config: Configuration, private network: Network) { }
     public isDev() {
-        return this.config.environment === environments.dev || this.config.environment === environments.browser;
+        return this.config.environment === Environments.dev || this.config.environment === Environments.browser;
     }
-    /*isOnline() {
-        // The type property will return one of the following connection types: unknown, ethernet, wifi, 2g, 3g, 4g, cellular, none
-        return this.network.type !== Connection.NONE && this.network.type !== Connection.UNKNOWN;
-    }*/
 }

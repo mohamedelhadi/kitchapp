@@ -16,18 +16,16 @@ export class VariationsPopover extends BasePopover {
         super({ viewCtrl });
         this.item = params.data.item;
     }
-    public showVariationRate(ev) {
-        this.auth.isLoggedIn().then(loggedIn => {
-            if (loggedIn) {
+    public async showVariationRate(ev) {
+        const loggedIn = await this.auth.isLoggedIn();
+        if (loggedIn) {
+            this.showPopover();
+        } else {
+            const successfullyLoggedIn = await this.auth.loginWithFacebook(this.translation.Messages.YouNeedToLoginInOrderToRate);
+            if (successfullyLoggedIn) {
                 this.showPopover();
-            } else {
-                this.auth.loginWithFacebook().then(successfulLogin => {
-                    if (successfulLogin) {
-                        this.showPopover();
-                    }
-                });
             }
-        });
+        }
     }
     public showPopover() {
         const popover = this.popoverCtrl.create(
@@ -41,6 +39,6 @@ export class VariationsPopover extends BasePopover {
         this.viewCtrl.dismiss();
     }
     public getBackground() {
-        return `url(${this.item.variations[0].photo}) no-repeat center, url('assets/images/item.png') no-repeat center`; // "url(" + (this.item.variations[0].photo ? this.item.variations[0].photo : "assets/images/item.png") + ") no-repeat center";
+        return `url(${this.item.variations[0].photo}) no-repeat center, url('assets/images/item.png') no-repeat center`;
     }
 }

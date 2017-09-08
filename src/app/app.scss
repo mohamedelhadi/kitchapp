@@ -36,9 +36,9 @@ ion-header {
 }
 
 button[ion-fab] {
+    // contain: layout; required if you want to show text near icons
     overflow: visible;
     position: relative;
-    contain: layout;
     ion-label {
         position: absolute;
         top: -8px;
@@ -105,7 +105,7 @@ button[ion-fab] {
 }
 
 .card {
-    // img shadow
+    // img shadow instead of box-shadow
     box-shadow: none;
     background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat;
     padding-bottom: 10px;

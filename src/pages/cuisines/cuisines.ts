@@ -11,20 +11,16 @@ import { Logger, UI } from "../../app/helpers/index";
     templateUrl: "cuisines.html"
 })
 export class Cuisines extends BasePage {
-    // cuisines: ICuisine[];
     constructor(
-        private logger: Logger, private ui: UI,
+        private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
         protected data: CuisinesData) {
-        super({ logger });
+        super({});
     }
     public ionViewDidLoad() {
         this.data.getCuisines();
     }
     public viewRestaurants(cuisineId: number) {
         this.navCtrl.push(Restaurants, { cuisineId });
-    }
-    public back() {
-        this.navCtrl.canGoBack();
     }
 }

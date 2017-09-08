@@ -13,17 +13,17 @@ export class RestaurantsPopover extends BasePopover implements OnInit {
     public searchSettings: IRestaurantsSearchSettings;
     public cities: Observable<ICity[]>;
     public cuisines: Observable<ICuisine[]>;
-    // @ViewChild(Select) select: Select; picks the first select only
     @ViewChild("citiesSelect") public citiesSelect: Select;
     @ViewChild("cuisinesSelect") public cuisinesSelect: Select;
     constructor(public viewCtrl: ViewController, private params: NavParams) {
         super({ viewCtrl });
-        (params.data.settings as BehaviorSubject<IRestaurantsSearchSettings>).subscribe(settings => this.searchSettings = settings);
         this.cities = params.data.cities;
         this.cuisines = params.data.cuisines;
     }
     public ngOnInit(): void {
         super.ngOnInit();
+        const searchSettings$: BehaviorSubject<IRestaurantsSearchSettings> = this.params.data.settings;
+        searchSettings$.takeUntil(this.viewCtrl.willUnload).subscribe(settings => this.searchSettings = settings);
         this.viewCtrl.willUnload.subscribe(() => {
             this.citiesSelect.close();
             this.cuisinesSelect.close();

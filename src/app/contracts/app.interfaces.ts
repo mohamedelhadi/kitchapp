@@ -29,7 +29,7 @@ export interface IAppSettings {
 export interface IApiOptions extends RequestOptionsArgs {
     appendBaseUrl?: boolean;
     handleError?: boolean;
-    showLoading?: boolean;
+    handleLoading?: boolean;
 }
 export interface IServerError {
     code: string;

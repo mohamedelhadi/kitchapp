@@ -8,7 +8,6 @@
         "node_modules/codelyzer"
     ],
     "rules": {
-        "interface-name": false,
         "no-param-reassign": false,
         "ter-indent": [true, 4, {
             "SwitchCase": 1

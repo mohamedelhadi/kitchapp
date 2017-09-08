@@ -12,15 +12,15 @@ export class DealsData {
     private deals = new BehaviorSubject<IDeal[]>([]);
 
     constructor(private api: Api, private storage: Storage) {
-        storage.ready().then(() => {
-            this.storage.get(DEALS).then((deals: IDeal[]) => {
-                if (deals) {
-                    this.deals.next(deals);
-                }
-            });
-        });
+        this.init();
     }
-    get Deals() {
+    private async init() {
+        const deals: IDeal[] = await this.storage.get(DEALS);
+        if (deals) {
+            this.deals.next(deals);
+        }
+    }
+    get deals$() {
         return this.deals.asObservable();
     }
     public getDeals(forceUpdate?: boolean, options?: IApiOptions) {
@@ -33,6 +33,6 @@ export class DealsData {
     }
     public getRestaurantDeals(restaurantId: number): Observable<IDeal[]> {
         return this.deals.map(deals => deals.filter(deal => deal.restaurantId === restaurantId));
-        // return this.api.get(`deals/restaurantdeals/${restaurantId}`);
+        // return this.api.get(`restaurant/${restaurantId}/deals`);
     }
 }

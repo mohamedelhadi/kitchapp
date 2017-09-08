@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import { IAppSettings, Language, defaultLanguage, SETTINGS, supportedLanguages } from "../contracts/index";
+import { IAppSettings, Language, DefaultLanguage, SETTINGS, SupportedLanguages } from "../contracts/index";
 import { Configuration } from "../config/env.config";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";
 import "rxjs/add/operator/take";
 
-export const settings = new ReplaySubject<IAppSettings>(1);
+export const Settings$ = new ReplaySubject<IAppSettings>(1);
 
 @Injectable()
 export class AppSettings {
@@ -19,60 +19,53 @@ export class AppSettings {
         private translate: TranslateService,
         private globalization: Globalization,
         private platform: Platform) {
-        this.storage.ready().then(() => {
-            this.storage.get(SETTINGS).then((savedSetting: IAppSettings) => {
-                // load settings from storage
-                if (savedSetting) {
-                    settings.next(savedSetting);
-                } else {
-                    this.storage.set(SETTINGS, { language: defaultLanguage, firstLaunch: false })
-                        .then(() => {
-                            settings.next({ language: defaultLanguage, firstLaunch: true });
-                        });
-                }
-            });
-        });
-    }
-    get Settings() {
-        return settings.asObservable();
-    }
-    public initLanguage() {
-        this.translate.setDefaultLang(Language[defaultLanguage]);
-        settings.take(1).subscribe(setting => {
-            if (setting.firstLaunch) {
-                if (this.platform.is("cordova")) {
-                    this.globalization.getPreferredLanguage().then(result => {
-                        const langCode = result.value.substring(0, 2).toLowerCase();
-                        const language = supportedLanguages.some(code => code === langCode) ? Language[langCode] : defaultLanguage;
-                        this.setLanguage(language, setting);
-                    });
-                } else {
-                    const langCode = (this.translate.getBrowserLang() || Language[defaultLanguage]).substring(0, 2).toLowerCase();
-                    const language = supportedLanguages.some(code => code === langCode) ? Language[langCode] : defaultLanguage;
-                    this.setLanguage(language, setting);
-                }
+        this.storage.get(SETTINGS).then((savedSettings: IAppSettings) => {
+            if (savedSettings) {
+                Settings$.next(savedSettings);
             } else {
-                this.applyLanguage(Language[setting.language]);
+                this.storage
+                    .set(SETTINGS, { language: DefaultLanguage, firstLaunch: false })
+                    .then(() => {
+                        Settings$.next({ language: DefaultLanguage, firstLaunch: true });
+                    });
             }
         });
     }
-    public setLanguage(language: Language, setting: IAppSettings) {
-        this.applyLanguage(Language[language]);
-        setting.language = language;
-        settings.next(setting);
-        this.saveSelectedLanguage(setting.language);
+    public initLanguage() {
+        this.translate.setDefaultLang(Language[DefaultLanguage]);
+        Settings$.take(1).subscribe(settings => {
+            if (settings.firstLaunch) {
+                if (this.platform.is("cordova")) {
+                    this.globalization.getPreferredLanguage().then(result => {
+                        const langCode = result.value.substring(0, 2).toLowerCase();
+                        const language: Language = SupportedLanguages.some(code => code === langCode) ? Language[langCode] : DefaultLanguage;
+                        this.setLanguage(language, settings);
+                    });
+                } else {
+                    const langCode = (this.translate.getBrowserLang() || Language[DefaultLanguage]).substring(0, 2).toLowerCase();
+                    const language: Language = SupportedLanguages.some(code => code === langCode) ? Language[langCode] : DefaultLanguage;
+                    this.setLanguage(language, settings);
+                }
+            } else {
+                this.applyLanguage(settings.language);
+            }
+        });
     }
-    private applyLanguage(langCode: string) {
+    public setLanguage(language: Language, settings: IAppSettings) {
+        this.applyLanguage(language);
+        settings.language = language;
+        Settings$.next(settings);
+        this.saveSelectedLanguage(settings.language);
+    }
+    private applyLanguage(language: Language) {
+        const langCode = Language[language];
         this.translate.use(langCode);
         this.platform.setLang(langCode, true);
-        this.platform.setDir(langCode === Language[Language.ar] ? "rtl" : "ltr", true);
+        this.platform.setDir(language === Language.ar ? "rtl" : "ltr", true);
     }
-    private saveSelectedLanguage(language: Language) {
-        this.storage.ready().then(() => {
-            this.storage.get(SETTINGS).then((setting: IAppSettings) => {
-                setting.language = language;
-                this.storage.set(SETTINGS, setting);
-            });
-        });
+    private async saveSelectedLanguage(language: Language) {
+        const settings: IAppSettings = await this.storage.get(SETTINGS);
+        settings.language = language;
+        this.storage.set(SETTINGS, settings);
     }
 }

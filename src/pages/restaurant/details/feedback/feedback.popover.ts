@@ -24,7 +24,14 @@ export class FeedbackPopover extends BasePopover {
                     message: this.message,
                     restaurantId: this.restaurant.id
                 } as IFeedback)
-                .subscribe(() => this.close(), err => this.close());
+                .subscribe(
+                () => {
+                    this.close();
+                    this.ui.showToast(this.translation.Messages.FeedbackSubmitted);
+                },
+                err => {
+                    this.close();
+                });
         } else {
             this.ui.showToast(this.translation.Messages.ForgotToEnterFeedback);
         }

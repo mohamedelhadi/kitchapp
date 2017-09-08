@@ -34,7 +34,8 @@
         "HavenotSetFavorites": "لم تُحدد أية تفضيلات بعد.",
         "LoggingIn": "جاري تسجيل الدخول..",
         "ForgotToEnterFeedback": "لقد نسيت ان تكتب التعليق",
-        "YouNeedToLoginInOrderToRate": "قم بتسجيل الدخول حتى تتمكن من التقييم"
+        "YouNeedToLoginInOrderToRate": "قم بتسجيل الدخول حتى تتمكن من التقييم",
+        "FeedbackSubmitted": "تم الإرسال بنجاح"
     },
     "Errors": {
         "Unknown": "حدث خطأ، الرجاء المحاولة مرة أخرى.",

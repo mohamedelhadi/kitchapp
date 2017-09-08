@@ -12,7 +12,7 @@ export class InternalError extends BaseError {
     }
     private getStackTrace(message) {
         const stack = (new Error(message)).stack.split("\n").map(line => line.trim());
-        stack.splice(1, 2); // remove BaseError, ServerError, and InternalError's frames from stack
+        stack.splice(1, 2); // remove BaseError, HttpError, and InternalError's frames from stack
         return stack;
     }
 }

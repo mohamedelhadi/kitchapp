@@ -12,17 +12,13 @@ export class CitiesData {
     private cities = new BehaviorSubject<ICity[]>([]);
 
     constructor(private api: Api, private storage: Storage) {
-        storage.ready().then(() => {
-            this.storage.get(CITIES).then((cities: ICity[]) => {
-                if (cities) {
-                    this.cities.next(cities);
-                } else {
-                    this.cities.next(bundledCities);
-                }
-            });
-        });
+        this.init();
     }
-    get Cities() {
+    private async init() {
+        const cities: ICity[] = await this.storage.get(CITIES);
+        this.cities.next(cities || bundledCities);
+    }
+    public get cities$() {
         return this.cities.asObservable();
     }
     public getCities(forceUpdate?: boolean, options?: IApiOptions) {

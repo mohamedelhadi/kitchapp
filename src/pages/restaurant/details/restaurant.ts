@@ -50,11 +50,9 @@ import { FeedbackPopover } from "./feedback/feedback.popover";
     ]
 })
 export class Restaurant extends BasePage {
-
     @ViewChild("navbar") public navbar: Navbar;
     @ViewChild("searchbar") public searchbar: Searchbar;
     public searchState: string = "collapsed";
-    // categoryState: string = "collapsed";
     public restaurant: IRestaurant;
     public isFavorite: boolean;
     public rating: number;
@@ -65,7 +63,7 @@ export class Restaurant extends BasePage {
     private query = new BehaviorSubject<string>("");
     private isForwardedSearch: boolean;
     constructor(
-        private logger: Logger, private ui: UI,
+        private ui: UI, logger: Logger,
         private navCtrl: NavController, private navParams: NavParams, private renderer: Renderer2, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData, private auth: Auth) {
         super({ logger });
@@ -124,7 +122,7 @@ export class Restaurant extends BasePage {
                 return foundMatch;
             });
             if (result.length === 0 && this.isForwardedSearch) {
-                // this case happens when the user search for e.g. restaurant name, or branch name in the list screen
+                // this case occurs when the user searches for e.g. restaurant name, or branch name in the restaurants list screen
                 // there's no such match in category items, thus the reset
                 this.searchState = "collapsed";
                 this.isForwardedSearch = false;
@@ -146,18 +144,16 @@ export class Restaurant extends BasePage {
         );
         popover.present();
     }
-    public showBranchRate(ev) {
-        this.auth.isLoggedIn().then(loggedIn => {
-            if (loggedIn) {
+    public async showBranchRate(ev) {
+        const loggedIn = await this.auth.isLoggedIn();
+        if (loggedIn) {
+            this.showPopover();
+        } else {
+            const successfullyLoggedIn = await this.auth.loginWithFacebook(this.translation.Messages.YouNeedToLoginInOrderToRate);
+            if (successfullyLoggedIn) {
                 this.showPopover();
-            } else {
-                this.auth.loginWithFacebook().then(successfulLogin => {
-                    if (successfulLogin) {
-                        this.showPopover();
-                    }
-                });
             }
-        });
+        }
     }
     public showPopover() {
         const popover = this.popoverCtrl.create(
@@ -180,7 +176,6 @@ export class Restaurant extends BasePage {
         this.navCtrl.parent.select(1);
     }
     public toggleFavorite(fab: FabContainer) {
-        // fab.close();
         this.data.setFavorite(this.restaurant, !this.isFavorite);
     }
     public onBackButton() {
@@ -191,7 +186,7 @@ export class Restaurant extends BasePage {
             const toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
             const scrollPosition: number = event.scrollTop;
             if (scrollPosition >= 35 && scrollPosition <= 90) {
-                // 55 -> 90: start fade in from point 55, should reach full opaque by point 90: 90-55=35 hence 35 steps of opacity transition
+                // 35 -> 90: start fading in from point 35, should reach full opaque by point 90: 90-35=60 hence 60 steps of opacity transition
                 const toolbarOpacity = (scrollPosition - 25) / 60;
                 this.setElementOpacity(toolbar, toolbarOpacity);
             } else if (scrollPosition < 35) {

@@ -5,7 +5,7 @@ import { Directive, Input, ElementRef, HostBinding, HostListener } from "@angula
     selector: "img[fallback]",
     // tslint:disable-next-line:use-host-property-decorator
     host: {
-        "(error)": "onError()" // @HostListener("onError") not working!
+        "(error)": "onError()"
     }
 })
 export class ImageFallbackDirective {

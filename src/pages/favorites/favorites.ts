@@ -16,14 +16,13 @@ import { BasePage } from "../../app/infrastructure/index";
 export class Favorites extends BasePage {
     public favorites: Observable<IRestaurant[]>;
     constructor(
-        private logger: Logger,
         private data: RestaurantsData,
         private navCtrl: NavController) {
-        super({ logger });
+        super({});
     }
     public ionViewDidLoad() {
-        this.favorites = this.data.Favorites.flatMap(favorites => {
-            return this.data.Restaurants.map(restaurants =>
+        this.favorites = this.data.favorites$.flatMap(favorites => {
+            return this.data.restaurants$.map(restaurants =>
                 restaurants.filter(restaurant => favorites[restaurant.id])
             );
         });

@@ -8,10 +8,10 @@
             "keystoreType": ""
         },
         "release": {
-            "keystore": "signing/release.keystore",
-            "storePassword": "HGcYiYSSvQ4g",
-            "alias": "release",
-            "password": "HGcYiYSSvQ4g",
+            "keystore": "signing/testing.keystore",
+            "storePassword": "testing",
+            "alias": "testing",
+            "password": "testing",
             "keystoreType": ""
         }
     },
@@ -19,18 +19,12 @@
         "debug": {
             "codeSignIdentity": "iPhone Developer",
             "developmentTeam": "team-key",
-            "provisioningProfile": "80eec3dd-58ff-4e6f-a0ba-bc90cf08798a",
+            "provisioningProfile": "enter_provisioning_profile_id",
             "packageType": "development"
-        },
-        "release_store": {
-            "codeSignIdentity": "iPhone Distribution",
-            "provisioningProfile": "ce95e346-9c2d-4d24-9ddb-8fc21e07f855",
-            "developmentTeam": "team-key",
-            "packageType": "app-store"
         },
         "release": {
             "codeSignIdentity": "iPhone Distribution",
-            "provisioningProfile": "ce95e346-9c2d-4d24-9ddb-8fc21e07f855",
+            "provisioningProfile": "enter_provisioning_profile_id",
             "developmentTeam": "team-key",
             "packageType": "ad-hoc"
         }

@@ -5,7 +5,6 @@ import { TranslationKeys, ErrorCodes } from "../contracts/index";
 
 @Injectable()
 export class UI {
-
     private loading: Loading;
     constructor(
         private alertCtrl: AlertController,
@@ -15,7 +14,6 @@ export class UI {
 
     public showError(messageKey?: string, interpolateParams?: any) {
         const alert = this.alertCtrl.create({
-            // title: "Error",
             subTitle: this.translate.instant(messageKey || TranslationKeys.Errors[ErrorCodes.Unknown], interpolateParams),
             buttons: [this.translate.instant(TranslationKeys.Common.Dismiss)]
         });

@@ -19,10 +19,10 @@ import "rxjs/add/operator/takeUntil";
 export class Branches extends BasePage {
     public restaurant: IRestaurant;
     constructor(
-        private logger: Logger, private ui: UI,
+        private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData, private auth: Auth) {
-        super({ logger });
+        super({});
         this.restaurant = navParams.data;
     }
     public ionViewDidLoad() {
@@ -30,11 +30,11 @@ export class Branches extends BasePage {
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(branches => {
                 branches.forEach(branch => {
-                    branch.rate.rated1 = Math.ceil(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
-                    branch.rate.rated2 = Math.ceil(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
-                    branch.rate.rated3 = Math.ceil(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
-                    branch.rate.rated4 = Math.ceil(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
-                    branch.rate.rated5 = Math.ceil(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
+                    branch.rate.nUserGaveRate1 = Math.ceil(branch.rate.ratesCounts[0] * 10 / branch.rate.usersCount);
+                    branch.rate.nUserGaveRate2 = Math.ceil(branch.rate.ratesCounts[1] * 10 / branch.rate.usersCount);
+                    branch.rate.nUserGaveRate3 = Math.ceil(branch.rate.ratesCounts[2] * 10 / branch.rate.usersCount);
+                    branch.rate.nUserGaveRate4 = Math.ceil(branch.rate.ratesCounts[3] * 10 / branch.rate.usersCount);
+                    branch.rate.nUserGaveRate5 = Math.ceil(branch.rate.ratesCounts[4] * 10 / branch.rate.usersCount);
                 });
                 this.restaurant.branches = branches;
             });
@@ -55,21 +55,20 @@ export class Branches extends BasePage {
         );
         popover.present();
     }
-    public showRate(ev, branch: IBranch) {
-        this.auth.isLoggedIn().then(loggedIn => {
-            if (loggedIn) {
+    public async showRate(ev, branch: IBranch) {
+        const loggedIn = await this.auth.isLoggedIn();
+        if (loggedIn) {
+            this.showPopover(branch);
+        } else {
+            const successfullyLoggedIn = await this.auth.loginWithFacebook(this.translation.Messages.YouNeedToLoginInOrderToRate);
+            if (successfullyLoggedIn) {
                 this.showPopover(branch);
-            } else {
-                this.auth.loginWithFacebook().then(successfulLogin => {
-                    if (successfulLogin) {
-                        this.showPopover(branch);
-                    }
-                });
             }
-        });
+        }
     }
     public showPopover(branch: IBranch) {
-        const popover = this.popoverCtrl.create(BranchRatePopover,
+        const popover = this.popoverCtrl.create(
+            BranchRatePopover,
             { branch, branches: this.restaurant.branches },
             { cssClass: "wide-popover top-popover" }
         );
