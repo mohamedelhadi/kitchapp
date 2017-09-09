@@ -1,13 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
-import { Subject } from "rxjs/Subject";
 import { LocationPopover } from "./location/location.popover";
 import { PhonesPopover } from "./phones/phones.popover";
 import { BranchRatePopover } from "./rate/rate.popover";
 import { BasePage } from "../../../app/infrastructure/index";
 import { RestaurantsData } from "../../../app/services/data/restaurants.data";
 import { IRestaurant, IBranch } from "../../../app/contracts/index";
-import { Logger, UI } from "../../../app/helpers/index";
 import { Auth } from "../../../app/services/index";
 
 import "rxjs/add/operator/takeUntil";
@@ -19,7 +17,6 @@ import "rxjs/add/operator/takeUntil";
 export class Branches extends BasePage {
     public restaurant: IRestaurant;
     constructor(
-        private ui: UI,
         private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
         private data: RestaurantsData, private auth: Auth) {
         super({});

@@ -1,9 +1,6 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { MenuController, NavController } from "ionic-angular";
+﻿import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/mergeMap";
-import { Logger } from "../../app/helpers/logger";
-import { Api } from "../../app/services/api";
 import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { IRestaurant } from "../../app/contracts/index";

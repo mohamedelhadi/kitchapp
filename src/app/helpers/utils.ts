@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Network } from "@ionic-native/network";
 import { IDropdownOption } from "../contracts/index";
 import { Configuration } from "../config/env.config";
 import { Environments } from "../config/configuration";
@@ -156,7 +155,7 @@ export class Utils {
         }
     }
 
-    constructor(private config: Configuration, private network: Network) { }
+    constructor(private config: Configuration) { }
     public isDev() {
         return this.config.environment === Environments.dev || this.config.environment === Environments.browser;
     }

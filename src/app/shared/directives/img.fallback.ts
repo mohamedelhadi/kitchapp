@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, HostBinding, HostListener } from "@angular/core";
+import { Directive, Input, ElementRef, HostBinding } from "@angular/core";
 
 @Directive({
     // tslint:disable-next-line:directive-selector

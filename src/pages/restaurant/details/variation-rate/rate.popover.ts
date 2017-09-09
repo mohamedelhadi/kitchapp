@@ -1,9 +1,8 @@
 import { ViewController, NavParams } from "ionic-angular";
-import { Component, Inject, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
-import { UI } from "../../../../app/helpers/index";
-import { IVariation, IUser, IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
+import { IVariationRate, ICategoryItem } from "../../../../app/contracts/index";
 import { Identity } from "../../../../app/services/index";
 
 @Component({
@@ -15,7 +14,7 @@ export class VariationRatePopover extends BasePopover {
     public rate: number = 3;
     public comment: string = "";
     @ViewChild("txt") public txt: ElementRef;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.item = params.data.item;
     }

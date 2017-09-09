@@ -2,13 +2,12 @@
 import { Storage } from "@ionic/storage";
 
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import { Api } from "../../services";
+import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IFeedback } from "../../contracts";
 
 import * as bundledRestaurants from "../../../assets/data/restaurants.json";
-import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IUser, IFeedback } from "../../contracts";
-import { Api } from "../../services";
 
 @Injectable()
 export class RestaurantsData {

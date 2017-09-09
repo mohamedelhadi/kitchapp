@@ -1,4 +1,3 @@
-import { Moment } from "moment";
 export interface IRestaurant {
     id: number;
     name: string[];

@@ -1,15 +1,12 @@
-import { Injectable, Inject } from "@angular/core";
-import { AppErrorHandler } from "../helpers/index";
+import { Injectable } from "@angular/core";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import { USER, IUser, Gender } from "../contracts/index";
-import { Observable } from "rxjs/Observable";
+import { USER, IUser } from "../contracts/index";
 import { Storage } from "@ionic/storage";
-import { Device } from "@ionic-native/device";
 
 @Injectable()
 export class Identity {
     private user = new ReplaySubject<IUser>(1);
-    constructor(private storage: Storage, private device: Device) {
+    constructor(private storage: Storage) {
         this.init();
     }
     private async init() {

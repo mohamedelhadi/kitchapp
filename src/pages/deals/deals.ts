@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, PopoverController, ViewController } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { DealsData } from "../../app/services/data/deals.data";
-import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import { Deal } from "../deal/deal";
 import { IRestaurant, IDeal } from "../../app/contracts/index";
-import { Logger, UI } from "../../app/helpers/index";
 import { BasePage } from "../../app/infrastructure/index";
 
 @Component({
@@ -16,8 +14,7 @@ export class Deals extends BasePage {
     public restaurant: IRestaurant;
     public deals: Observable<IDeal[]>;
     constructor(
-        private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController, private viewCtrl: ViewController,
+        private navCtrl: NavController, private navParams: NavParams,
         private data: DealsData) {
         super({});
         this.restaurant = navParams.data && navParams.data.id ? navParams.data : null;

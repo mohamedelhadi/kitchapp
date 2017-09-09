@@ -3,7 +3,6 @@ import { Component } from "@angular/core";
 import { VariationRatePopover } from "../variation-rate/rate.popover";
 import { BasePopover } from "../../../../app/infrastructure/index";
 import { ICategoryItem } from "../../../../app/contracts/index";
-import { UI } from "../../../../app/helpers/index";
 import { Auth } from "../../../../app/services/index";
 
 @Component({
@@ -12,7 +11,7 @@ import { Auth } from "../../../../app/services/index";
 })
 export class VariationsPopover extends BasePopover {
     public item: ICategoryItem;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private auth: Auth) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private auth: Auth) {
         super({ viewCtrl });
         this.item = params.data.item;
     }

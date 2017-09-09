@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { IAppSettings, Language, DefaultLanguage, SETTINGS, SupportedLanguages } from "../contracts/index";
-import { Configuration } from "../config/env.config";
 import { TranslateService } from "@ngx-translate/core";
 import { Globalization } from "@ionic-native/globalization";
 import { Platform } from "ionic-angular";
@@ -14,7 +13,6 @@ export const Settings$ = new ReplaySubject<IAppSettings>(1);
 export class AppSettings {
 
     constructor(
-        private config: Configuration,
         private storage: Storage,
         private translate: TranslateService,
         private globalization: Globalization,

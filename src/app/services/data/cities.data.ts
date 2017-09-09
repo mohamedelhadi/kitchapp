@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Api } from "../../../app/services/api";
 import { Storage } from "@ionic/storage";
-
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Api } from "../../../app/services/api";
+import { ICity, CITIES, IApiOptions } from "../../contracts/index";
 
 import * as bundledCities from "../../../assets/data/cities.json";
-import { ICity, CITIES, IApiOptions } from "../../contracts/index";
 
 @Injectable()
 export class CitiesData {

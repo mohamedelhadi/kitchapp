@@ -1,15 +1,14 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { AppErrorHandler, UI, Utils } from "../helpers/index";
 import { Configuration } from "../config/env.config";
 import { Platform, AlertController } from "ionic-angular";
+import { Storage } from "@ionic/storage";
 import { Facebook } from "@ionic-native/facebook";
 import { FacebookService, InitParams, LoginOptions } from "ngx-facebook";
 import { Api, Identity } from "./index";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import "rxjs/add/operator/first";
-import { USER, IUser, Gender, FB_TOKEN, INewUser, TOKEN, EXPIRES_AT, InternalError, ErrorCodes, TranslationKeys, AuthenticationStatus, ICredentials, LoginProvider } from "../contracts/index";
-import { Observable } from "rxjs/Observable";
-import { Storage } from "@ionic/storage";
+import { Gender, FB_TOKEN, INewUser, TOKEN, EXPIRES_AT, InternalError, ErrorCodes, TranslationKeys, AuthenticationStatus, ICredentials, LoginProvider } from "../contracts/index";
 import * as moment from "moment";
 
 export const AuthStatus$ = new ReplaySubject<AuthenticationStatus>(1);

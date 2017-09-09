@@ -26,7 +26,7 @@ export class LocationPopover extends BasePopover implements OnInit {
         if (Utils.isOnline()) {
             this.loadMap();
         } else {
-            this.renderer.setStyle(this.map.nativeElement, "display", "none"); // manually hiding because ngIf causes @ViewChild("map") to fail
+            this.renderer.setStyle(this.map.nativeElement, "display", "none"); // manually hiding as ngIf causes @ViewChild("map") to fail
         }
     }
     public sanitize(url: string) {

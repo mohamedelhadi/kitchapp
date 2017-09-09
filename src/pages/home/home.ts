@@ -1,9 +1,7 @@
-﻿import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { Api } from "../../app/services/api";
+﻿import { Component } from "@angular/core";
 import { Logger } from "../../app/helpers/logger";
 import { RestaurantsData } from "../../app/services/data/restaurants.data";
-import { MenuController, NavController, Searchbar, PopoverController, Platform } from "ionic-angular";
+import { MenuController, NavController, PopoverController } from "ionic-angular";
 import { Restaurants } from "../restaurants/restaurants";
 import { Favorites } from "../favorites/favorites";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -18,7 +16,6 @@ import some from "lodash/some";
 
 import { IRestaurant, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
 import { UI, Utils, AppErrorHandler } from "../../app/helpers/index";
-import { Auth } from "../../app/services/index";
 
 @Component({
     selector: "page-home",
@@ -30,9 +27,8 @@ export class Home extends BasePage {
         private ui: UI, private errHandler: AppErrorHandler, logger: Logger,
         private splashScreen: SplashScreen,
         private restaurantsData: RestaurantsData,
-        private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController, private platform: Platform,
-        private translate: TranslateService,
-        public auth: Auth) {
+        private menu: MenuController, private navCtrl: NavController, private popoverCtrl: PopoverController,
+        private translate: TranslateService) {
         super({ logger });
         this.menu.enable(false);
     }

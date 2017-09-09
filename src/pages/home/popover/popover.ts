@@ -1,5 +1,5 @@
-import { ViewController, NavParams, Select } from "ionic-angular";
-import { Component, ViewChild } from "@angular/core";
+import { ViewController } from "ionic-angular";
+import { Component } from "@angular/core";
 import { BasePopover, AppSettings } from "../../../app/infrastructure/index";
 import { Language } from "../../../app/contracts/index";
 
@@ -10,7 +10,7 @@ import { Language } from "../../../app/contracts/index";
 export class HomePopover extends BasePopover {
     public en = Language.en;
     public ar = Language.ar;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private appSettings: AppSettings) {
+    constructor(public viewCtrl: ViewController, private appSettings: AppSettings) {
         super({ viewCtrl });
     }
     public select(language: Language) {

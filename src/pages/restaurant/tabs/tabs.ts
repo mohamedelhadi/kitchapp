@@ -2,7 +2,7 @@ import { NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
 import { Restaurant } from "../details/restaurant";
 import { Branches } from "../branches/branches";
-import { IRestaurant, IAppSettings, TranslationKeys } from "../../../app/contracts/index";
+import { IRestaurant, TranslationKeys } from "../../../app/contracts/index";
 import { Deals } from "../../deals/deals";
 
 @Component({

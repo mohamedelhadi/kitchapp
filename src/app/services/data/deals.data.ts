@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import { IDeal, DEALS, IApiOptions } from "../../contracts";
 import { Api } from "../../services";
+import { IDeal, DEALS, IApiOptions } from "../../contracts";
 
 @Injectable()
 export class DealsData {

@@ -1,10 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, PopoverController } from "ionic-angular";
-import { Subject } from "rxjs/Subject";
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
 import { Restaurants } from "../restaurants/restaurants";
 import { BasePage } from "../../app/infrastructure/index";
 import { CuisinesData } from "../../app/services/data/index";
-import { Logger, UI } from "../../app/helpers/index";
 
 @Component({
     selector: "page-cuisines",
@@ -12,8 +10,7 @@ import { Logger, UI } from "../../app/helpers/index";
 })
 export class Cuisines extends BasePage {
     constructor(
-        private ui: UI,
-        private navCtrl: NavController, private navParams: NavParams, private popoverCtrl: PopoverController,
+        private navCtrl: NavController,
         protected data: CuisinesData) {
         super({});
     }

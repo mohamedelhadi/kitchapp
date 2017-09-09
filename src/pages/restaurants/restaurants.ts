@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MenuController, NavController, PopoverController, LoadingController, NavParams } from "ionic-angular";
+import { NavController, PopoverController, NavParams } from "ionic-angular";
 import { RestaurantsData } from "../../app/services/data/restaurants.data";
 import { RestaurantsPopover } from "./popover/popover";
 import orderBy from "lodash/orderBy";
@@ -15,9 +15,8 @@ import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromPromise";
-import { Subject } from "rxjs/Subject";
 import { BasePage } from "../../app/infrastructure/index";
-import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch, TranslationKeys } from "../../app/contracts/index";
+import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch } from "../../app/contracts/index";
 import { Logger, UI, Utils, AppErrorHandler } from "../../app/helpers/index";
 import { CitiesData, CuisinesData } from "../../app/services/data/index";
 
@@ -148,7 +147,7 @@ export class Restaurants extends BasePage implements OnInit {
     }
     private orderByNearest(restaurants: IRestaurant[]) {
         return new Promise((resolve, reject) => {
-            this.ui.showLoading(TranslationKeys.Messages.LoadingPosition, false);
+            this.ui.showLoading(this.translation.Messages.LoadingPosition, false);
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const latitude = position.coords.latitude;

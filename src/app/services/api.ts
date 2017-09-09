@@ -4,6 +4,7 @@ import { AppErrorHandler } from "../helpers/error.handler";
 import { Storage } from "@ionic/storage";
 
 import { Observable } from "rxjs/Observable";
+import { TimeoutError } from "rxjs/util/TimeoutError";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
@@ -15,10 +16,9 @@ import defaults from "lodash/defaults";
 import { IApiOptions, InternalError, ErrorCodes, HttpError, TOKEN, EXPIRES_AT, AuthenticationStatus } from "../contracts/index";
 import { Configuration } from "../config/env.config";
 import { UI, Utils } from "../helpers/index";
-import { TimeoutError } from "rxjs/util/TimeoutError";
+import { AuthStatus$ } from "./index";
 
 import * as moment from "moment";
-import { AuthStatus$ } from "./index";
 
 @Injectable()
 export class Api {

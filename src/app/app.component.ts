@@ -1,6 +1,5 @@
-﻿import { Component, ViewChild, AfterViewInit, OnInit } from "@angular/core";
-import { Platform, Nav, LoadingController, ToastController, ViewController, App, MenuController, Tab } from "ionic-angular";
-import { SplashScreen } from "@ionic-native/splash-screen";
+﻿import { Component, ViewChild, OnInit } from "@angular/core";
+import { Platform, Nav, LoadingController, ToastController, App, MenuController, Tab } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Splash } from "../pages/splash/splash";
 import { Subject } from "rxjs/Subject";
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit {
     @ViewChild(Nav) public nav: Nav;
     constructor(
         private app: App, private menu: MenuController, private platform: Platform,
-        private statusBar: StatusBar, private splashScreen: SplashScreen,
+        private statusBar: StatusBar,
         private settings: AppSettings, private push: Push) {
         this.initializeApp();
     }

@@ -1,7 +1,7 @@
 import { ViewController, NavParams, PopoverController } from "ionic-angular";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { BasePopover } from "../../../../app/infrastructure/index";
-import { IUser, IFeedback, IRestaurant } from "../../../../app/contracts/index";
+import { IFeedback, IRestaurant } from "../../../../app/contracts/index";
 import { UI } from "../../../../app/helpers/index";
 import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
 
@@ -13,7 +13,7 @@ export class FeedbackPopover extends BasePopover {
     @ViewChild("msg") public msg: ElementRef;
     public message: string = "";
     private restaurant: IRestaurant;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private popoverCtrl: PopoverController, private ui: UI, private restaurantsData: RestaurantsData) {
+    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
         super({ viewCtrl });
         this.restaurant = params.data.restaurant;
     }

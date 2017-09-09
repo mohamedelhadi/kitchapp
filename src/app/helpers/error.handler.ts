@@ -27,7 +27,6 @@ export class AppErrorHandler extends ErrorHandler {
                     break;
                 default:
                     this.ui.showError(this.utils.isDev() ? err.message : TranslationKeys.Errors[err.code]);
-                    break;
             }
         }
     }
