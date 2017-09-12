@@ -20,6 +20,9 @@ import { IRestaurant, ICategory, ICategoryItem } from "../../../app/contracts/in
 import { Auth } from "../../../app/services/index";
 import { FeedbackPopover } from "./feedback/feedback.popover";
 
+import { default as fuzzysort } from 'fuzzysort';
+fuzzysort.highlightMatches = false;
+
 @Component({
     selector: "page-restaurant",
     templateUrl: "restaurant.html",
@@ -74,7 +77,6 @@ export class Restaurant extends BasePage {
         }
         this.rating = this.restaurant.branches[0].rate.overall;
     }
-
     public focusSearchbar() {
         this.searchState = "focused";
         this.searchbar.setFocus();
@@ -88,12 +90,13 @@ export class Restaurant extends BasePage {
     public ionViewDidLoad() {
         this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
+            .map(this.optimizeForSearch)
             .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
             .map(([restaurant, query]) => {
                 this.restaurant = restaurant;
                 // query
-                const categories = this.search(Utils.deepClone(restaurant.categories), query);
+                const categories = this.search(Utils.deepClone(restaurant.categories), query) || restaurant.categories;
                 // order
                 const orderedCategories = orderBy(categories, (category: ICategory) => category.order);
                 this.noMatchForQuery = query && categories.length === 0;
@@ -104,10 +107,32 @@ export class Restaurant extends BasePage {
             .takeUntil(this.viewCtrl.willUnload)
             .subscribe(isFavorite => this.isFavorite = isFavorite);
     }
+    private optimizeForSearch(restaurant: IRestaurant) {
+        restaurant = Utils.deepClone(restaurant);
+        for (const category of restaurant.categories) {
+            for (const item of category.categoryItems) {
+                item.preparedName = fuzzysort.prepare(item.name.toString());
+                item.preparedTags = fuzzysort.prepare(item.tags);
+            }
+        }
+        return restaurant;
+    }
     private search(categories: ICategory[], query: string) {
         if (query && query.trim() !== "") {
-            const copy = cloneDeep(categories);
-            const result = categories.filter(category => {
+            query = query.trim().toLowerCase();
+            const searchResult = categories.filter(category => {
+                // search in category items names
+                category.categoryItems = category.categoryItems.filter(item => {
+                    const nameInfo = fuzzysort.single(query, item.preparedName);
+                    const tagsInfo = fuzzysort.single(query, item.preparedTags);
+                    return Math.min(nameInfo ? nameInfo.score : 1000, tagsInfo ? tagsInfo.score + 100 : 1000) < 1000;
+                });
+                const foundMatch = category.categoryItems.length > 0;
+                category.expanded = foundMatch;
+                return foundMatch;
+            });
+
+            /* const searchResult = categories.filter(category => {
                 query = query.trim().toLowerCase();
                 // search in category items names
                 category.categoryItems = category.categoryItems.filter(item => {
@@ -118,16 +143,17 @@ export class Restaurant extends BasePage {
                     category.expanded = true;
                 }
                 return foundMatch;
-            });
-            if (result.length === 0 && this.isForwardedSearch) {
+            }); */
+
+            if (searchResult.length === 0 && this.isForwardedSearch) {
                 // this case occurs when the user searches for e.g. restaurant name, or branch name in the restaurants list screen
-                // there's no such match in category items, thus the reset
+                // there's no such match in category items, thus the reset below
                 this.searchState = "collapsed";
                 this.isForwardedSearch = false;
                 this.queryText = "";
-                return copy;
+                return null;
             }
-            return result;
+            return searchResult;
         }
         return categories;
     }
@@ -183,19 +209,24 @@ export class Restaurant extends BasePage {
         event.domWrite(() => {
             const toolbar: Element = this.navbar.getElementRef().nativeElement.getElementsByClassName("toolbar-background")[0];
             const scrollPosition: number = event.scrollTop;
-            if (scrollPosition >= 35 && scrollPosition <= 90) {
-                // 35 -> 90: start fading in from point 35, should reach full opaque by point 90: 90-35=60 hence 60 steps of opacity transition
-                const toolbarOpacity = (scrollPosition - 25) / 60;
-                this.setElementOpacity(toolbar, toolbarOpacity);
+            const fadeInStartPoint = 35; // the point at which the toolbar will start fading in
+            const fullOpaquePoint = 90;  // teh point at which the toolbar should be fully opaque
+
+            if (scrollPosition >= fadeInStartPoint && scrollPosition <= fullOpaquePoint) {
+                // scroll points between 35 and 90 represent the opacity transition steps, the opacity value should increase with each step
+                const opacityTransitionSteps = fullOpaquePoint - fadeInStartPoint;
+                // subtract start point so that opacity value begins from 0
+                const toolbarOpacity = (scrollPosition - fadeInStartPoint) / opacityTransitionSteps;
+                this.setToolbarOpacity(toolbar, toolbarOpacity);
             } else if (scrollPosition < 35) {
-                this.setElementOpacity(toolbar, 0);
+                this.setToolbarOpacity(toolbar, 0);
             } else if (scrollPosition > 90) {
-                this.setElementOpacity(toolbar, 1);
+                this.setToolbarOpacity(toolbar, 1);
             }
         });
     }
-    private setElementOpacity(element: Element, opacity: number) {
-        this.renderer.setStyle(element, "opacity", opacity.toString());
+    private setToolbarOpacity(toolbar: Element, opacity: number) {
+        this.renderer.setStyle(toolbar, "opacity", opacity);
     }
     public closeFab(fab: FabContainer) {
         fab.close();

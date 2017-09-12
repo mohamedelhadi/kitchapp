@@ -14,6 +14,13 @@ export interface IRestaurant {
     picturedCategories: IPicturedCategory[];
     email?: string;
     website?: string;
+
+    // client side
+    preparedName?: any;
+    preparedTags?: any;
+    preparedItemsNames?: any;
+    preparedItemsTags?: any;
+    preparedBranchesNames?: any;
 }
 export interface IPicturedCategory {
     id: number;
@@ -43,7 +50,10 @@ export interface ICategory {
     children: ICategory[];
     categoryItems: ICategoryItem[];
 
-    expanded: boolean; // client side
+    // client side
+    expanded: boolean;
+    preparedItemsNames?: any;
+    preparedItemsTags?: any;
 }
 export interface IPhone {
     id: number;
@@ -69,6 +79,10 @@ export interface ICategoryItem {
     tags: string;
     cuisineId?: number;
     variations: IVariation[];
+
+    // client side
+    preparedName?: any;
+    preparedTags?: any;
 }
 export interface IVariation {
     id: number;

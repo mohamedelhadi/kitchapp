@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NavController, PopoverController, NavParams } from "ionic-angular";
 import { RestaurantsData } from "../../app/services/data/restaurants.data";
-import { RestaurantsPopover } from "./popover/popover";
+import { RestaurantsPopover } from "./menu/restaurants.popover";
 import orderBy from "lodash/orderBy";
 import some from "lodash/some";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
@@ -16,23 +16,25 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/fromPromise";
 import { BasePage } from "../../app/infrastructure/index";
-import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch } from "../../app/contracts/index";
+import { IRestaurant, City, Cuisine, IRestaurantsSearchSettings, ICategory, IDistanceDictionary, InternalError, ErrorCodes, IBranch, Language } from "../../app/contracts/index";
 import { Logger, UI, Utils, AppErrorHandler } from "../../app/helpers/index";
 import { CitiesData, CuisinesData } from "../../app/services/data/index";
+
+import { default as fuzzysort } from 'fuzzysort';
+fuzzysort.highlightMatches = false;
 
 @Component({
     selector: "page-restaurants",
     templateUrl: "restaurants.html"
 })
-export class Restaurants extends BasePage implements OnInit {
-
-    public restaurants: Observable<IRestaurant[]>;
+export class Restaurants extends BasePage {
     private none: number = -1;
     private allCities = new City(this.none, ["All", "الكل"]);
     private allCuisines = new Cuisine(this.none, ["All", "الكل"]);
-    private searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: this.none, cuisineId: this.none }); // should load from storage, maybe in v2?
+    private searchSettings = new BehaviorSubject<IRestaurantsSearchSettings>({ a_to_z: true, nearby: false, topRated: false, cityId: this.none, cuisineId: this.none });
     private query = new BehaviorSubject<string>("");
     public noMatchForQuery: boolean;
+    public restaurants: Observable<IRestaurant[]>;
 
     constructor(
         private ui: UI, private errHandler: AppErrorHandler, logger: Logger,
@@ -45,13 +47,28 @@ export class Restaurants extends BasePage implements OnInit {
             this.searchSettings.next(settings);
         }
     }
-    public ngOnInit() {
-        // init
+    private optimizeForSearch(restaurants: IRestaurant[]) {
+        restaurants = Utils.deepClone(restaurants);
+        for (const restaurant of restaurants) {
+            restaurant.preparedName = fuzzysort.prepare(restaurant.name.toString());
+            restaurant.preparedTags = fuzzysort.prepare(restaurant.tags);
+
+            const categoryItemsNames = restaurant.categories.map(category => category.categoryItems.map(categoryItem => categoryItem.name.toString()).toString()).toString();
+            restaurant.preparedItemsNames = fuzzysort.prepare(categoryItemsNames);
+
+            const categoryItemsTags = restaurant.categories.map(category => category.categoryItems.map(categoryItem => categoryItem.tags).toString()).toString();
+            restaurant.preparedItemsTags = fuzzysort.prepare(categoryItemsTags);
+
+            const branchesNames = restaurant.branches.map(branch => branch.location.address.toString()).toString();
+            restaurant.preparedBranchesNames = fuzzysort.prepare(branchesNames);
+        }
+        return restaurants;
     }
     public ionViewDidLoad() {
         this.data.getRestaurants();
         this.ui.showLoading();
         this.restaurants = this.data.restaurants$
+            .map(this.optimizeForSearch)
             .combineLatest(this.query.distinctUntilChanged(), this.searchSettings.startWith())
             .debounceTime(300)
             .flatMap(([restaurants, query, settings]) => {
@@ -97,7 +114,35 @@ export class Restaurants extends BasePage implements OnInit {
     }
     private search(restaurants: IRestaurant[], query: string) {
         if (query && query.trim() !== "") {
-            return restaurants.filter(restaurant => {
+            query = query.trim().toLowerCase();
+
+            const results = [];
+            for (const restaurant of restaurants) {
+                const nameInfo = fuzzysort.single(query, restaurant.preparedName);
+                const tagsInfo = fuzzysort.single(query, restaurant.preparedTags);
+                const itemsNamesInfo = fuzzysort.single(query, restaurant.preparedItemsNames);
+                const itemsTagsInfo = fuzzysort.single(query, restaurant.preparedItemsTags);
+                const branchesNamesInfo = fuzzysort.single(query, restaurant.preparedBranchesNames);
+
+                // Create a custom combined score to sort by. +200 to the items' tags score makes it a worse match
+                const minimumScore = Math.min(
+                    nameInfo ? nameInfo.score : 1000,
+                    tagsInfo ? tagsInfo.score + 100 : 1000,
+                    itemsNamesInfo ? itemsNamesInfo.score + 100 : 1000,
+                    itemsTagsInfo ? itemsTagsInfo.score + 200 : 1000,
+                    branchesNamesInfo ? branchesNamesInfo.score + 100 : 1000
+                );
+                if (minimumScore >= 1000) { continue; }
+
+                results.push({
+                    restaurant,
+                    minimumScore
+                });
+            }
+            // results.sort((a, b) => a.minimumScore - b.minimumScore);
+            return results.map(result => result.restaurant);
+
+            /* return restaurants.filter(restaurant => {
                 query = query.trim().toLowerCase();
                 // search in restaurant name
                 const matchesRestaurantName = restaurant.name[this.settings.language].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
@@ -124,7 +169,7 @@ export class Restaurants extends BasePage implements OnInit {
                     return true;
                 }
                 return false;
-            });
+            }); */
         }
         return restaurants;
     }

@@ -8,7 +8,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { RestaurantTabs } from "../restaurant/tabs/tabs";
 import { Cuisines } from "../cuisines/cuisines";
 import { BasePage } from "../../app/infrastructure/index";
-import { HomePopover } from "./popover/popover";
+import { LanguagesPopover } from "./languages/languages.popover";
 import { TranslateService } from "@ngx-translate/core";
 import { Deals } from "../deals/deals";
 import orderBy from "lodash/orderBy";
@@ -50,11 +50,11 @@ export class Home extends BasePage {
         this.navCtrl.push(Deals);
     }
     public showPopover(ev) {
-        const popover = this.popoverCtrl.create(HomePopover, {}, { cssClass: "narrow-popover" });
+        const popover = this.popoverCtrl.create(LanguagesPopover, {}, { cssClass: "narrow-popover" });
         popover.present({ ev });
     }
-    public async showMenu() {
-        if (this.settings.firstLaunch) {
+    public async showNearestRestaurant() {
+        if (this.settings.isFirstLaunch) {
             // display a popover illustrating that this is a quick shortcut to the nearest restaurant
         }
         const orderedRestaurants: IRestaurant[] = await this.orderByNearest(this.restaurants);

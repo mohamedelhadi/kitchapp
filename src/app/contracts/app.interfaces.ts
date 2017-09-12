@@ -24,7 +24,7 @@ export interface IDistanceDictionary {
 }
 export interface IAppSettings {
     language: Language;
-    firstLaunch: boolean;
+    isFirstLaunch: boolean;
 }
 export interface IApiOptions extends RequestOptionsArgs {
     appendBaseUrl?: boolean;

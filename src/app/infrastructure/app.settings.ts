@@ -22,9 +22,9 @@ export class AppSettings {
                 Settings$.next(savedSettings);
             } else {
                 this.storage
-                    .set(SETTINGS, { language: DefaultLanguage, firstLaunch: false })
+                    .set(SETTINGS, { language: DefaultLanguage, isFirstLaunch: false })
                     .then(() => {
-                        Settings$.next({ language: DefaultLanguage, firstLaunch: true });
+                        Settings$.next({ language: DefaultLanguage, isFirstLaunch: true });
                     });
             }
         });
@@ -32,7 +32,7 @@ export class AppSettings {
     public initLanguage() {
         this.translate.setDefaultLang(Language[DefaultLanguage]);
         Settings$.take(1).subscribe(settings => {
-            if (settings.firstLaunch) {
+            if (settings.isFirstLaunch) {
                 if (this.platform.is("cordova")) {
                     this.globalization.getPreferredLanguage().then(result => {
                         const langCode = result.value.substring(0, 2).toLowerCase();

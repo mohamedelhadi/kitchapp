@@ -1,5 +1,5 @@
 ﻿export * from "./home/home";
-export * from "./home/popover/popover";
+export * from "./home/languages/languages.popover";
 export * from "./side-menu/side-menu";
 export * from "./settings/settings";
 export * from "./splash/splash";
@@ -17,4 +17,4 @@ export * from "./restaurant/details/variation-rate/rate.popover";
 export * from "./restaurant/details/variations/variations.popover";
 export * from "./restaurant/tabs/tabs";
 export * from "./restaurants/restaurants";
-export * from "./restaurants/popover/popover";
+export * from "./restaurants/menu/restaurants.popover";

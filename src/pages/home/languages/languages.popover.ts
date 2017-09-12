@@ -4,10 +4,10 @@ import { BasePopover, AppSettings } from "../../../app/infrastructure/index";
 import { Language } from "../../../app/contracts/index";
 
 @Component({
-    templateUrl: "popover.html",
-    selector: "home-popover"
+    templateUrl: "languages.popover.html",
+    selector: "languages-popover"
 })
-export class HomePopover extends BasePopover {
+export class LanguagesPopover extends BasePopover {
     public en = Language.en;
     public ar = Language.ar;
     constructor(public viewCtrl: ViewController, private appSettings: AppSettings) {

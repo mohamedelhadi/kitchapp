@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Api } from "../../../app/services/api";
 import { ICity, CITIES, IApiOptions } from "../../contracts/index";
 
-import * as bundledCities from "../../../assets/data/cities.json";
+import { default as bundledCities } from "../../../assets/data/cities.json";
 
 @Injectable()
 export class CitiesData {

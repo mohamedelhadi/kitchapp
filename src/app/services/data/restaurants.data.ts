@@ -7,6 +7,7 @@ import "rxjs/add/operator/map";
 import { Api } from "../../services";
 import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IFeedback } from "../../contracts";
 
+// import { default as bundledRestaurants } from "../../../assets/data/restaurants.json";
 import * as bundledRestaurants from "../../../assets/data/restaurants.json";
 
 @Injectable()

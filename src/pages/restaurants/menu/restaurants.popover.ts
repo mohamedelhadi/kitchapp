@@ -6,7 +6,7 @@ import { BasePopover } from "../../../app/infrastructure/index";
 import { IRestaurantsSearchSettings, ICity, ICuisine } from "../../../app/contracts/index";
 
 @Component({
-    templateUrl: "popover.html",
+    templateUrl: "restaurants.popover.html",
     selector: "restaurants-popover"
 })
 export class RestaurantsPopover extends BasePopover implements OnInit {

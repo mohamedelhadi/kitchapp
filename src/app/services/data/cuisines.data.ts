@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Api } from "../../../app/services/api";
 import { ICuisine, CUISINES, IApiOptions } from "../../contracts/index";
 
-import * as bundledCuisines from "../../../assets/data/cuisines.json";
+import { default as bundledCuisines } from "../../../assets/data/cuisines.json";
 
 @Injectable()
 export class CuisinesData {

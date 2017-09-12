@@ -34,7 +34,7 @@ import {
     Favorites, Cuisines, Deals, Deal,
     Restaurants, Restaurant, RestaurantTabs, RestaurantsPopover, VariationsPopover, VariationRatePopover, FeedbackPopover,
     Branches, BranchRatePopover, LocationPopover, PhonesPopover,
-    Home, Settings, SideMenu, Splash, HomePopover
+    Home, Settings, SideMenu, Splash, LanguagesPopover
 } from "../pages";
 
 const _pages = [
@@ -60,7 +60,7 @@ const _components = [
     VariationsPopover,
     BranchRatePopover,
     VariationRatePopover,
-    HomePopover,
+    LanguagesPopover,
     FeedbackPopover
 ];
 
