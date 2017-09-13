@@ -75,6 +75,7 @@ export class Restaurant extends BasePage {
             this.searchState = "focused";
             this.isForwardedSearch = true;
         }
+        // the first branch is the main branch, use its rate as an overall representation of the restaurant's rating
         this.rating = this.restaurant.branches[0].rate.overall;
     }
     public focusSearchbar() {
@@ -90,15 +91,17 @@ export class Restaurant extends BasePage {
     public ionViewDidLoad() {
         this.ui.showLoading();
         this.categories = this.data.getRestaurant(this.restaurant.id)
-            .map(this.optimizeForSearch)
+            .map(restaurant => {
+                restaurant = this.optimizeForSearch(restaurant);
+                restaurant.categories = orderBy(restaurant.categories, (category: ICategory) => category.order);
+                return restaurant;
+            })
             .combineLatest(this.query.distinctUntilChanged())
             .debounceTime(300)
             .map(([restaurant, query]) => {
                 this.restaurant = restaurant;
                 // query
                 const categories = this.search(Utils.deepClone(restaurant.categories), query) || restaurant.categories;
-                // order
-                const orderedCategories = orderBy(categories, (category: ICategory) => category.order);
                 this.noMatchForQuery = query && categories.length === 0;
                 return categories;
             })
@@ -131,19 +134,6 @@ export class Restaurant extends BasePage {
                 category.expanded = foundMatch;
                 return foundMatch;
             });
-
-            /* const searchResult = categories.filter(category => {
-                query = query.trim().toLowerCase();
-                // search in category items names
-                category.categoryItems = category.categoryItems.filter(item => {
-                    return item.tags.indexOf(query) > -1 || item.name[this.settings.language].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
-                });
-                const foundMatch = category.categoryItems.length > 0;
-                if (foundMatch) {
-                    category.expanded = true;
-                }
-                return foundMatch;
-            }); */
 
             if (searchResult.length === 0 && this.isForwardedSearch) {
                 // this case occurs when the user searches for e.g. restaurant name, or branch name in the restaurants list screen

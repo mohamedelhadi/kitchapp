@@ -15,12 +15,9 @@ export interface IRestaurant {
     email?: string;
     website?: string;
 
-    // client side
+    // search client side
     preparedName?: any;
     preparedTags?: any;
-    preparedItemsNames?: any;
-    preparedItemsTags?: any;
-    preparedBranchesNames?: any;
 }
 export interface IPicturedCategory {
     id: number;
@@ -36,6 +33,8 @@ export interface IBranch {
     rate: IBranchRateSummary;
     phones: IPhone[];
     photos: string[];
+    // search client side
+    preparedAddress?: any;
 }
 export interface ICuisine {
     id: number;
@@ -52,8 +51,6 @@ export interface ICategory {
 
     // client side
     expanded: boolean;
-    preparedItemsNames?: any;
-    preparedItemsTags?: any;
 }
 export interface IPhone {
     id: number;
@@ -79,8 +76,7 @@ export interface ICategoryItem {
     tags: string;
     cuisineId?: number;
     variations: IVariation[];
-
-    // client side
+    // search client side
     preparedName?: any;
     preparedTags?: any;
 }

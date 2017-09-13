@@ -35,6 +35,7 @@ export class Restaurants extends BasePage {
     private query = new BehaviorSubject<string>("");
     public noMatchForQuery: boolean;
     public restaurants: Observable<IRestaurant[]>;
+    public searching: boolean;
 
     constructor(
         private ui: UI, private errHandler: AppErrorHandler, logger: Logger,
@@ -53,14 +54,14 @@ export class Restaurants extends BasePage {
             restaurant.preparedName = fuzzysort.prepare(restaurant.name.toString());
             restaurant.preparedTags = fuzzysort.prepare(restaurant.tags);
 
-            const categoryItemsNames = restaurant.categories.map(category => category.categoryItems.map(categoryItem => categoryItem.name.toString()).toString()).toString();
-            restaurant.preparedItemsNames = fuzzysort.prepare(categoryItemsNames);
+            restaurant.categories.forEach(category => {
+                category.categoryItems.forEach(item => {
+                    item.preparedName = fuzzysort.prepare(item.name.toString());
+                    item.preparedTags = fuzzysort.prepare(item.tags);
+                });
+            });
 
-            const categoryItemsTags = restaurant.categories.map(category => category.categoryItems.map(categoryItem => categoryItem.tags).toString()).toString();
-            restaurant.preparedItemsTags = fuzzysort.prepare(categoryItemsTags);
-
-            const branchesNames = restaurant.branches.map(branch => branch.location.address.toString()).toString();
-            restaurant.preparedBranchesNames = fuzzysort.prepare(branchesNames);
+            restaurant.branches.forEach(branch => branch.preparedAddress = fuzzysort.prepare(branch.location.address.toString()));
         }
         return restaurants;
     }
@@ -82,12 +83,16 @@ export class Restaurants extends BasePage {
                 this.noMatchForQuery = restaurants.length === 0 && (query || +settings.cityId !== this.none || settings.cuisineId !== +this.none) as any;
                 return orderedRestaurants;
             })
-            .do(() => this.ui.hideLoading());
+            .do(() => {
+                this.ui.hideLoading();
+                this.searching = false;
+            });
     }
     public viewRestaurant(restaurant: IRestaurant) {
         this.navCtrl.push(RestaurantTabs, { restaurant, query: this.query.getValue() });
     }
     public onQueryChanged(ev: any) {
+        this.searching = true;
         this.query.next(ev.target.value);
     }
     public showPopover(ev) {
@@ -112,6 +117,29 @@ export class Restaurants extends BasePage {
         }
         return restaurants;
     }
+    private searchInCategories(categories: ICategory[], query: string) {
+        const scores = [1000]; // default score in case no item matched the query
+        categories.forEach(category => {
+            for (const item of category.categoryItems) {
+                const nameInfo = fuzzysort.single(query, item.preparedName);
+                const tagsInfo = fuzzysort.single(query, item.preparedTags);
+                const minimum = Math.min(nameInfo ? nameInfo.score : 1000 + 300, tagsInfo ? tagsInfo.score + 300 : 1000);
+                if (minimum >= 1000) { continue; }
+                scores.push(minimum);
+            }
+        });
+        return Math.min(...scores);
+    }
+    private searchInBranches(branches: IBranch[], query: string) {
+        const scores = [1000]; // default score in case no branch matched the query
+        for (const branch of branches) {
+            const addressInfo = fuzzysort.single(query, branch.preparedAddress);
+            const minimum = Math.min(addressInfo ? addressInfo.score : 1000 + 200, 1000);
+            if (minimum >= 1000) { continue; }
+            scores.push(minimum);
+        }
+        return Math.min(...scores);
+    }
     private search(restaurants: IRestaurant[], query: string) {
         if (query && query.trim() !== "") {
             query = query.trim().toLowerCase();
@@ -120,17 +148,15 @@ export class Restaurants extends BasePage {
             for (const restaurant of restaurants) {
                 const nameInfo = fuzzysort.single(query, restaurant.preparedName);
                 const tagsInfo = fuzzysort.single(query, restaurant.preparedTags);
-                const itemsNamesInfo = fuzzysort.single(query, restaurant.preparedItemsNames);
-                const itemsTagsInfo = fuzzysort.single(query, restaurant.preparedItemsTags);
-                const branchesNamesInfo = fuzzysort.single(query, restaurant.preparedBranchesNames);
+                const categoryItemsScore = this.searchInCategories(restaurant.categories, query);
+                const branchesSore = this.searchInBranches(restaurant.branches, query);
 
-                // Create a custom combined score to sort by. +200 to the items' tags score makes it a worse match
+                // Create a custom combined score to sort by. +200 to the tags score makes it of less priority
                 const minimumScore = Math.min(
                     nameInfo ? nameInfo.score : 1000,
-                    tagsInfo ? tagsInfo.score + 100 : 1000,
-                    itemsNamesInfo ? itemsNamesInfo.score + 100 : 1000,
-                    itemsTagsInfo ? itemsTagsInfo.score + 200 : 1000,
-                    branchesNamesInfo ? branchesNamesInfo.score + 100 : 1000
+                    tagsInfo ? tagsInfo.score + 200 : 1000,
+                    categoryItemsScore,
+                    branchesSore
                 );
                 if (minimumScore >= 1000) { continue; }
 
@@ -139,37 +165,8 @@ export class Restaurants extends BasePage {
                     minimumScore
                 });
             }
-            // results.sort((a, b) => a.minimumScore - b.minimumScore);
+            results.sort((a, b) => a.minimumScore - b.minimumScore);
             return results.map(result => result.restaurant);
-
-            /* return restaurants.filter(restaurant => {
-                query = query.trim().toLowerCase();
-                // search in restaurant name
-                const matchesRestaurantName = restaurant.name[this.settings.language].toLowerCase().indexOf(query) > -1 || restaurant.name[1].indexOf(query) > -1;
-                if (matchesRestaurantName) {
-                    return true;
-                }
-                // search in restaurant tags
-                const matchesRestaurantTags = restaurant.tags.indexOf(query) > -1;
-                if (matchesRestaurantTags) {
-                    return true;
-                }
-                // search in category items names
-                const matchesItemName = some(restaurant.categories, (category: ICategory) => {
-                    return some(category.categoryItems, item => {
-                        return item.tags.indexOf(query) > -1 || item.name[this.settings.language].toLowerCase().indexOf(query) > -1 || item.name[1].indexOf(query) > -1;
-                    });
-                });
-                if (matchesItemName) {
-                    return true;
-                }
-                // search in branches address
-                const matchesBranchAddress = some(restaurant.branches, branch => branch.location.address[0].toLowerCase().indexOf(query) > -1 || branch.location.address[1].indexOf(query) > -1);
-                if (matchesBranchAddress) {
-                    return true;
-                }
-                return false;
-            }); */
         }
         return restaurants;
     }

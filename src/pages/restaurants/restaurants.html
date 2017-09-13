@@ -12,6 +12,9 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
+    <div class="spinner-container">
+        <ion-spinner *ngIf="searching" name="dots" color="primary"></ion-spinner>
+    </div>
     <ion-list>
         <button ion-item *ngFor="let restaurant of restaurants | async" (click)="viewRestaurant(restaurant)">
             <ion-avatar item-start>
