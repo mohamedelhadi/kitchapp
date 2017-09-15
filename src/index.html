@@ -22,14 +22,17 @@
 </head>
 
 <body>
-
     <!-- Ionic's root component and where the app will load -->
     <ion-app></ion-app>
 
     <!-- The polyfills js is generated during the build process -->
     <script src="build/polyfills.js"></script>
 
-    <!-- The bundle js is generated during the build process -->
+    <!-- The vendor js is generated during the build process
+         It contains all of the dependencies in node_modules -->
+    <script src="build/vendor.js"></script>
+
+    <!-- The main bundle js is generated during the build process -->
     <script src="build/main.js"></script>
 
     <script>
@@ -45,6 +48,8 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAcBslzbhOymtuxRn4PiytNno7gZiy44Q" async defer></script>
+
+
 
 </body>
 

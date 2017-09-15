@@ -12,9 +12,7 @@
         "ter-indent": [true, 4, {
             "SwitchCase": 1
         }],
-        "quotemark": [
-            "double"
-        ],
+        "quotemark": false,
         "no-increment-decrement": false,
         "ter-arrow-parens": false,
         "member-ordering": [

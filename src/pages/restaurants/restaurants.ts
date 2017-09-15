@@ -187,7 +187,7 @@ export class Restaurants extends BasePage {
         }
         return Observable.of(restaurants);
     }
-    private orderByNearest(restaurants: IRestaurant[]) {
+    private orderByNearest(restaurants: IRestaurant[]): Promise<IRestaurant[]> {
         return new Promise((resolve, reject) => {
             this.ui.showLoading(this.translation.Messages.LoadingPosition, false);
             navigator.geolocation.getCurrentPosition(

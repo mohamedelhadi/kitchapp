@@ -5,6 +5,9 @@ import { Environments } from "../config/configuration";
 
 @Injectable()
 export class Utils {
+    public static runOnWorker(fn) {
+        return new Worker(URL.createObjectURL(new Blob(['(' + fn + ')()'])));
+    }
     public static isOnline() {
         return navigator.onLine;
     }
