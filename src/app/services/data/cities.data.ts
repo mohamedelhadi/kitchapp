@@ -23,6 +23,7 @@ export class CitiesData {
     public getCities(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cities.getValue().length === 0) {
             this.api.get("cities", options).subscribe((cities: ICity[]) => {
+                this.storage.set(CITIES, cities);
                 this.cities.next(cities);
             });
         }
