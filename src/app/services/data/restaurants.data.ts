@@ -1,14 +1,16 @@
-﻿import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
+﻿import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import { Api } from "../../services";
-import { IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS, IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IFeedback } from "../../contracts";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { Api } from '../../services';
+import {
+    IRestaurant, IFavorites, RESTAURANTS, FAVORITE_RESTAURANTS,
+    IApiOptions, IVariationRate, IBranch, IBranchRateSummary, IBranchRate, IFeedback
+} from '../../contracts';
 
-// import { default as bundledRestaurants } from "../../../assets/data/restaurants.json";
-import * as bundledRestaurants from "../../../assets/data/restaurants.json";
+import { default as bundledRestaurants } from '../../../assets/data/restaurants.json';
 
 @Injectable()
 export class RestaurantsData {
@@ -36,14 +38,18 @@ export class RestaurantsData {
     }
     public getRestaurants(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.restaurants.getValue().length === 0) {
-            this.api.get("restaurants/prefetch", options).subscribe((restaurants: IRestaurant[]) => {
-                this.storage.set(RESTAURANTS, restaurants);
-                this.restaurants.next(restaurants);
-            });
+            this.api
+                .get('restaurants/prefetch', options)
+                .subscribe((restaurants: IRestaurant[]) => {
+                    this.storage.set(RESTAURANTS, restaurants);
+                    this.restaurants.next(restaurants);
+                });
         }
     }
     public getRestaurant(id: number): Observable<IRestaurant> {
-        return this.restaurants.map(restaurants => restaurants.find(restaurant => restaurant.id === id));
+        return this.restaurants
+            .take(1)
+            .map(restaurants => restaurants.find(restaurant => restaurant.id === id));
         // return this.api.get(`restaurants/${id}`);
     }
     public isFavorite(restaurant: IRestaurant): Observable<boolean> {
@@ -56,14 +62,14 @@ export class RestaurantsData {
         this.favorites.next(favorites);
     }
     public rateVariation(rate: IVariationRate): Observable<number> {
-        return this.api.post("restaurants/rate-variation", rate);
+        return this.api.post('restaurants/rate-variation', rate);
     }
     public getRestaurantBranches(restaurantId: number): Observable<IBranch[]> {
         return this.getRestaurant(restaurantId).map(restaurant => restaurant.branches);
         // return this.api.get(`restaurants/${restaurantId}/branches`);
     }
     public rateBranch(rate: IBranchRate): Observable<IBranchRateSummary> {
-        return this.api.post("branches/rate", rate);
+        return this.api.post('branches/rate', rate);
     }
     public updateStream() {
         this.restaurants.next(this.restaurants.getValue());

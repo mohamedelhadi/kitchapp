@@ -1,8 +1,0 @@
-{
-    "indent_size": 4,
-    "brace_style": "end-expand,preserve-inline",
-    "tab_size": 4,
-    "css": {
-        "indent_size": 4
-    }
-}

@@ -26,30 +26,7 @@ page-home {
             bottom: 0;
             width: 100%;
             .col {
-                border-bottom: solid 1px rgba(255, 255, 255, 0.3);
-                border-left: solid 1px rgba(255, 255, 255, 0.3);
-                &:first-child {
-                    border-left: none;
-                }
-                @media (max-width: map-get($screen-breakpoints,
-                sm)) and (orientation: portrait) {
-                    &:nth-child(3) {
-                        border-left: none;
-                    }
-                }
-                @include rtl() {
-                    border-left: none;
-                    border-right: solid 1px rgba(255, 255, 255, 0.3);
-                    &:first-child {
-                        border-right: none;
-                    }
-                    @media (max-width: map-get($screen-breakpoints,
-                    sm)) and (orientation: portrait) {
-                        &:nth-child(3) {
-                            border-right: none;
-                        }
-                    }
-                }
+                border: solid 1px rgba(255, 255, 255, 0.3);
             }
             .row {
                 border-top: solid 1px rgba(255, 255, 255, 0.3);

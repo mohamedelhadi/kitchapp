@@ -12,31 +12,32 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-ion-header {
-    .toolbar-background {
-        background-color: rgba(17, 18, 21, 0.4);
-    }
-}
-
 .toolbar-title {
+    font-size: 1.7rem;
     font-weight: normal;
-    font-size: 1.8rem;
-}
-
-.ion-page {
-    ion-content {
-        background-image: url(../assets/images/background-dimmed.jpg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        .scroll-content {
-            background: $texture-background;
+    .platform-android &,
+    .platform-core & {
+        text-align: center;
+        pointer-events: none;
+        /* centering title on android is not supported by ionic
+        text-align centering isn't perfect, thus the hack below */
+        @include ltr() {
+            transform: translateX(-9%);
+        }
+        @include rtl() {
+            transform: translateX(9%);
         }
     }
 }
 
-button[ion-fab] {
-    // contain: layout; required if you want to show text near icons
+.platform-ios.disable-scroll .modal-wrapper .ion-page {
+    // fix ionic bug: buttons in modal are not clickable if modal was opened from a popover
+    pointer-events: all;
+}
+
+
+/* button[ion-fab] { uncomment if you want to show text near icons
+    contain: layout; required to properly place the text
     overflow: visible;
     position: relative;
     ion-label {
@@ -49,16 +50,17 @@ button[ion-fab] {
         border-radius: 15px;
         padding: 0 8px;
     }
-}
+} */
 
 .list-header {
     margin-bottom: 5px;
 }
 
-.no-match {
+.no-items {
     color: $font-color;
     height: 120px;
     font-size: large;
+    text-align: center;
     background-color: transparent;
     border: none !important;
     .item-inner {
@@ -67,11 +69,17 @@ button[ion-fab] {
 }
 
 .top-popover .popover-content {
-    top: 100px !important;
+    top: 40px !important;
 }
 
 .wide-popover .popover-content {
     width: 300px;
+    @media only screen and (min-width: 375px) {
+        width: 350px;
+    }
+    @media only screen and (min-width: 768px) {
+        width: 450px;
+    }
 }
 
 .narrow-popover .popover-content {
@@ -79,9 +87,6 @@ button[ion-fab] {
 }
 
 .popover-with-footer {
-    ion-content {
-        margin-bottom: 42px;
-    }
     ion-footer {
         .toolbar-background {
             background-image: $texture-background;
@@ -104,16 +109,9 @@ button[ion-fab] {
     }
 }
 
-.card {
-    // img shadow instead of box-shadow
-    box-shadow: none;
-    background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat;
-    padding-bottom: 10px;
-    background-size: contain;
-    ion-card-header,
-    ion-card-content {
-        background: white;
-    }
+.flip-horizontally {
+    // flip icon horizontally
+    transform: scaleX(-1);
 }
 
 .range {
@@ -147,21 +145,52 @@ button[ion-fab] {
     }
 }
 
+.confirm-alert {
+    .cancel {
+        color: gray;
+    }
+    .yes {
+        color: #3282ff;
+        white-space: nowrap;
+        min-width: 60px;
+    }
+}
+
+// Kitchapp specific
+ion-header {
+    .toolbar-background {
+        background-color: rgba(17, 18, 21, 0.4);
+    }
+}
+
+.ion-page {
+    ion-content {
+        background-image: url(../assets/images/background-dimmed.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .scroll-content {
+            background: $texture-background;
+        }
+    }
+}
+
+.card {
+    // img shadow instead of box-shadow
+    box-shadow: none;
+    background: url("../assets/images/shadow.png") right 0px bottom 0px no-repeat;
+    padding-bottom: 10px;
+    background-size: contain;
+    ion-card-header,
+    ion-card-content {
+        background: white;
+    }
+}
+
 .rating {
     @include rtl() {
         ion-icon {
             transform: scaleX(-1);
         }
-    }
-}
-
-.confirm-alert {
-    .cancel {
-        color: gray;
-    }
-    .ok {
-        color: #3282ff;
-        white-space: nowrap;
-        min-width: 60px;
     }
 }

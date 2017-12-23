@@ -1,6 +1,6 @@
 branch-rate-popover {
     .content {
-        margin-bottom: 60px;
+        margin-bottom: 25px;
         .list {
             .item.branch {
                 border-bottom: 1px solid #dedede;
@@ -13,6 +13,7 @@ branch-rate-popover {
                 }
             }
             .range-item {
+                padding: 0 16px;
                 .rate-label {
                     width: 100%;
                     text-align: center;
@@ -23,13 +24,7 @@ branch-rate-popover {
                     padding: 0;
                 }
                 .item-inner {
-                    padding-right: 16px;
-                }
-                @include rtl() {
-                    padding-right: 0;
-                    .item-inner {
-                        padding-left: 16px;
-                    }
+                    padding: 0;
                 }
             }
             textarea {

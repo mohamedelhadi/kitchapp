@@ -6,11 +6,9 @@ page-branches {
             .card-header {
                 position: relative;
                 white-space: normal;
-                padding: 16px 70px 8px 16px;
                 .header-buttons {
                     position: absolute;
                     top: 10px;
-                    right: 10px;
                     min-width: 65px;
                     ion-icon {
                         width: 30px;
@@ -19,20 +17,23 @@ page-branches {
                         font-size: x-large;
                         text-align: center;
                     }
-                    .icon:nth-child(2) {
-                        padding-left: 5px;
-                        border-left: solid 1px #bbbbbb;
+                }
+                @include ltr() {
+                    padding: 16px 70px 8px 16px;
+                    .header-buttons {
+                        right: 10px;
+                        .icon:nth-child(2) {
+                            padding-left: 5px;
+                            border-left: solid 1px #bbbbbb;
+                        }
                     }
                 }
                 @include rtl() {
                     padding: 16px 16px 8px 70px;
                     .header-buttons {
-                        right: initial;
                         left: 10px;
                         .icon:nth-child(2) {
-                            padding-left: initial;
                             padding-right: 5px;
-                            border-left: none;
                             border-right: solid 1px #bbbbbb;
                         }
                     }
@@ -57,12 +58,6 @@ page-branches {
                         bottom: 0;
                         right: 2px;
                     }
-                    /*@media (min-width: map-get($screen-breakpoints, sm)) {
-                        img {
-                            max-width: 600px;
-                            margin: 0 auto 15px auto;
-                        }
-                    }*/
                 }
                 .rate {
                     overflow: hidden;
@@ -89,10 +84,11 @@ page-branches {
                         >div {
                             position: absolute;
                             top: 0;
-                            left: 10px;
+                            @include ltr() {
+                                left: 10px;
+                            }
                             @include rtl() {
                                 right: 10px;
-                                left: initial;
                             }
                             .animate {
                                 display: block;

@@ -1,11 +1,11 @@
-import { ViewController } from "ionic-angular";
-import { Component } from "@angular/core";
-import { BasePopover, AppSettings } from "../../../app/infrastructure/index";
-import { Language } from "../../../app/contracts/index";
+import { ViewController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { BasePopover, AppSettings } from '../../../app/infrastructure/index';
+import { Language } from '../../../app/contracts/index';
 
 @Component({
-    templateUrl: "languages.popover.html",
-    selector: "languages-popover"
+    templateUrl: 'languages.popover.html',
+    selector: 'languages-popover'
 })
 export class LanguagesPopover extends BasePopover {
     public en = Language.en;

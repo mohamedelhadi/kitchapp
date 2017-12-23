@@ -1,11 +1,11 @@
 export interface IConfiguration {
-    mockApi?: boolean;
     environment: string;
+    version: string;
     baseUrl: string;
 
-    OneSignalAppID?: string;
-    GoogleProjectNo?: string;
-    FacebookAppID?: string;
+    oneSignalAppID: string;
+    googleProjectNo: string;
+    facebookAppID: string;
 }
 export const Environments = {
     browser: 'browser',

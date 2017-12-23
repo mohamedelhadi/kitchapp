@@ -23,6 +23,6 @@
             <h2>{{restaurant.name[settings.language]}}</h2>
             <p>{{restaurant.branches[0].location.address[settings.language]}}</p>
         </button>
-        <ion-item *ngIf="noMatchForQuery" text-center class="no-match">{{translation.Messages.NoMatch | translate}}</ion-item>
+        <ion-item *ngIf="noMatchForQuery" text-center class="no-items">{{translation.Messages.NoMatch | translate}}</ion-item>
     </ion-list>
 </ion-content>

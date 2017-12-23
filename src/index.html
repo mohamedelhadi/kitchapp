@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta id="csp" http-equiv="Content-Security-Policy" content="default-src 'self' gap: https://ssl.gstatic.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://*.googleapis.com; frame-src https://*.facebook.com http://*.facebook.com; img-src * 'self' data: https://*.gstatic.com https://*.googleapis.com https://*.facebook.com https://placeholdit.imgix.net https://placehold.it *; script-src * 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.facebook.com http://*.facebook.net *; connect-src * 'self' https://*.googleapis.com *">
+    <meta id="csp" http-equiv="Content-Security-Policy" content="default-src 'self' gap: https://ssl.gstatic.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' http://fonts.googleapis.com https://*.googleapis.com; frame-src * gap://ready https://*.facebook.com http://*.facebook.com; img-src * 'self' data: https://*.gstatic.com https://*.googleapis.com https://*.facebook.com https://placeholdit.imgix.net https://placehold.it *; script-src 'unsafe-eval' * 'self' 'unsafe-inline' https://*.googleapis.com https://*.facebook.com http://*.facebook.net *; connect-src * 'self' https://*.googleapis.com *">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <title>Kitchapp</title>
@@ -36,7 +36,7 @@
     <script src="build/main.js"></script>
 
     <script>
-        (function(d, s, id) {
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
@@ -46,10 +46,9 @@
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAcBslzbhOymtuxRn4PiytNno7gZiy44Q" async defer></script>
-
-
 
 </body>
 

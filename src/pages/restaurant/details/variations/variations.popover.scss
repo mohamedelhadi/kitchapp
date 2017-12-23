@@ -1,6 +1,6 @@
 variations-popover {
     .content {
-        margin-bottom: 60px;
+        margin-bottom: 20px;
     }
     .list {
         .cover {
@@ -58,13 +58,8 @@ variations-popover {
                     }
                 }
             }
-            &:nth-last-child(2) {
-                .item-inner {
-                    border: none;
-                }
-            }
         }
-        .no-match {
+        .no-items {
             height: 30px;
         }
     }

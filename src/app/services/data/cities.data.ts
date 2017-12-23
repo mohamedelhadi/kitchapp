@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Api } from "../../../app/services/api";
-import { ICity, CITIES, IApiOptions } from "../../contracts/index";
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Api } from '../../../app/services/api';
+import { ICity, CITIES, IApiOptions } from '../../contracts/index';
 
-import { default as bundledCities } from "../../../assets/data/cities.json";
+import { default as bundledCities } from '../../../assets/data/cities.json';
 
 @Injectable()
 export class CitiesData {
@@ -22,7 +22,7 @@ export class CitiesData {
     }
     public getCities(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.cities.getValue().length === 0) {
-            this.api.get("cities", options).subscribe((cities: ICity[]) => {
+            this.api.get('cities', options).subscribe((cities: ICity[]) => {
                 this.storage.set(CITIES, cities);
                 this.cities.next(cities);
             });

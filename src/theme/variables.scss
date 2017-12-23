@@ -1,6 +1,7 @@
 ﻿// Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
 $font-path: "../assets/fonts";
+$app-direction: multi;
 @import "ionic.globals";
 // Shared Variables
 // --------------------------------------------------
@@ -17,15 +18,13 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 $colors: ( primary: #da3743, secondary: #EDE6E3, danger: #f53d3d, light: #f4f4f4, dark: #222);
 $toolbar-background: #131a25; //#111215; //rgba(64, 62, 62, 0.82); //rgba(80, 80, 80, 0.5); //rgba(248, 184, 100, 0.78); //#f8b864; //#3e3e3e;
+// App Variables
 $toolbar-ios-title-text-color: white;
 $toolbar-md-title-text-color: white;
 $shades-of-gray: (lightest-gray: #F5F3F3, lighter-gray: #e7e7e7, gray: #7f7f7f, darker-gray: #515050, darkest-gray: #383838);
 $font-color: color($shades-of-gray, darker-gray);
 $texture-background: url("../assets/images/texture-background.png"); // color($shades-of-gray, lightest-gray);
 $grid-padding-width: 1px;
-//$popover-ios-width: 300px;
-//$popover-md-width: 300px;
-// App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 // App Material Design Variables

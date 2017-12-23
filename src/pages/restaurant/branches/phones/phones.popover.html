@@ -7,7 +7,7 @@
                 <h3>{{phone.name[settings.language]}}</h3>
                 <p>{{phone.number}}</p>
             </a>
-            <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-match">{{translation.Messages.NoPhones | translate}}</ion-item>
+            <ion-item no-padding *ngIf="!branch.phones || !branch.phones.length" text-center class="no-items">{{translation.Messages.NoPhones | translate}}</ion-item>
         </ion-list>
     </ion-content>
     <ion-footer>

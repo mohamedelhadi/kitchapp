@@ -3,6 +3,13 @@
             .icon {
                 font-size: x-large;
             }
+            ion-searchbar {
+                input {
+                    @include rtl() {
+                        direction: rtl;
+                    }
+                }
+            }
         }
         .content {
             .spinner-container {

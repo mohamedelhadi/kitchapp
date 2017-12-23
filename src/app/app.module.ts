@@ -1,41 +1,52 @@
-﻿import { BrowserModule } from "@angular/platform-browser";
-import { ErrorHandler, NgModule } from "@angular/core";
-import { HttpModule, Http } from "@angular/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
-import { IonicStorageModule } from "@ionic/storage";
+﻿import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { Ionic2RatingModule } from "ionic2-rating";
-import { IonicImageViewerModule } from "ionic-img-viewer";
-import { FacebookService } from "ngx-facebook";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Ionic2RatingModule } from 'ionic2-rating';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { FacebookService } from 'ngx-facebook';
 
-import { StatusBar } from "@ionic-native/status-bar";
-import { SplashScreen } from "@ionic-native/splash-screen";
-import { Network } from "@ionic-native/network";
-import { Device } from "@ionic-native/device";
-import { Globalization } from "@ionic-native/globalization";
-import { OneSignal } from "@ionic-native/onesignal";
-import { Facebook } from "@ionic-native/facebook";
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { Network } from '@ionic-native/network';
+import { Device } from '@ionic-native/device';
+import { Globalization } from '@ionic-native/globalization';
+import { OneSignal } from '@ionic-native/onesignal';
+import { Facebook } from '@ionic-native/facebook';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { DeviceMock } from '../mocks/device';
 
-import { AppComponent } from "./app.component";
-import { AppErrorHandler, Logger, UI, Utils } from "./helpers";
-import { Api, Push, Auth, Identity } from "./services";
-import { ImageFallbackDirective } from "./shared/index";
-import { AppSettings } from "./infrastructure/index";
-import { DeviceMock } from "../mocks/device";
-import { Configuration } from "./config/env.config";
-import { Environments } from "./config/configuration";
+import { SharedModule } from '../shared/shared.module';
+import { ComponentsModule } from '../components/components.module';
+import { AppComponent } from './app.component';
+import { AppErrorHandler, Logger, UI, Utils } from './helpers';
+import {
+    Api, Auth, Identity, Push
+} from './services';
 
-import { RestaurantsData, CitiesData, CuisinesData, DataLoader, DealsData } from "./services/data/index";
+import { AppSettings } from './infrastructure/index';
+import { Configuration } from './config/env.config';
+import { Environments } from './config/configuration';
+
+import {
+    RestaurantsData, CitiesData, CuisinesData, DataLoader, DealsData
+} from './services/data/index';
 
 import {
     Favorites, Cuisines, Deals, Deal,
-    Restaurants, Restaurant, RestaurantTabs, RestaurantsPopover, VariationsPopover, VariationRatePopover, FeedbackPopover,
+    Restaurants, Restaurant, RestaurantTabs, RestaurantsPopover,
+    VariationsPopover, VariationRatePopover, FeedbackPopover,
     Branches, BranchRatePopover, LocationPopover, PhonesPopover,
     Home, Settings, SideMenu, Splash, LanguagesPopover
-} from "../pages";
+} from '../pages';
 
 const _pages = [
     AppComponent,
@@ -65,11 +76,13 @@ const _components = [
 ];
 
 const _directives = [
-    ImageFallbackDirective
+];
+
+const _pipes = [
 ];
 
 export function declarations() {
-    return [..._pages, ..._components, ..._directives];
+    return [..._pages, ..._components, ..._directives, ..._pipes];
 }
 
 export function components() {
@@ -85,11 +98,11 @@ export function services() {
         Api,
         AppErrorHandler,
         AppSettings,
+        Auth,
+        Identity,
         Push,
         Facebook,
-        FacebookService,
-        Auth,
-        Identity
+        FacebookService
     ];
 }
 export function dataServices() {
@@ -115,7 +128,11 @@ export function plugins() {
         Network,
         Device,
         Globalization,
+        Keyboard,
         OneSignal,
+        Geolocation,
+        GoogleMaps,
+        InAppBrowser,
         ...browserMocks
     ];
 }
@@ -130,24 +147,28 @@ export function providers() {
         ...dataServices()
     ];
 }
-export function createTranslateLoader(http: Http) {
-    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 @NgModule({
     declarations: declarations(),
     imports: [
         BrowserModule,
-        HttpModule,
+        HttpClientModule,
         BrowserAnimationsModule,
-        IonicModule.forRoot(AppComponent, { animate: false }),
+        IonicModule.forRoot(AppComponent, {
+            menuType: 'overlay', animate: false, backButtonText: '', scrollAssist: true
+        }),
         IonicStorageModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useFactory: (createTranslateLoader),
-                deps: [Http]
+                deps: [HttpClient]
             }
         }),
+        SharedModule,
+        ComponentsModule,
         Ionic2RatingModule,
         IonicImageViewerModule
     ],

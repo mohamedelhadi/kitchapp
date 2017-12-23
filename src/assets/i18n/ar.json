@@ -7,7 +7,7 @@
         "Exit": "خروج",
         "Close": "إغلاق",
         "Dismiss": "إغلاق",
-        "Cancel": "إالغاء",
+        "Cancel": "إلغاء",
         "Write": "اكتب..",
         "Search": "بحث",
         "Edit": "تعديل",
@@ -23,7 +23,17 @@
         "Send": "إرسال",
         "TypeHere": "اكتب هنا",
         "No": "لا",
-        "Login": "تسجيل الدخول"
+        "Yes": "نعم",
+        "Login": "تسجيل الدخول",
+        "Register": "تسجيل حساب",
+        "Skip": "تخطي",
+        "Next": "التالي",
+        "Profile": "الحساب",
+        "AM": "ص",
+        "PM": "م",
+        "Back": "عودة",
+        "Continue": "مواصلة",
+        "PullToRefresh": "إسحب للتحديث"
     },
     "Messages": {
         "LoadingPosition": "جاري تحديد موقعك..",
@@ -35,12 +45,14 @@
         "LoggingIn": "جاري تسجيل الدخول..",
         "ForgotToEnterFeedback": "لقد نسيت ان تكتب التعليق",
         "YouNeedToLoginInOrderToRate": "قم بتسجيل الدخول حتى تتمكن من التقييم",
-        "FeedbackSubmitted": "تم الإرسال بنجاح"
+        "FeedbackSubmitted": "تم الإرسال بنجاح",
+        "ConnectionFailedPleaseTryAgain": "فشل في الإتصال، الرجاء المحاولة مرة أخرى"
     },
     "Errors": {
         "Unknown": "حدث خطأ، الرجاء المحاولة مرة أخرى.",
         "Offline": "من فضلك تحقق من إتصالك بالشبكة.",
-        "GeolocationPositionError": "تعذر تحديد موقعك.",
+        "LocationPermissionDenied": "فضلا امنح التطبيق صلاحية تحديد الموقع",
+        "GeolocationPositionError": "تعذر تحديد موقعك. فضلا تحقق من تفعيل الـ GPS.",
         "LoginFailure": "تعذر تسجيل الدخول، الرجاء المحاولة مرة أخرى."
     },
     "ServerErrors": {
@@ -50,6 +62,13 @@
     "Languages": {
         "0": "English",
         "1": "عربي"
+    },
+    "SideMenu": {
+        "Home": "الرئيسية",
+        "Language": "اللغة",
+        "SignOut": "تسجيل الخروج",
+        "About": "عن مهارة",
+        "Login": "تسجيل الدخول"
     },
     "Home": {
         "Restaurants": "المطاعم",

@@ -3,10 +3,6 @@ page-favorites {
         ion-icon {
             color: gray;
         }
-        background-image: url(../assets/images/background-dimmed.jpg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
         .list {
             margin-bottom: 0;
             .item {
@@ -15,7 +11,6 @@ page-favorites {
                     border-radius: 3px;
                 }
                 .item-inner {
-                    border-bottom: none;
                     .input-wrapper {
                         border-bottom: 1px solid rgba(155, 155, 155, 0.4);
                     }

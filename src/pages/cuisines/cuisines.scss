@@ -3,21 +3,20 @@ page-cuisines {
         .title {
             top: 50%;
             left: 50%;
+            transform: translateX(-50%) translateY(-50%);
             position: absolute;
             text-align: center;
-            font-size: medium;
+            font-size: large;
             color: white;
-            transform: translateX(-50%) translateY(-50%);
             width: 100%;
             text-shadow: 2px 2px 2px rgba(15, 15, 15, 1);
         }
         .col {
             position: relative;
             min-height: 180px;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            border-top: 1px solid rgba(220, 220, 220, 0.1);
-            border-left: 1px solid rgba(220, 220, 220, 0.1);
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(250, 250, 250, 0.6);
             @media screen and (orientation: landscape) {
                 min-height: 160px;
             }

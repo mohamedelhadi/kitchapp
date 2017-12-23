@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
-import { DealsData } from "../../app/services/data/deals.data";
-import { Observable } from "rxjs/Observable";
-import { Deal } from "../deal/deal";
-import { IRestaurant, IDeal } from "../../app/contracts/index";
-import { BasePage } from "../../app/infrastructure/index";
+import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { DealsData } from '../../app/services/data/deals.data';
+import { Observable } from 'rxjs/Observable';
+import { Deal } from '../deal/deal';
+import { IRestaurant, IDeal } from '../../app/contracts/index';
+import { BasePage } from '../../app/infrastructure/index';
 
 @Component({
-    selector: "page-deals",
-    templateUrl: "deals.html"
+    selector: 'page-deals',
+    templateUrl: 'deals.html'
 })
 export class Deals extends BasePage {
     public restaurant: IRestaurant;

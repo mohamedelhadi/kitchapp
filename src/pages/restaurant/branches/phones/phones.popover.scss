@@ -10,19 +10,21 @@ phones-popover {
                     margin-bottom: 5px;
                 }
                 .item-inner {
-                    margin-left: 5px;
-                    .label {
-                        margin: 8px 0;
+                    @include ltr() {
+                        margin-left: 5px;
                     }
                     @include rtl() {
                         margin-right: 5px;
+                    }
+                    .label {
+                        margin: 8px 0;
                     }
                 }
                 h3 {
                     white-space: normal;
                 }
             }
-            .no-match {
+            .no-items {
                 height: 30px;
             }
         }

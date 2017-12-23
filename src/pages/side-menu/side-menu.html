@@ -1,16 +1,54 @@
-<ion-menu [content]="content">
-    <ion-header no-border>
-        <ion-toolbar no-border>
-            <ion-title>Menu</ion-title>
-        </ion-toolbar>
-    </ion-header>
+<ng-template #menuContent>
     <ion-content>
-        <ion-list>
-            <ion-list-header>Navigate</ion-list-header>
-            <button menuClose ion-item (click)="nav.setRoot(home)">{{home.name}}</button>
-            <button menuClose ion-item (click)="nav.setRoot(settings)">{{settings.name}}</button>
-        </ion-list>
+        <ng-container *ngIf="identity.user$ | async; let user; else guest">
+            <ion-list no-lines padding>
+                <button ion-item (click)="rootPage = home" menuClose [ngClass]="{'active': rootPage === home}">
+                    <ion-icon name="home" item-start></ion-icon>
+                    {{ translation.SideMenu.Home | translate }}
+                </button>
+                <button ion-item (click)="showLanguagePopover($event)">
+                    <ion-icon name="globe" item-start></ion-icon>
+                    {{ translation.SideMenu.Language | translate }}
+                </button>
+                <button ion-item (click)="rootPage = about" menuClose [ngClass]="{'active': rootPage === about}">
+                    <ion-icon name="information-circle" item-start></ion-icon>
+                    {{ translation.SideMenu.About | translate }}
+                </button>
+                <button ion-item (click)="logout()">
+                    <ion-icon name="log-out" item-start></ion-icon>
+                    {{ translation.SideMenu.SignOut | translate }}
+                </button>
+            </ion-list>
+        </ng-container>
+        <ng-template #guest>
+            <ion-list no-lines padding>
+                <button ion-item (click)="rootPage = home" menuClose [ngClass]="{'active': rootPage === home}">
+                    <ion-icon name="home" item-start></ion-icon>
+                    {{ translation.SideMenu.Home | translate }}
+                </button>
+                <button ion-item (click)="showLanguagePopover($event)">
+                    <ion-icon name="globe" item-start></ion-icon>
+                    {{ translation.SideMenu.Language | translate }}
+                </button>
+                <button ion-item (click)="rootPage = about" menuClose [ngClass]="{'active': rootPage === about}">
+                    <ion-icon name="information-circle" item-start></ion-icon>
+                    {{ translation.SideMenu.About | translate }}
+                </button>
+                <button ion-item (click)="rootPage = login" menuClose [ngClass]="{'active': rootPage === login}">
+                    <ion-icon name="log-in" item-start class="flip-horizontally"></ion-icon>
+                    {{ translation.SideMenu.Login | translate }}
+                </button>
+            </ion-list>
+        </ng-template>
     </ion-content>
-</ion-menu>
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+</ng-template>
+<ion-split-pane>
+    <ion-menu [content]="content" *ngIf="isLtr()" side="left">
+        <ng-container *ngTemplateOutlet="menuContent"></ng-container>
+    </ion-menu>
+    <ion-menu [content]="content" *ngIf="isRtl()" side="right">
+        <ng-container *ngTemplateOutlet="menuContent"></ng-container>
+    </ion-menu>
+    <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+    <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main></ion-nav>
+</ion-split-pane>

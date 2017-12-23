@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Storage } from "@ionic/storage";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import { Api } from "../../services";
-import { IDeal, DEALS, IApiOptions } from "../../contracts";
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { Api } from '../../services';
+import { IDeal, DEALS, IApiOptions } from '../../contracts';
 
 @Injectable()
 export class DealsData {
@@ -24,7 +24,7 @@ export class DealsData {
     }
     public getDeals(forceUpdate?: boolean, options?: IApiOptions) {
         if (forceUpdate || this.deals.getValue().length === 0) {
-            this.api.get("deals", options).subscribe((deals: IDeal[]) => {
+            this.api.get('deals', options).subscribe((deals: IDeal[]) => {
                 this.storage.set(DEALS, deals);
                 this.deals.next(deals);
             });

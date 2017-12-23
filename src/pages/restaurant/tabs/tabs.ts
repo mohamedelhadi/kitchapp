@@ -1,12 +1,12 @@
-import { NavParams } from "ionic-angular";
-import { Component } from "@angular/core";
-import { Restaurant } from "../details/restaurant";
-import { Branches } from "../branches/branches";
-import { IRestaurant, TranslationKeys } from "../../../app/contracts/index";
-import { Deals } from "../../deals/deals";
+import { NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { Restaurant } from '../details/restaurant';
+import { Branches } from '../branches/branches';
+import { IRestaurant, TranslationKeys } from '../../../app/contracts/index';
+import { Deals } from '../../deals/deals';
 
 @Component({
-    templateUrl: "tabs.html"
+    templateUrl: 'tabs.html'
 })
 export class RestaurantTabs {
     public index: number;

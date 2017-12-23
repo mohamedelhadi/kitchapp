@@ -23,7 +23,17 @@
         "Send": "Send",
         "TypeHere": "Type here..",
         "No": "No",
-        "Login": "Login"
+        "Yes": "Yes",
+        "Login": "Login",
+        "Register": "Register",
+        "Skip": "Skip",
+        "Next": "Next",
+        "Profile": "Profile",
+        "AM": "AM",
+        "PM": "PM",
+        "Back": "Back",
+        "Continue": "Continue",
+        "PullToRefresh": "Pull to Refresh"
     },
     "Messages": {
         "LoadingPosition": "Loading your position..",
@@ -35,12 +45,14 @@
         "LoggingIn": "Logging in..",
         "ForgotToEnterFeedback": "You forgot to enter the feedback",
         "YouNeedToLoginInOrderToRate": "Login in order to rate",
-        "FeedbackSubmitted": "Submitted successfully"
+        "FeedbackSubmitted": "Submitted successfully",
+        "ConnectionFailedPleaseTryAgain": "Connection failed please try again"
     },
     "Errors": {
         "Unknown": "An error occurred, please try again.",
         "Offline": "Kindly check your internet connection.",
-        "GeolocationPositionError": "Couldn't retrieve your coordinations.",
+        "LocationPermissionDenied": "Kindly grant the app location permission in order to continue",
+        "GeolocationPositionError": "Couldn't retrieve your coordinates. Ensure GPS is enabled.",
         "LoginFailure": "Failed to login, please try again."
     },
     "ServerErrors": {
@@ -50,6 +62,13 @@
     "Languages": {
         "0": "English",
         "1": "عربي"
+    },
+    "SideMenu": {
+        "Home": "Home",
+        "Language": "Language",
+        "SignOut": "Sign Out",
+        "About": "About",
+        "Login": "Login"
     },
     "Home": {
         "Restaurants": "Restaurants",

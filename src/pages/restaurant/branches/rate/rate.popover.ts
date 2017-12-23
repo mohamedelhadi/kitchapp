@@ -1,13 +1,14 @@
-import { ViewController, NavParams } from "ionic-angular";
-import { Component, ElementRef, ViewChild } from "@angular/core";
-import { BasePopover } from "../../../../app/infrastructure/index";
-import { UI } from "../../../../app/helpers/index";
-import { RestaurantsData } from "../../../../app/services/data/restaurants.data";
-import { IBranch, IBranchRate } from "../../../../app/contracts/index";
+import { ViewController, NavParams } from 'ionic-angular';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { BasePopover } from '../../../../app/infrastructure/index';
+import { UI } from '../../../../app/helpers/index';
+import { RestaurantsData } from '../../../../app/services/data/restaurants.data';
+import { IBranch, IBranchRate } from '../../../../app/contracts/index';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-    templateUrl: "rate.popover.html",
-    selector: "branch-rate-popover"
+    templateUrl: 'rate.popover.html',
+    selector: 'branch-rate-popover'
 })
 export class BranchRatePopover extends BasePopover {
     public branches: IBranch[];
@@ -17,13 +18,17 @@ export class BranchRatePopover extends BasePopover {
     public service = 3;
     public place = 3;
     public price = 3;
-    public comment: string = "";
-    @ViewChild("txt") public txt: ElementRef;
+    public comment: string = '';
+    @ViewChild('txt') public txt: ElementRef;
     public canChangeBranch = false;
-    constructor(public viewCtrl: ViewController, private params: NavParams, private ui: UI, private restaurantsData: RestaurantsData) {
+    constructor(
+        public viewCtrl: ViewController, private params: NavParams,
+        private ui: UI, private restaurantsData: RestaurantsData
+    ) {
         super({ viewCtrl });
         this.branches = params.data.branches;
-        this.selectedBranch = params.data.branch ? params.data.branch : this.branches.length === 1 ? this.branches[0] : null;
+        this.selectedBranch = params.data.branch ?
+            params.data.branch : this.branches.length === 1 ? this.branches[0] : null;
         if (this.selectedBranch) {
             this.selectedBranchId = this.selectedBranch.id;
         } else {
@@ -47,20 +52,23 @@ export class BranchRatePopover extends BasePopover {
                 comment: this.comment,
                 branchId: this.selectedBranchId
             } as IBranchRate)
-            .subscribe(
-            rateSummary => {
+            .catch(err => {
+                this.close();
+                return Observable.throw(err);
+            })
+            .subscribe(rateSummary => {
                 if (this.selectedBranch) {
                     this.selectedBranch.rate = rateSummary;
                 } else {
-                    const selectedBranch = this.branches.find(branch => branch.id === +this.selectedBranchId);
+                    const selectedBranch =
+                        this.branches.find(branch => branch.id === +this.selectedBranchId);
                     selectedBranch.rate = rateSummary;
                 }
                 this.restaurantsData.updateStream();
                 this.close();
-            },
-            err => this.close());
+            });
     }
     public resize() {
-        this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + "px";
+        this.txt.nativeElement.style.height = this.txt.nativeElement.scrollHeight + 'px';
     }
 }
